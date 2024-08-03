@@ -30,9 +30,9 @@ Anyway, go PLAY THE GAME!!!!! :)
 <h1>How to compile?</h1>
 <p>
 To compile, do the following:<br>
-<pre><code>g++ entities.cpp</code></pre><br>
+<pre><code>g++ entities.cpp</code></pre>
 and<br>
-<pre><code>g++ entities2.cpp</code></pre><br>
+<pre><code>g++ entities2.cpp</code></pre>
 It's that simple.<br>
 <b>CURRENTLY UNTESTED ON ANYTHING OTHER THAN WINDOWS 10!!!!!</b>
 </p>
