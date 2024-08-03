@@ -15,7 +15,7 @@ On 2nd of August, while me and MaybeHawk have been messing around, I have said t
 <img src="assets/must_make.png" alt="I must make entities2.cpp" style="height:100px"></img><br>
 These words have propelled the development of <i>entities2.cpp</i>.<br>
 I began brainstorming and coming up with ideas. And I feel like I cooked well.<br>
-Here is a picture from development:<br><img src="assets/vscode_sidepanel_view.png" alt="VSCode sidepanel" style="width:60px"></img> Don't zoom on it, just enjoy it from afar.<br>
+Here is a picture from development:<br><img src="assets/vscode_sidepanel_view.png" alt="VSCode sidepanel" style="width:60px"></img> Don't zoom on it, just enjoy it from afar.<br><br>
 As a little tiny joke, I have added goto's and heap allocation to this game as well,<br>
 because who doesn't love those, amirite?<br>
 After 2 days of development, the game was officialy complete at 4th of August, about 30 minutes past midnight.<br>
@@ -25,4 +25,14 @@ However, it was worth every second.
 I hope you enjoy it as much as I enjoyed making it!!!<br>
 License inside the entities2/ folder.<br><br>
 Anyway, go PLAY THE GAME!!!!! :)
+</p>
+
+<h1>How to compile?</h1>
+<p>
+To compile, do the following:<br>
+<pre><code>g++ entities.cpp</code></pre><br>
+and<br>
+<pre><code>g++ entities2.cpp</code></pre><br>
+It's that simple.<br>
+<b>CURRENTLY UNTESTED ON ANYTHING OTHER THAN WINDOWS 10!!!!!</b>
 </p>
