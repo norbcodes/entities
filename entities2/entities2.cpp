@@ -12,8 +12,16 @@ The long awaited... entities2!!!!
 #include <string>
 #include <math.h>
 #include <chrono>   // chrono::seconds()
-#include <thread>   // this_thread::sleep_for()
 #include <vector>
+
+#ifdef __linux__
+#include <unistd.h>
+#else
+#include <windows.h>
+#endif
+
+// Game version
+#define ENTITIES2_VER       "v1.0.1"
 
 // Cap
 #define MAX_STAT_CAP        200
@@ -84,6 +92,15 @@ void ClearScreen()
     #endif
 }
 
+void SleepSeconds(uint32_t seconds)
+{
+    #ifdef __linux__
+    sleep(seconds);
+    #else
+    Sleep(1000 * seconds);
+    #endif
+}
+
 uint32_t rng(uint32_t limit)
 {
     // SHAMELESSLY COPIED FROM ENTITIES.CPP
@@ -112,6 +129,7 @@ void Credits()
     std::cout << WHITE("Coded in about 2 days.\n") + DARK_GRAY("(As of writting the credits, Discord says I spent 6 hours on VScode)") << std::endl;
     std::cout << BLUE("These fine colors picked out using ") + BLUE(BOLD_IN("rgbcolorcode.com")) + BLUE("! B)") << std::endl;
     std::cout << PURPLE("Check out entity1 and the homepage at ") + PURPLE(BOLD_IN("github.com/norbcodes/entities")) << std::endl;
+    std::cout << std::endl << DARK_GRAY("entities2.cpp version ") + DARK_GRAY(ENTITIES2_VER) + DARK_GRAY(" compiled at ") + DARK_GRAY(__DATE__) + " " + DARK_GRAY(__TIME__) + " ;)" << std::endl;
     Div();
 }
 
@@ -510,7 +528,7 @@ uint32_t AiChoose(uint8_t* picks_list, uint8_t* types_list, const Entity& player
             {
                 return index;
             }
-            if (index == 4)
+            if (index == 3)
             {
                 return index;
             }
@@ -575,8 +593,10 @@ void Game(const std::string& mode)
 
         if (Player->GetHealth() <= 0)
         {
-            std::cout << "---<<< Player dead. Enemy wins!!! >>>---" << std::endl << std::endl;
-            std::cout << GRAY("Press enter to exit") << std::endl;
+            std::cout << WHITE("---<<< ") + BLUE(BOLD_IN("Player ")) + WHITE("dead. ") + RED(BOLD_IN("Enemy ")) + WHITE("wins!!! >>>---") << std::endl << std::endl;
+            std::cout << GRAY("Press enter to exit") << std::endl << std::endl;
+            Div();
+            std::cout << "\x1b[2A";
             std::string garbage;
             std::cin >> garbage;
             is_running = false;
@@ -585,8 +605,10 @@ void Game(const std::string& mode)
 
         if (Enemy->GetHealth() <= 0)
         {
-            std::cout << "---<<< Enemy dead. Player wins!!! >>>---" << std::endl << std::endl;
-            std::cout << GRAY("Press enter to exit") << std::endl;
+            std::cout << WHITE("---<<< ") + RED(BOLD_IN("Enemy ")) + WHITE("dead. ") + BLUE(BOLD_IN("Player ")) + WHITE("wins!!! >>>---") << std::endl << std::endl;
+            std::cout << GRAY("Press enter to exit") << std::endl << std::endl;
+            Div();
+            std::cout << "\x1b[2A";
             std::string garbage;
             std::cin >> garbage;
             is_running = false;
@@ -747,7 +769,7 @@ void Game(const std::string& mode)
                 std::cout << "\x1B[1D";
             }
             std::cout << picked_move + 1;
-            std::this_thread::sleep_for(std::chrono::seconds(2));
+            SleepSeconds(2);
             // Botttttt
             if (move_types[picked_move] == ATTACK)
             {
@@ -821,7 +843,7 @@ int main()
         {
             ClearScreen();
             Credits();
-            std::this_thread::sleep_for(std::chrono::seconds(1));
+            SleepSeconds(1);
             break;
         }
 

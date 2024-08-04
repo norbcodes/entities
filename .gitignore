@@ -1,4 +1,5 @@
 *.exe
 *.dll
 *.7z
+*.out
 .vscode/
