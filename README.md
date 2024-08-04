@@ -1,10 +1,20 @@
 <h1>ENTITIES!</h1>
 <p>Now, you may be thinking...<br>
 <b>Norb, wtf is this?</b><br>
-BASICALLY, it's a bunch of files that I made for fun. Read on for the history.
+entities2.cpp is a little silly CLI game with turn based combat I made in 2 days!
 </p>
 
-<h1>How did this all happen?</h1>
+<h1>How to compile?</h1>
+<p>
+To compile, do the following:<br>
+<pre><code>git clone https://github.com/norbcodes/entities.git<br>cd entities<br>g++ ./entities/entities.cpp</code></pre>
+and to compile entities2:<br>
+<pre><code>git clone https://github.com/norbcodes/entities.git<br>cd entities<br>g++ ./entities2/entities2.cpp</code></pre>
+It's that simple.<br>
+<b>CURRENTLY UNTESTED ON ANYTHING OTHER THAN WINDOWS 10!!!!!</b>
+</p>
+
+<h1>The backstory</h1>
 <p>
 It was the year 2022, and I have made a simple shrimple test file<br>
 for testing C++ pass-by-reference. Because back then, I was just starting out.
@@ -25,14 +35,4 @@ However, it was worth every second.
 I hope you enjoy it as much as I enjoyed making it!!!<br>
 License inside the entities2/ folder.<br><br>
 Anyway, go PLAY THE GAME!!!!! :)
-</p>
-
-<h1>How to compile?</h1>
-<p>
-To compile, do the following:<br>
-<pre><code>g++ entities.cpp</code></pre>
-and<br>
-<pre><code>g++ entities2.cpp</code></pre>
-It's that simple.<br>
-<b>CURRENTLY UNTESTED ON ANYTHING OTHER THAN WINDOWS 10!!!!!</b>
 </p>
