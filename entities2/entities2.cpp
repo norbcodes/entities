@@ -1,20 +1,4 @@
-/*
-entities2.
-Copyright (C) 2024  norbcodes (a.k.a norb3695 or just Norb)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
 /*
 MADE BY NORB
@@ -26,12 +10,14 @@ The long awaited... entities2!!!!
 #include <cstdint>
 #include <random>
 #include <string>
-#include <windows.h>
 #include <math.h>
-#include <chrono>
-#include <thread>
+#include <chrono>   // chrono::seconds()
+#include <thread>   // this_thread::sleep_for()
 #include <vector>
 
+// Cap
+#define MAX_STAT_CAP        200
+// Stuff
 #define PLAYER_START_HP     100
 #define PLAYER_START_AR     100
 #define ENEMY_START_HP      100
@@ -91,8 +77,11 @@ The long awaited... entities2!!!!
 
 void ClearScreen()
 {
-    // Windows only for now
+    #ifdef __linux__
+    system("clear");
+    #else
     system("cls");
+    #endif
 }
 
 uint32_t rng(uint32_t limit)
@@ -174,13 +163,13 @@ void Status::Age()
 class Entity
 {
     private:
-        uint32_t health;
-        uint32_t armor;
+        int32_t health;
+        int32_t armor;
         std::vector<Status> status_list;
     public:
-        Entity(uint32_t start_health, uint32_t start_armor);
-        uint32_t GetHealth() const;
-        uint32_t GetArmor() const;
+        Entity(int32_t start_health, int32_t start_armor);
+        int32_t GetHealth() const;
+        int32_t GetArmor() const;
         void Hurt(uint32_t dmg);
         void HurtArmor(uint32_t dmg);
         void Heal(uint32_t val);
@@ -192,38 +181,58 @@ class Entity
         void UpdateStatuses(std::string& msg, bool turn);
 };
 
-Entity::Entity(uint32_t start_health, uint32_t start_armor) : health(start_health), armor(start_armor) 
+Entity::Entity(int32_t start_health, int32_t start_armor) : health(start_health), armor(start_armor) 
 {
     this->status_list.reserve(64);
 }
 
-uint32_t Entity::GetHealth() const
+int32_t Entity::GetHealth() const
 {
     return this->health;
 }
 
-uint32_t Entity::GetArmor() const
+int32_t Entity::GetArmor() const
 {
     return this->armor;
 }
 
 void Entity::Hurt(uint32_t dmg)
 {
+    if ((this->health - dmg) <= 0)
+    {
+        this->health = 0;
+        return;
+    }
     this->health -= dmg;
 }
 
 void Entity::HurtArmor(uint32_t dmg)
 {
+    if ((this->armor - dmg) <= 0)
+    {
+        this->armor = 0;
+        return;
+    }
     this->armor -= dmg;
 }
 
 void Entity::Heal(uint32_t val)
 {
+    if ((this->health + val) >= MAX_STAT_CAP)
+    {
+        this->health = MAX_STAT_CAP;
+        return;
+    }
     this->health += val;
 }
 
 void Entity::RegenArmor(uint32_t val)
 {
+    if ((this->armor + val) >= MAX_STAT_CAP)
+    {
+        this->armor = MAX_STAT_CAP;
+        return;
+    }
     this->armor += val;
 }
 
@@ -315,19 +324,18 @@ void PrintEntityStats(const Entity& ent)
     std::cout << std::endl;
 }
 
-void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool turn)
+void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn)
 {
     // if victim has invis
     if (victim.StatusActive(INVIS) && rng(100) > 80)
     {
-        switch (turn)
+        if (enemy_turn)
         {
-            case true:
-                msg += RED(BOLD_IN("Enemy ")) + WHITE("tried to attack, but ") + WHITE(ITALIC_IN("missed")) + WHITE("!");
-                break;
-            case false:
-                msg += BLUE(BOLD_IN("Player ")) + WHITE("tried to attack, but ") + WHITE(ITALIC_IN("missed")) + WHITE("!");
-                break;
+            msg += RED(BOLD_IN("Enemy ")) + WHITE("tried to attack, but ") + WHITE(ITALIC_IN("missed")) + WHITE("!");
+        }
+        else
+        {
+            msg += BLUE(BOLD_IN("Player ")) + WHITE("tried to attack, but ") + WHITE(ITALIC_IN("missed")) + WHITE("!");
         }
         return;
     }
@@ -336,7 +344,7 @@ void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::str
     uint32_t armor_dmg = 0;
     bool crit_flag = false;
     // Crit
-    if (attacker.StatusActive(INCR_CRIT) && rng(100) > 80)
+    if (attacker.StatusActive(INCR_CRIT) && rng(100) > 70)
     {
         health_dmg *= 2;
         crit_flag = true;
@@ -358,29 +366,25 @@ void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::str
     victim.Hurt(health_dmg);
     victim.HurtArmor(armor_dmg);
 
-    if (!turn)
+    if (!enemy_turn)
     {
-        switch (crit_flag)
+        if (!crit_flag)
         {
-            case false:
-                msg += BLUE(BOLD_IN("Player ")) + WHITE("has attacked ") + RED(BOLD_IN("Enemy")) + WHITE("! ") + RED(BOLD_IN("Enemy ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
-                break;
-            case true:
-                msg += BLUE(BOLD_IN("Player ")) + WHITE("has attacked ") + RED(BOLD_IN("Enemy")) + WHITE("! ") + GOLD(ITALIC_IN("CRITICAL HIT")) + WHITE("! ") + RED(BOLD_IN("Enemy ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
-                break;
+            msg += BLUE(BOLD_IN("Player ")) + WHITE("has attacked ") + RED(BOLD_IN("Enemy")) + WHITE("! ") + RED(BOLD_IN("Enemy ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
+            return;
         }
+        msg += BLUE(BOLD_IN("Player ")) + WHITE("has attacked ") + RED(BOLD_IN("Enemy")) + WHITE("! ") + GOLD(ITALIC_IN("CRITICAL HIT")) + WHITE("! ") + RED(BOLD_IN("Enemy ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
+        return;
     }
     else
     {
-        switch (crit_flag)
+        if (!crit_flag)
         {
-            case false:
-                msg += RED(BOLD_IN("Enemy ")) + WHITE("has attacked ") + BLUE(BOLD_IN("Player")) + WHITE("! ") + BLUE(BOLD_IN("Player ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
-                break;
-            case true:
-                msg += RED(BOLD_IN("Enemy ")) + WHITE("has attacked ") + BLUE(BOLD_IN("Player")) + WHITE("! ") + GOLD(ITALIC_IN("CRITICAL HIT")) + WHITE("! ") + BLUE(BOLD_IN("Player ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
-                break;
+            msg += RED(BOLD_IN("Enemy ")) + WHITE("has attacked ") + BLUE(BOLD_IN("Player")) + WHITE("! ") + BLUE(BOLD_IN("Player ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
+            return;
         }
+        msg += RED(BOLD_IN("Enemy ")) + WHITE("has attacked ") + BLUE(BOLD_IN("Player")) + WHITE("! ") + GOLD(ITALIC_IN("CRITICAL HIT")) + WHITE("! ") + BLUE(BOLD_IN("Player ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
+        return;
     }
 }
 
@@ -482,7 +486,7 @@ uint32_t AiChoose(uint8_t* picks_list, uint8_t* types_list, const Entity& player
         } // else just continue.
     }
 
-    // Choose an status
+    // Choose a status
     if (40 < enemy.GetHealth() && enemy.GetHealth() < 80)
     {
         uint8_t count = 0;
@@ -526,21 +530,21 @@ uint32_t AiChoose(uint8_t* picks_list, uint8_t* types_list, const Entity& player
 
 void Game(const std::string& mode)
 {
-    uint8_t factor;
+    uint8_t difficulty_scale;
     // Is easy?
     if (mode == "easy")
     {
-        factor = 0;
+        difficulty_scale = 0;
     }
     // Is medium?
     else if (mode == "medium")
     {
-        factor = 1;
+        difficulty_scale = 1;
     }
     // Is hard?
     else if (mode == "hard")
     {
-        factor = 2;
+        difficulty_scale = 2;
     }
     // or no
     else 
@@ -550,9 +554,9 @@ void Game(const std::string& mode)
     }
 
     // Create player and enemy
-    // Heap alloc for funni
-    Entity* Player = new Entity(PLAYER_START_HP - factor * HEALTH_F, PLAYER_START_AR - factor * ARMOR_F);
-    Entity* Enemy = new Entity(ENEMY_START_HP + factor * HEALTH_F, ENEMY_START_AR + factor * ARMOR_F);
+    // Heap alloc for funnidifficulty_scale
+    Entity* Player = new Entity(PLAYER_START_HP - difficulty_scale * HEALTH_F, PLAYER_START_AR - difficulty_scale * ARMOR_F);
+    Entity* Enemy = new Entity(ENEMY_START_HP + difficulty_scale * HEALTH_F, ENEMY_START_AR + difficulty_scale * ARMOR_F);
     // Yes, it literally rigs the game against you
 
     // Gameplay loop
@@ -566,8 +570,8 @@ void Game(const std::string& mode)
         Div();
         // Generate 4 options to choose from.
         // There are 4 types: Attack, Heal, Regen armor, Status
-        uint8_t* picks = new uint8_t[4];
-        uint8_t* types = new uint8_t[4];
+        uint8_t* moves = new uint8_t[4];
+        uint8_t* move_types = new uint8_t[4];
 
         if (Player->GetHealth() <= 0)
         {
@@ -618,34 +622,34 @@ void Game(const std::string& mode)
             switch (type)
             {
                 case ATTACK:
-                    types[i] = ATTACK;
-                    picks[i] = ATTACK_F * (rng(5) + 1);
-                    std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i))) + DARK_GRAY("] ") + RED("Attack!") + WHITE(" Deal ") + PURPLE(std::to_string((int)picks[i]) ) + WHITE(" damage to opponent.") << std::endl;
+                    move_types[i] = ATTACK;
+                    moves[i] = ATTACK_F * (rng(8) + 1);
+                    std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + RED("Attack!") + WHITE(" Deal ") + PURPLE(std::to_string((int)moves[i]) ) + WHITE(" damage to opponent.") << std::endl;
                     break;
                 case HEAL:
-                    types[i] = HEAL;
-                    picks[i] = HEAL_F * (rng(3) + 1);
-                    std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i))) + DARK_GRAY("] ") + GREEN("Heal! ") + WHITE("Gives you ") + PURPLE("+" + std::to_string((int)picks[i])) + WHITE(" HP") << std::endl;
+                    move_types[i] = HEAL;
+                    moves[i] = HEAL_F * (rng(5) + 1);
+                    std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + GREEN("Heal! ") + WHITE("Gives you ") + PURPLE("+" + std::to_string((int)moves[i])) + WHITE(" HP") << std::endl;
                     break;
                 case ARMOR:
-                    types[i] = ARMOR;
-                    picks[i] = ARM_F * (rng(5) + 1);
-                    std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i))) + DARK_GRAY("] ") + BLUE("Regen armor") + WHITE("! Give you ") + PURPLE("+" + std::to_string((int)picks[i])) + WHITE(" AR") << std::endl;
+                    move_types[i] = ARMOR;
+                    moves[i] = ARM_F * (rng(9) + 1);
+                    std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + BLUE("Regen armor") + WHITE("! Give you ") + PURPLE("+" + std::to_string((int)moves[i])) + WHITE(" AR") << std::endl;
                     break;
                 case STATUS:
-                    types[i] = STATUS;
-                    picks[i] = rng(STATUS_C);
+                    move_types[i] = STATUS;
+                    moves[i] = rng(STATUS_C);
                     
-                    switch (picks[i])
+                    switch (moves[i])
                     {
                         case AUTO_HEAL:
-                            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i))) + DARK_GRAY("] ") + WHITE("Apply ") + GREEN("AutoHeal ") + WHITE("status! Gives you ") + PURPLE("+5") + WHITE(" HP when it's your turn") << std::endl;
+                            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + GREEN("AutoHeal ") + WHITE("status! Gives you ") + PURPLE("+5") + WHITE(" HP when it's your turn") << std::endl;
                             break;
                         case INCR_CRIT:
-                            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i))) + DARK_GRAY("] ") + WHITE("Apply ") + RED("IncreasedCrit") + WHITE(" status! Increased chance to deal a ") + RED("critical attack") << std::endl;
+                            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + RED("IncreasedCrit") + WHITE(" status! Increased chance to deal a ") + RED("critical attack") << std::endl;
                             break;
                         case INVIS:
-                            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i))) + DARK_GRAY("] ") + WHITE("Apply ") + HOT_PINK("Invis ") + WHITE("status! Opponent has a chance to ") + HOT_PINK("miss") << std::endl;
+                            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + HOT_PINK("Invis ") + WHITE("status! Opponent has a chance to ") + HOT_PINK("miss") << std::endl;
                             break;
                     }
 
@@ -664,16 +668,18 @@ void Game(const std::string& mode)
         if (!turn)
         {
             POINT:
-            std::cout << WHITE("Choose your move.") + BOLD(GRAY(" [0,1,2,3,9] (9 to exit)")) << std::endl << std::endl;
+            std::cout << WHITE("Choose your move.") + BOLD(GRAY(" [1,2,3,4,9] (9 to exit)                                           ")) << std::endl << std::endl;
             Div();
             std::cout << "\x1b[2A";
             // Player
-            uint32_t pick;
-            std::cin >> pick;
+            uint32_t picked_move;
+            std::cin >> picked_move;
 
-            if (pick == 9)
+            if (picked_move == 9)
             {
-                std::cout << RED("Do you really wanna end the battle?") + BOLD(GRAY(" [y,n]")) << std::endl;
+                std::cout << RED("Do you really wanna end the battle?") + BOLD(GRAY(" [y,n]                                                             ")) << std::endl << std::endl;
+                Div();
+                std::cout << "\x1b[2A";
                 std::string option;
                 std::cin >> option;
                 if (option == "y")
@@ -688,30 +694,32 @@ void Game(const std::string& mode)
             }
 
             // if pick is not 0, 1, 2, 3 or 9 = skip round
-            if (pick != 0 && pick != 1 && pick != 2 && pick != 3 && pick != 9)
+            if (picked_move != 1 && picked_move != 2 && picked_move != 3 && picked_move != 4 && picked_move != 9)
             {
                 what_happened += BLUE(BOLD_IN("Player ")) + WHITE("skipped the round.");
                 goto SKIP_ROUND;
             }
 
-            if (types[pick] == ATTACK)
+            picked_move--;
+
+            if (move_types[picked_move] == ATTACK)
             {
-                EntityAttack(*Player, *Enemy, picks[pick], what_happened, turn);
+                EntityAttack(*Player, *Enemy, moves[picked_move], what_happened, turn);
             }
-            else if (types[pick] == HEAL)
+            else if (move_types[picked_move] == HEAL)
             {
-                Player->Heal(picks[pick]);
-                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has healed ") + PURPLE(std::to_string(picks[pick])) + WHITE(" health.");
+                Player->Heal(moves[picked_move]);
+                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has healed ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" health.");
             }
-            else if (types[pick] == ARMOR)
+            else if (move_types[picked_move] == ARMOR)
             {
-                Player->RegenArmor(picks[pick]);
-                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has regen'd ") + PURPLE(std::to_string(picks[pick])) + WHITE(" armor.");
+                Player->RegenArmor(moves[picked_move]);
+                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has regen'd ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" armor.");
             }
-            else if (types[pick] == STATUS)
+            else if (move_types[picked_move] == STATUS)
             {
-                Player->GiveStatus(picks[pick]);
-                switch (picks[pick])
+                Player->GiveStatus(moves[picked_move]);
+                switch (moves[picked_move])
                 {
                     case AUTO_HEAL:
                         what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + GREEN("AutoHeal") + WHITE(".");
@@ -731,34 +739,34 @@ void Game(const std::string& mode)
             Div();
             std::cout << "\x1b[2A";
             // bot
-            uint32_t pick = AiChoose(picks, types, *Player, *Enemy);
+            uint32_t picked_move = AiChoose(moves, move_types, *Player, *Enemy);
             // Print random num
             for (int i = 0; i != 19000; i++)
             {
-                std::cout << rng(3);
+                std::cout << rng(3) + 1;
                 std::cout << "\x1B[1D";
             }
-            std::cout << pick;
+            std::cout << picked_move + 1;
             std::this_thread::sleep_for(std::chrono::seconds(2));
             // Botttttt
-            if (types[pick] == ATTACK)
+            if (move_types[picked_move] == ATTACK)
             {
-                EntityAttack(*Enemy, *Player, picks[pick], what_happened, turn);
+                EntityAttack(*Enemy, *Player, moves[picked_move], what_happened, turn);
             }
-            else if (types[pick] == HEAL)
+            else if (move_types[picked_move] == HEAL)
             {
-                Enemy->Heal(picks[pick]);
-                what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has healed ") + PURPLE(std::to_string(picks[pick])) + WHITE(" health.");
+                Enemy->Heal(moves[picked_move]);
+                what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has healed ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" health.");
             }
-            else if (types[pick] == ARMOR)
+            else if (move_types[picked_move] == ARMOR)
             {
-                Enemy->RegenArmor(picks[pick]);
-                what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has regen'd ") + PURPLE(std::to_string(picks[pick])) + WHITE(" armor.");
+                Enemy->RegenArmor(moves[picked_move]);
+                what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has regen'd ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" armor.");
             }
-            else if (types[pick] == STATUS)
+            else if (move_types[picked_move] == STATUS)
             {
-                Enemy->GiveStatus(picks[pick]);
-                switch (picks[pick])
+                Enemy->GiveStatus(moves[picked_move]);
+                switch (moves[picked_move])
                 {
                     case AUTO_HEAL:
                         what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has applied ") + GREEN("AutoHeal") + WHITE(".");
@@ -776,8 +784,8 @@ void Game(const std::string& mode)
         SKIP_ROUND:
         END_GAME:
         turn = !turn;
-        delete[] picks;
-        delete[] types;
+        delete[] moves;
+        delete[] move_types;
     }
 
     // Make sure to annihilate
@@ -793,6 +801,8 @@ void Game(const std::string& mode)
 
 int main()
 {
+    // force 256 
+    std::cout << "\x1b[=19h" << std::endl;
     while (true)
     {
         ClearScreen();

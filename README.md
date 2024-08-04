@@ -11,10 +11,17 @@ To compile, do the following:<br>
 cd entities
 g++ ./entities/entities.cpp</code></pre>
 and to compile entities2:<br>
-<pre><code>git clone https://github.com/norbcodes/entities.git
+<pre><code># assuming you already cloned the repo
 cd entities
-g++ ./entities2/entities2.cpp</code></pre>
-It's that simple.<br>
+g++ ./entities2/entities2.cpp -pthread</code></pre>
+It's that simple. For optimization:<br>
+<pre><code># assuming you already cloned the repo
+cd entities
+g++ ./entities2/entities2.cpp -pthread -O2 -g0 -ggdb0 -s</code></pre><br>
+To compile for Linux: <i>the macro should be automatically set</i>
+<pre><code># assuming you already cloned the repo
+cd entities
+g++ ./entities2/entities2.cpp -pthread -D__linux__</code></pre>
 <b>CURRENTLY UNTESTED ON ANYTHING OTHER THAN WINDOWS 10!!!!!</b>
 </p>
 
