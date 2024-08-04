@@ -7,9 +7,13 @@ entities2.cpp is a little silly CLI game with turn based combat I made in 2 days
 <h1>How to compile?</h1>
 <p>
 To compile, do the following:<br>
-<pre><code>git clone https://github.com/norbcodes/entities.git<br>cd entities<br>g++ ./entities/entities.cpp</code></pre>
+<pre><code>git clone https://github.com/norbcodes/entities.git
+cd entities
+g++ ./entities/entities.cpp</code></pre>
 and to compile entities2:<br>
-<pre><code>git clone https://github.com/norbcodes/entities.git<br>cd entities<br>g++ ./entities2/entities2.cpp</code></pre>
+<pre><code>git clone https://github.com/norbcodes/entities.git
+cd entities
+g++ ./entities2/entities2.cpp</code></pre>
 It's that simple.<br>
 <b>CURRENTLY UNTESTED ON ANYTHING OTHER THAN WINDOWS 10!!!!!</b>
 </p>
