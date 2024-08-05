@@ -26,7 +26,7 @@ As a little tiny joke, I have added goto's and heap allocation to this game as w
 because who doesn't love those, amirite?<br>
 After 2 days of development, the game was officialy complete at 4th of August, about 30 minutes past midnight.<br>
 The development was long and hard ( ͡° ͜ʖ ͡°) in fact, before I finished it completely, I have coded for:<br>
-<img src="entities2/entity2_in_the_making.png" alt="6 hours" style="height:100px"></img><br>
+<img src="entities2/fun_stuff/entities2_in_the_making.png" alt="6 hours" style="height:100px"></img><br>
 However, it was worth every second.
 I hope you enjoy it as much as I enjoyed making it!!!<br>
 License inside the entities2/ folder.<br><br>
