@@ -1,0 +1,50 @@
+# entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+
+# The CMakeLists to build entities2.cpp
+cmake_minimum_required(VERSION 3.29 FATAL_ERROR)
+
+# Set the project
+project(entities2 LANGUAGES CXX)
+
+# Options for compilation.
+option(STATIC_LIBS "Statically link against C and C++ standard lib." OFF)
+option(OPTIMIZE    "Enable optimization." OFF)
+
+# Set search paths
+set(SEARCH_IN ${CMAKE_SOURCE_DIR}/src/headers)
+
+# Set sources
+set(
+    SOURCES
+    ${CMAKE_SOURCE_DIR}/src/ai.cpp
+    ${CMAKE_SOURCE_DIR}/src/entity.cpp
+    ${CMAKE_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_SOURCE_DIR}/src/status.cpp
+    ${CMAKE_SOURCE_DIR}/src/utils.cpp
+)
+
+# Create target
+add_executable(${PROJECT_NAME} ${SOURCES})
+target_include_directories(${PROJECT_NAME} PUBLIC ${SEARCH_IN})
+
+# Check if compiling for Linux
+message(STATUS "Checking OS...")
+if(CMAKE_HOST_LINUX)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __linux__)
+    message(STATUS "Linux detected. Adding Linux specific stuff.")
+else()
+    target_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32)
+    message(STATUS "Windows detected. Adding Windows specific stuff.")
+endif()
+
+# Check if STATIC_LIBS
+if (STATIC_LIBS)
+    target_link_options(${PROJECT_NAME} PUBLIC -static-libgcc -static-libstdc++)
+    message(STATUS "Statically linking against C and C++ standard lib. Expect increase in file size!")
+endif()
+
+# Check if OPTIMIZATION
+if (STATIC_LIBS)
+    target_compile_options(${PROJECT_NAME} PUBLIC -O2 -g0 -ggdb0 -s)
+    message(STATUS "Enabled optimization.")
+endif()
