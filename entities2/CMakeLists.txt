@@ -46,7 +46,7 @@ if (STATIC_LIBS)
 endif()
 
 # Check if OPTIMIZATION
-if (STATIC_LIBS)
+if (OPTIMIZE)
     target_compile_options(${PROJECT_NAME} PUBLIC -O2 -g0 -ggdb0 -s)
     message(STATUS "Enabled optimization.")
 endif()

@@ -16,6 +16,7 @@
 #define GOLD(x)             std::string("\x1b[38;2;255;195;77m") + std::string(x) + std::string("\x1b[0m")
 #define GREEN(x)            std::string("\x1b[38;2;0;255;42m") + std::string(x) + std::string("\x1b[0m")
 #define PURPLE(x)           std::string("\x1b[38;2;76;0;230m") + std::string(x) + std::string("\x1b[0m")
+#define DARK_GREEN(x)       std::string("\x1b[38;2;0;153;51m") + std::string(x) + std::string("\x1b[0m")
 // INLINES
 #define ITALIC_IN(x)        std::string("\x1b[3m") + std::string(x)
 #define BOLD_IN(x)          std::string("\x1b[1m") + std::string(x)
@@ -30,3 +31,4 @@
 #define GOLD_IN(x)          std::string("\x1b[38;2;255;195;77m") + std::string(x)
 #define GREEN_IN(x)         std::string("\x1b[38;2;0;255;42m") + std::string(x)
 #define PURPLE_IN(x)        std::string("\x1b[38;2;76;0;230m") + std::string(x)
+#define DARK_GREEN_IN(x)    std::string("\x1b[38;2;0;153;51m") + std::string(x)

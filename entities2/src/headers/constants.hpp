@@ -3,7 +3,7 @@
 #pragma once
 
 // Game version
-#define ENTITIES2_VER       "v1.1.0"
+#define ENTITIES2_VER       "v1.2.0"
 // Cap
 #define MAX_STAT_CAP        200
 // Stuff
@@ -23,9 +23,11 @@
 #define HEAL_F              5
 #define ARM_F               5
 // STATUSES
-#define STATUS_C            3
+#define STATUS_C            4
 #define AUTO_HEAL           0
 #define INCR_CRIT           1
 #define INVIS               2
+#define POISON              3
 #define STATUS_TIME_LEFT    4
 #define AUTO_HEAL_AMOUNT    10
+#define POISON_AMOUNT       10

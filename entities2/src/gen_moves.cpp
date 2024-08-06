@@ -11,7 +11,7 @@ Generate the 4 moves to choose from.
 #include "colors.hpp"
 #include "rng.hpp"
 
-static bool MoveExists(uint32_t* moves, uint32_t* move_types, uint32_t val, uint32_t type)
+bool MoveExists(uint32_t* moves, uint32_t* move_types, uint32_t val, uint32_t type)
 {
     for (int i = 0; i != 4; i++)
     {
@@ -58,13 +58,16 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types)
                 switch (moves[i])
                 {
                     case AUTO_HEAL:
-                        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + GREEN("AutoHeal ") + WHITE("status! Gives you ") + PURPLE("+5") + WHITE(" HP when it's your turn") << std::endl;
+                        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + GREEN("AutoHeal ") + WHITE("status! Gives you ") + PURPLE(std::to_string(AUTO_HEAL_AMOUNT)) + WHITE(" HP when it's your turn") << std::endl;
                         break;
                     case INCR_CRIT:
                         std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + RED("IncreasedCrit") + WHITE(" status! Increased chance to deal a ") + RED("critical attack") << std::endl;
                         break;
                     case INVIS:
                         std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + HOT_PINK("Invis ") + WHITE("status! Opponent has a chance to ") + HOT_PINK("miss") << std::endl;
+                        break;
+                    case POISON:
+                        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Give opponent ") + DARK_GREEN("Poison ") + WHITE("status! Deals ") + PURPLE(std::to_string(POISON_AMOUNT)) + WHITE(" poison damage ") << std::endl;
                         break;
                 }
                 break;

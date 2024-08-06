@@ -11,6 +11,7 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& play
 {
     // Basically, heal if health < 40 if posslbe
     // Attack if health > 80 if possible
+    // Cast poison (50% chance) if possible
     // (middle zone 40 < health < 80, choose a random status if possible)
     // If armor < 50, take RegenArmor if possible
 
@@ -74,6 +75,18 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& play
                 }
             }
         } // else just continue.
+    }
+
+    // Cast poison if possible
+    for (int i = 0; i != 4; i++)
+    {
+        if (picks_list[i] == POISON && types_list[i] == STATUS)
+        {
+            if (rng(100) >= 50)
+            {
+                return i;
+            }
+        } 
     }
 
     // Attack

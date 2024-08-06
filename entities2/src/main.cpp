@@ -116,7 +116,7 @@ void Game(uint32_t mode, uint32_t& picker_flag)
         // Print header
         std::cout << DARK_GRAY("---<<< ") << (turn ? RED(BOLD_IN("Enemy's")) : BLUE(BOLD_IN("Player's"))) << DARK_GRAY(" turn! >>>---") << std::endl;
 
-        std::cout << WHITE("What happened:\n") << what_happened << std::endl << std::endl;
+        std::cout << WHITE("What happened in the previous round:\n") << what_happened << std::endl << std::endl;
         what_happened = "";
 
         switch (turn)
@@ -197,17 +197,23 @@ void Game(uint32_t mode, uint32_t& picker_flag)
             }
             else if (move_types[picked_move] == STATUS)
             {
-                Player->GiveStatus(moves[picked_move]);
                 switch (moves[picked_move])
                 {
                     case AUTO_HEAL:
+                        Player->GiveStatus(moves[picked_move]);
                         what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + GREEN("AutoHeal") + WHITE(".");
                         break;
                     case INCR_CRIT:
+                        Player->GiveStatus(moves[picked_move]);
                         what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + RED("IncreasedCrit") + WHITE(".");
                         break;
                     case INVIS:
+                        Player->GiveStatus(moves[picked_move]);
                         what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + HOT_PINK("Invis") + WHITE(".");
+                        break;
+                    case POISON:
+                        Enemy->GiveStatus(moves[picked_move]);
+                        what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has given ") + DARK_GREEN("Poison") + WHITE(" to ") + RED(BOLD_IN("Enemy")) + WHITE(".");
                         break;
                 }
             }
@@ -244,17 +250,23 @@ void Game(uint32_t mode, uint32_t& picker_flag)
             }
             else if (move_types[picked_move] == STATUS)
             {
-                Enemy->GiveStatus(moves[picked_move]);
                 switch (moves[picked_move])
                 {
                     case AUTO_HEAL:
+                        Enemy->GiveStatus(moves[picked_move]);
                         what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has applied ") + GREEN("AutoHeal") + WHITE(".");
                         break;
                     case INCR_CRIT:
+                        Enemy->GiveStatus(moves[picked_move]);
                         what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has applied ") + RED("IncreasedCrit") + WHITE(".");
                         break;
                     case INVIS:
+                        Enemy->GiveStatus(moves[picked_move]);
                         what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has applied ") + HOT_PINK("Invis") + WHITE(".");
+                        break;
+                    case POISON:
+                        Player->GiveStatus(moves[picked_move]);
+                        what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has given ") + DARK_GREEN("Poison") + WHITE(" to ") + BLUE(BOLD_IN("Player")) + WHITE(".");
                         break;
                 }
             }

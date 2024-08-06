@@ -94,7 +94,7 @@ Status Entity::GetStatusAt(uint8_t i) const
     return this->status_list[i];
 }
 
-void Entity::UpdateStatuses(std::string& msg, bool turn)
+void Entity::UpdateStatuses(std::string& msg, bool enemy_turn)
 {
     // Guard
     if (this->status_list.size() == 0)
@@ -105,18 +105,29 @@ void Entity::UpdateStatuses(std::string& msg, bool turn)
     for (int i = 0; i < this->status_list.size(); i++)
     {
         this->status_list[i].Age();
-        // Only apply AutoHeal, Invis and IncreasedCrit are handled in the Hurt method
+        // Only apply AutoHeal and Poison, Invis and IncreasedCrit are handled in the Hurt method
         if (this->status_list[i].GetType() == AUTO_HEAL)
         {
             this->Heal(AUTO_HEAL_AMOUNT);
-            switch (turn)
+            if (enemy_turn)
             {
-                case true:
-                    msg += RED(BOLD_IN("Enemy ")) + WHITE("has autohealed! ") + WHITE(BOLD_IN("+" + std::to_string(AUTO_HEAL_AMOUNT) + "HP\n"));
-                    break;
-                case false:
-                    msg += BLUE(BOLD_IN("Player ")) + WHITE("has autohealed! ") + WHITE(BOLD_IN("+" + std::to_string(AUTO_HEAL_AMOUNT) + "HP\n"));
-                    break;
+                msg += RED(BOLD_IN("Enemy ")) + WHITE("has autohealed! ") + WHITE(BOLD_IN("+" + std::to_string(AUTO_HEAL_AMOUNT) + "HP\n"));
+            }
+            else
+            {
+                msg += BLUE(BOLD_IN("Player ")) + WHITE("has autohealed! ") + WHITE(BOLD_IN("+" + std::to_string(AUTO_HEAL_AMOUNT) + "HP\n"));
+            }
+        }
+        else if (this->status_list[i].GetType() == POISON)
+        {
+            this->Hurt(POISON_AMOUNT);
+            if (enemy_turn)
+            {
+                msg += RED(BOLD_IN("Enemy ")) + WHITE("has felt the poison! ") + WHITE(BOLD_IN("-" + std::to_string(POISON_AMOUNT) + "HP\n"));
+            }
+            else
+            {
+                msg += BLUE(BOLD_IN("Player ")) + WHITE("has felt the poison! ") + WHITE(BOLD_IN("-" + std::to_string(POISON_AMOUNT) + "HP\n"));
             }
         }
         if (this->status_list[i].GetTimeLeft() == 0)
@@ -144,6 +155,10 @@ void PrintEntityStats(const Entity& ent)
         else if (_s.GetType() == INVIS)
         {
             std::cout << WHITE("O") << DARK_GRAY(std::to_string((int)_s.GetTimeLeft())) << " ";
+        }
+        else if (_s.GetType() == POISON)
+        {
+            std::cout << DARK_GREEN("P") << DARK_GRAY(std::to_string((int)_s.GetTimeLeft())) << " ";
         }
     }
     std::cout << std::endl;
