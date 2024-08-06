@@ -4,7 +4,4 @@
 
 #include <cstdint>
 
-void ClearScreen();
-void SleepSeconds(uint32_t seconds);
-void Div();
-void Credits();
+void GenerateMoves(uint32_t* moves, uint32_t* move_types);

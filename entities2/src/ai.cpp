@@ -5,8 +5,9 @@
 #include "constants.hpp"
 #include "entity.hpp"
 #include "utils.hpp"
+#include "rng.hpp"
 
-uint32_t AiChoose(uint8_t* picks_list, uint8_t* types_list, const Entity& player, const Entity& enemy)
+uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& player, const Entity& enemy)
 {
     // Basically, heal if health < 40 if posslbe
     // Attack if health > 80 if possible
@@ -107,7 +108,7 @@ uint32_t AiChoose(uint8_t* picks_list, uint8_t* types_list, const Entity& player
     // Choose a status
     if (40 < enemy.GetHealth() && enemy.GetHealth() < 80)
     {
-        uint8_t count = 0;
+        uint32_t count = 0;
         for (int i = 0; i != 4; i++)
         {
             if (types_list[i] == STATUS)
@@ -115,8 +116,8 @@ uint32_t AiChoose(uint8_t* picks_list, uint8_t* types_list, const Entity& player
                 count++;
             }
         }
-        uint8_t pick = rng(count);
-        uint8_t index = 0;
+        uint32_t pick = rng(count);
+        uint32_t index = 0;
         // The loop of doom
         while (pick != 0)
         {

@@ -6,4 +6,4 @@
 
 #include "entity.hpp"
 
-uint32_t AiChoose(uint8_t* picks_list, uint8_t* types_list, const Entity& player, const Entity& enemy);
+uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& player, const Entity& enemy);

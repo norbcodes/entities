@@ -17,6 +17,8 @@ The long awaited... entities2!!!!
 #include "entity.hpp"
 #include "ai.hpp"
 #include "utils.hpp"
+#include "gen_moves.hpp"
+#include "rng.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,30 +26,10 @@ The long awaited... entities2!!!!
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Game(const std::string& mode)
+void Game(uint32_t mode, uint32_t& picker_flag)
 {
-    uint8_t difficulty_scale;
-    // Is easy?
-    if (mode == "easy")
-    {
-        difficulty_scale = 0;
-    }
-    // Is medium?
-    else if (mode == "medium")
-    {
-        difficulty_scale = 1;
-    }
-    // Is hard?
-    else if (mode == "hard")
-    {
-        difficulty_scale = 2;
-    }
-    // or no
-    else 
-    {
-        std::cerr << RED(BOLD_IN("WRONG DIFFICULTY!!!! Or maybe bad spelling or something")) << std::endl;
-        return;
-    }
+    // Wowie
+    uint8_t difficulty_scale = mode - 1;
 
     // Create player and enemy
     // Heap alloc for funnidifficulty_scale
@@ -66,30 +48,69 @@ void Game(const std::string& mode)
         Div();
         // Generate 4 options to choose from.
         // There are 4 types: Attack, Heal, Regen armor, Status
-        uint8_t* moves = new uint8_t[4];
-        uint8_t* move_types = new uint8_t[4];
+        uint32_t* moves = new uint32_t[4]{100, 100, 100, 100};
+        uint32_t* move_types = new uint32_t[4]{100, 100, 100, 100};
 
         if (Player->GetHealth() <= 0)
         {
             std::cout << WHITE("---<<< ") + BLUE(BOLD_IN("Player ")) + WHITE("dead. ") + RED(BOLD_IN("Enemy ")) + WHITE("wins!!! >>>---") << std::endl << std::endl;
-            std::cout << GRAY("Press enter to exit") << std::endl << std::endl;
+            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + RED(" Exit") << std::endl;
+            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + HOT_PINK(" Rematch!") << std::endl;
+            std::cout << std::endl;
             Div();
             std::cout << "\x1b[2A";
-            std::string garbage;
-            std::cin >> garbage;
-            is_running = false;
-            goto END_GAME;
+
+            uint32_t choice;
+            std::cin >> choice;
+
+            if (choice == 1)
+            {
+                picker_flag = false;
+                is_running = false;
+                goto END_GAME;
+            }
+            else if (choice == 2)
+            {
+                is_running = false;
+                goto END_GAME;
+            }
+            else
+            {
+                picker_flag = false;
+                is_running = false;
+                goto END_GAME;
+            }
         }
 
         if (Enemy->GetHealth() <= 0)
         {
             std::cout << WHITE("---<<< ") + RED(BOLD_IN("Enemy ")) + WHITE("dead. ") + BLUE(BOLD_IN("Player ")) + WHITE("wins!!! >>>---") << std::endl << std::endl;
-            std::cout << GRAY("Press enter to exit") << std::endl << std::endl;
+            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + RED(" Exit") << std::endl;
+            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + HOT_PINK(" Rematch!") << std::endl;
+            std::cout << std::endl;
             Div();
             std::cout << "\x1b[2A";
-            std::string garbage;
-            std::cin >> garbage;
-            is_running = false;
+
+            uint32_t choice;
+            std::cin >> choice;
+
+            if (choice == 1)
+            {
+                picker_flag = false;
+                is_running = false;
+                goto END_GAME;
+            }
+            else if (choice == 2)
+            {
+                is_running = false;
+                goto END_GAME;
+            }
+            else
+            {
+                picker_flag = false;
+                is_running = false;
+                goto END_GAME;
+            }
         }
 
         // Print header
@@ -116,50 +137,7 @@ void Game(const std::string& mode)
         PrintEntityStats(*Enemy);
         std::cout << std::endl;
 
-        for (int i = 0; i != 4; i++)
-        {
-            uint32_t type = rng(4);  // 4 option types
-            switch (type)
-            {
-                case ATTACK:
-                    move_types[i] = ATTACK;
-                    moves[i] = ATTACK_F * (rng(8) + 1);
-                    std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + RED("Attack!") + WHITE(" Deal ") + PURPLE(std::to_string((int)moves[i]) ) + WHITE(" damage to opponent.") << std::endl;
-                    break;
-                case HEAL:
-                    move_types[i] = HEAL;
-                    moves[i] = HEAL_F * (rng(5) + 1);
-                    std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + GREEN("Heal! ") + WHITE("Gives you ") + PURPLE("+" + std::to_string((int)moves[i])) + WHITE(" HP") << std::endl;
-                    break;
-                case ARMOR:
-                    move_types[i] = ARMOR;
-                    moves[i] = ARM_F * (rng(9) + 1);
-                    std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + BLUE("Regen armor") + WHITE("! Give you ") + PURPLE("+" + std::to_string((int)moves[i])) + WHITE(" AR") << std::endl;
-                    break;
-                case STATUS:
-                    move_types[i] = STATUS;
-                    moves[i] = rng(STATUS_C);
-                    
-                    switch (moves[i])
-                    {
-                        case AUTO_HEAL:
-                            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + GREEN("AutoHeal ") + WHITE("status! Gives you ") + PURPLE("+5") + WHITE(" HP when it's your turn") << std::endl;
-                            break;
-                        case INCR_CRIT:
-                            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + RED("IncreasedCrit") + WHITE(" status! Increased chance to deal a ") + RED("critical attack") << std::endl;
-                            break;
-                        case INVIS:
-                            std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + HOT_PINK("Invis ") + WHITE("status! Opponent has a chance to ") + HOT_PINK("miss") << std::endl;
-                            break;
-                    }
-
-                    break;
-                default:
-                    std::cerr << RED(BOLD_IN("wtf")) << std::endl;
-                    is_running = !is_running;
-                    break;
-            }
-        }
+        GenerateMoves(moves, move_types);
 
         std::cout << std::endl;
 
@@ -185,6 +163,7 @@ void Game(const std::string& mode)
                 if (option == "y")
                 {
                     is_running = false;
+                    picker_flag = false;
                     goto END_GAME;
                 }
                 else
@@ -299,6 +278,41 @@ void Game(const std::string& mode)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+void DifficultyPicker()
+{
+    uint32_t picker_flag = true;
+    while (picker_flag)
+    {
+        ClearScreen();
+        Div();
+        std::cout << WHITE("Select your difficulty:") << std::endl << std::endl;
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + GREEN(" Easy") << std::endl;
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + ORANGE(" Medium") << std::endl;
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("3")) + DARK_GRAY("]") + RED(" Hard") << std::endl;
+        std::cout << std::endl;
+        Div();
+        std::cout << "\x1b[2A";
+
+        uint32_t choice;
+        std::cin >> choice;
+
+        if (choice >= 1 && choice <= 3)
+        {
+            Game(choice, picker_flag);
+        }
+        else
+        {
+            continue;
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 int main()
 {
     // force 256 
@@ -307,26 +321,31 @@ int main()
     {
         ClearScreen();
         Div();
-        std::cout << WHITE("Welcome to ") + GOLD(ITALIC_IN("entities2.cpp")) + WHITE("!!!!\nPlease, pick a difficulty:\n") << std::endl;
-        std::cout << BLUE("easy") << std::endl;
-        std::cout << ORANGE("medium") << std::endl;
-        std::cout << RED("hard") << std::endl;
-        std::cout << DARK_GRAY("Or type 'quit' to quit") << std::endl << std::endl;
+        std::cout << WHITE("Welcome to ") + GOLD(ITALIC_IN("entities2.cpp")) + WHITE("!!!!\nPick an option:\n") << std::endl;
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + GREEN(" Play") << std::endl;
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + RED(" Quit") << std::endl;
+        std::cout << std::endl;
         Div();
         std::cout << "\x1b[2A";
-        std::string option;
+        uint32_t option;
         std::cin >> option;
 
-        if (option == "quit")
+        if (option == 2)
         {
             ClearScreen();
             Credits();
             SleepSeconds(1);
             break;
         }
-
-        // do
-        Game(option);
+        else if (option == 1)
+        {
+            // do
+            DifficultyPicker();
+        }
+        else
+        {
+            continue;
+        }
     }
 
     return 0;

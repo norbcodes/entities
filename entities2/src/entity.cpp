@@ -10,6 +10,7 @@
 #include "colors.hpp"
 #include "entity.hpp"
 #include "utils.hpp"
+#include "rng.hpp"
 
 Entity::Entity(int32_t start_health, int32_t start_armor) : health(start_health), armor(start_armor) 
 {
