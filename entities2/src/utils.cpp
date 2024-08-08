@@ -15,11 +15,8 @@
 
 void ClearScreen()
 {
-    #ifdef __linux__
-    system("clear");
-    #else
-    system("cls");
-    #endif
+    // Funky
+    std::cout << "\x1b[2J\x1b[1;1H";
 }
 
 void SleepSeconds(uint32_t seconds)

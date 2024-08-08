@@ -12,6 +12,10 @@ The long awaited... entities2!!!!
 #include <string>
 #include <iostream>
 
+#ifdef _WIN32
+#include "windows.h"
+#endif
+
 #include "constants.hpp"
 #include "colors.hpp"
 #include "entity.hpp"
@@ -358,8 +362,14 @@ void DifficultyPicker()
 
 int main()
 {
-    // force 256 
-    std::cout << "\x1b[=19h" << std::endl;
+    #ifdef _WIN32
+    // Create windows virtual cmd
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dwMode = 0;
+    GetConsoleMode(hOut, &dwMode);
+    SetConsoleMode(hOut, dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+    #endif
+    
     while (true)
     {
         ClearScreen();

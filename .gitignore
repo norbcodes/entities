@@ -5,3 +5,5 @@
 .vscode/
 build
 build/*
+*.tar
+*.gz
