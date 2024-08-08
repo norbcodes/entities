@@ -22,7 +22,7 @@ On 2nd of August, while me and MaybeHawk have been messing around, I have said t
 These words have propelled the development of <i>entities2.cpp</i>.<br>
 I began brainstorming and coming up with ideas. And I feel like I cooked well.<br>
 Here is a picture from development:<br><img src="assets/vscode_sidepanel_view.png" alt="VSCode sidepanel" style="width:60px"></img> Don't zoom on it, just enjoy it from afar.<br><br>
-As a little tiny joke, I have added goto's and heap allocation to this game as well,<br>
+As a little tiny joke, I have added goto's (no longer in, see <a href="https://github.com/norbcodes/entities/issues/8">#8</a>) and heap allocation to this game as well,<br>
 because who doesn't love those, amirite?<br>
 After 2 days of development, the game was officialy complete at 4th of August, about 30 minutes past midnight.<br>
 The development was long and hard ( ͡° ͜ʖ ͡°) in fact, before I finished it completely, I have coded for:<br>
