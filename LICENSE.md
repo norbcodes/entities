@@ -1,0 +1,1 @@
+<a href="https://github.com/norbcodes/entities/tree/main/entities2">entities2</a> © 2024 by <a href="https://github.com/norbcodes">norbcodes</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>
