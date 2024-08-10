@@ -36,7 +36,46 @@ static uint32_t GenHealMove()
 
 static uint32_t GenRegenMove()
 {
-    return (ARM_F * (rng(9) + 1));
+    return (ARM_F * (rng(3) + 1));
+}
+
+static void GenMove(uint32_t& type, uint32_t& move)
+{
+    // Attack?
+    if (rng(100) >= 40)
+    {
+        // Attack.
+        type = ATTACK;
+        move = GenAttackMove();
+        return;
+    }
+    else
+    {
+        // Status?
+        if (rng(100) >= 45)
+        {
+            // Status.
+            type = STATUS;
+            move = rng(STATUS_C);
+            return;
+        }
+        else
+        {
+            // Heal or armor?
+            if (rng(100) >= 40)
+            {
+                type = HEAL;
+                move = GenHealMove();
+                return;
+            }
+            else
+            {
+                type = ARMOR;
+                move = GenRegenMove();
+                return;
+            }
+        }
+    }
 }
 
 static void PrintMoves(uint32_t* moves, uint32_t* move_types)
@@ -82,23 +121,9 @@ void GenerateMoves(uint32_t* moves, uint32_t* move_types)
     {
         while (true)
         {
-            uint32_t type = rng(4);
+            uint32_t type = 400;
             uint32_t move = 400;
-            switch (type)
-            {
-                case ATTACK:
-                    move = GenAttackMove();
-                    break;
-                case HEAL:
-                    move = GenHealMove();
-                    break;
-                case ARMOR:
-                    move = GenRegenMove();
-                    break;
-                case STATUS:
-                    move = rng(STATUS_C);
-                    break;
-            }
+            GenMove(type, move);
             // Safety
             if (MoveExists(moves, move_types, move, type))
             {

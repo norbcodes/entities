@@ -4,7 +4,11 @@
 cmake_minimum_required(VERSION 3.29 FATAL_ERROR)
 
 # Set the project
-project(entities2 LANGUAGES CXX)
+project(entities2 
+        LANGUAGES CXX 
+        VERSION "1.3.0"
+        DESCRIPTION "entities2 is a small silly turn based combat CLI game."
+)
 
 # Options for compilation.
 option(STATIC_LIBS "Statically link against C and C++ standard lib." OFF)
