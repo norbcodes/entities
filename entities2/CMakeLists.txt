@@ -22,6 +22,7 @@ set(
     SOURCES
     ${CMAKE_SOURCE_DIR}/src/ai.cpp
     ${CMAKE_SOURCE_DIR}/src/entity.cpp
+    ${CMAKE_SOURCE_DIR}/src/exit_msg.cpp
     ${CMAKE_SOURCE_DIR}/src/gen_moves.cpp
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/rng.cpp

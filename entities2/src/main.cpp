@@ -23,6 +23,7 @@ The long awaited... entities2!!!!
 #include "utils.hpp"
 #include "gen_moves.hpp"
 #include "rng.hpp"
+#include "exit_msg.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -386,9 +387,25 @@ int main()
         if (option == "2")
         {
             ClearScreen();
-            Credits();
-            SleepSeconds(1);
-            break;
+            Div();
+            std::cout << RED("Confirm exit? [y,n]") << std::endl << std::endl;
+            std::cout << WHITE(GetExitMsg()) << std::endl << std::endl;
+            Div();
+            std::cout << "\x1b[2A";
+            std::string confirm;
+            std::cin >> confirm;
+
+            if (confirm == "y")
+            {
+                ClearScreen();
+                Credits();
+                SleepSeconds(1);
+                break;
+            }
+            else
+            {
+                continue;
+            }
         }
         else if (option == "1")
         {
