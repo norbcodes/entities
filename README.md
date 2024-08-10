@@ -4,6 +4,8 @@
 entities2.cpp is a little silly CLI game with turn based combat I made in 2 days!
 </p>
 
+<img alt="Release" src="https://img.shields.io/github/v/release/norbcodes/entities?display_name=tag&label=Latest"></img>
+
 <h1>How to compile?</h1>
 <p>
 To compile enities.cpp, see it's compile instructions <a href="entities1\README.md">here</a>.<br>
