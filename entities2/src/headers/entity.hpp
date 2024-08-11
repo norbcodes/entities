@@ -13,6 +13,7 @@ class Entity
     private:
         int32_t health;
         int32_t armor;
+        double energy;
         std::vector<Status> status_list;
     public:
         Entity(int32_t start_health, int32_t start_armor);
@@ -27,6 +28,9 @@ class Entity
         uint8_t StatusCount() const;
         Status GetStatusAt(uint8_t i) const;
         void UpdateStatuses(std::string& msg, bool turn);
+        double GetEnergy() const;
+        void GiveEnergy(double val);
+        void TakeEnergy(double val);
 };
 
 void PrintEntityStats(const Entity& ent);

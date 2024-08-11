@@ -4,6 +4,4 @@
 
 #include <cstdint>
 
-void ClearScreen();
-void Div();
-void Credits();
+void SleepSeconds(uint32_t seconds);

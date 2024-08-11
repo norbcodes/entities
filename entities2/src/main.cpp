@@ -24,6 +24,8 @@ The long awaited... entities2!!!!
 #include "gen_moves.hpp"
 #include "rng.hpp"
 #include "exit_msg.hpp"
+#include "sleep.hpp"
+#include "energy.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,6 +67,7 @@ void Game(const std::string& mode, uint32_t& picker_flag)
         // There are 4 types: Attack, Heal, Regen armor, Status
         uint32_t* moves = new uint32_t[4]{100, 100, 100, 100};
         uint32_t* move_types = new uint32_t[4]{100, 100, 100, 100};
+        double* energy_costs = new double[4]{100.0, 100.0, 100.0, 100.0};
 
         while (true)  // ALWAYS BREAK OUT OF THIS.
         {
@@ -149,14 +152,22 @@ void Game(const std::string& mode, uint32_t& picker_flag)
             }
             // random switch go brrrr
 
+            // Increase energy
+            Player->GiveEnergy(ENERGY_INC);
+            Enemy->GiveEnergy(ENERGY_INC);
+
             // Print stats
             std::cout << BLUE(BOLD_IN("[Player]\t"));
             PrintEntityStats(*Player);
             std::cout << RED (BOLD_IN("[Enemy] \t"));
             PrintEntityStats(*Enemy);
             std::cout << std::endl;
+            // Print energy bars
+            PrintEnergyBar(*Player);
+            PrintEnergyBar(*Enemy);
+            std::cout << std::endl;
 
-            GenerateMoves(moves, move_types);
+            GenerateMoves(moves, move_types, energy_costs);
 
             std::cout << std::endl;
 
@@ -313,6 +324,7 @@ void Game(const std::string& mode, uint32_t& picker_flag)
         turn = !turn;
         delete[] moves;
         delete[] move_types;
+        delete[] energy_costs;
     }
 
     // Make sure to annihilate

@@ -6,10 +6,12 @@ Generate the 4 moves to choose from.
 
 #include <cstdint>
 #include <iostream>
+#include <iomanip>
 
 #include "constants.hpp"
 #include "colors.hpp"
 #include "rng.hpp"
+#include "energy.hpp"
 
 bool MoveExists(uint32_t* moves, uint32_t* move_types, uint32_t val, uint32_t type)
 {
@@ -39,7 +41,7 @@ static uint32_t GenRegenMove()
     return (ARM_F * (rng(3) + 1));
 }
 
-static void GenMove(uint32_t& type, uint32_t& move)
+static void GenMove(uint32_t& type, uint32_t& move, double& energy)
 {
     // Attack?
     if (rng(100) >= 40)
@@ -47,6 +49,7 @@ static void GenMove(uint32_t& type, uint32_t& move)
         // Attack.
         type = ATTACK;
         move = GenAttackMove();
+        energy = CalcEnergyCost(move, type);
         return;
     }
     else
@@ -57,6 +60,7 @@ static void GenMove(uint32_t& type, uint32_t& move)
             // Status.
             type = STATUS;
             move = rng(STATUS_C);
+            energy = CalcEnergyCost(move, type);
             return;
         }
         else
@@ -66,47 +70,54 @@ static void GenMove(uint32_t& type, uint32_t& move)
             {
                 type = HEAL;
                 move = GenHealMove();
+                energy = CalcEnergyCost(move, type);
                 return;
             }
             else
             {
                 type = ARMOR;
                 move = GenRegenMove();
+                energy = CalcEnergyCost(move, type);
                 return;
             }
         }
     }
 }
 
-static void PrintMoves(uint32_t* moves, uint32_t* move_types)
+static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
 {
     for (int i = 0; i != 4; i++)
     {
+        // Print index
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("]");
+        // Print energy cost
+        std::cout << DARK_GRAY(" [") << BLUE_IN(BOLD_IN("")) << std::fixed << std::setprecision(2) << energies[i] << DARK_GRAY("] \t");
+        // Print the other
         switch (move_types[i])
         {
             case ATTACK:
-                std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + RED("Attack!") + WHITE(" Deal ") + PURPLE(std::to_string(moves[i]) ) + WHITE(" damage to opponent.") << std::endl;
+                std::cout << RED("Attack!") + WHITE(" Deal ") + PURPLE(std::to_string(moves[i]) ) + WHITE(" damage to opponent.") << std::endl;
                 break;
             case HEAL:
-                std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + GREEN("Heal! ") + WHITE("Gives you ") + PURPLE("+" + std::to_string(moves[i])) + WHITE(" HP") << std::endl;
+                std::cout << GREEN("Heal! ") + WHITE("Gives you ") + PURPLE("+" + std::to_string(moves[i])) + WHITE(" HP") << std::endl;
                 break;
             case ARMOR:
-                std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + BLUE("Regen armor") + WHITE("! Give you ") + PURPLE("+" + std::to_string(moves[i])) + WHITE(" AR") << std::endl;
+                std::cout << BLUE("Regen armor") + WHITE("! Give you ") + PURPLE("+" + std::to_string(moves[i])) + WHITE(" AR") << std::endl;
                 break;
             case STATUS:
                 switch (moves[i])
                 {
                     case AUTO_HEAL:
-                        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + GREEN("AutoHeal ") + WHITE("status! Gives you ") + PURPLE(std::to_string(AUTO_HEAL_AMOUNT)) + WHITE(" HP when it's your turn") << std::endl;
+                        std::cout << WHITE("Apply ") + GREEN("AutoHeal ") + WHITE("status! Gives you ") + PURPLE(std::to_string(AUTO_HEAL_AMOUNT)) + WHITE(" HP when it's your turn") << std::endl;
                         break;
                     case INCR_CRIT:
-                        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + RED("IncreasedCrit") + WHITE(" status! Increased chance to deal a ") + RED("critical attack") << std::endl;
+                        std::cout << WHITE("Apply ") + RED("IncreasedCrit") + WHITE(" status! Increased chance to deal a ") + RED("critical attack") << std::endl;
                         break;
                     case INVIS:
-                        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Apply ") + HOT_PINK("Invis ") + WHITE("status! Opponent has a chance to ") + HOT_PINK("miss") << std::endl;
+                        std::cout << WHITE("Apply ") + HOT_PINK("Invis ") + WHITE("status! Opponent has a chance to ") + HOT_PINK("miss") << std::endl;
                         break;
                     case POISON:
-                        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("] ") + WHITE("Give opponent ") + DARK_GREEN("Poison ") + WHITE("status! Deals ") + PURPLE(std::to_string(POISON_AMOUNT)) + WHITE(" poison damage ") << std::endl;
+                        std::cout << WHITE("Give opponent ") + DARK_GREEN("Poison ") + WHITE("status! Deals ") + PURPLE(std::to_string(POISON_AMOUNT)) + WHITE(" poison damage ") << std::endl;
                         break;
                 }
                 break;
@@ -114,7 +125,7 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types)
     }
 }
 
-void GenerateMoves(uint32_t* moves, uint32_t* move_types)
+void GenerateMoves(uint32_t* moves, uint32_t* move_types, double* energies)
 {
     // Yay!
     for (int i = 0; i != 4; i++)
@@ -123,7 +134,8 @@ void GenerateMoves(uint32_t* moves, uint32_t* move_types)
         {
             uint32_t type = 400;
             uint32_t move = 400;
-            GenMove(type, move);
+            double energy_cost = 400.0;
+            GenMove(type, move, energy_cost);
             // Safety
             if (MoveExists(moves, move_types, move, type))
             {
@@ -133,9 +145,10 @@ void GenerateMoves(uint32_t* moves, uint32_t* move_types)
             {
                 moves[i] = move;
                 move_types[i] = type;
+                energies[i] = energy_cost;
                 break;
             }
         }
     }
-    PrintMoves(moves, move_types);
+    PrintMoves(moves, move_types, energies);
 }

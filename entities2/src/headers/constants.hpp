@@ -3,7 +3,7 @@
 #pragma once
 
 // Game version
-#define ENTITIES2_VER       "v1.3.0"
+#define ENTITIES2_VER       "v1.4.0"
 // Cap
 #define MAX_STAT_CAP        200
 // Stuff
@@ -31,3 +31,11 @@
 #define STATUS_TIME_LEFT    4
 #define AUTO_HEAL_AMOUNT    10
 #define POISON_AMOUNT       10
+// ENERGY
+#define STARTING_ENERGY     8
+#define ENERGY_INC          2       // Energy increase per round
+#define ENERGY_DECIMALS     2
+#define MAX_ENERGY          50
+#define ATTACK_ENERGY_F     2
+#define HEAL_ENERGY_F       1.5
+#define ARMOR_ENERGY_F      2.5

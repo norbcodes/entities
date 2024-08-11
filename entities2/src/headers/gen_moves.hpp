@@ -5,4 +5,4 @@
 #include <cstdint>
 
 bool MoveExists(uint32_t* moves, uint32_t* move_types, uint32_t val, uint32_t type);
-void GenerateMoves(uint32_t* moves, uint32_t* move_types);
+void GenerateMoves(uint32_t* moves, uint32_t* move_types, double* energies);

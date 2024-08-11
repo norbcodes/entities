@@ -4,9 +4,9 @@
 
 #include "rng.hpp"
 
-#define EXIT_MSG_COUNT 7
+#define EXIT_MSG_COUNT 9
 
-const char* exit_msg[EXIT_MSG_COUNT] = {
+static const char* exit_msg[EXIT_MSG_COUNT] = {
     "Noooooo don't leave yet :<",
     #ifdef _WIN32
     "Are you sure? Windows is much worse...",
@@ -18,7 +18,9 @@ const char* exit_msg[EXIT_MSG_COUNT] = {
     "You leave now, you forfeit your kill count!",
     "Atleast you tried, can't argue with that.",
     "Don't go yet!",
-    "Pssst, i'll give you 3 free powerups if you stay... ;)"
+    "Pssst, i'll give you 3 free powerups if you stay... ;)",
+    "Are you sure? It's dangerous outside...",
+    "Tch, just go. Unworthy."
 };
 
 const char* GetExitMsg()

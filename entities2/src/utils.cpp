@@ -4,12 +4,6 @@
 #include <cstdint>
 #include <random>
 
-#ifdef __linux__
-#include <unistd.h>
-#else
-#include <windows.h>
-#endif
-
 #include "colors.hpp"
 #include "constants.hpp"
 
@@ -17,15 +11,6 @@ void ClearScreen()
 {
     // Funky
     std::cout << "\x1b[2J\x1b[1;1H";
-}
-
-void SleepSeconds(uint32_t seconds)
-{
-    #ifdef __linux__
-    sleep(seconds);
-    #else
-    Sleep(1000 * seconds);
-    #endif
 }
 
 void Div()
