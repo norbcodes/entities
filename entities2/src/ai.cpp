@@ -7,7 +7,7 @@
 #include "utils.hpp"
 #include "rng.hpp"
 
-uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& player, const Entity& enemy)
+uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, const Entity& player, const Entity& enemy)
 {
     // Basically, heal if health < 40 if posslbe
     // Attack if health > 80 if possible
@@ -18,6 +18,24 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& play
     // The ai
     // I copy+pasted a lot of this shit
 
+    // First, check if we can actually get any moves
+    bool available[4] = {false, false, false, false};
+    uint32_t _sum = 0;
+    for (int i = 0; i != 4; i++)
+    {
+        if (energies[i] <= enemy.GetEnergy())
+        {
+            available[i] = true;
+            _sum += 1;
+        }
+    }
+
+    // all falses
+    if (_sum == 0)
+    {
+        return 5;
+    }
+
     // Can we armor?
     
     if (enemy.GetArmor() <= 50)
@@ -25,10 +43,10 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& play
         uint32_t max_armor_amount = 0;
         for (int i = 0; i != 4; i++)
         {
-            // Is of type heal
-            if (types_list[i] == ARMOR)
+            // Is of type armor
+            if (types_list[i] == ARMOR && available[i])
             {
-                // Get the highest heal amount
+                // Get the highest armor amount
                 if (picks_list[i] > max_armor_amount)
                 {
                     max_armor_amount = picks_list[i];
@@ -55,7 +73,7 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& play
         for (int i = 0; i != 4; i++)
         {
             // Is of type heal
-            if (types_list[i] == HEAL)
+            if (types_list[i] == HEAL && available[i])
             {
                 // Get the highest heal amount
                 if (picks_list[i] > max_heal_amount)
@@ -80,7 +98,7 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& play
     // Cast poison if possible
     for (int i = 0; i != 4; i++)
     {
-        if (picks_list[i] == POISON && types_list[i] == STATUS)
+        if (picks_list[i] == POISON && types_list[i] == STATUS && available[i])
         {
             if (rng(100) >= 50)
             {
@@ -96,7 +114,7 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& play
         for (int i = 0; i != 4; i++)
         {
             // Is of type heal
-            if (types_list[i] == ATTACK)
+            if (types_list[i] == ATTACK && available[i])
             {
                 // Get the highest heal amount
                 if (picks_list[i] > max_dmg_amount)
@@ -124,7 +142,7 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& play
         uint32_t count = 0;
         for (int i = 0; i != 4; i++)
         {
-            if (types_list[i] == STATUS)
+            if (types_list[i] == STATUS && available[i])
             {
                 count++;
             }
@@ -151,5 +169,5 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, const Entity& play
     }
 
     // If literally nothing get picked
-    return rng(3);
+    return 5;
 }

@@ -70,27 +70,36 @@ void PrintEnergyBar(const Entity& entity)
     
     // Now, print the motherfucking bar
     uint32_t columns = roundf((entity.GetEnergy() / MAX_ENERGY) * 10);
-    std::cout << BLUE_IN("");
+    // print dark gray .'s
+    std::cout << DARK_GRAY_IN(BOLD_IN(""));
+    for (int i = 0; i != 10; i++)
+    {
+        std::cout << ".";
+    }
+    std::cout << DARK_GRAY("");
+    std::cout << "\x1b[10D";
+    // print the #'s
+    std::cout << LAVENDER_IN(BOLD_IN(""));
     for (int i = 0; i != columns; i++)
     {
         std::cout << "#";
     }
-    std::cout << BLUE("");
+    std::cout << LAVENDER("");
     
     // Move cursor down 1 line and to the beginning, then up and 14 to the right
     std::cout << "\x1b[1E\x1b[1F\x1b[15C";
     
     // The extra data
-    std::cout << BLUE(BOLD_IN("E: "));
+    std::cout << LAVENDER(BOLD_IN("E: "));
     if (entity.GetEnergy() < 10)
     {
-        std::cout << WHITE_IN("") << " " << std::fixed << std::setprecision(ENERGY_DECIMALS) << entity.GetEnergy() << WHITE("");
+        std::cout << LAVENDER_IN("") << " " << std::fixed << std::setprecision(ENERGY_DECIMALS) << entity.GetEnergy() << WHITE("");
     }
     else
     {
-        std::cout << WHITE_IN("") << std::fixed << std::setprecision(ENERGY_DECIMALS) << entity.GetEnergy() << WHITE("");
+        std::cout << LAVENDER_IN("") << std::fixed << std::setprecision(ENERGY_DECIMALS) << entity.GetEnergy() << WHITE("");
     }
-    std::cout << WHITE("/50 ") + DARK_GRAY_IN("") << std::fixed << std::setprecision(ENERGY_DECIMALS) << (entity.GetEnergy() / MAX_ENERGY) * 100 << WHITE("%");
+    std::cout << WHITE("/50 ") + LAVENDER_IN("") << std::fixed << std::setprecision(ENERGY_DECIMALS) << (entity.GetEnergy() / MAX_ENERGY) * 100 << WHITE("%");
     
     // Restore precision
     std::cout << std::setprecision(default_precision);

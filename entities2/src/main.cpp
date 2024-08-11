@@ -175,93 +175,112 @@ void Game(const std::string& mode, uint32_t& picker_flag)
             // Ask for input...
             if (!turn)
             {
-                bool exit_flag = false;
-                std::string _picked_move;
                 while (true)
                 {
-                    std::cout << WHITE("Choose your move.") + BOLD(GRAY(" [1,2,3,4,9] (9 to exit)                                           ")) << std::endl << std::endl;
-                    Div();
-                    std::cout << "\x1b[2A";
-                    // Player
-                    std::cin >> _picked_move;
-
-                    if (_picked_move == "9")
+                    bool exit_flag = false;
+                    std::string _picked_move;
+                    while (true)
                     {
-                        std::cout << RED("Do you really wanna end the battle?") + BOLD(GRAY(" [y,n]                                                             ")) << std::endl << std::endl;
+                        std::cout << WHITE("Choose your move.") + BOLD(GRAY(" [1,2,3,4,9] (9 to exit)                                           ")) << std::endl << std::endl;
                         Div();
+                        // Move cursor up
                         std::cout << "\x1b[2A";
-                        std::string option;
-                        std::cin >> option;
-                        if (option == "y")
+                        // Player
+                        std::cin >> _picked_move;
+
+                        if (_picked_move == "9")
                         {
-                            is_running = false;
-                            picker_flag = false;
-                            exit_flag = true;
-                            break;
+                            std::cout << RED("Do you really wanna end the battle?") + BOLD(GRAY(" [y,n]                                                             ")) << std::endl << std::endl;
+                            Div();
+                            std::cout << "\x1b[2A";
+                            std::string option;
+                            std::cin >> option;
+                            if (option == "y")
+                            {
+                                is_running = false;
+                                picker_flag = false;
+                                exit_flag = true;
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
-                        else
-                        {
-                            continue;
-                        }
+
+                        break;
                     }
+                    
 
-                    break;
-                }
-                
-
-                if (exit_flag)
-                {
-                    break;
-                }
-
-                // if pick is not 0, 1, 2, 3 or 9 = skip round
-                if (_picked_move != "1" && _picked_move != "2" && _picked_move != "3" && _picked_move != "4" && _picked_move != "9")
-                {
-                    what_happened += BLUE(BOLD_IN("Player ")) + WHITE("skipped the round.");
-                    break;
-                }
-
-                // The above checks should capture any garbage like ~2, fd, 5021qa
-                // So we can safely convert to int
-                uint32_t picked_move = std::stoi(_picked_move);
-
-                picked_move--;
-
-                if (move_types[picked_move] == ATTACK)
-                {
-                    EntityAttack(*Player, *Enemy, moves[picked_move], what_happened, turn);
-                }
-                else if (move_types[picked_move] == HEAL)
-                {
-                    Player->Heal(moves[picked_move]);
-                    what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has healed ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" health.");
-                }
-                else if (move_types[picked_move] == ARMOR)
-                {
-                    Player->RegenArmor(moves[picked_move]);
-                    what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has regen'd ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" armor.");
-                }
-                else if (move_types[picked_move] == STATUS)
-                {
-                    switch (moves[picked_move])
+                    if (exit_flag)
                     {
-                        case AUTO_HEAL:
-                            Player->GiveStatus(moves[picked_move]);
-                            what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + GREEN("AutoHeal") + WHITE(".");
-                            break;
-                        case INCR_CRIT:
-                            Player->GiveStatus(moves[picked_move]);
-                            what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + RED("IncreasedCrit") + WHITE(".");
-                            break;
-                        case INVIS:
-                            Player->GiveStatus(moves[picked_move]);
-                            what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + HOT_PINK("Invis") + WHITE(".");
-                            break;
-                        case POISON:
-                            Enemy->GiveStatus(moves[picked_move]);
-                            what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has given ") + DARK_GREEN("Poison") + WHITE(" to ") + RED(BOLD_IN("Enemy")) + WHITE(".");
-                            break;
+                        break;
                     }
+
+                    // if pick is not 0, 1, 2, 3 or 9 = skip round
+                    if (_picked_move != "1" && _picked_move != "2" && _picked_move != "3" && _picked_move != "4" && _picked_move != "9")
+                    {
+                        what_happened += BLUE(BOLD_IN("Player ")) + WHITE("skipped the round.");
+                        break;
+                    }
+
+                    // The above checks should capture any garbage like ~2, fd, 5021qa
+                    // So we can safely convert to int
+                    uint32_t picked_move = std::stoi(_picked_move);
+
+                    picked_move--;
+
+                    // Check if Player has enough energy
+                    if (energy_costs[picked_move] > Player->GetEnergy())
+                    {
+                        std::cout << RED("Not enough energy!                                                            ") << std::endl;
+                        continue;
+                    }
+
+                    if (move_types[picked_move] == ATTACK)
+                    {
+                        EntityAttack(*Player, *Enemy, moves[picked_move], what_happened, turn);
+                        Player->TakeEnergy(energy_costs[picked_move]);
+                    }
+                    else if (move_types[picked_move] == HEAL)
+                    {
+                        Player->Heal(moves[picked_move]);
+                        what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has healed ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" health.");
+                        Player->TakeEnergy(energy_costs[picked_move]);
+                    }
+                    else if (move_types[picked_move] == ARMOR)
+                    {
+                        Player->RegenArmor(moves[picked_move]);
+                        what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has regen'd ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" armor.");
+                        Player->TakeEnergy(energy_costs[picked_move]);
+                    }
+                    else if (move_types[picked_move] == STATUS)
+                    {
+                        switch (moves[picked_move])
+                        {
+                            case AUTO_HEAL:
+                                Player->GiveStatus(moves[picked_move]);
+                                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + GREEN("AutoHeal") + WHITE(".");
+                                Player->TakeEnergy(energy_costs[picked_move]);
+                                break;
+                            case INCR_CRIT:
+                                Player->GiveStatus(moves[picked_move]);
+                                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + RED("IncreasedCrit") + WHITE(".");
+                                Player->TakeEnergy(energy_costs[picked_move]);
+                                break;
+                            case INVIS:
+                                Player->GiveStatus(moves[picked_move]);
+                                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + HOT_PINK("Invis") + WHITE(".");
+                                Player->TakeEnergy(energy_costs[picked_move]);
+                                break;
+                            case POISON:
+                                Enemy->GiveStatus(moves[picked_move]);
+                                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has given ") + DARK_GREEN("Poison") + WHITE(" to ") + RED(BOLD_IN("Enemy")) + WHITE(".");
+                                Player->TakeEnergy(energy_costs[picked_move]);
+                                break;
+                        }
+                    }
+                    break;
                 }
             }
             else
@@ -270,7 +289,7 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                 Div();
                 std::cout << "\x1b[2A";
                 // bot
-                uint32_t picked_move = AiChoose(moves, move_types, *Player, *Enemy);
+                uint32_t picked_move = AiChoose(moves, move_types, energy_costs, *Player, *Enemy);
                 // Print random num
                 for (int i = 0; i != 19000; i++)
                 {
@@ -280,19 +299,29 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                 std::cout << picked_move + 1;
                 SleepSeconds(2);
                 // Botttttt
+                // if pick is not 0, 1, 2, 3 or 9 = skip round
+                if (picked_move > 3 && picked_move != 9)
+                {
+                    what_happened += RED(BOLD_IN("Enemy ")) + WHITE("skipped the round.");
+                    break;
+                }
+
                 if (move_types[picked_move] == ATTACK)
                 {
                     EntityAttack(*Enemy, *Player, moves[picked_move], what_happened, turn);
+                    Enemy->TakeEnergy(energy_costs[picked_move]);
                 }
                 else if (move_types[picked_move] == HEAL)
                 {
                     Enemy->Heal(moves[picked_move]);
                     what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has healed ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" health.");
+                    Enemy->TakeEnergy(energy_costs[picked_move]);
                 }
                 else if (move_types[picked_move] == ARMOR)
                 {
                     Enemy->RegenArmor(moves[picked_move]);
                     what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has regen'd ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" armor.");
+                    Enemy->TakeEnergy(energy_costs[picked_move]);
                 }
                 else if (move_types[picked_move] == STATUS)
                 {
@@ -301,18 +330,22 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                         case AUTO_HEAL:
                             Enemy->GiveStatus(moves[picked_move]);
                             what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has applied ") + GREEN("AutoHeal") + WHITE(".");
+                            Enemy->TakeEnergy(energy_costs[picked_move]);
                             break;
                         case INCR_CRIT:
                             Enemy->GiveStatus(moves[picked_move]);
                             what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has applied ") + RED("IncreasedCrit") + WHITE(".");
+                            Enemy->TakeEnergy(energy_costs[picked_move]);
                             break;
                         case INVIS:
                             Enemy->GiveStatus(moves[picked_move]);
                             what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has applied ") + HOT_PINK("Invis") + WHITE(".");
+                            Enemy->TakeEnergy(energy_costs[picked_move]);
                             break;
                         case POISON:
                             Player->GiveStatus(moves[picked_move]);
                             what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has given ") + DARK_GREEN("Poison") + WHITE(" to ") + BLUE(BOLD_IN("Player")) + WHITE(".");
+                            Enemy->TakeEnergy(energy_costs[picked_move]);
                             break;
                     }
                 }

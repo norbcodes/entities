@@ -4,7 +4,7 @@
 
 #include "rng.hpp"
 
-#define EXIT_MSG_COUNT 9
+#define EXIT_MSG_COUNT 10
 
 static const char* exit_msg[EXIT_MSG_COUNT] = {
     "Noooooo don't leave yet :<",
@@ -20,7 +20,8 @@ static const char* exit_msg[EXIT_MSG_COUNT] = {
     "Don't go yet!",
     "Pssst, i'll give you 3 free powerups if you stay... ;)",
     "Are you sure? It's dangerous outside...",
-    "Tch, just go. Unworthy."
+    "Tch, just go. Unworthy.",
+    "Ok"
 };
 
 const char* GetExitMsg()
