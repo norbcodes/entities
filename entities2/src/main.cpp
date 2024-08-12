@@ -43,17 +43,23 @@ void Game(const std::string& mode, uint32_t& picker_flag)
     }
     else if (mode == "2")
     {
-        difficulty_scale = 1;
+        difficulty_scale = 2;
     }
     else if (mode == "3")
     {
-        difficulty_scale = 2;
+        difficulty_scale = 4;
     }
 
     // Create player and enemy
     // Heap alloc for funnidifficulty_scale
-    Entity* Player = new Entity(PLAYER_START_HP - difficulty_scale * HEALTH_F, PLAYER_START_AR - difficulty_scale * ARMOR_F);
-    Entity* Enemy = new Entity(ENEMY_START_HP + difficulty_scale * HEALTH_F, ENEMY_START_AR + difficulty_scale * ARMOR_F);
+    Entity* Player = new Entity(
+        (mode == "4") ? (rng(190) + 10) : PLAYER_START_HP - difficulty_scale * HEALTH_F, 
+        (mode == "4") ? (rng(190) + 10) : PLAYER_START_AR - difficulty_scale * ARMOR_F
+    );
+    Entity* Enemy = new Entity(
+        (mode == "4") ? (rng(190) + 10) : ENEMY_START_HP + difficulty_scale * HEALTH_F, 
+        (mode == "4") ? (rng(190) + 10) : ENEMY_START_AR + difficulty_scale * ARMOR_F
+    );
     // Yes, it literally rigs the game against you
 
     // Gameplay loop
@@ -379,9 +385,10 @@ void DifficultyPicker()
         ClearScreen();
         Div();
         std::cout << WHITE("Select your difficulty:") << std::endl << std::endl;
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + GREEN(" The Entities Kick My Ass") << std::endl;
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + GREEN(" I kick Entities ass") << std::endl;
         std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + ORANGE(" I've seen worse") << std::endl;
         std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("3")) + DARK_GRAY("]") + RED(" Down with the Entities") << std::endl;
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("4")) + DARK_GRAY("]") + LAVENDER(" Random!") << std::endl;
         std::cout << std::endl;
         Div();
         std::cout << "\x1b[2A";
@@ -389,7 +396,7 @@ void DifficultyPicker()
         std::string choice;
         std::cin >> choice;
 
-        if (choice == "1" || choice == "2" || choice == "3")
+        if (choice == "1" || choice == "2" || choice == "3" || choice == "4")
         {
             Game(choice, picker_flag);
         }
