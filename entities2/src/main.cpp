@@ -379,9 +379,9 @@ void DifficultyPicker()
         ClearScreen();
         Div();
         std::cout << WHITE("Select your difficulty:") << std::endl << std::endl;
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + GREEN(" Easy") << std::endl;
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + ORANGE(" Medium") << std::endl;
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("3")) + DARK_GRAY("]") + RED(" Hard") << std::endl;
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + GREEN(" The Entities Kick My Ass") << std::endl;
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + ORANGE(" I've seen worse") << std::endl;
+        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("3")) + DARK_GRAY("]") + RED(" Down with the Entities") << std::endl;
         std::cout << std::endl;
         Div();
         std::cout << "\x1b[2A";
