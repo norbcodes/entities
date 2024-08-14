@@ -1,11 +1,17 @@
 *.exe
 *.dll
+*.so
+!discord_game_sdk.dll
+!discord_game_sdk.so
 *.7z
 *.out
 .vscode/
 build
 build/*
+build/*.dll
+build/*.so
 *.tar
 *.gz
+*.pdn
 CMakeToolchain.txt
 Changelog.txt

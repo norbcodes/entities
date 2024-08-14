@@ -100,7 +100,7 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
     {
         if (picks_list[i] == POISON && types_list[i] == STATUS && available[i])
         {
-            if (rng(100) >= 50)
+            if (rng(0, 100) >= 50)
             {
                 return i;
             }
@@ -147,7 +147,7 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
                 count++;
             }
         }
-        uint32_t pick = rng(count);
+        uint32_t pick = rng(0, count);
         uint32_t index = 0;
         // The loop of doom
         while (pick != 0)

@@ -3,16 +3,14 @@
 #include <cstdint>
 #include <random>
 
-uint32_t rng(uint32_t limit)
+namespace EntitiesRNG
 {
-    // SHAMELESSLY COPIED FROM ENTITIES.CPP
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    // Check if limit is zero to avoud doing % 0
-    if (limit == 0)
-    {
-        return 0;
-    }
-    // I spent like an hour and half hunting this bug down
-    return gen() % limit;
+    static std::random_device rd;
+    static std::mt19937 generator(rd());
+}
+
+uint32_t rng(uint32_t a, uint32_t b)
+{
+    std::uniform_int_distribution<uint32_t> distribution(a,b);
+    return distribution(EntitiesRNG::generator);
 }

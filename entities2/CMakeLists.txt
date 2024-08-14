@@ -6,15 +6,17 @@ cmake_minimum_required(VERSION 3.29 FATAL_ERROR)
 # Set the project
 project(entities2 
         LANGUAGES CXX 
-        VERSION "1.5.0"
+        VERSION "1.6.0"
         DESCRIPTION "entities2 is a small silly turn based combat CLI game."
 )
 
 include("CheckIncludeFileCXX")
 
 # Options for compilation.
-option(STATIC_LIBS "Statically link against C and C++ standard lib." OFF)
-option(OPTIMIZE    "Enable optimization." OFF)
+option(STATIC_LIBS              "Statically link against C and C++ standard lib." OFF)
+option(OPTIMIZE                 "Enable optimization." OFF)
+option(ENABLE_DISCORD_RPC       "Enable Discord RPC." OFF)
+option(CUSTOM_DISCORD_ID        "Custom Discord ID." OFF)
 
 # Set search paths
 set(
@@ -24,8 +26,9 @@ set(
 
 # Set sources
 set(
-    SOURCES
+    ENTITIES2_SOURCE
     ${CMAKE_SOURCE_DIR}/src/ai.cpp
+    ${CMAKE_SOURCE_DIR}/src/discord_rpc.cpp
     ${CMAKE_SOURCE_DIR}/src/energy.cpp
     ${CMAKE_SOURCE_DIR}/src/entity.cpp
     ${CMAKE_SOURCE_DIR}/src/exit_msg.cpp
@@ -35,44 +38,54 @@ set(
     ${CMAKE_SOURCE_DIR}/src/status.cpp
     ${CMAKE_SOURCE_DIR}/src/utils.cpp
 )
-
-set(NEEDED_EXT_HEADERS cstdint string vector iostream math.h random iomanip)
+set(
+    DISCORD_RPC_SOURCE
+    ${CMAKE_SOURCE_DIR}/src/discord/discord_rpc.cpp
+    ${CMAKE_SOURCE_DIR}/src/discord/rpc_connection.cpp
+    ${CMAKE_SOURCE_DIR}/src/discord/serialization.cpp
+)
 
 # Check if compiling for Linux
 message(STATUS "Checking OS...")
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
     add_compile_definitions(${PROJECT_NAME} PUBLIC __linux__)
-    list(APPEND NEEDED_EXT_HEADERS unistd.h)
-    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/linux/headers")
-    list(APPEND SOURCES "${CMAKE_SOURCE_DIR}/src/linux/sleep.cpp")
+    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/Linux/headers")
+    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Linux/sleep.cpp")
+    list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_unix.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_linux.cpp")
+
     message(STATUS "Linux detected. Adding Linux specific stuff.")
 
 elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
     add_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32)
     list(APPEND NEEDED_EXT_HEADERS windows.h)
-    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/windows/headers")
-    list(APPEND SOURCES "${CMAKE_SOURCE_DIR}/src/windows/sleep.cpp")
+    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/Windows/headers")
+    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Windows/sleep.cpp")
+    list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_win.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_win.cpp")
+
     message(STATUS "Windows detected. Adding Windows specific stuff.")
 
-else()
-    message(WARNING "Unrecognized system ${CMAKE_SYSTEM_NAME}")
-
 endif()
 
-# Check for headers
-# Because paranoia
-foreach(header ${NEEDED_EXT_HEADERS})
-CHECK_INCLUDE_FILE_CXX(${header} FILE_EXISTS)
-if(NOT FILE_EXISTS)
-    message(FATAL_ERROR "Header ${header} not found")
+# Create the main executable
+if (ENABLE_DISCORD_RPC)
+    add_library(discord-rpc STATIC ${DISCORD_RPC_SOURCE})
+    target_include_directories(discord-rpc PUBLIC ${SEARCH_IN})
 endif()
-unset(FILE_EXISTS CACHE)
-endforeach()
-# Yep
 
-# Create target
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${ENTITIES2_SOURCE})
 target_include_directories(${PROJECT_NAME} PUBLIC ${SEARCH_IN})
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+
+if (ENABLE_DISCORD_RPC)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISCORD_RPC__)
+    if (NOT CUSTOM_DISCORD_ID)
+        target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISCORD_CLIENT_ID__="1272918238250008726")
+    else()
+        target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISCORD_CLIENT_ID__=${CUSTOM_DISCORD_ID})
+    endif()
+    add_dependencies(${PROJECT_NAME} discord-rpc)
+    target_link_libraries(${PROJECT_NAME} PUBLIC discord-rpc)
+endif()
 
 # Check if STATIC_LIBS
 if (STATIC_LIBS)

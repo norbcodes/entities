@@ -3,7 +3,7 @@
 #pragma once
 
 // Game version
-#define ENTITIES2_VER       "v1.5.0"
+#define ENTITIES2_VER       "v1.6.0"
 // Cap
 #define MAX_STAT_CAP        200
 // Stuff

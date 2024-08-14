@@ -26,6 +26,7 @@ The long awaited... entities2!!!!
 #include "exit_msg.hpp"
 #include "sleep.hpp"
 #include "energy.hpp"
+#include "discord_rpc.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,12 +54,12 @@ void Game(const std::string& mode, uint32_t& picker_flag)
     // Create player and enemy
     // Heap alloc for funnidifficulty_scale
     Entity* Player = new Entity(
-        (mode == "4") ? (rng(190) + 10) : PLAYER_START_HP - difficulty_scale * HEALTH_F, 
-        (mode == "4") ? (rng(190) + 10) : PLAYER_START_AR - difficulty_scale * ARMOR_F
+        (mode == "4") ? rng(10, 200) : PLAYER_START_HP - difficulty_scale * HEALTH_F, 
+        (mode == "4") ? rng(10, 200) : PLAYER_START_AR - difficulty_scale * ARMOR_F
     );
     Entity* Enemy = new Entity(
-        (mode == "4") ? (rng(190) + 10) : ENEMY_START_HP + difficulty_scale * HEALTH_F, 
-        (mode == "4") ? (rng(190) + 10) : ENEMY_START_AR + difficulty_scale * ARMOR_F
+        (mode == "4") ? rng(10, 200) : ENEMY_START_HP + difficulty_scale * HEALTH_F, 
+        (mode == "4") ? rng(10, 200) : ENEMY_START_AR + difficulty_scale * ARMOR_F
     );
     // Yes, it literally rigs the game against you
 
@@ -69,6 +70,7 @@ void Game(const std::string& mode, uint32_t& picker_flag)
 
     while (is_running)
     {
+        GameplayRPC(turn);
         // Generate 4 options to choose from.
         // There are 4 types: Attack, Heal, Regen armor, Status
         uint32_t* moves = new uint32_t[4]{100, 100, 100, 100};
@@ -299,7 +301,7 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                 // Print random num
                 for (int i = 0; i != 19000; i++)
                 {
-                    std::cout << rng(3) + 1;
+                    std::cout << rng(1, 4);
                     std::cout << "\x1B[1D";
                 }
                 std::cout << picked_move + 1;
@@ -422,9 +424,12 @@ int main()
     GetConsoleMode(hOut, &dwMode);
     SetConsoleMode(hOut, dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING);
     #endif
-    
+
+    InitializeRPC();
+
     while (true)
     {
+        MainMenuRPC();
         ClearScreen();
         Div();
         std::cout << WHITE("Welcome to ") + GOLD(ITALIC_IN("entities2.cpp")) + WHITE("!!!!\nPick an option:\n") << std::endl;
@@ -469,6 +474,8 @@ int main()
             continue;
         }
     }
+
+    DestroyRPC();
 
     return 0;
 }

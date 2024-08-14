@@ -26,5 +26,5 @@ static const char* exit_msg[EXIT_MSG_COUNT] = {
 
 const char* GetExitMsg()
 {
-    return exit_msg[ rng(EXIT_MSG_COUNT) ];
+    return exit_msg[ rng(0, EXIT_MSG_COUNT) ];
 }

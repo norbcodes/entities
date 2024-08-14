@@ -4,4 +4,4 @@
 
 #include <cstdint>
 
-uint32_t rng(uint32_t limit);
+uint32_t rng(uint32_t a, uint32_t b);

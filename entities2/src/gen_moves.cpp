@@ -28,23 +28,23 @@ bool MoveExists(uint32_t* moves, uint32_t* move_types, uint32_t val, uint32_t ty
 
 static uint32_t GenAttackMove()
 {
-    return (ATTACK_F * (rng(8) + 1));
+    return (ATTACK_F * rng(1, 9));
 }
 
 static uint32_t GenHealMove()
 {
-    return (HEAL_F * (rng(5) + 1));
+    return (HEAL_F * rng(1, 6));
 }
 
 static uint32_t GenRegenMove()
 {
-    return (ARM_F * (rng(3) + 1));
+    return (ARM_F * rng(1, 4));
 }
 
 static void GenMove(uint32_t& type, uint32_t& move, double& energy)
 {
     // Attack?
-    if (rng(100) >= 40)
+    if (rng(0, 100) >= 40)
     {
         // Attack.
         type = ATTACK;
@@ -55,18 +55,18 @@ static void GenMove(uint32_t& type, uint32_t& move, double& energy)
     else
     {
         // Status?
-        if (rng(100) >= 45)
+        if (rng(0, 100) >= 45)
         {
             // Status.
             type = STATUS;
-            move = rng(STATUS_C);
+            move = rng(1, STATUS_C);
             energy = CalcEnergyCost(move, type);
             return;
         }
         else
         {
             // Heal or armor?
-            if (rng(100) >= 40)
+            if (rng(0, 100) >= 40)
             {
                 type = HEAL;
                 move = GenHealMove();

@@ -103,7 +103,7 @@ void PrintEntityStats(const Entity& ent)
 void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn)
 {
     // if victim has invis
-    if (victim.StatusActive(INVIS) && rng(100) > 80)
+    if (victim.StatusActive(INVIS) && rng(0, 100) > 80)
     {
         if (enemy_turn)
         {
@@ -120,7 +120,7 @@ void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::str
     uint32_t armor_dmg = 0;
     bool crit_flag = false;
     // Crit
-    if (attacker.StatusActive(INCR_CRIT) && rng(100) > 70)
+    if (attacker.StatusActive(INCR_CRIT) && rng(0, 100) > 70)
     {
         health_dmg *= 2;
         crit_flag = true;
