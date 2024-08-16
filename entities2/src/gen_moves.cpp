@@ -59,7 +59,7 @@ static void GenMove(uint32_t& type, uint32_t& move, double& energy)
         {
             // Status.
             type = STATUS;
-            move = rng(1, STATUS_C);
+            move = rng(0, STATUS_C - 1);
             energy = CalcEnergyCost(move, type);
             return;
         }

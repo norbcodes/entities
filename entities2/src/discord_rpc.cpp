@@ -86,5 +86,7 @@ void InitializeRPC()
 
 void DestroyRPC()
 {
+    #ifdef __ENTITIES2_DISCORD_RPC__
     Discord_Shutdown();
+    #endif // __ENTITIES2_DISCORD_RPC__
 }
