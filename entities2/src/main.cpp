@@ -16,7 +16,10 @@ The long awaited... entities2!!!!
 #include "windows.h"
 #endif
 
-#include "constants.hpp"
+#include "entity_constants.hpp"
+#include "energy_constants.hpp"
+#include "status_constants.hpp"
+#include "move_constants.hpp"
 #include "colors.hpp"
 #include "entity.hpp"
 #include "ai.hpp"

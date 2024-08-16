@@ -20,8 +20,8 @@ If it works, it works, and it works better than the under-documented SDK :)
 namespace _DiscordStuff
 {
     // I'm too lazy to do it any other way
-    static bool RegenMenuRPC = true;
-    static bool RegenGameplayTime = true;
+    bool RegenMenuRPC = true;
+    bool RegenGameplayTime = true;
     time_t GameplayTime;
 }
 

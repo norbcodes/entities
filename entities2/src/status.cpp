@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include "constants.hpp"
+#include "status_constants.hpp"
 #include "colors.hpp"
 #include "status.hpp"
 #include "entity.hpp"

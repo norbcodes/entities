@@ -8,7 +8,8 @@ Generate the 4 moves to choose from.
 #include <iostream>
 #include <iomanip>
 
-#include "constants.hpp"
+#include "move_constants.hpp"
+#include "status_constants.hpp"
 #include "colors.hpp"
 #include "rng.hpp"
 #include "energy.hpp"

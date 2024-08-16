@@ -9,7 +9,9 @@ Energy!
 #include <iostream>
 #include <iomanip>
 
-#include "constants.hpp"
+#include "energy_constants.hpp"
+#include "move_constants.hpp"
+#include "status_constants.hpp"
 #include "colors.hpp"
 #include "entity.hpp"
 

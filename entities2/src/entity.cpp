@@ -6,7 +6,9 @@
 #include <vector>
 #include <math.h>
 
-#include "constants.hpp"
+#include "energy_constants.hpp"
+#include "entity_constants.hpp"
+#include "status_constants.hpp"
 #include "colors.hpp"
 #include "entity.hpp"
 #include "utils.hpp"

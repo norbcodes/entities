@@ -2,7 +2,8 @@
 
 #include <cstdint>
 
-#include "constants.hpp"
+#include "move_constants.hpp"
+#include "status_constants.hpp"
 #include "entity.hpp"
 #include "utils.hpp"
 #include "rng.hpp"
