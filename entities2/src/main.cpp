@@ -31,6 +31,7 @@ The long awaited... entities2!!!!
 #include "sleep.hpp"
 #include "energy.hpp"
 #include "discord_rpc.hpp"
+#include "pick_move.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -250,49 +251,8 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                         continue;
                     }
 
-                    if (move_types[picked_move] == ATTACK)
-                    {
-                        EntityAttack(*Player, *Enemy, moves[picked_move], what_happened, enemy_turn);
-                        Player->TakeEnergy(energy_costs[picked_move]);
-                    }
-                    else if (move_types[picked_move] == HEAL)
-                    {
-                        Player->Heal(moves[picked_move]);
-                        what_happened += fmt::format("{2}{3}Player {4}healed {5}+{1}HP{0}", RESET, moves[picked_move], BLUE, BOLD, WHITE, PURPLE);
-                        Player->TakeEnergy(energy_costs[picked_move]);
-                    }
-                    else if (move_types[picked_move] == ARMOR)
-                    {
-                        Player->RegenArmor(moves[picked_move]);
-                        what_happened += fmt::format("{2}{3}Player {4}regen'd {5}+{1}AR{0}", RESET, moves[picked_move], BLUE, BOLD, WHITE, PURPLE);
-                        Player->TakeEnergy(energy_costs[picked_move]);
-                    }
-                    else if (move_types[picked_move] == STATUS)
-                    {
-                        switch (moves[picked_move])
-                        {
-                            case AUTO_HEAL:
-                                Player->GiveStatus(moves[picked_move]);
-                                what_happened += fmt::format("{3}{4}Player{0} {1}has applied {2}Autoheal{1}.{0}", RESET, WHITE, GREEN, BLUE, BOLD);
-                                Player->TakeEnergy(energy_costs[picked_move]);
-                                break;
-                            case INCR_CRIT:
-                                Player->GiveStatus(moves[picked_move]);
-                                what_happened += fmt::format("{3}{4}Player{0} {1}has applied {2}IncreasedCrit{1}.{0}", RESET, WHITE, RED, BLUE, BOLD);
-                                Player->TakeEnergy(energy_costs[picked_move]);
-                                break;
-                            case INVIS:
-                                Player->GiveStatus(moves[picked_move]);
-                                what_happened += fmt::format("{3}{4}Player{0} {1}has applied {2}Invis{1}.{0}", RESET, WHITE, HOT_PINK, BLUE, BOLD);
-                                Player->TakeEnergy(energy_costs[picked_move]);
-                                break;
-                            case POISON:
-                                Enemy->GiveStatus(moves[picked_move]);
-                                what_happened += fmt::format("{3}{4}Player{0} {1}has given {2}Poison{1} to {5}{4}Enemy{0}{1}.{0}", RESET, WHITE, DARK_GREEN, BLUE, BOLD, RED);
-                                Player->TakeEnergy(energy_costs[picked_move]);
-                                break;
-                        }
-                    }
+                    PickMove(Player, Enemy, picked_move, moves, move_types, energy_costs, enemy_turn, what_happened);
+
                     break;
                 }
             }
@@ -318,49 +278,8 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                     break;
                 }
 
-                if (move_types[picked_move] == ATTACK)
-                {
-                    EntityAttack(*Enemy, *Player, moves[picked_move], what_happened, enemy_turn);
-                    Enemy->TakeEnergy(energy_costs[picked_move]);
-                }
-                else if (move_types[picked_move] == HEAL)
-                {
-                    Enemy->Heal(moves[picked_move]);
-                    what_happened += fmt::format("{2}{3}Enemy {4}healed {5}+{1}HP{0}", RESET, moves[picked_move], RED, BOLD, WHITE, PURPLE);
-                    Enemy->TakeEnergy(energy_costs[picked_move]);
-                }
-                else if (move_types[picked_move] == ARMOR)
-                {
-                    Enemy->RegenArmor(moves[picked_move]);
-                    what_happened += fmt::format("{2}{3}Enemy {4}regen'd {5}+{1}AR{0}", RESET, moves[picked_move], RED, BOLD, WHITE, PURPLE);
-                    Enemy->TakeEnergy(energy_costs[picked_move]);
-                }
-                else if (move_types[picked_move] == STATUS)
-                {
-                    switch (moves[picked_move])
-                    {
-                        case AUTO_HEAL:
-                            Enemy->GiveStatus(moves[picked_move]);
-                            what_happened += fmt::format("{3}{4}Enemy{0} {1}has applied {2}Autoheal{1}.{0}", RESET, WHITE, GREEN, RED, BOLD);
-                            Enemy->TakeEnergy(energy_costs[picked_move]);
-                            break;
-                        case INCR_CRIT:
-                            Enemy->GiveStatus(moves[picked_move]);
-                            what_happened += fmt::format("{3}{4}Enemy{0} {1}has applied {2}IncreasedCrit{1}.{0}", RESET, WHITE, RED, RED, BOLD);
-                            Enemy->TakeEnergy(energy_costs[picked_move]);
-                            break;
-                        case INVIS:
-                            Enemy->GiveStatus(moves[picked_move]);
-                            what_happened += fmt::format("{3}{4}Enemy{0} {1}has applied {2}Invis{1}.{0}", RESET, WHITE, HOT_PINK, RED, BOLD);
-                            Enemy->TakeEnergy(energy_costs[picked_move]);
-                            break;
-                        case POISON:
-                            Player->GiveStatus(moves[picked_move]);
-                            what_happened += fmt::format("{5}{4}Enemy{0} {1}has given {2}Poison{1} to {3}{4}Player{0}{1}.{0}", RESET, WHITE, DARK_GREEN, BLUE, BOLD, RED);
-                            Enemy->TakeEnergy(energy_costs[picked_move]);
-                            break;
-                    }
-                }
+                PickMove(Enemy, Player, picked_move, moves, move_types, energy_costs, enemy_turn, what_happened);
+
             }
 
             break;

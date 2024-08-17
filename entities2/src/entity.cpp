@@ -79,7 +79,7 @@ void PrintEntityStats(const Entity& ent)
 {
     // I love fmt so much
     // Print HP and AR and S
-    fmt::print("{3}{4}HP: {0}{5}{1:>3} {6}{4}AR: {0}{5}{2:>3}{0} {7}{4}S:{0}", RESET, ent.GetHealth(), ent.GetArmor(), GREEN, BOLD, WHITE, PINK, GOLD);
+    fmt::print("{3}{4}HP: {0}{5}{1:>3} {6}{4}AR: {0}{5}{2:>3}{0} {7}{4}S: {0}", RESET, ent.GetHealth(), ent.GetArmor(), GREEN, BOLD, WHITE, PINK, GOLD);
     // Iterate through the statuses and print them
     for (int i = 0; i != ent.StatusCount(); i++)
     {
@@ -100,11 +100,15 @@ void PrintEntityStats(const Entity& ent)
         {
             fmt::print("{2}P{3}{1}{0} ", RESET, _s.GetTimeLeft(), DARK_GREEN, DARK_GRAY);
         }
+        else if (_s.GetType() == THORNS)
+        {
+            fmt::print("{2}T{3}{1}{0} ", RESET, _s.GetTimeLeft(), TEAL, DARK_GRAY);
+        }
     }
     fmt::print("\n");
 }
 
-void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn)
+void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn)
 {
     // if victim has invis
     if (victim.StatusActive(INVIS) && rng(0, 100) > 80)
@@ -120,6 +124,8 @@ void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::str
 
     uint32_t health_dmg = dmg;
     uint32_t armor_dmg = 0;
+    uint32_t thorns_hp_dmg = 0;
+    uint32_t thorns_ar_dmg = 0;
     bool crit_flag = false;
     // Crit
     if (attacker.StatusActive(INCR_CRIT) && rng(0, 100) > 70)
@@ -127,12 +133,24 @@ void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::str
         health_dmg *= 2;
         crit_flag = true;
     }
-    // If victim has armor, we split health_dmg
-    if (victim.GetArmor() != 0)
+    // If victim has thorns...
+    if (victim.StatusActive(THORNS))
     {
-        uint8_t _temp = health_dmg;
-        health_dmg = (uint32_t)(ceilf(health_dmg / 2));
-        armor_dmg = (uint32_t)(floorf(_temp / 2));
+        thorns_hp_dmg = health_dmg >> 1;
+    }
+    // If victim has armor, we split health_dmg
+    if (victim.GetArmor() > 0)
+    {
+        uint32_t _temp = health_dmg;
+        health_dmg >>= 1;
+        armor_dmg = _temp >> 1;
+    }
+    // If victim has thorns, we split thorns_hp_dmg too
+    if (victim.StatusActive(THORNS) && attacker.GetArmor() > 0)
+    {
+        uint32_t _temp = thorns_hp_dmg;
+        thorns_hp_dmg >>= 1;
+        thorns_ar_dmg = _temp >> 1;
     }
     // IF armor_dmg takes more armor than the victim has (armor < 0) then do this
     if (armor_dmg > victim.GetArmor())
@@ -143,6 +161,11 @@ void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::str
 
     victim.Hurt(health_dmg);
     victim.HurtArmor(armor_dmg);
+    if (victim.StatusActive(THORNS))
+    {
+        attacker.Hurt(thorns_hp_dmg);
+        attacker.Hurt(thorns_ar_dmg);
+    }
 
     if (!enemy_turn)
     {

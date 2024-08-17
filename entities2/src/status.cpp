@@ -74,7 +74,7 @@ void Entity::UpdateStatuses(std::string& msg, bool enemy_turn)
     for (int i = 0; i < this->status_list.size(); i++)
     {
         this->status_list[i].Age();
-        // Only apply AutoHeal and Poison, Invis and IncreasedCrit are handled in the Hurt method
+        // Only apply AutoHeal and Poison, Invis and IncreasedCrit and Thorns are handled in the Hurt method
         if (this->status_list[i].GetType() == AUTO_HEAL)
         {
             this->Heal(AUTO_HEAL_AMOUNT);

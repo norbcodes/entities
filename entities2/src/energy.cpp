@@ -50,6 +50,9 @@ double CalcEnergyCost(uint32_t move, uint32_t type)
                 case POISON:
                     cost = 16.0;
                     break;
+                case THORNS:
+                    cost = 15.0;
+                    break;
             }
     }
     return cost;
@@ -63,60 +66,8 @@ void PrintEnergyBar(const Entity& entity)
     {
         columns += "#";
     }
-    fmt::print("{1}[{0} {2}{3}{4:.<10}{0} {1}]{0}\n", RESET, DARK_GRAY, BLUE, BOLD, columns);
-
-    /*
-    // Do some funky shenanigans
-    const auto default_precision = std::cout.precision();
-
-    // Print the base
-    std::cout << DARK_GRAY("[ ") + WHITE("          ") + DARK_GRAY(" ] ") << std::endl;
-    
-    // Move cursor up 1 line and to the beginning
-    std::cout << "\x1b[1F";
-    
-    // Move cursor to the right twice
-    std::cout << "\x1b[2C";
-    
-    // Now, print the motherfucking bar
-    uint32_t columns = roundf((entity.GetEnergy() / MAX_ENERGY) * 10);
-    // print dark gray .'s
-    std::cout << DARK_GRAY_IN(BOLD_IN(""));
-    for (int i = 0; i != 10; i++)
-    {
-        std::cout << ".";
-    }
-    std::cout << DARK_GRAY("");
-    std::cout << "\x1b[10D";
-    // print the #'s
-    std::cout << LAVENDER_IN(BOLD_IN(""));
-    for (int i = 0; i != columns; i++)
-    {
-        std::cout << "#";
-    }
-    std::cout << LAVENDER("");
-    
-    // Move cursor down 1 line and to the beginning, then up and 14 to the right
-    std::cout << "\x1b[1E\x1b[1F\x1b[15C";
-    
-    // The extra data
-    std::cout << LAVENDER(BOLD_IN("E: "));
-    if (entity.GetEnergy() < 10)
-    {
-        std::cout << LAVENDER_IN("") << " " << std::fixed << std::setprecision(ENERGY_DECIMALS) << entity.GetEnergy() << WHITE("");
-    }
-    else
-    {
-        std::cout << LAVENDER_IN("") << std::fixed << std::setprecision(ENERGY_DECIMALS) << entity.GetEnergy() << WHITE("");
-    }
-    std::cout << WHITE("/50 ") + LAVENDER_IN("") << std::fixed << std::setprecision(ENERGY_DECIMALS) << (entity.GetEnergy() / MAX_ENERGY) * 100 << WHITE("%");
-    
-    // Restore precision
-    std::cout << std::setprecision(default_precision);
-    
-    // And finally, move down.
-    std::cout << "\x1b[1E";
-    */
+    fmt::print("{1}[{0} {2}{3}{4:.<10}{0} {1}]{0} ", RESET, DARK_GRAY, BLUE, BOLD, columns);
+    fmt::print("{4}E: {1: >5.2f}{3}/{2} {4}{5:.1f}{3}%{0}\n", RESET, entity.GetEnergy(), MAX_ENERGY, WHITE, BLUE, ((entity.GetEnergy() / MAX_ENERGY) * 100));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

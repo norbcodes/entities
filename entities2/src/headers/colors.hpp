@@ -20,3 +20,4 @@
 #define DARK_GREEN          "\x1b[38;2;181;196;27m"
 #define LAVENDER            "\x1b[38;2;187;153;255m"
 #define YELLOW              "\x1b[38;2;255;255;38m"
+#define TEAL                "\x1b[38;2;0;181;181m"

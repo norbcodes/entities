@@ -90,9 +90,9 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
     {
         // Print index
         // This looks funny lmao
-        fmt::print("{2}[{3}{4}{1}{0}{2}]{0}", RESET, i + 1, DARK_GRAY, GOLD, BOLD);
+        fmt::print("{2}[{3}{4}{1}{0}{2}]{0} ", RESET, i + 1, DARK_GRAY, GOLD, BOLD);
         // Print energy cost
-        fmt::print("{2}[{3}{4}{1:.2f}{0}{2}]{0}\t", RESET, energies[i], DARK_GRAY, BLUE, BOLD);
+        fmt::print("{2}[{3}{4}{1: >5.2f}{0}{2}]{0}\t", RESET, energies[i], DARK_GRAY, BLUE, BOLD);
         // Print the other
         switch (move_types[i])
         {
@@ -119,6 +119,9 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
                         break;
                     case POISON:
                         fmt::print("{2}Give opponent {3}Poison {2}status! Deals {4}{1} {2}poison damage{0}\n", RESET, POISON_AMOUNT, WHITE, DARK_GREEN, PURPLE);
+                        break;
+                    case THORNS:
+                        fmt::print("{2}Apply {1}Thorns {2}status! Opponent will {3}take damage too on attack{0}\n", RESET, TEAL, WHITE, BOLD);
                         break;
                 }
                 break;
