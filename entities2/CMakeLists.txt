@@ -42,6 +42,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/exit_msg.cpp
     ${CMAKE_SOURCE_DIR}/src/gen_moves.cpp
     ${CMAKE_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_SOURCE_DIR}/src/pick_move.cpp
     ${CMAKE_SOURCE_DIR}/src/rng.cpp
     ${CMAKE_SOURCE_DIR}/src/status.cpp
     ${CMAKE_SOURCE_DIR}/src/utils.cpp

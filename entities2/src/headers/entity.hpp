@@ -34,4 +34,4 @@ class Entity
 };
 
 void PrintEntityStats(const Entity& ent);
-void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn);
+void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn);
