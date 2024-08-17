@@ -1,6 +1,8 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
 #include <cstdint>
+#include <string>
+#include <fmt/core.h>
 
 #include "status_constants.hpp"
 #include "colors.hpp"
@@ -78,11 +80,11 @@ void Entity::UpdateStatuses(std::string& msg, bool enemy_turn)
             this->Heal(AUTO_HEAL_AMOUNT);
             if (enemy_turn)
             {
-                msg += RED(BOLD_IN("Enemy ")) + WHITE("has autohealed! ") + WHITE(BOLD_IN("+" + std::to_string(AUTO_HEAL_AMOUNT) + "HP\n"));
+                msg += fmt::format("{2}{3}Enemy{0} {4}has autohealed! {3}+{1}HP{0}\n", RESET, AUTO_HEAL_AMOUNT, RED, BOLD, WHITE);
             }
             else
             {
-                msg += BLUE(BOLD_IN("Player ")) + WHITE("has autohealed! ") + WHITE(BOLD_IN("+" + std::to_string(AUTO_HEAL_AMOUNT) + "HP\n"));
+                msg += fmt::format("{2}{3}Player{0} {4}has autohealed! {3}+{1}HP{0}\n", RESET, AUTO_HEAL_AMOUNT, BLUE, BOLD, WHITE);
             }
         }
         else if (this->status_list[i].GetType() == POISON)
@@ -90,11 +92,11 @@ void Entity::UpdateStatuses(std::string& msg, bool enemy_turn)
             this->Hurt(POISON_AMOUNT);
             if (enemy_turn)
             {
-                msg += RED(BOLD_IN("Enemy ")) + WHITE("has felt the poison! ") + WHITE(BOLD_IN("-" + std::to_string(POISON_AMOUNT) + "HP\n"));
+                msg += fmt::format("{2}{3}Enemy{0} {4}has felt the poison! {3}-{1}HP{0}\n", RESET, POISON_AMOUNT, RED, BOLD, WHITE);
             }
             else
             {
-                msg += BLUE(BOLD_IN("Player ")) + WHITE("has felt the poison! ") + WHITE(BOLD_IN("-" + std::to_string(POISON_AMOUNT) + "HP\n"));
+                msg += fmt::format("{2}{3}Player{0} {4}has felt the poison! {3}-{1}HP{0}\n", RESET, POISON_AMOUNT, BLUE, BOLD, WHITE);
             }
         }
         if (this->status_list[i].GetTimeLeft() == 0)

@@ -1,0 +1,3 @@
+[submodule "entities2/src/fmt"]
+	path = entities2/src/fmt
+	url = https://github.com/fmtlib/fmt

@@ -6,4 +6,5 @@
 
 void ClearScreen();
 void Div();
+void EndDiv();
 void Credits();

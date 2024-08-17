@@ -6,4 +6,4 @@ Exit messages lmfao
 
 #pragma once
 
-const char* GetExitMsg();
+const std::string& GetExitMsg();

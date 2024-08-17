@@ -3,4 +3,4 @@
 #pragma once
 
 // Game version
-#define ENTITIES2_VER       "v1.6.1"
+#define ENTITIES2_VER       "v1.7.0-dev"

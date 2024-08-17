@@ -1,10 +1,10 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
-#include <iostream>
 #include <cstdint>
 #include <string>
 #include <vector>
 #include <math.h>
+#include <fmt/core.h>
 
 #include "energy_constants.hpp"
 #include "entity_constants.hpp"
@@ -77,29 +77,31 @@ void Entity::RegenArmor(uint32_t val)
 
 void PrintEntityStats(const Entity& ent)
 {
-    std::cout << GREEN(BOLD_IN("HP: ")) << WHITE(std::to_string(ent.GetHealth())) << PINK(BOLD_IN(" AR: ")) << WHITE(std::to_string(ent.GetArmor()));
-    std::cout << GOLD(BOLD_IN("\tS: "));
+    // I love fmt so much
+    // Print HP and AR and S
+    fmt::print("{3}{4}HP: {0}{5}{1:>3} {6}{4}AR: {0}{5}{2:>3}{0} {7}{4}S:{0}", RESET, ent.GetHealth(), ent.GetArmor(), GREEN, BOLD, WHITE, PINK, GOLD);
+    // Iterate through the statuses and print them
     for (int i = 0; i != ent.StatusCount(); i++)
     {
         Status _s = ent.GetStatusAt(i);
         if (_s.GetType() == AUTO_HEAL)
         {
-            std::cout << GREEN("+") << DARK_GRAY(std::to_string((int)_s.GetTimeLeft())) << " ";
+            fmt::print("{2}+{3}{1}{0} ", RESET, _s.GetTimeLeft(), GREEN, DARK_GRAY);
         }
         else if (_s.GetType() == INCR_CRIT)
         {
-            std::cout << RED("X") << DARK_GRAY(std::to_string((int)_s.GetTimeLeft())) << " ";
+            fmt::print("{2}X{3}{1}{0} ", RESET, _s.GetTimeLeft(), RED, DARK_GRAY);
         }
         else if (_s.GetType() == INVIS)
         {
-            std::cout << WHITE("O") << DARK_GRAY(std::to_string((int)_s.GetTimeLeft())) << " ";
+            fmt::print("{2}O{3}{1}{0} ", RESET, _s.GetTimeLeft(), WHITE, DARK_GRAY);
         }
         else if (_s.GetType() == POISON)
         {
-            std::cout << DARK_GREEN("P") << DARK_GRAY(std::to_string((int)_s.GetTimeLeft())) << " ";
+            fmt::print("{2}P{3}{1}{0} ", RESET, _s.GetTimeLeft(), DARK_GREEN, DARK_GRAY);
         }
     }
-    std::cout << std::endl;
+    fmt::print("\n");
 }
 
 void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn)
@@ -109,12 +111,10 @@ void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::str
     {
         if (enemy_turn)
         {
-            msg += RED(BOLD_IN("Enemy ")) + WHITE("tried to attack, but ") + WHITE(ITALIC_IN("missed")) + WHITE("!");
+            msg += fmt::format("{4}{1}Enemy{0} {3}tried to attack, but {2}missed{0}{3}!{0}", RESET, BOLD, ITALIC, WHITE, RED);
+            return;
         }
-        else
-        {
-            msg += BLUE(BOLD_IN("Player ")) + WHITE("tried to attack, but ") + WHITE(ITALIC_IN("missed")) + WHITE("!");
-        }
+        msg += fmt::format("{4}{1}Player{0} {3}tried to attack, but {2}missed{0}{3}!{0}", RESET, BOLD, ITALIC, WHITE, BLUE);
         return;
     }
 
@@ -148,20 +148,37 @@ void EntityAttack(const Entity& attacker, Entity& victim, uint32_t dmg, std::str
     {
         if (!crit_flag)
         {
-            msg += BLUE(BOLD_IN("Player ")) + WHITE("has attacked ") + RED(BOLD_IN("Enemy")) + WHITE("! ") + RED(BOLD_IN("Enemy ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
+            msg += fmt::format("{5}{3}Player{0} {2}has attacked {4}{3}Enemy{0}{2}! {4}{3}Enemy{0} {6}-{1}HP{0}", RESET, health_dmg, WHITE, BOLD, RED, BLUE, PURPLE);
+            if (armor_dmg > 0)
+            {
+                msg += fmt::format(" {2}-{1}AR{0}", RESET, armor_dmg, PURPLE);
+            }
             return;
         }
-        msg += BLUE(BOLD_IN("Player ")) + WHITE("has attacked ") + RED(BOLD_IN("Enemy")) + WHITE("! ") + GOLD(ITALIC_IN("CRITICAL HIT")) + WHITE("! ") + RED(BOLD_IN("Enemy ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
+        msg += fmt::format("{5}{3}Player{0} {2}has attacked {4}{3}Enemy{0}{2}! {8}{7}CRITICAL HIT{0}{2}! {4}{3}Enemy{0} {6}-{1}HP{0}", RESET, health_dmg, WHITE, BOLD, RED, BLUE, PURPLE, ITALIC, GOLD);
+        if (armor_dmg > 0)
+        {
+            msg += fmt::format(" {2}-{1}AR{0}", RESET, armor_dmg, PURPLE);
+        }
         return;
     }
     else
     {
         if (!crit_flag)
         {
-            msg += RED(BOLD_IN("Enemy ")) + WHITE("has attacked ") + BLUE(BOLD_IN("Player")) + WHITE("! ") + BLUE(BOLD_IN("Player ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
+            msg += fmt::format("{4}{3}Enemy{0} {2}has attacked {5}{3}Player{0}{2}! {5}{3}Player{0} {6}-{1}HP{0}", RESET, health_dmg, WHITE, BOLD, RED, BLUE, PURPLE);
+            if (armor_dmg > 0)
+            {
+                msg += fmt::format(" {2}-{1}AR{0}", RESET, armor_dmg, PURPLE);
+            }
+            return;
             return;
         }
-        msg += RED(BOLD_IN("Enemy ")) + WHITE("has attacked ") + BLUE(BOLD_IN("Player")) + WHITE("! ") + GOLD(ITALIC_IN("CRITICAL HIT")) + WHITE("! ") + BLUE(BOLD_IN("Player ")) + PURPLE("-" + std::to_string(health_dmg)) + WHITE(" HP ") + ((armor_dmg != 0) ? (PURPLE("-" + std::to_string(armor_dmg)) + WHITE(" AR")) : WHITE(""));
+        msg += fmt::format("{4}{3}Enemy{0} {2}has attacked {5}{3}Player{0}{2}! {8}{7}CRITICAL HIT{0}{2}! {5}{3}Player{0} {6}-{1}HP{0}", RESET, health_dmg, WHITE, BOLD, RED, BLUE, PURPLE, ITALIC, GOLD);
+        if (armor_dmg > 0)
+        {
+            msg += fmt::format(" {2}-{1}AR{0}", RESET, armor_dmg, PURPLE);
+        }
         return;
     }
 }

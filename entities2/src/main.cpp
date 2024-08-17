@@ -11,6 +11,7 @@ The long awaited... entities2!!!!
 #include <cstdint>
 #include <string>
 #include <iostream>
+#include <fmt/core.h>
 
 #ifdef _WIN32
 #include "windows.h"
@@ -68,12 +69,12 @@ void Game(const std::string& mode, uint32_t& picker_flag)
 
     // Gameplay loop
     bool is_running = true;
-    bool turn = false;  // true = Enemy, false = Player
-    std::string what_happened = RED(ITALIC_IN("The fight begins."));
+    bool enemy_turn = false;  // true = Enemy, false = Player
+    std::string what_happened = fmt::format("{1}{2}The fights begins.{0}", RESET, RED, ITALIC);
 
     while (is_running)
     {
-        GameplayRPC(turn);
+        GameplayRPC(enemy_turn);
         // Generate 4 options to choose from.
         // There are 4 types: Attack, Heal, Regen armor, Status
         uint32_t* moves = new uint32_t[4]{100, 100, 100, 100};
@@ -87,12 +88,10 @@ void Game(const std::string& mode, uint32_t& picker_flag)
 
             if (Player->GetHealth() <= 0)
             {
-                std::cout << WHITE("---<<< ") + BLUE(BOLD_IN("Player ")) + WHITE("dead. ") + RED(BOLD_IN("Enemy ")) + WHITE("wins!!! >>>---") << std::endl << std::endl;
-                std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + RED(" Exit") << std::endl;
-                std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + HOT_PINK(" Rematch!") << std::endl;
-                std::cout << std::endl;
-                Div();
-                std::cout << "\x1b[2A";
+                fmt::print("{1}---<<< {3}{2}Player{0} {1}dead. {4}{2}Enemy{0}{1} wins!!! >>>---{0}\n\n", RESET, WHITE, BOLD, BLUE, RED);
+                fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+                fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
+                EndDiv();
 
                 uint32_t choice;
                 std::cin >> choice;
@@ -118,12 +117,10 @@ void Game(const std::string& mode, uint32_t& picker_flag)
 
             if (Enemy->GetHealth() <= 0)
             {
-                std::cout << WHITE("---<<< ") + RED(BOLD_IN("Enemy ")) + WHITE("dead. ") + BLUE(BOLD_IN("Player ")) + WHITE("wins!!! >>>---") << std::endl << std::endl;
-                std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + RED(" Exit") << std::endl;
-                std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + HOT_PINK(" Rematch!") << std::endl;
-                std::cout << std::endl;
-                Div();
-                std::cout << "\x1b[2A";
+                fmt::print("{1}---<<< {4}{2}Enemy{0} {1}dead. {3}{2}Player{0}{1} wins!!! >>>---{0}\n\n", RESET, WHITE, BOLD, BLUE, RED);
+                fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+                fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
+                EndDiv();
 
                 uint32_t choice;
                 std::cin >> choice;
@@ -148,12 +145,20 @@ void Game(const std::string& mode, uint32_t& picker_flag)
             }
 
             // Print header
-            std::cout << DARK_GRAY("---<<< ") << (turn ? RED(BOLD_IN("Enemy's")) : BLUE(BOLD_IN("Player's"))) << DARK_GRAY(" turn! >>>---") << std::endl;
+            if (enemy_turn)
+            {
+                fmt::print("{3}---<<< {1}{2}Enemy's{0} {3}turn! >>>---{0}\n", RESET, RED, BOLD, DARK_GRAY);
+            }
+            else
+            {
+                fmt::print("{3}---<<< {1}{2}Player's{0} {3}turn! >>>---{0}\n", RESET, BLUE, BOLD, DARK_GRAY);
+            }
 
-            std::cout << WHITE("What happened in the previous round:\n") << what_happened << std::endl << std::endl;
+            // Print history
+            fmt::print("{2}What happened last round:{0}\n{1}{0}\n\n", RESET, what_happened, WHITE);
             what_happened = "";
 
-            if (turn)  // if enemy turn
+            if (enemy_turn)  // if enemy turn
             {
                 Enemy->UpdateStatuses(what_happened, true);
             }
@@ -168,15 +173,15 @@ void Game(const std::string& mode, uint32_t& picker_flag)
             Enemy->GiveEnergy(ENERGY_INC);
 
             // Print stats
-            std::cout << BLUE(BOLD_IN("[Player]\t"));
+            fmt::print("{1}{2}[PLAYER]{0}\t", RESET, BLUE, BOLD);
             PrintEntityStats(*Player);
-            std::cout << RED (BOLD_IN("[Enemy] \t"));
+            fmt::print("{1}{2}[ENEMY] {0}\t", RESET, RED, BOLD);
             PrintEntityStats(*Enemy);
-            std::cout << std::endl;
+            fmt::print("\n");
             // Print energy bars
             PrintEnergyBar(*Player);
             PrintEnergyBar(*Enemy);
-            std::cout << std::endl;
+            fmt::print("\n");
 
             GenerateMoves(moves, move_types, energy_costs);
 
@@ -184,7 +189,7 @@ void Game(const std::string& mode, uint32_t& picker_flag)
 
             // Yay!
             // Ask for input...
-            if (!turn)
+            if (!enemy_turn)
             {
                 while (true)
                 {
@@ -192,18 +197,15 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                     std::string _picked_move;
                     while (true)
                     {
-                        std::cout << WHITE("Choose your move.") + BOLD(GRAY(" [1,2,3,4,9] (9 to exit)                                           ")) << std::endl << std::endl;
-                        Div();
-                        // Move cursor up
-                        std::cout << "\x1b[2A";
+                        fmt::print("{1}Choose your move. {2}{3}[1,2,3,4,9] (9 to exit)                                           {0}\n", RESET, WHITE, BOLD, GRAY);
+                        EndDiv();
                         // Player
                         std::cin >> _picked_move;
 
                         if (_picked_move == "9")
                         {
-                            std::cout << RED("Do you really wanna end the battle?") + BOLD(GRAY(" [y,n]                                                             ")) << std::endl << std::endl;
-                            Div();
-                            std::cout << "\x1b[2A";
+                            fmt::print("{1}Do you really wanna end the battle? {2}{3}[y,n]                                                             {0}\n", RESET, RED, GRAY, BOLD);
+                            EndDiv();
                             std::string option;
                             std::cin >> option;
                             if (option == "y")
@@ -231,7 +233,7 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                     // if pick is not 0, 1, 2, 3 or 9 = skip round
                     if (_picked_move != "1" && _picked_move != "2" && _picked_move != "3" && _picked_move != "4" && _picked_move != "9")
                     {
-                        what_happened += BLUE(BOLD_IN("Player ")) + WHITE("skipped the round.");
+                        what_happened += fmt::format("{1}{2}Player{0} {3}skipped the round.{0}", RESET, BLUE, BOLD, WHITE);
                         break;
                     }
 
@@ -244,25 +246,25 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                     // Check if Player has enough energy
                     if (energy_costs[picked_move] > Player->GetEnergy())
                     {
-                        std::cout << RED("Not enough energy!                                                            ") << std::endl;
+                        fmt::print("{1}Not enough energy!                                                            {0}\n", RESET, RED);
                         continue;
                     }
 
                     if (move_types[picked_move] == ATTACK)
                     {
-                        EntityAttack(*Player, *Enemy, moves[picked_move], what_happened, turn);
+                        EntityAttack(*Player, *Enemy, moves[picked_move], what_happened, enemy_turn);
                         Player->TakeEnergy(energy_costs[picked_move]);
                     }
                     else if (move_types[picked_move] == HEAL)
                     {
                         Player->Heal(moves[picked_move]);
-                        what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has healed ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" health.");
+                        what_happened += fmt::format("{2}{3}Player {4}healed {5}+{1}HP{0}", RESET, moves[picked_move], BLUE, BOLD, WHITE, PURPLE);
                         Player->TakeEnergy(energy_costs[picked_move]);
                     }
                     else if (move_types[picked_move] == ARMOR)
                     {
                         Player->RegenArmor(moves[picked_move]);
-                        what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has regen'd ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" armor.");
+                        what_happened += fmt::format("{2}{3}Player {4}regen'd {5}+{1}AR{0}", RESET, moves[picked_move], BLUE, BOLD, WHITE, PURPLE);
                         Player->TakeEnergy(energy_costs[picked_move]);
                     }
                     else if (move_types[picked_move] == STATUS)
@@ -271,22 +273,22 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                         {
                             case AUTO_HEAL:
                                 Player->GiveStatus(moves[picked_move]);
-                                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + GREEN("AutoHeal") + WHITE(".");
+                                what_happened += fmt::format("{3}{4}Player{0} {1}has applied {2}Autoheal{1}.{0}", RESET, WHITE, GREEN, BLUE, BOLD);
                                 Player->TakeEnergy(energy_costs[picked_move]);
                                 break;
                             case INCR_CRIT:
                                 Player->GiveStatus(moves[picked_move]);
-                                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + RED("IncreasedCrit") + WHITE(".");
+                                what_happened += fmt::format("{3}{4}Player{0} {1}has applied {2}IncreasedCrit{1}.{0}", RESET, WHITE, RED, BLUE, BOLD);
                                 Player->TakeEnergy(energy_costs[picked_move]);
                                 break;
                             case INVIS:
                                 Player->GiveStatus(moves[picked_move]);
-                                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has applied ") + HOT_PINK("Invis") + WHITE(".");
+                                what_happened += fmt::format("{3}{4}Player{0} {1}has applied {2}Invis{1}.{0}", RESET, WHITE, HOT_PINK, BLUE, BOLD);
                                 Player->TakeEnergy(energy_costs[picked_move]);
                                 break;
                             case POISON:
                                 Enemy->GiveStatus(moves[picked_move]);
-                                what_happened += BLUE(BOLD_IN("Player ")) + WHITE("has given ") + DARK_GREEN("Poison") + WHITE(" to ") + RED(BOLD_IN("Enemy")) + WHITE(".");
+                                what_happened += fmt::format("{3}{4}Player{0} {1}has given {2}Poison{1} to {5}{4}Enemy{0}{1}.{0}", RESET, WHITE, DARK_GREEN, BLUE, BOLD, RED);
                                 Player->TakeEnergy(energy_costs[picked_move]);
                                 break;
                         }
@@ -296,9 +298,8 @@ void Game(const std::string& mode, uint32_t& picker_flag)
             }
             else
             {
-                std::cout << GOLD(ITALIC_IN("The AI is thinking...")) << std::endl << std::endl;
-                Div();
-                std::cout << "\x1b[2A";
+                fmt::print("{1}{2}The AI is thinking...{0}\n", RESET, GOLD, ITALIC);
+                EndDiv();
                 // bot
                 uint32_t picked_move = AiChoose(moves, move_types, energy_costs, *Player, *Enemy);
                 // Print random num
@@ -313,25 +314,25 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                 // if pick is not 0, 1, 2, 3 or 9 = skip round
                 if (picked_move > 3 && picked_move != 9)
                 {
-                    what_happened += RED(BOLD_IN("Enemy ")) + WHITE("skipped the round.");
+                    what_happened += fmt::format("{2}{3}Enemy {1}skipped the round.{0}", RESET, WHITE, RED, BOLD);
                     break;
                 }
 
                 if (move_types[picked_move] == ATTACK)
                 {
-                    EntityAttack(*Enemy, *Player, moves[picked_move], what_happened, turn);
+                    EntityAttack(*Enemy, *Player, moves[picked_move], what_happened, enemy_turn);
                     Enemy->TakeEnergy(energy_costs[picked_move]);
                 }
                 else if (move_types[picked_move] == HEAL)
                 {
                     Enemy->Heal(moves[picked_move]);
-                    what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has healed ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" health.");
+                    what_happened += fmt::format("{2}{3}Enemy {4}healed {5}+{1}HP{0}", RESET, moves[picked_move], RED, BOLD, WHITE, PURPLE);
                     Enemy->TakeEnergy(energy_costs[picked_move]);
                 }
                 else if (move_types[picked_move] == ARMOR)
                 {
                     Enemy->RegenArmor(moves[picked_move]);
-                    what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has regen'd ") + PURPLE(std::to_string(moves[picked_move])) + WHITE(" armor.");
+                    what_happened += fmt::format("{2}{3}Enemy {4}regen'd {5}+{1}AR{0}", RESET, moves[picked_move], RED, BOLD, WHITE, PURPLE);
                     Enemy->TakeEnergy(energy_costs[picked_move]);
                 }
                 else if (move_types[picked_move] == STATUS)
@@ -340,22 +341,22 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                     {
                         case AUTO_HEAL:
                             Enemy->GiveStatus(moves[picked_move]);
-                            what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has applied ") + GREEN("AutoHeal") + WHITE(".");
+                            what_happened += fmt::format("{3}{4}Enemy{0} {1}has applied {2}Autoheal{1}.{0}", RESET, WHITE, GREEN, RED, BOLD);
                             Enemy->TakeEnergy(energy_costs[picked_move]);
                             break;
                         case INCR_CRIT:
                             Enemy->GiveStatus(moves[picked_move]);
-                            what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has applied ") + RED("IncreasedCrit") + WHITE(".");
+                            what_happened += fmt::format("{3}{4}Enemy{0} {1}has applied {2}IncreasedCrit{1}.{0}", RESET, WHITE, RED, RED, BOLD);
                             Enemy->TakeEnergy(energy_costs[picked_move]);
                             break;
                         case INVIS:
                             Enemy->GiveStatus(moves[picked_move]);
-                            what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has applied ") + HOT_PINK("Invis") + WHITE(".");
+                            what_happened += fmt::format("{3}{4}Enemy{0} {1}has applied {2}Invis{1}.{0}", RESET, WHITE, HOT_PINK, RED, BOLD);
                             Enemy->TakeEnergy(energy_costs[picked_move]);
                             break;
                         case POISON:
                             Player->GiveStatus(moves[picked_move]);
-                            what_happened += RED(BOLD_IN("Enemy ")) + WHITE("has given ") + DARK_GREEN("Poison") + WHITE(" to ") + BLUE(BOLD_IN("Player")) + WHITE(".");
+                            what_happened += fmt::format("{5}{4}Enemy{0} {1}has given {2}Poison{1} to {3}{4}Player{0}{1}.{0}", RESET, WHITE, DARK_GREEN, BLUE, BOLD, RED);
                             Enemy->TakeEnergy(energy_costs[picked_move]);
                             break;
                     }
@@ -365,7 +366,7 @@ void Game(const std::string& mode, uint32_t& picker_flag)
             break;
         }
 
-        turn = !turn;
+        enemy_turn = !enemy_turn;
         delete[] moves;
         delete[] move_types;
         delete[] energy_costs;
@@ -389,14 +390,12 @@ void DifficultyPicker()
     {
         ClearScreen();
         Div();
-        std::cout << WHITE("Select your difficulty:") << std::endl << std::endl;
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + GREEN(" I kick Entities ass") << std::endl;
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + ORANGE(" I've seen worse") << std::endl;
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("3")) + DARK_GRAY("]") + RED(" Down with the Entities") << std::endl;
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("4")) + DARK_GRAY("]") + LAVENDER(" Random!") << std::endl;
-        std::cout << std::endl;
-        Div();
-        std::cout << "\x1b[2A";
+        fmt::print("{1}Select your difficulty:{0}\n\n", RESET, WHITE);
+        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}I kick Entities ass{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
+        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}I've seen worse{0}\n", RESET, BOLD, GOLD, DARK_GRAY, ORANGE);
+        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Down with the Entities{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Random!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
+        EndDiv();
 
         std::string choice;
         std::cin >> choice;
@@ -435,12 +434,11 @@ int main()
         MainMenuRPC();
         ClearScreen();
         Div();
-        std::cout << WHITE("Welcome to ") + GOLD(ITALIC_IN("entities2.cpp")) + WHITE("!!!!\nPick an option:\n") << std::endl;
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("1")) + DARK_GRAY("]") + GREEN(" Play") << std::endl;
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN("2")) + DARK_GRAY("]") + RED(" Quit") << std::endl;
-        std::cout << std::endl;
-        Div();
-        std::cout << "\x1b[2A";
+        fmt::print("{1}Welcome to {2}{3}entities2.cpp{0}{1}!!!!{0}\n{1}Pick an option:{0}\n\n", RESET, WHITE, GOLD, ITALIC);
+        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
+        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Quit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+        EndDiv();
+
         std::string option;
         std::cin >> option;
 
@@ -448,10 +446,9 @@ int main()
         {
             ClearScreen();
             Div();
-            std::cout << RED("Confirm exit? [y,n]") << std::endl << std::endl;
-            std::cout << WHITE(GetExitMsg()) << std::endl << std::endl;
-            Div();
-            std::cout << "\x1b[2A";
+            fmt::print("{1}Confirm exit? [y,n]{0}\n\n", RESET, RED);
+            std::cout << GetExitMsg() << std::endl;
+            EndDiv();
             std::string confirm;
             std::cin >> confirm;
 
