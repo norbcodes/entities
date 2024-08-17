@@ -5,8 +5,7 @@ Generate the 4 moves to choose from.
 */
 
 #include <cstdint>
-#include <iostream>
-#include <iomanip>
+#include <fmt/core.h>
 
 #include "move_constants.hpp"
 #include "status_constants.hpp"
@@ -90,35 +89,36 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
     for (int i = 0; i != 4; i++)
     {
         // Print index
-        std::cout << DARK_GRAY("[") + GOLD(BOLD_IN(std::to_string(i + 1))) + DARK_GRAY("]");
+        // This looks funny lmao
+        fmt::print("{2}[{3}{4}{1}{0}{2}]{0}", RESET, i + 1, DARK_GRAY, GOLD, BOLD);
         // Print energy cost
-        std::cout << DARK_GRAY(" [") << BLUE_IN(BOLD_IN("")) << std::fixed << std::setprecision(2) << energies[i] << DARK_GRAY("] \t");
+        fmt::print("{2}[{3}{4}{1:.2f}{0}{2}]{0}\t", RESET, energies[i], DARK_GRAY, BLUE, BOLD);
         // Print the other
         switch (move_types[i])
         {
             case ATTACK:
-                std::cout << RED("Attack!") + WHITE(" Deal ") + PURPLE(std::to_string(moves[i]) ) + WHITE(" damage to opponent.") << std::endl;
+                fmt::print("{3}Attack! {2}Deal {4}{1} {2}damage to opponent.{0}\n", RESET, moves[i], WHITE, RED, PURPLE);
                 break;
             case HEAL:
-                std::cout << GREEN("Heal! ") + WHITE("Gives you ") + PURPLE("+" + std::to_string(moves[i])) + WHITE(" HP") << std::endl;
+                fmt::print("{2}Heal! {3}Gives you {4}+{1} {3}HP{0}\n", RESET, moves[i], GREEN, WHITE, PURPLE);
                 break;
             case ARMOR:
-                std::cout << BLUE("Regen armor") + WHITE("! Give you ") + PURPLE("+" + std::to_string(moves[i])) + WHITE(" AR") << std::endl;
+                fmt::print("{2}Regen armor{3}! Gives you {4}+{1} {3}AR{0}\n", RESET, moves[i], BLUE, WHITE, PURPLE);
                 break;
             case STATUS:
                 switch (moves[i])
                 {
                     case AUTO_HEAL:
-                        std::cout << WHITE("Apply ") + GREEN("AutoHeal ") + WHITE("status! Gives you ") + PURPLE(std::to_string(AUTO_HEAL_AMOUNT)) + WHITE(" HP when it's your turn") << std::endl;
+                        fmt::print("{2}Apply {3}AutoHeal {2}status! Gives you {4}{1} {2}HP when it's your turn{0}\n", RESET, AUTO_HEAL_AMOUNT, WHITE, GREEN, PURPLE);
                         break;
                     case INCR_CRIT:
-                        std::cout << WHITE("Apply ") + RED("IncreasedCrit") + WHITE(" status! Increased chance to deal a ") + RED("critical attack") << std::endl;
+                        fmt::print("{1}Apply {2}IncreasedCrit {1}status! Increased chance to deal a {2}critical attack{0}\n", RESET, WHITE, RED);
                         break;
                     case INVIS:
-                        std::cout << WHITE("Apply ") + HOT_PINK("Invis ") + WHITE("status! Opponent has a chance to ") + HOT_PINK("miss") << std::endl;
+                        fmt::print("{1}Apply {2}Invis {1}status! Opponent has a chance to {2}miss{0}\n", RESET, WHITE, HOT_PINK);
                         break;
                     case POISON:
-                        std::cout << WHITE("Give opponent ") + DARK_GREEN("Poison ") + WHITE("status! Deals ") + PURPLE(std::to_string(POISON_AMOUNT)) + WHITE(" poison damage ") << std::endl;
+                        fmt::print("{2}Give opponent {3}Poison {2}status! Deals {4}{1} {2}poison damage{0}\n", RESET, POISON_AMOUNT, WHITE, DARK_GREEN, PURPLE);
                         break;
                 }
                 break;

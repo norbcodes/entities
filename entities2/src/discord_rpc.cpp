@@ -14,8 +14,7 @@ If it works, it works, and it works better than the under-documented SDK :)
 
 #include <bits/stdc++.h>
 #include <time.h>
-
-#include "discord/discord_rpc.hpp"
+#include <discord/discord_rpc.hpp>
 
 namespace _DiscordStuff
 {

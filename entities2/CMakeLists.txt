@@ -3,10 +3,17 @@
 # The CMakeLists to build entities2.cpp
 cmake_minimum_required(VERSION 3.29 FATAL_ERROR)
 
+# Do not make install rules pls
+# and disable other stuff
+set(FMT_INSTALL OFF)
+set(FMT_DOC OFF)
+set(FMT_TEST OFF)
+add_subdirectory("${CMAKE_SOURCE_DIR}/src/fmt")
+
 # Set the project
 project(entities2 
         LANGUAGES CXX 
-        VERSION "1.6.1"
+        VERSION "1.7.0.0"
         DESCRIPTION "entities2 is a small silly turn based combat CLI game."
 )
 
@@ -22,6 +29,7 @@ option(CUSTOM_DISCORD_ID        "Custom Discord ID." OFF)
 set(
     SEARCH_IN 
     ${CMAKE_SOURCE_DIR}/src/headers
+    ${CMAKE_SOURCE_DIR}/src/fmt/include
 )
 
 # Set sources
@@ -76,6 +84,12 @@ add_executable(${PROJECT_NAME} ${ENTITIES2_SOURCE})
 target_include_directories(${PROJECT_NAME} PUBLIC ${SEARCH_IN})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
+# Add fmt as dependency
+add_dependencies(${PROJECT_NAME} fmt)
+# Link fmt
+target_link_directories(${PROJECT_NAME} PUBLIC "${CMAKE_BINARY_DIR}/src/fmt")
+target_link_libraries(${PROJECT_NAME} PUBLIC fmt)
+
 if (ENABLE_DISCORD_RPC)
     target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISCORD_RPC__)
     if (NOT CUSTOM_DISCORD_ID)
@@ -83,6 +97,7 @@ if (ENABLE_DISCORD_RPC)
     else()
         target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISCORD_CLIENT_ID__=${CUSTOM_DISCORD_ID})
     endif()
+    # Add the discord-rpc as dependency
     add_dependencies(${PROJECT_NAME} discord-rpc)
     target_link_libraries(${PROJECT_NAME} PUBLIC discord-rpc)
 endif()

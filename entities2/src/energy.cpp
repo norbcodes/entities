@@ -6,8 +6,7 @@ Energy!
 
 #include <cstdint>
 #include <math.h>
-#include <iostream>
-#include <iomanip>
+#include <fmt/core.h>
 
 #include "energy_constants.hpp"
 #include "move_constants.hpp"
@@ -58,6 +57,15 @@ double CalcEnergyCost(uint32_t move, uint32_t type)
 
 void PrintEnergyBar(const Entity& entity)
 {
+    uint32_t columns_count = roundf((entity.GetEnergy() / MAX_ENERGY) * 10);
+    std::string columns = "";
+    for (int i = 0; i != columns_count; i++)
+    {
+        columns += "#";
+    }
+    fmt::print("{1}[{0} {2}{3}{4:.<10}{0} {1}]{0}\n", RESET, DARK_GRAY, BLUE, BOLD, columns);
+
+    /*
     // Do some funky shenanigans
     const auto default_precision = std::cout.precision();
 
@@ -108,6 +116,7 @@ void PrintEnergyBar(const Entity& entity)
     
     // And finally, move down.
     std::cout << "\x1b[1E";
+    */
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
