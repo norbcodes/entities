@@ -94,16 +94,16 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                 fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
                 EndDiv();
 
-                uint32_t choice;
+                std::string choice;
                 std::cin >> choice;
 
-                if (choice == 1)
+                if (choice == "1")
                 {
                     picker_flag = false;
                     is_running = false;
                     break;
                 }
-                else if (choice == 2)
+                else if (choice == "2")
                 {
                     is_running = false;
                     break;
@@ -123,16 +123,16 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                 fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
                 EndDiv();
 
-                uint32_t choice;
+                std::string choice;
                 std::cin >> choice;
 
-                if (choice == 1)
+                if (choice == "1")
                 {
                     picker_flag = false;
                     is_running = false;
                     break;
                 }
-                else if (choice == 2)
+                else if (choice == "2")
                 {
                     is_running = false;
                     break;
@@ -198,12 +198,12 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                     std::string _picked_move;
                     while (true)
                     {
-                        fmt::print("{1}Choose your move. {2}{3}[1,2,3,4,9] (9 to exit)                                           {0}\n", RESET, WHITE, BOLD, GRAY);
+                        fmt::print("{1}Choose your move. {2}{3}[0,1,2,3,4] (0 to exit)                                           {0}\n", RESET, WHITE, BOLD, GRAY);
                         EndDiv();
                         // Player
                         std::cin >> _picked_move;
 
-                        if (_picked_move == "9")
+                        if (_picked_move == "0")
                         {
                             fmt::print("{1}Do you really wanna end the battle? {2}{3}[y,n]                                                             {0}\n", RESET, RED, GRAY, BOLD);
                             EndDiv();
@@ -232,7 +232,7 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                     }
 
                     // if pick is not 0, 1, 2, 3 or 9 = skip round
-                    if (_picked_move != "1" && _picked_move != "2" && _picked_move != "3" && _picked_move != "4" && _picked_move != "9")
+                    if (_picked_move != "1" && _picked_move != "2" && _picked_move != "3" && _picked_move != "4" && _picked_move != "0")
                     {
                         what_happened += fmt::format("{1}{2}Player{0} {3}skipped the round.{0}", RESET, BLUE, BOLD, WHITE);
                         break;
@@ -311,9 +311,9 @@ void DifficultyPicker()
         Div();
         fmt::print("{1}Select your difficulty:{0}\n\n", RESET, WHITE);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}I kick Entities ass{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
-        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}I've seen worse{0}\n", RESET, BOLD, GOLD, DARK_GRAY, ORANGE);
-        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Down with the Entities{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
-        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Random!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
+        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}I've seen worse{0}\n", RESET, BOLD, GOLD, DARK_GRAY, ORANGE);
+        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Down with the Entities{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+        fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}Random!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
         EndDiv();
 
         std::string choice;
