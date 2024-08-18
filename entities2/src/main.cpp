@@ -32,6 +32,7 @@ The long awaited... entities2!!!!
 #include "energy.hpp"
 #include "discord_rpc.hpp"
 #include "pick_move.hpp"
+#include "gameplay_info.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -313,13 +314,19 @@ void DifficultyPicker()
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}I kick Entities ass{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
         fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}I've seen worse{0}\n", RESET, BOLD, GOLD, DARK_GRAY, ORANGE);
         fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Down with the Entities{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
-        fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}Random!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
+        fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}Random!{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
+        fmt::print("{3}[{0}{2}{1}5{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
         EndDiv();
 
         std::string choice;
         std::cin >> choice;
 
-        if (choice == "1" || choice == "2" || choice == "3" || choice == "4")
+        if (choice == "5")
+        {
+            picker_flag = false;
+            break;
+        }
+        else if (choice == "1" || choice == "2" || choice == "3" || choice == "4")
         {
             Game(choice, picker_flag);
         }
@@ -355,13 +362,14 @@ int main()
         Div();
         fmt::print("{1}Welcome to {2}{3}entities2.cpp{0}{1}!!!!{0}\n{1}Pick an option:{0}\n\n", RESET, WHITE, GOLD, ITALIC);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
-        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Quit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Gameplay Info{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
+        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Quit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
         EndDiv();
 
         std::string option;
         std::cin >> option;
 
-        if (option == "2")
+        if (option == "3")
         {
             ClearScreen();
             Div();
@@ -383,10 +391,16 @@ int main()
                 continue;
             }
         }
+        // MAIN GAME
         else if (option == "1")
         {
             // do
             DifficultyPicker();
+        }
+        // INFO SECTION
+        else if (option == "2")
+        {
+            GameplayInfoSec();
         }
         else
         {

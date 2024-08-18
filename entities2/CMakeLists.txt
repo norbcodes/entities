@@ -40,6 +40,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/energy.cpp
     ${CMAKE_SOURCE_DIR}/src/entity.cpp
     ${CMAKE_SOURCE_DIR}/src/exit_msg.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay_info.cpp
     ${CMAKE_SOURCE_DIR}/src/gen_moves.cpp
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/pick_move.cpp
