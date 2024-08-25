@@ -9,5 +9,5 @@
 #define PLAYER_START_AR     100
 #define ENEMY_START_HP      100
 #define ENEMY_START_AR      100
-#define HEALTH_F            5
-#define ARMOR_F             2
+#define HEALTH_F            10
+#define ARMOR_F             5
