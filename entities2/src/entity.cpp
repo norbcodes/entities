@@ -102,7 +102,7 @@ void PrintEntityStats(const Entity& ent)
         }
         else if (_s.GetType() == THORNS)
         {
-            fmt::print("{2}T{3}{1}{0} ", RESET, _s.GetTimeLeft(), TEAL, DARK_GRAY);
+            fmt::print("{2}*{3}{1}{0} ", RESET, _s.GetTimeLeft(), TEAL, DARK_GRAY);
         }
     }
     fmt::print("\n");

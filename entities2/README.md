@@ -50,4 +50,14 @@ Or similar.<br><br>
         <th>OFF</th>
         <th>Custom Discord ID. If set to OFF, the game will use the<br> original client id. To pass in a custom client id, just pass it into<br> this option, like <code>-DCUSTOM_DISCORD_ID="42069"</code></th>
     </tr>
+    <tr>
+        <th>DISABLE_COLORS</th>
+        <th>OFF</th>
+        <th>Disable colors and styling. ALL of it. WARNING: Will make your<br>game look ugly if disabled :)</th>
+    </tr>
+    <tr>
+        <th>DISABLE_TERMINAL_BELL</th>
+        <th>OFF</th>
+        <th>Disable terminal bell.</th>
+    </tr>
 </table>
