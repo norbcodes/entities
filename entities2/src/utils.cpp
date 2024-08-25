@@ -40,3 +40,11 @@ void Credits()
     fmt::print("{4}entities2.cpp version {1} compiled at {2} {3} ;){0}\n", RESET, ENTITIES2_VER, __DATE__, __TIME__, DARK_GRAY);
     Div();
 }
+
+void TerminalBell()
+{
+    #ifdef __ENTITIES2_TERMINAL_BELL__
+    // ¯\_(ツ)_/¯
+    fmt::print("\a");
+    #endif // __ENTITIES2_TERMINAL_BELL__
+}

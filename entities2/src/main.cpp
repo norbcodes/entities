@@ -14,7 +14,7 @@ The long awaited... entities2!!!!
 #include <fmt/core.h>
 
 #ifdef _WIN32
-#include "windows.h"
+    #include "windows.h"
 #endif
 
 #include "entity_constants.hpp"
@@ -350,14 +350,15 @@ void DifficultyPicker()
 int main()
 {
     #ifdef _WIN32
-    // Create windows virtual cmd
-    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    DWORD dwMode = 0;
-    GetConsoleMode(hOut, &dwMode);
-    SetConsoleMode(hOut, dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+        // Create windows virtual cmd
+        HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+        DWORD dwMode = 0;
+        GetConsoleMode(hOut, &dwMode);
+        SetConsoleMode(hOut, dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING);
     #endif
 
     InitializeRPC();
+    TerminalBell();
 
     while (true)
     {

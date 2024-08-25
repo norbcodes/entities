@@ -112,7 +112,7 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
                         fmt::print("{2}Apply {3}AutoHeal {2}status! Gives you {4}{1} {2}HP when it's your turn{0}\n", RESET, AUTO_HEAL_AMOUNT, WHITE, GREEN, PURPLE);
                         break;
                     case INCR_CRIT:
-                        fmt::print("{1}Apply {2}IncreasedCrit {1}status! Increased chance to deal a {2}critical attack{0}\n", RESET, WHITE, RED);
+                        fmt::print("{1}Apply {2}IncreasedCrit {1}status! Increased {2}critical attack chance{0}\n", RESET, WHITE, RED);
                         break;
                     case INVIS:
                         fmt::print("{1}Apply {2}Invis {1}status! Opponent has a chance to {2}miss{0}\n", RESET, WHITE, HOT_PINK);

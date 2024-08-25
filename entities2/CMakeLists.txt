@@ -24,6 +24,8 @@ option(STATIC_LIBS              "Statically link against C and C++ standard lib.
 option(OPTIMIZE                 "Enable optimization." OFF)
 option(ENABLE_DISCORD_RPC       "Enable Discord RPC." OFF)
 option(CUSTOM_DISCORD_ID        "Custom Discord ID." OFF)
+option(DISABLE_COLORS           "Disable colors and styling. ALL of it." OFF)
+option(DISABLE_TERMINAL_BELL    "Disable terminal bell." OFF)
 
 # Set search paths
 set(
@@ -58,7 +60,7 @@ set(
 # Check if compiling for Linux
 message(STATUS "Checking OS...")
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
-    add_compile_definitions(${PROJECT_NAME} PUBLIC __linux__)
+    add_compile_definitions(${PROJECT_NAME} PUBLIC __linux__ __LINUX__ _LINUX)
     list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/Linux/headers")
     list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Linux/sleep.cpp")
     list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_unix.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_linux.cpp")
@@ -66,7 +68,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux)
     message(STATUS "Linux detected. Adding Linux specific stuff.")
 
 elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
-    add_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32)
+    add_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32 __windows__ __WINDOWS__)
     list(APPEND NEEDED_EXT_HEADERS windows.h)
     list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/Windows/headers")
     list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Windows/sleep.cpp")
@@ -114,4 +116,20 @@ endif()
 if (OPTIMIZE)
     target_compile_options(${PROJECT_NAME} PUBLIC -O2 -g0 -ggdb0 -s)
     message(STATUS "Enabled optimization.")
+endif()
+
+# Terminal bell
+if (NOT DISABLE_TERMINAL_BELL)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_TERMINAL_BELL__)
+    message(STATUS "Compiling with terminal bell enabled.")
+else()
+    message(STATUS "Compiling with terminal bell disabled.")
+endif()
+
+# Color controlling
+if (NOT DISABLE_COLORS)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_COLORS__)
+    message(STATUS "Compiling with colors enabled.")
+else()
+    message(STATUS "Compiling with colors disabled.")
 endif()
