@@ -7,18 +7,23 @@
 #include "colors.hpp"
 #include "rng.hpp"
 
-#define EXIT_MSG_COUNT 10
+#define EXIT_MSG_COUNT 13
 
 namespace EntitiesExitMsg
 {
     const std::string exit_msg[EXIT_MSG_COUNT] = {
         fmt::format("{1}Noooooo don't leave yet :<{0}", RESET, WHITE),
+
         #ifdef _WIN32
         fmt::format("{1}Are you sure? {2}Windows is much worse...{0}", RESET, WHITE, ITALIC),
-        #endif
+        fmt::format("{1}Of course, as if Windows is more fun!{0}", RESET, WHITE),
+        #endif // _WIN32
+
         #ifdef __linux__
         fmt::format("{1}Are you sure? {2}Linux is much worse...{0}", RESET, WHITE, ITALIC),
-        #endif
+        fmt::format("{1}Of course, as if Linux is more fun!{0}", RESET, WHITE),
+        #endif // __linux__
+
         fmt::format("{1}The enemy still has 6 hp left!{0}", RESET, WHITE),
         fmt::format("{1}You leave now, you forfeit your kill count!{0}", RESET, WHITE),
         fmt::format("{1}Atleast you tried, can't argue with that.{0}", RESET, WHITE),
@@ -26,7 +31,11 @@ namespace EntitiesExitMsg
         fmt::format("{1}Pssst, i'll give you 3 free powerups if you stay... ;){0}", RESET, WHITE),
         fmt::format("{1}Are you sure? It's dangerous outside...{0}", RESET, WHITE),
         fmt::format("{1}Tch, just go. Unworthy.{0}", RESET, WHITE),
-        fmt::format("{1}Ok{0}", RESET, WHITE)
+        fmt::format("{1}Ok{0}", RESET, WHITE),
+        // BFMV reference ;)
+        fmt::format("{3}\"{1}{2}This is how it's been, how it always be...{0}{3}\"{0}", RESET, GOLD, BOLD, DARK_GRAY),
+        // Prodigy reference ;)
+        fmt::format("{1}\"{2}{3}We live, forevah! The time! Has come! We live, forevah!{0}{1}\"{0}", RESET, DARK_GRAY, LAVENDER, BOLD)
     };
 }
 
