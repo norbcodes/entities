@@ -8,14 +8,10 @@
 #include "utils.hpp"
 #include "rng.hpp"
 
-uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, const Entity& player, const Entity& enemy)
-{
-    // Basically, heal if health < 40 if posslbe
-    // Attack if health > 80 if possible
-    // Cast poison (50% chance) if possible
-    // (middle zone 40 < health < 80, choose a random status if possible)
-    // If armor < 50, take RegenArmor if possible
+#define SKIP 4
 
+uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, const Entity& player, const Entity& enemy, uint32_t difficulty_scale)
+{
     // The ai
     // I copy+pasted a lot of this shit
 
@@ -34,141 +30,171 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
     // all falses
     if (_sum == 0)
     {
-        return 5;
+        return SKIP;
     }
 
-    // Can we armor?
-    
-    if (enemy.GetArmor() <= 50)
+    if (rng(0, 100) > enemy.GetHealth())
     {
-        uint32_t max_armor_amount = 0;
-        for (int i = 0; i != 4; i++)
+        /*
+        Difficulty table:
+        EASY               60
+        MEDIUM             70
+        HARD               60
+        */
+        if (rng(0, 100) > (60 - (difficulty_scale * 5)))
         {
-            // Is of type armor
-            if (types_list[i] == ARMOR && available[i])
-            {
-                // Get the highest armor amount
-                if (picks_list[i] > max_armor_amount)
-                {
-                    max_armor_amount = picks_list[i];
-                }
-            }
-        }
-        // If max_armor_amount is not 0
-        if (max_armor_amount != 0)
-        {
+            // Prioritize choosing poison
+            bool poison_available = false;
             for (int i = 0; i != 4; i++)
             {
-                if (picks_list[i] == max_armor_amount)
+                if (picks_list[i] == POISON && energies[i] <= enemy.GetEnergy() && types_list[i] == STATUS)
+                {
+                    poison_available = true;
+                }
+            }
+
+            if (poison_available)
+            {
+                for (int i = 0; i != 4; i++)
+                {
+                    if (picks_list[i] == POISON && types_list[i] == STATUS)
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            uint32_t highest_att = 0;
+            // Get highest attack
+            for (int i = 0; i != 4; i++)
+            {
+                if (picks_list[i] > highest_att && energies[i] <= enemy.GetEnergy() && types_list[i] == ATTACK)
+                {
+                    highest_att = picks_list[i];
+                }
+            }
+            // Choose said attack
+            for (int i = 0; i != 4; i++)
+            {
+                if (picks_list[i] == highest_att && types_list[i] == ATTACK)
                 {
                     return i;
                 }
             }
-        } // else just continue.
-    }
-
-    // Can we heal?
-    if (enemy.GetHealth() <= 40)
-    {
-        uint32_t max_heal_amount = 0;
-        for (int i = 0; i != 4; i++)
+        }
+        else
         {
-            // Is of type heal
-            if (types_list[i] == HEAL && available[i])
+            /*
+            Difficulty table:
+            EASY               50
+            MEDIUM             40
+            HARD               30
+            */
+            if (rng(0, 100) > (50 - (difficulty_scale * 5)))
             {
-                // Get the highest heal amount
-                if (picks_list[i] > max_heal_amount)
+                uint32_t status_count = 0;
+                // Get status count
+                for (int i = 0; i != 4; i++)
                 {
-                    max_heal_amount = picks_list[i];
+                    if (types_list[i] == STATUS && energies[i] <= enemy.GetEnergy())
+                    {
+                        status_count++;
+                    }
+                }
+                // Get the x-th status
+                uint32_t which = rng(0, status_count - 1);
+                // Now actually get it
+                for (int i = 0; i != 4; i++)
+                {
+                    if (types_list[i] == STATUS && energies[i] <= enemy.GetEnergy())
+                    {
+                        if (which == 0)
+                        {
+                            return i;
+                        }
+                        else
+                        {
+                            which--;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Choose armor
+                uint32_t highest_ar = 0;
+                // Get highest armor
+                for (int i = 0; i != 4; i++)
+                {
+                    if (picks_list[i] > highest_ar && energies[i] <= enemy.GetEnergy() && types_list[i] == ARMOR)
+                    {
+                        highest_ar = picks_list[i];
+                    }
+                }
+                // Choose highest armor :3
+                for (int i = 0; i != 4; i++)
+                {
+                    if (picks_list[i] == highest_ar && types_list[i] == ARMOR)
+                    {
+                        return i;
+                    }
                 }
             }
         }
-        // If max_heal_amount is not 0
-        if (max_heal_amount != 0)
+    }
+    else
+    {
+        uint32_t highest_att = 0;
+        // Get highest attack
+        for (int i = 0; i != 4; i++)
         {
+            if (picks_list[i] > highest_att && energies[i] <= enemy.GetEnergy() && types_list[i] == ATTACK)
+            {
+                highest_att = picks_list[i];
+            }
+        }
+
+        if (player.GetHealth() <= highest_att)
+        {
+            // Attack!
             for (int i = 0; i != 4; i++)
             {
-                if (picks_list[i] == max_heal_amount)
+                if (picks_list[i] == highest_att && types_list[i] == ATTACK)
                 {
                     return i;
                 }
             }
-        } // else just continue.
-    }
-
-    // Cast poison if possible
-    for (int i = 0; i != 4; i++)
-    {
-        if (picks_list[i] == POISON && types_list[i] == STATUS && available[i])
-        {
-            if (rng(0, 100) >= 50)
-            {
-                return i;
-            }
-        } 
-    }
-
-    // Attack
-    if (enemy.GetHealth() >= 80)
-    {
-        uint32_t max_dmg_amount = 0;
-        for (int i = 0; i != 4; i++)
-        {
-            // Is of type heal
-            if (types_list[i] == ATTACK && available[i])
-            {
-                // Get the highest heal amount
-                if (picks_list[i] > max_dmg_amount)
-                {
-                    max_dmg_amount = picks_list[i];
-                }
-            }
         }
-        // If max_dmg_amount is not 0
-        if (max_dmg_amount != 0)
+        else
         {
+            // find autoheal and apply
+            bool autoheal_available = false;
             for (int i = 0; i != 4; i++)
             {
-                if (picks_list[i] == max_dmg_amount)
+                if (types_list[i] == STATUS && picks_list[i] == AUTO_HEAL && energies[i] <= enemy.GetEnergy())
                 {
                     return i;
                 }
             }
-        } // else just continue.
-    }
 
-    // Choose a status
-    if (40 < enemy.GetHealth() && enemy.GetHealth() < 80)
-    {
-        uint32_t count = 0;
-        for (int i = 0; i != 4; i++)
-        {
-            if (types_list[i] == STATUS && available[i])
+            // Else find a health move
+            uint32_t highest_heal = 0;
+            for (int i = 0; i != 4; i++)
             {
-                count++;
+                if (picks_list[i] > highest_heal && types_list[i] == HEAL && energies[i] <= enemy.GetEnergy())
+                {
+                    highest_heal = picks_list[i];
+                }
+            }
+
+            for (int i = 0; i != 4; i++)
+            {
+                if (picks_list[i] == highest_heal && types_list[i] == HEAL)
+                {
+                    return i;
+                }
             }
         }
-        uint32_t pick = rng(0, count);
-        uint32_t index = 0;
-        // The loop of doom
-        while (pick != 0)
-        {
-            if (picks_list[index] == STATUS)
-            {
-                pick--;
-            }
-            if (pick == 0)
-            {
-                return index;
-            }
-            if (index == 3)
-            {
-                return index;
-            }
-            index++;
-        }
     }
-
-    // If literally nothing get picked
-    return 5;
+    return SKIP;
 }

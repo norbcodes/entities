@@ -56,6 +56,10 @@ void Game(const std::string& mode, uint32_t& picker_flag)
     {
         difficulty_scale = 4;
     }
+    else if (mode == "4")
+    {
+        difficulty_scale = rng(0, 4);
+    }
 
     // Create player and enemy
     // Heap alloc for funnidifficulty_scale
@@ -262,7 +266,7 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                 fmt::print("{1}{2}The AI is thinking...{0}\n", RESET, GOLD, ITALIC);
                 EndDiv();
                 // bot
-                uint32_t picked_move = AiChoose(moves, move_types, energy_costs, *Player, *Enemy);
+                uint32_t picked_move = AiChoose(moves, move_types, energy_costs, *Player, *Enemy, difficulty_scale);
                 // Print random num
                 for (int i = 0; i != 19000; i++)
                 {
