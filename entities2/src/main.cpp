@@ -358,7 +358,6 @@ int main()
     #endif
 
     InitializeRPC();
-    TerminalBell();
 
     while (true)
     {
