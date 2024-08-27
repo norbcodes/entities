@@ -4,4 +4,7 @@
 
 #include <cstdint>
 
-void SleepSeconds(uint32_t seconds);
+uint32_t WaitForNumkey();
+bool BinaryChoice();
+void BlockUntilEnter();
+void Keyguard();

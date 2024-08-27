@@ -6,6 +6,7 @@
 #include "status_constants.hpp"
 #include "colors.hpp"
 #include "utils.hpp"
+#include "keyboard.hpp"
 
 static void TipsNTricks()
 {
@@ -16,8 +17,7 @@ static void TipsNTricks()
     fmt::print("{1}- If need be, you can skip a round to recharge your energy.{0}\n", RESET, WHITE);
     fmt::print("{1}- The AI will try to attack if it has more than 60 HP.{0}\n", RESET, WHITE);
     EndDiv();
-    std::string g;
-    std::cin >> g;
+    BlockUntilEnter();
 }
 
 static void Statuses()
@@ -31,8 +31,7 @@ static void Statuses()
     fmt::print("{3}{2}Poison{0}\n   {4}At the start of a {5}new round{0}, the entity that{0}\n   {4}has {5}their turn will recieve {6}{3}-{1}HP of damage.{0}\n", RESET, POISON_AMOUNT, DARK_GREEN, BOLD, WHITE, UNDERLINE, PURPLE);
     fmt::print("{2}{1}Thorns{0}\n   {3}When an entity with this status is{0}\n   {3}attacked, {4}50% of the damage{0}{3} goes back to the {4}attacker.{0}\n", RESET, BOLD, TEAL, WHITE, UNDERLINE);
     EndDiv();
-    std::string g;
-    std::cin >> g;
+    BlockUntilEnter();
 }
 
 void GameplayInfoSec()
@@ -48,18 +47,18 @@ void GameplayInfoSec()
         fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
         EndDiv();
         // Get optionnn
-        std::string option;
-        std::cin >> option;
+        Keyguard();
+        uint32_t option = WaitForNumkey();
         // Yay
-        if (option == "1")
+        if (option == 1)
         {
             TipsNTricks();
         }
-        else if (option == "2")
+        else if (option == 2)
         {
             Statuses();
         }
-        else if (option == "3")
+        else if (option == 3)
         {
             break;
         }
