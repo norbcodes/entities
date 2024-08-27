@@ -14,15 +14,16 @@ cd entities/enities2/build
 cmake .. -G "MinGW Makefiles"
 mingw32-make
 </code></pre>
-You may also add options, after the <code>..</code>.<br>
+You may also add options, after the <code>..</code> <a href="#options">See options here</a>.<br>
 This will produce an executable named <code>entities2.exe</code> (or <code>entities2.out</code> or something similar)
 <br>
-To run, simply run the executable as you would any other:
+Then, simply run the executable as you would any other:
 <pre><code>./entities2.exe</code></pre>
 Or similar.<br><br>
 <b>Precompiled binaries are not provided.</b>
 </p>
 
+<a id="options"></a>
 <h2>CMake Options</h2>
 <table>
     <tr>
