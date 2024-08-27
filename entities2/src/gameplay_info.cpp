@@ -11,7 +11,10 @@ static void TipsNTricks()
 {
     ClearScreen();
     Div();
-    fmt::print("{1}{2}Coming soon! :){0}\n", RESET, GOLD, BOLD);
+    fmt::print("{1}{2}TIPS 'N' TRICKS{0}\n\n", RESET, GOLD, BOLD);
+    fmt::print("{1}- You can use skip a round by choosing neither 0, 1, 2, 3 or 4.{0}\n", RESET, WHITE);
+    fmt::print("{1}- If need be, you can skip a round to recharge your energy.{0}\n", RESET, WHITE);
+    fmt::print("{1}- The AI will try to attack if it has more than 60 HP.{0}\n", RESET, WHITE);
     EndDiv();
     std::string g;
     std::cin >> g;

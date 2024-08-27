@@ -6,12 +6,12 @@
 
 class Status
 {
-    private:
-        uint8_t type;
-        uint8_t time_left;
     public:
         Status(uint8_t type, uint8_t time_left);
         uint8_t GetType() const;
         uint8_t GetTimeLeft() const;
         void Age();
+    private:
+        uint8_t type;
+        uint8_t time_left;
 };

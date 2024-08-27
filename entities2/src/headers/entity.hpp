@@ -10,11 +10,6 @@
 
 class Entity
 {
-    private:
-        int32_t health;
-        int32_t armor;
-        double energy;
-        std::vector<Status> status_list;
     public:
         Entity(int32_t start_health, int32_t start_armor);
         int32_t GetHealth() const;
@@ -31,6 +26,11 @@ class Entity
         double GetEnergy() const;
         void GiveEnergy(double val);
         void TakeEnergy(double val);
+    private:
+        int32_t health;
+        int32_t armor;
+        double energy;
+        std::vector<Status> status_list;
 };
 
 void PrintEntityStats(const Entity& ent);
