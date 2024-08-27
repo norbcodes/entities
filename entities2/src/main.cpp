@@ -33,6 +33,7 @@ The long awaited... entities2!!!!
 #include "discord_rpc.hpp"
 #include "pick_move.hpp"
 #include "gameplay_info.hpp"
+#include "keyboard.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,23 +41,23 @@ The long awaited... entities2!!!!
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Game(const std::string& mode, uint32_t& picker_flag)
+void Game(uint32_t mode, uint32_t& picker_flag)
 {
     // Wowie
     uint8_t difficulty_scale;
-    if (mode == "1")
+    if (mode == 1)
     {
         difficulty_scale = 0;
     }
-    else if (mode == "2")
+    else if (mode == 2)
     {
         difficulty_scale = 2;
     }
-    else if (mode == "3")
+    else if (mode == 3)
     {
         difficulty_scale = 4;
     }
-    else if (mode == "4")
+    else if (mode == 4)
     {
         difficulty_scale = rng(0, 4);
     }
@@ -64,12 +65,12 @@ void Game(const std::string& mode, uint32_t& picker_flag)
     // Create player and enemy
     // Heap alloc for funnidifficulty_scale
     Entity* Player = new Entity(
-        (mode == "4") ? rng(10, 200) : PLAYER_START_HP - difficulty_scale * HEALTH_F, 
-        (mode == "4") ? rng(10, 200) : PLAYER_START_AR - difficulty_scale * ARMOR_F
+        (mode == 4) ? rng(10, 200) : PLAYER_START_HP - difficulty_scale * HEALTH_F, 
+        (mode == 4) ? rng(10, 200) : PLAYER_START_AR - difficulty_scale * ARMOR_F
     );
     Entity* Enemy = new Entity(
-        (mode == "4") ? rng(10, 200) : ENEMY_START_HP + difficulty_scale * HEALTH_F, 
-        (mode == "4") ? rng(10, 200) : ENEMY_START_AR + difficulty_scale * ARMOR_F
+        (mode == 4) ? rng(10, 200) : ENEMY_START_HP + difficulty_scale * HEALTH_F, 
+        (mode == 4) ? rng(10, 200) : ENEMY_START_AR + difficulty_scale * ARMOR_F
     );
     // Yes, it literally rigs the game against you
 
@@ -99,16 +100,16 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                 fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
                 EndDiv();
 
-                std::string choice;
-                std::cin >> choice;
+                Keyguard();
+                uint32_t choice = WaitForNumkey();
 
-                if (choice == "1")
+                if (choice == 1)
                 {
                     picker_flag = false;
                     is_running = false;
                     break;
                 }
-                else if (choice == "2")
+                else if (choice == 2)
                 {
                     is_running = false;
                     break;
@@ -128,16 +129,16 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                 fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
                 EndDiv();
 
-                std::string choice;
-                std::cin >> choice;
+                Keyguard();
+                uint32_t choice = WaitForNumkey();
 
-                if (choice == "1")
+                if (choice == 1)
                 {
                     picker_flag = false;
                     is_running = false;
                     break;
                 }
-                else if (choice == "2")
+                else if (choice == 2)
                 {
                     is_running = false;
                     break;
@@ -200,21 +201,21 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                 while (true)
                 {
                     bool exit_flag = false;
-                    std::string _picked_move;
+                    uint32_t picked_move;
                     while (true)
                     {
                         fmt::print("{1}Choose your move. {2}{3}[0,1,2,3,4] (0 to exit)                                           {0}\n", RESET, WHITE, BOLD, GRAY);
                         EndDiv();
                         // Player
-                        std::cin >> _picked_move;
+                        Keyguard();
+                        picked_move = WaitForNumkey();
 
-                        if (_picked_move == "0")
+                        if (picked_move == 0)
                         {
                             fmt::print("{1}Do you really wanna end the battle? {2}{3}[y,n]                                                             {0}\n", RESET, RED, GRAY, BOLD);
                             EndDiv();
-                            std::string option;
-                            std::cin >> option;
-                            if (option == "y")
+                            Keyguard();
+                            if (BinaryChoice())
                             {
                                 is_running = false;
                                 picker_flag = false;
@@ -237,15 +238,11 @@ void Game(const std::string& mode, uint32_t& picker_flag)
                     }
 
                     // if pick is not 0, 1, 2, 3 or 9 = skip round
-                    if (_picked_move != "1" && _picked_move != "2" && _picked_move != "3" && _picked_move != "4" && _picked_move != "0")
+                    if (picked_move != 1 && picked_move != 2 && picked_move != 3 && picked_move != 4 && picked_move != 0)
                     {
                         what_happened += fmt::format("{1}{2}Player{0} {3}skipped the round.{0}", RESET, BLUE, BOLD, WHITE);
                         break;
                     }
-
-                    // The above checks should capture any garbage like ~2, fd, 5021qa
-                    // So we can safely convert to int
-                    uint32_t picked_move = std::stoi(_picked_move);
 
                     picked_move--;
 
@@ -322,15 +319,15 @@ void DifficultyPicker()
         fmt::print("{3}[{0}{2}{1}5{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
         EndDiv();
 
-        std::string choice;
-        std::cin >> choice;
+        Keyguard();
+        uint32_t choice = WaitForNumkey();
 
-        if (choice == "5")
+        if (choice == 5)
         {
             picker_flag = false;
             break;
         }
-        else if (choice == "1" || choice == "2" || choice == "3" || choice == "4")
+        else if (choice == 1 || choice == 2 || choice == 3 || choice == 4)
         {
             Game(choice, picker_flag);
         }
@@ -370,24 +367,23 @@ int main()
         fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Quit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
         EndDiv();
 
-        std::string option;
-        std::cin >> option;
+        Keyguard();
+        uint32_t option = WaitForNumkey();
 
-        if (option == "3")
+        if (option == 3)
         {
             ClearScreen();
             Div();
             fmt::print("{1}Confirm exit? [y,n]{0}\n\n", RESET, RED);
             std::cout << GetExitMsg() << std::endl;
             EndDiv();
-            std::string confirm;
-            std::cin >> confirm;
 
-            if (confirm == "y")
+            Keyguard();
+            if (BinaryChoice())
             {
                 ClearScreen();
                 Credits();
-                SleepSeconds(1);
+                SleepSeconds(2);
                 break;
             }
             else
@@ -396,13 +392,13 @@ int main()
             }
         }
         // MAIN GAME
-        else if (option == "1")
+        else if (option == 1)
         {
             // do
             DifficultyPicker();
         }
         // INFO SECTION
-        else if (option == "2")
+        else if (option == 2)
         {
             GameplayInfoSec();
         }

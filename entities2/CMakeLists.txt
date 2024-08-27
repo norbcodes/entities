@@ -70,18 +70,18 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux)
 elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
     add_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32 __WIN32__)
     list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/Windows/headers")
-    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Windows/sleep.cpp")
+    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Windows/sleep.cpp" "${CMAKE_SOURCE_DIR}/src/Windows/keyboard.cpp")
     list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_win.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_win.cpp")
 
     message(STATUS "Windows detected. Adding Windows specific stuff.")
 
-elseif(CMAKE_SYSTEM_NAME MATCHES Darwin)
-    add_compile_definitions(${PROJECT_NAME} PUBLIC __APPLE__)
-    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/MacOS/headers")
-    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/MacOS/sleep.cpp")
-    list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_unix.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_osx.m")
-
-    message(STATUS "MacOS detected. Adding MacOS specific stuff.")
+#elseif(CMAKE_SYSTEM_NAME MATCHES Darwin)
+#    add_compile_definitions(${PROJECT_NAME} PUBLIC __APPLE__)
+#    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/MacOS/headers")
+#    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/MacOS/sleep.cpp")
+#    list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_unix.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_osx.m")
+#
+#    message(STATUS "MacOS detected. Adding MacOS specific stuff.")
 
 endif()
 
