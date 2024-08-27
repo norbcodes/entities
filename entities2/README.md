@@ -54,7 +54,7 @@ Or similar.<br><br>
     <tr>
         <th>DISABLE_COLORS</th>
         <th>OFF</th>
-        <th>Disable colors and styling. ALL of it. WARNING: Will make your<br>game look ugly if disabled :)</th>
+        <th>Disable colors and styling. ALL of it. WARNING: Will make your<br>game look ugly if enabled :)</th>
     </tr>
     <tr>
         <th>DISABLE_TERMINAL_BELL</th>
