@@ -5,8 +5,8 @@
 
 namespace EntitiesRNG
 {
-    std::random_device rd;
-    std::mt19937 generator(rd());
+    static std::random_device rd;
+    static std::mt19937 generator(rd());
 }
 
 uint32_t rng(uint32_t a, uint32_t b)
