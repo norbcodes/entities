@@ -12,16 +12,16 @@ Also "We deprecated discord-rpc" I don't give a shit
 If it works, it works, and it works better than the under-documented SDK :)
 */
 
-#include <bits/stdc++.h>
+#include <cstring>
 #include <time.h>
 #include <discord/discord_rpc.hpp>
 
-namespace _DiscordStuff
+namespace E2_Discord
 {
     // I'm too lazy to do it any other way
-    bool RegenMenuRPC = true;
-    bool RegenGameplayTime = true;
-    time_t GameplayTime;
+    static bool RegenMenuRPC = true;
+    static bool RegenGameplayTime = true;
+    static time_t GameplayTime;
 }
 
 void MainMenuRPC()
@@ -29,9 +29,9 @@ void MainMenuRPC()
     #ifdef __ENTITIES2_DISCORD_RPC__
 
     // Thank god for the "Show Code" option <3
-    if (_DiscordStuff::RegenMenuRPC)
+    if (E2_Discord::RegenMenuRPC)
     {
-        _DiscordStuff::RegenGameplayTime = true;
+        E2_Discord::RegenGameplayTime = true;
         DiscordRichPresence presence;
         memset(&presence, 0, sizeof(presence));
         presence.details = "In Main Menu";
@@ -39,7 +39,7 @@ void MainMenuRPC()
         presence.largeImageKey = "entities2_bigimage";
         presence.largeImageText = "entities2";
         Discord_UpdatePresence(&presence);
-        _DiscordStuff::RegenMenuRPC = false;
+        E2_Discord::RegenMenuRPC = false;
     }
 
     #endif // __ENTITIES2_DISCORD_RPC__
@@ -49,7 +49,7 @@ void GameplayRPC(bool enemy_turn)
 {
     #ifdef __ENTITIES2_DISCORD_RPC__
 
-    _DiscordStuff::RegenMenuRPC = true;
+    E2_Discord::RegenMenuRPC = true;
 
     DiscordRichPresence presence;
     memset(&presence, 0, sizeof(presence));
@@ -57,13 +57,13 @@ void GameplayRPC(bool enemy_turn)
     presence.state = (!enemy_turn) ? "Player Turn" : "Enemy Turn";
     presence.details = "In Battle";
 
-    if (_DiscordStuff::RegenGameplayTime)
+    if (E2_Discord::RegenGameplayTime)
     {
-        _DiscordStuff::GameplayTime = time(NULL);
-        _DiscordStuff::RegenGameplayTime = false;
+        E2_Discord::GameplayTime = time(NULL);
+        E2_Discord::RegenGameplayTime = false;
     }
 
-    presence.startTimestamp = _DiscordStuff::GameplayTime;
+    presence.startTimestamp = E2_Discord::GameplayTime;
 
     presence.largeImageKey = "entities2_bigimage";
     presence.largeImageText = "entities2";

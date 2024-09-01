@@ -66,7 +66,7 @@
             #define WHITE               "\x1b[37m"
             #define HOT_PINK            "\x1b[35m"
             #define GRAY                "\x1b[37m"
-            #define DARK_GRAY           "\x1b[30m"
+            #define DARK_GRAY           "\x1b[37m"
             #define PINK                "\x1b[35m"
             #define GOLD                "\x1b[33m"
             #define GREEN               "\x1b[32m"

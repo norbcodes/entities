@@ -12,7 +12,7 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/src/fmt")
 
 # Set the project
 project(entities2 
-        LANGUAGES CXX OBJC
+        LANGUAGES CXX C
         VERSION "1.7.0.0"
         DESCRIPTION "entities2 is a small silly turn based combat CLI game."
 )
@@ -65,7 +65,7 @@ message(STATUS "Checking OS...")
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
     add_compile_definitions(${PROJECT_NAME} PUBLIC __linux__)
     list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/Linux/headers")
-    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Linux/sleep.cpp")
+    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Linux/sleep.cpp" "${CMAKE_SOURCE_DIR}/src/Linux/keyboard.cpp")
     list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_unix.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_linux.cpp")
 
     message(STATUS "Linux detected. Adding Linux specific stuff.")
