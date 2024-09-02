@@ -1,5 +1,14 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file gameplay_info.cpp
+ * \author norbcodes
+ * \brief Info... About the game.
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \details Provides a neat function that can interactively<br>
+ *          display information, guides, tips and tricks, and so on.
+ */
+
 #include <iostream>
 #include <fmt/core.h>
 
@@ -34,6 +43,11 @@ static void Statuses()
     BlockUntilEnter();
 }
 
+/**
+ * \brief The gameplay info function.
+ * \details An interactive menu that you can navigate to learn more about this game<br>
+ *          how it plays, neat tips and trick, and more!
+ */
 void GameplayInfoSec()
 {
     while (true)

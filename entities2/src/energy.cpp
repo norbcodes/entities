@@ -1,5 +1,14 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file energy.cpp
+ * \author norbcodes
+ * \brief The game's energy system!
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \details Each move has an energetical cost. This introduces another layer of<br>
+ *          complexity and strategy to the game.
+ */
+
 /*
 Energy!
 */
@@ -14,6 +23,19 @@ Energy!
 #include "colors.hpp"
 #include "entity.hpp"
 
+/**
+ * \def ARMOR_ENERGY_F
+ * \brief Used to calculate energy cost for armor moves. See energy.cpp
+ */
+
+/**
+ * \brief Calculate energy cost.
+ * \details Depending on the move and type of move, the higher the energetical cost can be.<br>
+ *          This function calculates the energy cost.
+ * \param[in] move Move data.
+ * \param[in] type Move type.
+ * \return The energetical cost, as a double.
+ */
 double CalcEnergyCost(uint32_t move, uint32_t type)
 {
     double cost = 0.0;
@@ -58,6 +80,10 @@ double CalcEnergyCost(uint32_t move, uint32_t type)
     return cost;
 }
 
+/**
+ * \brief Prints out a nice looking energy bar for an entity.
+ * \param[in] entity A constant entity reference to display it's energy bar.
+ */
 void PrintEnergyBar(const Entity& entity)
 {
     uint32_t columns_count = roundf((entity.GetEnergy() / MAX_ENERGY) * 10);
@@ -76,11 +102,19 @@ void PrintEnergyBar(const Entity& entity)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * \brief Get's the current Entity's energy.
+ * \return Energy, as a double.
+ */
 double Entity::GetEnergy() const
 {
     return this->energy;
 }
 
+/**
+ * \brief Give energy to this Entity.
+ * \param[in] val The amount of energy to give, as a double.
+ */
 void Entity::GiveEnergy(double val)
 {
     if (this->energy + val >= MAX_ENERGY)
@@ -91,6 +125,10 @@ void Entity::GiveEnergy(double val)
     this->energy += val;
 }
 
+/**
+ * \brief Take energy from this Entity.
+ * \param[in] val The amount of energy to take, as a double.
+ */
 void Entity::TakeEnergy(double val)
 {
     if (this->energy - val <= 0)

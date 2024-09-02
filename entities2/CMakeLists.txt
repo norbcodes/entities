@@ -13,9 +13,14 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/src/fmt")
 # Set the project
 project(entities2 
         LANGUAGES CXX C
-        VERSION "1.7.0.0"
         DESCRIPTION "entities2 is a small silly turn based combat CLI game."
 )
+
+set(PROJECT_VERSION "v1.7.0-dev")
+set(PROJECT_VERSION_MAJOR "1")
+set(PROJECT_VERSION_MINOR "7")
+set(PROJECT_VERSION_PATCH "0")
+set(PROJECT_VERSION_IS_DEV 1)
 
 include("CheckIncludeFileCXX")
 
@@ -29,12 +34,21 @@ option(4BIT_COLORS              "Use 4bit colors instead of RGB (ONLY WORKS WHEN
 option(4BIT_STYLES              "Enable styling when in 4Bit color mode (ONLY WORKS WHEN 4BIT COLORS ENABLED)" OFF)
 option(4BIT_AIXTERM             "Enable bright colors basically (ONLY WORKS WHEN 4BIT COLORS ENABLED)" OFF)
 option(DISABLE_TERMINAL_BELL    "Disable terminal bell." OFF)
+option(BUILD_DOCS               "Build doxygen documentation." OFF)
+option(DISABLE_UNSTABLE_WARN    "Disable warning when starting up a development build of the game." OFF)
 
 # Set search paths
 set(
     SEARCH_IN 
     ${CMAKE_SOURCE_DIR}/src/headers
     ${CMAKE_SOURCE_DIR}/src/fmt/include
+    ${CMAKE_BINARY_DIR}/headers
+)
+
+# Create macro list for Doxygen:
+set(
+    PREDEFINED_MACROS_DOXY
+
 )
 
 # Set sources
@@ -64,6 +78,7 @@ set(
 message(STATUS "Checking OS...")
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
     add_compile_definitions(${PROJECT_NAME} PUBLIC __linux__)
+    list(APPEND PREDEFINED_MACROS_DOXY "__linux__")
     list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/Linux/headers")
     list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Linux/sleep.cpp" "${CMAKE_SOURCE_DIR}/src/Linux/keyboard.cpp")
     list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_unix.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_linux.cpp")
@@ -72,6 +87,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux)
 
 elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
     add_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32 __WIN32__)
+    list(APPEND PREDEFINED_MACROS_DOXY "_WIN32" "__WIN32__")
     list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/Windows/headers")
     list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Windows/sleep.cpp" "${CMAKE_SOURCE_DIR}/src/Windows/keyboard.cpp")
     list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_win.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_win.cpp")
@@ -88,12 +104,15 @@ elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
 
 endif()
 
-# Create the main executable
 if (ENABLE_DISCORD_RPC)
     add_library(discord-rpc STATIC ${DISCORD_RPC_SOURCE})
     target_include_directories(discord-rpc PUBLIC ${SEARCH_IN})
 endif()
 
+# Configure version.hpp
+configure_file(${CMAKE_SOURCE_DIR}/src/headers/version.txt ${CMAKE_BINARY_DIR}/headers/version.hpp)
+
+# Create the main executable
 add_executable(${PROJECT_NAME} ${ENTITIES2_SOURCE})
 target_include_directories(${PROJECT_NAME} PUBLIC ${SEARCH_IN})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
@@ -107,10 +126,13 @@ target_link_libraries(${PROJECT_NAME} PUBLIC fmt)
 if (ENABLE_DISCORD_RPC)
     message(STATUS "Enabled Discord RPC.")
     target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISCORD_RPC__)
+    list(APPEND PREDEFINED_MACROS_DOXY __ENTITIES2_DISCORD_RPC__)
     if (NOT CUSTOM_DISCORD_ID)
         target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISCORD_CLIENT_ID__="1272918238250008726")
+        list(APPEND PREDEFINED_MACROS_DOXY "__ENTITIES2_DISCORD_CLIENT_ID__=1272918238250008726")
     else()
         target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISCORD_CLIENT_ID__=${CUSTOM_DISCORD_ID})
+        list(APPEND PREDEFINED_MACROS_DOXY "__ENTITIES2_DISCORD_CLIENT_ID__=${CUSTOM_DISCORD_ID}")
     endif()
     # Add the discord-rpc as dependency
     add_dependencies(${PROJECT_NAME} discord-rpc)
@@ -132,6 +154,7 @@ endif()
 # Terminal bell
 if (NOT DISABLE_TERMINAL_BELL)
     target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_TERMINAL_BELL__)
+    list(APPEND PREDEFINED_MACROS_DOXY "__ENTITIES2_TERMINAL_BELL__")
     message(STATUS "Compiling with terminal bell enabled.")
 else()
     message(STATUS "Compiling with terminal bell disabled.")
@@ -140,13 +163,16 @@ endif()
 # Color controlling
 if (NOT DISABLE_COLORS)
     target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_COLORS__)
+    list(APPEND PREDEFINED_MACROS_DOXY "__ENTITIES2_COLORS__")
 
     if (4BIT_COLORS)
         target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_4_BIT_COLORS__)
+        list(APPEND PREDEFINED_MACROS_DOXY "__ENTITIES2_4_BIT_COLORS__")
         message(STATUS "Compiling with 4bit colors...")
 
         if (4BIT_STYLES)
             target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_4_BIT_STYLES__)
+            list(APPEND PREDEFINED_MACROS_DOXY "__ENTITIES2_4_BIT_STYLES__")
             message(STATUS "...with styling enabled")
         else()
             message(STATUS "...with styling disabled")
@@ -154,6 +180,7 @@ if (NOT DISABLE_COLORS)
 
         if (4BIT_AIXTERM)
             target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_4_BIT_AIXTERM__)
+            list(APPEND PREDEFINED_MACROS_DOXY "__ENTITIES2_4_BIT_AIXTERM__")
             message(STATUS "...with aixterm spec enabled")
         else()
             message(STATUS "...with aixterm spec disabled")
@@ -162,4 +189,20 @@ if (NOT DISABLE_COLORS)
 
 else()
     message(STATUS "Compiling with no colors :(")
+endif()
+
+if (BUILD_DOCS)
+    # Get doxygen
+    find_package(Doxygen REQUIRED)
+    # Configure
+    list(JOIN PREDEFINED_MACROS_DOXY " " PREDEFINED_MACROS_DOXY)
+    configure_file(${CMAKE_SOURCE_DIR}/Doxyfile ${CMAKE_BINARY_DIR}/Doxyfile)
+    # Run!
+    add_custom_target(docs COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_BINARY_DIR}/Doxyfile WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src COMMENT "Generating Doxygen documentation..." VERBATIM)
+    message(STATUS "Documentation will be built.")
+endif()
+
+# Disable build warn?
+if (DISABLE_UNSTABLE_WARN)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISABLE_UNSTABLE_WARNING__)
 endif()

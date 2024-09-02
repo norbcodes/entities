@@ -1,5 +1,12 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file entity.hpp
+ * \author norbcodes
+ * \brief Entity class declaration.
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ */
+
 #pragma once
 
 #include <cstdint>
@@ -8,6 +15,11 @@
 
 #include "status.hpp"
 
+/**
+ * \class Entity
+ * \brief The entity class itself.
+ * \details The base entity class. Stores entity data, and other stuff.
+ */
 class Entity
 {
     public:
@@ -27,9 +39,28 @@ class Entity
         void GiveEnergy(double val);
         void TakeEnergy(double val);
     private:
+        /**
+         * \var int32_t health
+         * \brief The Entity's health variable.
+         */
         int32_t health;
+
+        /**
+         * \var int32_t armor
+         * \brief The Entity's armor variable.
+         */
         int32_t armor;
+
+        /**
+         * \var double energy
+         * \brief The Entity's energy variable.
+         */
         double energy;
+
+        /**
+         * \var std::vector<Status> status_list
+         * \brief The Entity's list of statuses.
+         */
         std::vector<Status> status_list;
 };
 
