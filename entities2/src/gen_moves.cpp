@@ -1,5 +1,12 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file gen_moves.cpp
+ * \author norbcodes
+ * \brief Generates moves... using RNG!
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ */
+
 /*
 Generate the 4 moves to choose from.
 */
@@ -13,6 +20,14 @@ Generate the 4 moves to choose from.
 #include "rng.hpp"
 #include "energy.hpp"
 
+/**
+ * \brief Checks if a move exists in the moves lists.
+ * \param[in] moves Array of moves.
+ * \param[in] move_types Array of types of each move.
+ * \param[in] val The move data, checked against <i>moves</i> array.
+ * \param[in] type The move type, checked against <i>move_types</i> array.
+ * \return True if move exists, else False.
+ */
 bool MoveExists(uint32_t* moves, uint32_t* move_types, uint32_t val, uint32_t type)
 {
     for (int i = 0; i != 4; i++)
@@ -129,6 +144,12 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
     }
 }
 
+/**
+ * \brief Generate moves list.
+ * \param[out] moves Array of moves.
+ * \param[out] move_types Array of types of each move.
+ * \param[out] energies Array of energy costs of each move.
+ */
 void GenerateMoves(uint32_t* moves, uint32_t* move_types, double* energies)
 {
     // Yay!

@@ -7,5 +7,6 @@
 void ClearScreen();
 void Div();
 void EndDiv();
+void EndDivNoNewl();
 void Credits();
 void TerminalBell();

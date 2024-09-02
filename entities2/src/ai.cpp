@@ -1,5 +1,14 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file ai.cpp
+ * \author norbcodes
+ * \brief The AI, the antagonist of entities2!
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \details This file contains one huge function, which uses black magic (not really)<br>
+ *          that returns a number - the chosen move.
+ */
+
 #include <cstdint>
 
 #include "move_constants.hpp"
@@ -8,8 +17,34 @@
 #include "utils.hpp"
 #include "rng.hpp"
 
+/**
+ * \def POISON_AMOUNT
+ * \brief Amount of health AutoHeal takes.
+ */
+
+/**
+ * \def ARM_F
+ * \brief Used during move generation. See gen_moves.cpp.
+ */
+
+/**
+ * \def SKIP
+ * \brief A smol little define, 4 means the Ai chose to skip the round.
+ */
 #define SKIP 4
 
+/**
+ * \brief The actual brain of the AI.
+ * \details This is a very long function of intricate code, that carefully picks out<br>
+ *          an appropriate move to select.
+ * \param[in] picks_list Array of moves to choose from.
+ * \param[in] types_list Array of types of each move.
+ * \param[in] energies The energy costs of each move.
+ * \param[in] player A constant reference to an instance of Entity class.
+ * \param[in] enemy A constant reference to an instance of Entity class. This is us!
+ * \param[in] difficulty_scale The difficulty of the current battle. Affects the AI.
+ * \return The chosen move.
+ */
 uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, const Entity& player, const Entity& enemy, uint32_t difficulty_scale)
 {
     // The ai

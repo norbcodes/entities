@@ -1,5 +1,20 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file colors.hpp
+ * \author norbcodes
+ * \brief Colors! And styles!（人´∀`*）
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \details These are graphical ANSI escape codes, which can be used in fmt::print<br>
+ *          or fmt::format to colorize or stylize text.
+ * \note These won't work if code is compiled without <b>\_\_ENTITIES2_COLORS\_\_</b><br>
+ * \note By default, colors are in RGB. Using <b>\_\_ENTITIES2_4_BIT_COLORS\_\_</b> forces the game<br>
+ *       to use predefined terminal colors.<br>
+ * \note In 4bit mode, styling is turned off by default. Use <b>\_\_ENTITIES2_4_BIT_STYLES\_\_</b> to turn it<br>
+ *       on.<br>
+ * \note Use <b>\_\_ENTITIES2_4_BIT_AIXTERM\_\_</b> to enable bright colors.<br>
+ */
+
 #pragma once
 
 // COLOR/STYLE MACROS
@@ -101,3 +116,131 @@
     #define YELLOW              ""
     #define TEAL                ""
 #endif // __ENTITIES2_COLORS__
+
+/** 
+ * \def RESET
+ * \brief If used, resets all colors and styling. 
+ * \hideinitializer
+ */
+
+/**
+ * \def BOLD
+ * \brief <b>Bold</b> text styling.
+ * \hideinitializer
+ */
+
+/**
+ * \def FAINT
+ * \brief Faint text styling.
+ * \warning Isn't supported by most terminals.
+ * \hideinitializer
+ */
+
+/**
+ * \def ITALIC
+ * \brief <i>Italic</i> text styling.
+ * \hideinitializer
+ */
+
+/**
+ * \def UNDERLINE
+ * \brief <u>Underline</u> text styling.
+ * \hideinitializer
+ */
+
+/**
+ * \def BLINKING
+ * \brief Blinking text styling.
+ * \warning Isn't supported by most terminals.
+ * \hideinitializer
+ */
+
+/**
+ * \def RED
+ * \brief RGB value = 255,25,0
+ * \hideinitializer
+ */
+
+/**
+ * \def BLUE
+ * \brief RGB value = 36,80,255
+ * \hideinitializer
+ */
+
+/**
+ * \def ORANGE
+ * \brief RGB value = 230,153,0
+ * \hideinitializer
+ */
+
+/**
+ * \def WHITE
+ * \brief RGB value = 230,230,230
+ * \hideinitializer
+ */
+
+/**
+ * \def HOT_PINK
+ * \brief RGB value = 153,0,77
+ * \hideinitializer
+ */
+
+/**
+ * \def GRAY
+ * \brief RGB value = 99,99,99
+ * \hideinitializer
+ */
+
+/**
+ * \def DARK_GRAY
+ * \brief RGB value = 68,68,68
+ * \hideinitializer
+ */
+
+/**
+ * \def PINK
+ * \brief RGB value = 234,128,255
+ * \hideinitializer
+ */
+
+/**
+ * \def GOLD
+ * \brief RGB value = 255,195,77
+ * \hideinitializer
+ */
+
+/**
+ * \def GREEN
+ * \brief RGB value = 0,255,42
+ * \hideinitializer
+ */
+
+/**
+ * \def PURPLE
+ * \brief RGB value = 76,0,230
+ * \hideinitializer
+ */
+
+/**
+ * \def DARK_GREEN
+ * \brief RGB value = 181,196,27
+ * \hideinitializer
+ */
+
+/**
+ * \def LAVENDER
+ * \brief RGB value = 187,153,255
+ * \hideinitializer
+ */
+
+/**
+ * \def YELLOW
+ * \brief RGB value = 255,255,38
+ * \hideinitializer
+ */
+
+/**
+ * \def TEAL
+ * \brief RGB value = 0,130,181
+ * \hideinitializer
+ */

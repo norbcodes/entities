@@ -9,22 +9,38 @@
 #include "status.hpp"
 #include "entity.hpp"
 
+/**
+ * \brief Constructor function for Status.
+ * \param[in] type The type of Status.
+ * \param[in] time_left Time left until expiration.
+ */
 Status::Status(uint8_t type, uint8_t time_left) : type(0), time_left(0) 
 {
     this->type = type;
     this->time_left = time_left;
 }
 
+/**
+ * \brief Get type of this Status.
+ * \return The type.
+ */
 uint8_t Status::GetType() const
 {
     return this->type;
 }
 
+/**
+ * \brief Get Status time left.
+ * \return The time left until expiration.
+ */
 uint8_t Status::GetTimeLeft() const
 {
     return this->time_left;
 }
 
+/**
+ * \brief Decrease status lifetime.
+ */
 void Status::Age()
 {
     this->time_left--;
@@ -36,6 +52,11 @@ void Status::Age()
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * \brief Does this Entity have the specified Status?
+ * \param[in] type Type of Status to check for.
+ * \return True if Status is active, otherwise False.
+ */
 bool Entity::StatusActive(uint8_t type) const
 {
     for (int i = 0; i != this->status_list.size(); i++)
@@ -48,21 +69,40 @@ bool Entity::StatusActive(uint8_t type) const
     return false;
 }
 
+/**
+ * \brief Give Status to Entity.
+ * \param[in] type Type of Status to give.
+ */
 void Entity::GiveStatus(uint8_t type)
 {
     this->status_list.emplace_back(type, STATUS_TIME_LEFT);
 }
 
+/**
+ * \brief Number of statuses this Entity has.
+ * \return Number of statuses.
+ */
 uint8_t Entity::StatusCount() const
 {
     return this->status_list.size();
 }
 
+/**
+ * \brief Return the Status at index <i>i</i>.
+ * \param[in] i The index.
+ * \return Status object.
+ */
 Status Entity::GetStatusAt(uint8_t i) const
 {
     return this->status_list[i];
 }
 
+/**
+ * \brief Process all statuses of the Entity.
+ * \param[out] msg The "What happened:" text, which is why it's string&,<br>
+ *                 because we write into it.
+ * \param[in] enemy_turn For prompt generation.
+ */
 void Entity::UpdateStatuses(std::string& msg, bool enemy_turn)
 {
     // Guard

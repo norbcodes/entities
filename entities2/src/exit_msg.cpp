@@ -1,5 +1,13 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file exit_msg.cpp
+ * \author norbcodes
+ * \brief Exit messages! :D
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \details Code for those little whiny messages you see when you try to exit.
+ */
+
 // Yep
 
 #include <fmt/core.h>
@@ -7,11 +15,23 @@
 #include "colors.hpp"
 #include "rng.hpp"
 
+/**
+ * \def EXIT_MSG_COUNT
+ * \brief The number of exit messages.
+ */
 #define EXIT_MSG_COUNT 17
 
-namespace EntitiesExitMsg
+/**
+ * \namespace E2_ExitMsg
+ * \brief E2_ExitMsg game namespace.
+ * \details Internal game namespace, stores a fixed length array of std::string's:<br>
+ *          The actual exit messages. These also change depending on the platform<br>
+ *          they were compiled on.<br><br>
+ *          Variables inside of this namespace should not be used outside of this file (exit_msg.cpp)<br>
+ */
+namespace E2_ExitMsg
 {
-    const std::string exit_msg[EXIT_MSG_COUNT] = {
+    static const std::string exit_msg[EXIT_MSG_COUNT] = {
         fmt::format("{1}Noooooo don't leave yet :<{0}", RESET, WHITE),
 
         #ifdef _WIN32
@@ -50,7 +70,11 @@ namespace EntitiesExitMsg
     };
 }
 
+/**
+ * \brief Function that retrieves an exit message.
+ * \return A constant reference to std::string, the actual exit message.
+ */
 const std::string& GetExitMsg()
 {
-    return EntitiesExitMsg::exit_msg[ rng(0, EXIT_MSG_COUNT - 1) ];
+    return E2_ExitMsg::exit_msg[ rng(0, EXIT_MSG_COUNT - 1) ];
 }

@@ -25,6 +25,7 @@ Or similar.<br><br>
 
 <a id="options"></a>
 <h2>CMake Options</h2>
+<p>To use these, do so as: -D<code>{option}</code>=ON</p>
 <table>
     <tr>
         <th>Option</th>
@@ -52,13 +53,38 @@ Or similar.<br><br>
         <th>Custom Discord ID. If set to OFF, the game will use the<br> original client id. To pass in a custom client id, just pass it into<br> this option, like <code>-DCUSTOM_DISCORD_ID="42069"</code></th>
     </tr>
     <tr>
+        <th>BUILD_DOCS</th>
+        <th>OFF</th>
+        <th>Enable building of Doxygen documentation.</th>
+    </tr>
+    <tr>
         <th>DISABLE_COLORS</th>
         <th>OFF</th>
         <th>Disable colors and styling. ALL of it. WARNING: Will make your<br>game look ugly if enabled :)</th>
     </tr>
     <tr>
+        <th>4BIT_COLORS</th>
+        <th>OFF</th>
+        <th>Use 4bit colors instead of RGB (ONLY WORKS WHEN COLORS ENABLED)<br>This will make the game use the predefined terminal colors, that should be more<br>widely supported than full RGB colors.</th>
+    </tr>
+    <tr>
+        <th>4BIT_STYLES</th>
+        <th>OFF</th>
+        <th>Enable styling when in 4Bit color mode (ONLY WORKS WHEN 4BIT COLORS ENABLED)<br>Yknow, things like bold, italic, underline...</th>
+    </tr>
+    <tr>
+        <th>4BIT_AIXTERM</th>
+        <th>OFF</th>
+        <th>Enable bright colors basically (ONLY WORKS WHEN 4BIT COLORS ENABLED)</th>
+    </tr>
+    <tr>
         <th>DISABLE_TERMINAL_BELL</th>
         <th>OFF</th>
         <th>Disable terminal bell.</th>
+    </tr>
+    <tr>
+        <th>DISABLE_UNSTABLE_WARN</th>
+        <th>OFF</th>
+        <th>Use this if you don't want a warning when you build a dev version of this game.</th>
     </tr>
 </table>

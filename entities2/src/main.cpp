@@ -1,5 +1,12 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file main.cpp
+ * \author norbcodes
+ * \brief Entry point to the program.
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ */
+
 /*
 MADE BY NORB
 https://github.com/norbcodes
@@ -34,6 +41,7 @@ The long awaited... entities2!!!!
 #include "pick_move.hpp"
 #include "gameplay_info.hpp"
 #include "keyboard.hpp"
+#include "version.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,6 +49,11 @@ The long awaited... entities2!!!!
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * \brief The game loop.
+ * \param[in] mode Difficulty.
+ * \param[out] picker_flag External flag to break a loop inside DifficultyPicker()
+ */
 void Game(uint32_t mode, uint32_t& picker_flag)
 {
     // Wowie
@@ -260,17 +273,15 @@ void Game(uint32_t mode, uint32_t& picker_flag)
             }
             else
             {
-                fmt::print("{1}{2}The AI is thinking...{0}\n", RESET, GOLD, ITALIC);
-                EndDiv();
                 // bot
                 uint32_t picked_move = AiChoose(moves, move_types, energy_costs, *Player, *Enemy, difficulty_scale);
                 // Print random num
-                for (int i = 0; i != 19000; i++)
+                for (int i = 0; i != 20000; i++)
                 {
-                    std::cout << rng(1, 4);
-                    std::cout << "\x1B[1D";
+                    fmt::print("{1}{2}The AI is thinking... {3}{0}\n", RESET, GOLD, ITALIC, rng(1, 4));
+                    EndDivNoNewl();
                 }
-                std::cout << picked_move + 1;
+                fmt::print("{1}{2}The AI is thinking... {3}{0}\n", RESET, GOLD, ITALIC, picked_move + 1);
                 SleepSeconds(2);
                 // Botttttt
                 // if pick is not 0, 1, 2, 3 or 9 = skip round
@@ -304,6 +315,9 @@ void Game(uint32_t mode, uint32_t& picker_flag)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * \brief Pick a difficulty...
+ */
 void DifficultyPicker()
 {
     uint32_t picker_flag = true;
@@ -344,6 +358,9 @@ void DifficultyPicker()
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * \brief The very entry point of the game, and the program as a whole.
+ */
 int main()
 {
     #ifdef _WIN32
@@ -355,6 +372,22 @@ int main()
     #endif
 
     InitializeRPC();
+
+    #ifndef __ENTITIES2_DISABLE_UNSTABLE_WARNING__
+        #if (ENTITIES2_VER_IS_DEV == 1)
+            Div();
+            fmt::print("{1}You are using a game build that is {2}still under Development!{0}\n", RESET, RED, BOLD);
+            fmt::print("{1}Proceed with caution. {2}Do you still wanna play? [y,n]{0}\n", RESET, WHITE, RED);
+            EndDiv();
+
+            Keyguard();
+            if (!BinaryChoice())
+            {
+                std::cout << std::endl;
+                return 0;
+            }
+        #endif
+    #endif // __ENTITIES2_DISABLE_UNSTABLE_WARNING__
 
     while (true)
     {

@@ -1,5 +1,12 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file pick_move.cpp
+ * \author norbcodes
+ * \brief Function that does stuff based on picked move.
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ */
+
 #include <cstdint>
 #include <string>
 #include <fmt/core.h>
@@ -9,6 +16,18 @@
 #include "entity.hpp"
 #include "colors.hpp"
 
+/**
+ * \brief When you pick a move, this function carries out the move.
+ * \param[in] ent1 The Entity that picked the move.
+ * \param[in] ent2 The other Entity.
+ * \param[in] picked_move The picked move.
+ * \param[in] moves Array of moves.
+ * \param[in] move_types Array of move types.
+ * \param[in] energy_costs Array of energy costs of each move.
+ * \param[in] enemy_turn True = Enemy's turn, False = Player's turn
+ * \param[out] what_happened The "What happened:" text, which is why it's string&,<br>
+ *                           because we write into it.
+ */
 void PickMove(Entity* ent1, Entity* ent2, uint32_t picked_move, uint32_t* moves, uint32_t* move_types, double* energy_costs, bool enemy_turn, std::string& what_happened)
 {
     std::string who = (!enemy_turn) ? fmt::format("{1}{2}Player{0}", RESET, BLUE, BOLD) : fmt::format("{1}{2}Enemy{0}", RESET, RED, BOLD);

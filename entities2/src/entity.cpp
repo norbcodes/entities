@@ -1,5 +1,12 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file entity.cpp
+ * \author norbcodes
+ * \brief Entity specific code!
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ */
+
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -14,21 +21,44 @@
 #include "utils.hpp"
 #include "rng.hpp"
 
+/**
+ * \def ARMOR_F
+ * \brief Used during difficulty scaling. See main.cpp.
+ */
+
+/**
+ * \brief Entity constructor function.
+ * \details Initializes the Entity class, and allocates the status_list vector with size 64.
+ * \param[in] start_health Starting health.
+ * \param[in] start_armor Starting armor.
+ */
 Entity::Entity(int32_t start_health, int32_t start_armor) : health(start_health), armor(start_armor), energy(STARTING_ENERGY)
 {
     this->status_list.reserve(64);
 }
 
+/**
+ * \brief Return the Entity's health.
+ * \return The health, in int32_t form.
+ */
 int32_t Entity::GetHealth() const
 {
     return this->health;
 }
 
+/**
+ * \brief Return the Entity's armor.
+ * \return The armor, in int32_t form.
+ */
 int32_t Entity::GetArmor() const
 {
     return this->armor;
 }
 
+/**
+ * \brief Deal damage to this Entity.
+ * \param[in] dmg The damage value.
+ */
 void Entity::Hurt(uint32_t dmg)
 {
     if ((this->health - dmg) <= 0)
@@ -39,6 +69,10 @@ void Entity::Hurt(uint32_t dmg)
     this->health -= dmg;
 }
 
+/**
+ * \brief Deal damage to this Entity's armor.
+ * \param[in] dmg The damage value.
+ */
 void Entity::HurtArmor(uint32_t dmg)
 {
     if ((this->armor - dmg) <= 0)
@@ -49,6 +83,10 @@ void Entity::HurtArmor(uint32_t dmg)
     this->armor -= dmg;
 }
 
+/**
+ * \brief Heal this Entity.
+ * \param[in] val The health value.
+ */
 void Entity::Heal(uint32_t val)
 {
     if ((this->health + val) >= MAX_STAT_CAP)
@@ -59,6 +97,10 @@ void Entity::Heal(uint32_t val)
     this->health += val;
 }
 
+/**
+ * \brief Heal this Entity's armor.
+ * \param[in] val The healing value.
+ */
 void Entity::RegenArmor(uint32_t val)
 {
     if ((this->armor + val) >= MAX_STAT_CAP)
@@ -75,6 +117,11 @@ void Entity::RegenArmor(uint32_t val)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * \brief Print Entity stats.
+ * \param[in] ent A constant reference to an instance of class Entity.<br>
+ *                This is where we pull data from to display.
+ */
 void PrintEntityStats(const Entity& ent)
 {
     // I love fmt so much
@@ -108,6 +155,19 @@ void PrintEntityStats(const Entity& ent)
     fmt::print("\n");
 }
 
+/**
+ * \brief Attack between to entities!
+ * \note Notice how both <b>attacker</b> and <b>victim</b> are not CONSTANT,<br>
+ *       this is because of the <i>Thorns</i> status.
+ * \param[in] attacker A reference to an instance of Entity class.<br>
+ *                     This is the ATTACKING entity.
+ * \param[in] victim A reference to an instance of Entity class.<br>
+ *                   This is the entity that is getting ATTACKED.
+ * \param[in] dmg The amount of damage the ATTACKING entity is giving.
+ * \param[out] msg This is the "What happened:" text, and is of type sting& for the exact reason,<br>
+ *                 because we are writing to it.
+ * \param[in] enemy_turn Name is self explanatory. Just changes which prompts are written to msg.
+ */
 void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn)
 {
     // if victim has invis
