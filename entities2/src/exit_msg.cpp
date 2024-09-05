@@ -19,7 +19,7 @@
  * \def EXIT_MSG_COUNT
  * \brief The number of exit messages.
  */
-#define EXIT_MSG_COUNT 17
+#define EXIT_MSG_COUNT 56
 
 /**
  * \namespace E2_ExitMsg
@@ -66,7 +66,49 @@ namespace E2_ExitMsg
         // BFMV reference ;)
         fmt::format("{3}\"{1}{2}This is how it's been, how it always be...{0}{3}\"{0}", RESET, GOLD, BOLD, DARK_GRAY),
         // Prodigy reference ;)
-        fmt::format("{1}\"{2}{3}We live, forevah! The time! Has come! We live, forevah!{0}{1}\"{0}", RESET, DARK_GRAY, LAVENDER, BOLD)
+        fmt::format("{1}\"{2}{3}We live, forevah! The time! Has come! We live, forevah!{0}{1}\"{0}", RESET, DARK_GRAY, LAVENDER, BOLD),
+        fmt::format("{1}The prophecy says you'll continue playing. You dare break the prophecy?{0}", RESET, WHITE),
+        // Tally Hall reference :)
+        fmt::format("{3}\"{0}{1}{2}Do you like how I walk, do you like how I talk?\nDo you like how my face disintigrates into chalk?{0}{3}\"{0}", RESET, TEAL, BOLD, DARK_GRAY),
+        fmt::format("{1}Thank you for downloading our malware :3{0}", RESET, WHITE),
+        fmt::format("{1}Press 'y', and in your coffin you will lay!{0}", RESET, WHITE),
+        fmt::format("{1}Don't be silly! Stay a while longer!{0}", RESET, WHITE),
+        fmt::format("{1}The entities live in your walls{0}", RESET, WHITE),
+        fmt::format("{1}I, norbcodes, live rent free in your ceiling{0}", RESET, WHITE),
+        fmt::format("{1}Really?{0}", RESET, WHITE),
+        fmt::format("{1}For reals?{0}", RESET, WHITE),
+        fmt::format("{1}Babeeee! No!{0}", RESET, WHITE),
+        fmt::format("{1}Is your fridge running...?{0}", RESET, WHITE),
+        fmt::format("{1}Is your stove turned off...?{0}", RESET, WHITE),
+        fmt::format("{1}What? Heap memory allocs scared you away?{0}", RESET, WHITE),
+        fmt::format("{1}There's a chance a neutrino particle is\npassing through your skull right now.{0}", RESET, WHITE),
+        fmt::format("{1}Let that sink in.{0}", RESET, WHITE),
+        fmt::format("{1}Oh no! Your 'y' button just broke!{0}", RESET, WHITE),
+        fmt::format("{1}LMFAOOOOO{0}", RESET, WHITE),
+        fmt::format("{1}The outside is not real. Wake up. Wake up.{0}", RESET, WHITE),
+        fmt::format("{1}Original entities more fun?{0}", RESET, WHITE),
+        fmt::format("{1}:C{0}", RESET, WHITE),
+        fmt::format("{1}I, norbcodes, do not approve!!! >:({0}", RESET, WHITE),
+        fmt::format("{1}Maybe i'll break your keyboard then{0}", RESET, WHITE),
+        fmt::format("{1}Come back soon. We're gonna be having a pizza party.{0}", RESET, WHITE),
+        fmt::format("{1}Goodbye :3{0}", RESET, WHITE),
+        fmt::format("{1}QwQ{0}", RESET, WHITE),
+        // Dethklok reference :3
+        fmt::format("{3}\"{0}{1}{2}Awaken, awaken, Mustakrakish, rise!{0}{3}\"{0}", RESET, RED, BOLD, DARK_GRAY),
+        fmt::format("{1}*{2}insert exit message here{0}{1}*{0}", RESET, WHITE, ITALIC),
+        fmt::format("{1}>:p{0}", RESET, WHITE),
+        fmt::format("{1}Dude, just choose a lower difficulty. No need for drastic measures.{0}", RESET, WHITE),
+        fmt::format("{1}*{2}insert threatening exit message here{0}{1}*{0}", RESET, WHITE, ITALIC),
+        fmt::format("{1}Fine, get out of my face.{0}", RESET, WHITE),
+        fmt::format("{1}Nuuuuu pwease staay :({0}", RESET, WHITE),
+        fmt::format("{1}><>     <---- fish{0}", RESET, WHITE),
+        fmt::format("{1}exit{0}{2}(){0}", RESET, RED, WHITE),
+        fmt::format("{1}No syntax highlighting for you!!!{0}", RESET, WHITE),
+        std::string("{red}{bold}Damn, my formatting broke{reset}"),
+        // Metallica reference :O
+        fmt::format("{3}\"{0}{1}{2}I'm the pain when you can't feel! Sad but true!{0}{3}\"{0}", RESET, PURPLE, BOLD, DARK_GRAY),
+        fmt::format("{1}Did you know? Each of these message has a {3}{2:.2f}%{1} chance to appear.{0}", RESET, WHITE, (1.0 / (double)EXIT_MSG_COUNT) * 100, PURPLE),
+        fmt::format("{1}Do\n  not\n     exit,\n          PLEASE{0}", RESET, WHITE)
     };
 }
 

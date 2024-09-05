@@ -1,11 +1,22 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file keyboard.cpp (Linux)
+ * \author norbcodes
+ * \brief Keyboard functions.
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ */
+
 #include <cstdint>
 #include <cstdio>
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
 
+/**
+ * \brief Waits for a numeric key.
+ * \return The numeric key.
+ */
 uint32_t WaitForNumkey()
 {
     // SHAMELESSLY COPIED
@@ -33,6 +44,10 @@ uint32_t WaitForNumkey()
     }
 }
 
+/**
+ * \brief A binary (y/n) choice.
+ * \return True if 'y', else False if 'n'
+ */
 bool BinaryChoice()
 {
     // SHAMELESSLY COPIED
@@ -66,6 +81,9 @@ bool BinaryChoice()
     }
 }
 
+/**
+ * \details Stop execution until enter is pressed.
+ */
 void BlockUntilEnter()
 {
     // SHAMELESSLY COPIED
@@ -94,4 +112,8 @@ void BlockUntilEnter()
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 }
 
+/**
+ * \brief Stop execution if any key on the keyboard is held down.
+ * \warning Not actually needed in Linux version ¯\\_(ツ)_/¯
+ */
 void Keyguard() {}

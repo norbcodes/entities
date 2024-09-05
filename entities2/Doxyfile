@@ -61,13 +61,13 @@ PROJECT_BRIEF          = ${PROJECT_DESCRIPTION}
 # pixels and the maximum width should not exceed 200 pixels. Doxygen will copy
 # the logo to the output directory.
 
-PROJECT_LOGO           =
+PROJECT_LOGO           = "${CMAKE_SOURCE_DIR}/assets/doxygen/entities2_logo.png"
 
 # With the PROJECT_ICON tag one can specify an icon that is included in the tabs
 # when the HTML document is shown. Doxygen will copy the logo to the output
 # directory.
 
-PROJECT_ICON           =
+PROJECT_ICON           = "${CMAKE_SOURCE_DIR}/assets/entities2_big_image.png"
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
 # into which the generated documentation will be written. If a relative path is
@@ -965,7 +965,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = "${CMAKE_SOURCE_DIR}/src/" "${CMAKE_SOURCE_DIR}/src/headers/entity.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/move_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/entity_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/energy_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/colors.hpp"
+INPUT                  = "${CMAKE_SOURCE_DIR}/src/" "${CMAKE_SOURCE_DIR}/src/headers/entity.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/move_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/entity_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/energy_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/colors.hpp" "${CMAKE_SOURCE_DIR}/src/Windows" "${CMAKE_SOURCE_DIR}/src/Linux"
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1444,7 +1444,7 @@ HTML_EXTRA_FILES       =
 # The default value is: AUTO_LIGHT.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_COLORSTYLE        = AUTO_LIGHT
+HTML_COLORSTYLE        = AUTO_DARK
 
 # The HTML_COLORSTYLE_HUE tag controls the color of the HTML output. Doxygen
 # will adjust the colors in the style sheet and background images according to
@@ -1455,7 +1455,7 @@ HTML_COLORSTYLE        = AUTO_LIGHT
 # Minimum value: 0, maximum value: 359, default value: 220.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_COLORSTYLE_HUE    = 220
+HTML_COLORSTYLE_HUE    = 2
 
 # The HTML_COLORSTYLE_SAT tag controls the purity (or saturation) of the colors
 # in the HTML output. For a value of 0 the output will use gray-scales only. A
@@ -1474,7 +1474,7 @@ HTML_COLORSTYLE_SAT    = 100
 # Minimum value: 40, maximum value: 240, default value: 80.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_COLORSTYLE_GAMMA  = 80
+HTML_COLORSTYLE_GAMMA  = 90
 
 # If the HTML_DYNAMIC_MENUS tag is set to YES then the generated HTML
 # documentation will contain a main index with vertical navigation menus that
@@ -2018,7 +2018,7 @@ EXTRA_SEARCH_MAPPINGS  =
 # If the GENERATE_LATEX tag is set to YES, Doxygen will generate LaTeX output.
 # The default value is: YES.
 
-GENERATE_LATEX         = YES
+GENERATE_LATEX         = NO
 
 # The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
