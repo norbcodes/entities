@@ -139,9 +139,11 @@ void Entity::UpdateStatuses(std::string& msg, bool enemy_turn)
                 msg += fmt::format("{2}{3}Player{0} {4}has felt the poison! {3}-{1}HP{0}\n", RESET, POISON_AMOUNT, BLUE, BOLD, WHITE);
             }
         }
+
         if (this->status_list[i].GetTimeLeft() == 0)
         {
             this->status_list.erase(this->status_list.begin() + i);
+            i = -1;  // This will be 0 on next iteration
         }
     }
 }
