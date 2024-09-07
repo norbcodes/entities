@@ -26,6 +26,11 @@ uint32_t WaitForNumkey()
     // Run in a while loop, and return the key
     while (true)
     {
+        if (GetConsoleWindow() != GetForegroundWindow())
+        {
+            continue;
+        }
+
         for (int i = 0x30; i != 0x3A; i++)
         {
             if (GetKeyState(i) & 0x8000)
@@ -52,10 +57,16 @@ bool BinaryChoice()
     // either y or n.
     while (true)
     {
+        if (GetConsoleWindow() != GetForegroundWindow())
+        {
+            continue;
+        }
+
         if (GetKeyState(0x59) & 0x8000)
         {
             return true;
         }
+
         else if (GetKeyState(0x4E) & 0x8000)
         {
             return false;
@@ -70,6 +81,11 @@ void BlockUntilEnter()
 {
     while (true)
     {
+        if (GetConsoleWindow() != GetForegroundWindow())
+        {
+            continue;
+        }
+
         if (GetKeyState(VK_RETURN) & 0x8000)
         {
             break;
@@ -86,6 +102,11 @@ void Keyguard()
     bool _wait = true;
     while (_wait)
     {
+        if (GetConsoleWindow() != GetForegroundWindow())
+        {
+            continue;
+        }
+
         _wait = false;
         for (int i = 0; i != 256; i++)
         {
