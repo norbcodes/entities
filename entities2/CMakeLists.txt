@@ -16,11 +16,11 @@ project(entities2
         DESCRIPTION "entities2 is a small silly turn based combat CLI game."
 )
 
-set(PROJECT_VERSION "v1.7.1")
+set(PROJECT_VERSION "v1.8.0")
 set(PROJECT_VERSION_MAJOR "1")
-set(PROJECT_VERSION_MINOR "7")
-set(PROJECT_VERSION_PATCH "1")
-set(PROJECT_VERSION_IS_DEV 0)
+set(PROJECT_VERSION_MINOR "8")
+set(PROJECT_VERSION_PATCH "0")
+set(PROJECT_VERSION_IS_DEV 1)
 
 include("CheckIncludeFileCXX")
 
