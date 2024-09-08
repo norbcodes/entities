@@ -76,7 +76,7 @@ set(
 
 # Check if compiling for Linux
 message(STATUS "Checking OS...")
-if(CMAKE_SYSTEM_NAME MATCHES Linux)
+if(CMAKE_SYSTEM_NAME MATCHES Linux OR CMAKE_SYSTEM_NAME MATCHES Android)
     add_compile_definitions(${PROJECT_NAME} PUBLIC __linux__)
     list(APPEND PREDEFINED_MACROS_DOXY "__linux__")
     list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/linux/headers")
