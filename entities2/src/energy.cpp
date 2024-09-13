@@ -61,19 +61,19 @@ double CalcEnergyCost(uint32_t move, uint32_t type)
             switch (move)
             {
                 case AUTO_HEAL:
-                    cost = 8.0;
+                    cost = 25.0;
                     break;
                 case INCR_CRIT:
-                    cost = 20.0;
+                    cost = 25.0;
                     break;
                 case INVIS:
-                    cost = 16.0;
+                    cost = 25.0;
                     break;
                 case POISON:
-                    cost = 16.0;
+                    cost = 30.0;
                     break;
                 case THORNS:
-                    cost = 15.0;
+                    cost = 25.0;
                     break;
             }
     }
@@ -93,7 +93,7 @@ void PrintEnergyBar(const Entity& entity)
         columns += "#";
     }
     fmt::print("{1}[{0} {2}{3}{4:.<10}{0} {1}]{0} ", RESET, DARK_GRAY, BLUE, BOLD, columns);
-    fmt::print("{4}E: {1: >5.2f}{3}/{2} {4}{5:.1f}{3}%{0}\n", RESET, entity.GetEnergy(), MAX_ENERGY, WHITE, BLUE, ((entity.GetEnergy() / MAX_ENERGY) * 100));
+    fmt::print("{4}E: {1: >5.1f}{3}/{2} {4}{5:.1f}{3}%{0}\n", RESET, entity.GetEnergy(), MAX_ENERGY, WHITE, BLUE, ((entity.GetEnergy() / MAX_ENERGY) * 100));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

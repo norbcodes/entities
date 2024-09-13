@@ -14,19 +14,13 @@
  * \def STARTING_ENERGY
  * \brief Starting energy of each Entity.
  */
-#define STARTING_ENERGY     8
+#define STARTING_ENERGY     5.0
 
 /**
  * \def ENERGY_INC
  * \brief Energy increase per round.
  */
-#define ENERGY_INC          2.5
-
-/**
- * \def ENERGY_DECIMALS
- * \brief Used for printing only, how many decimals points to round to.
- */
-#define ENERGY_DECIMALS     2
+#define ENERGY_INC          5.0
 
 /**
  * \def MAX_ENERGY
@@ -38,16 +32,16 @@
  * \def ATTACK_ENERGY_F
  * \brief Used to calculate energy cost for attack moves. See energy.cpp
  */
-#define ATTACK_ENERGY_F     2
+#define ATTACK_ENERGY_F     3.8
 
 /**
  * \def HEAL_ENERGY_F
  * \brief Used to calculate energy cost for heal moves. See energy.cpp
  */
-#define HEAL_ENERGY_F       2.5
+#define HEAL_ENERGY_F       4.4
 
 /**
  * \def ARMOR_ENERGY_F
  * \brief Used to calculate energy cost for armor moves. See energy.cpp
  */
-#define ARMOR_ENERGY_F      2.5
+#define ARMOR_ENERGY_F      4.8

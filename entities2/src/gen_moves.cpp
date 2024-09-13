@@ -107,7 +107,7 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
         // This looks funny lmao
         fmt::print("{2}[{3}{4}{1}{0}{2}]{0} ", RESET, i + 1, DARK_GRAY, GOLD, BOLD);
         // Print energy cost
-        fmt::print("{2}[{3}{4}{1: >5.2f}{0}{2}]{0}\t", RESET, energies[i], DARK_GRAY, BLUE, BOLD);
+        fmt::print("{2}[{3}{4}{1: >5.1f}{0}{2}]{0}\t", RESET, energies[i], DARK_GRAY, BLUE, BOLD);
         // Print the other
         switch (move_types[i])
         {
