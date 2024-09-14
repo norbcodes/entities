@@ -87,3 +87,5 @@ void PickMove(Entity* ent1, Entity* ent2, uint32_t picked_move, uint32_t* moves,
         }
     }
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

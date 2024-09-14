@@ -230,3 +230,5 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
 
     return SKIP;
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

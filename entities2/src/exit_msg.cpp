@@ -10,16 +10,11 @@
 
 // Yep
 
+#include <vector>
 #include <fmt/core.h>
 
 #include "colors.hpp"
 #include "rng.hpp"
-
-/**
- * \def EXIT_MSG_COUNT
- * \brief The number of exit messages.
- */
-#define EXIT_MSG_COUNT 56
 
 /**
  * \namespace E2_ExitMsg
@@ -31,7 +26,11 @@
  */
 namespace E2_ExitMsg
 {
-    static const std::string exit_msg[EXIT_MSG_COUNT] = {
+    /**
+     * \var std::vector<std::string> exit_msg
+     * \brief A dynamic array of exit messages. You can add more via Datapacks.
+     */
+    std::vector<std::string> exit_msg = {
         fmt::format("{1}Noooooo don't leave yet :<{0}", RESET, WHITE),
 
         #ifdef _WIN32
@@ -107,7 +106,6 @@ namespace E2_ExitMsg
         std::string("{red}{bold}Damn, my formatting broke{reset}"),
         // Metallica reference :O
         fmt::format("{3}\"{0}{1}{2}I'm the pain when you can't feel! Sad but true!{0}{3}\"{0}", RESET, PURPLE, BOLD, DARK_GRAY),
-        fmt::format("{1}Did you know? Each of these message has a {3}{2:.2f}%{1} chance to appear.{0}", RESET, WHITE, (1.0 / (double)EXIT_MSG_COUNT) * 100, PURPLE),
         fmt::format("{1}Do\n  not\n     exit,\n          PLEASE{0}", RESET, WHITE)
     };
 }
@@ -118,5 +116,59 @@ namespace E2_ExitMsg
  */
 const std::string& GetExitMsg()
 {
-    return E2_ExitMsg::exit_msg[ rng(0, EXIT_MSG_COUNT - 1) ];
+    return E2_ExitMsg::exit_msg[ rng(0, E2_ExitMsg::exit_msg.size() - 1) ];
 }
+
+/**
+ * \brief Add a new exit message! :3
+ * \param[in] str The exit message to add.
+ */
+void AddExitMsg(const std::string& str)
+{
+    E2_ExitMsg::exit_msg.emplace_back(str);
+}
+
+/**
+ * \brief Get the total amount of exit messages.
+ * \return The totala amount of exit messages.
+ */
+uint32_t GetExitMsgCount()
+{
+    return E2_ExitMsg::exit_msg.size();
+}
+
+/**
+ * \brief Format custom exit messages defined in Datapacks.
+ * \param[in] str The string to format.
+ * \return Formatted string.
+ */
+std::string ExitMsgFormatter(const std::string& str)
+{
+    return fmt::format(
+        str,
+        fmt::arg("reset", RESET),
+        fmt::arg("bold", BOLD),
+        fmt::arg("faint", FAINT),
+        fmt::arg("italic", ITALIC),
+        fmt::arg("underline", UNDERLINE),
+        fmt::arg("blinking", BLINKING),
+        fmt::arg("red", RED),
+        fmt::arg("blue", BLUE),
+        fmt::arg("orange", ORANGE),
+        fmt::arg("white", WHITE),
+        fmt::arg("hot_pink", HOT_PINK),
+        fmt::arg("gray", GRAY),
+        fmt::arg("dark_gray", DARK_GRAY),
+        fmt::arg("pink", PINK),
+        fmt::arg("gold", GOLD),
+        fmt::arg("green", GREEN),
+        fmt::arg("purple", PURPLE),
+        fmt::arg("dark_green", DARK_GREEN),
+        fmt::arg("lavender", LAVENDER),
+        fmt::arg("yellow", YELLOW),
+        fmt::arg("teal", TEAL),
+        fmt::arg("brown", BROWN)
+    );
+}
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

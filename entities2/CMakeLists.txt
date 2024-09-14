@@ -3,12 +3,18 @@
 # The CMakeLists to build entities2.cpp
 cmake_minimum_required(VERSION 3.29 FATAL_ERROR)
 
+cmake_policy(SET CMP0077 NEW)
+
 # Do not make install rules pls
 # and disable other stuff
 set(FMT_INSTALL OFF)
 set(FMT_DOC OFF)
 set(FMT_TEST OFF)
 add_subdirectory("${CMAKE_SOURCE_DIR}/src/fmt")
+
+# Do not make install rules pls too
+set(PUGIXML_INSTALL OFF CACHE BOOL "Enable installation rules")
+add_subdirectory("${CMAKE_SOURCE_DIR}/src/pugixml")
 
 # Set the project
 project(entities2 
@@ -43,6 +49,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/headers
     ${CMAKE_SOURCE_DIR}/src/fmt/include
     ${CMAKE_BINARY_DIR}/headers
+    ${CMAKE_BINARY_DIR}/src/pugixml/src
 )
 
 # Create macro list for Doxygen:
@@ -55,6 +62,7 @@ set(
 set(
     ENTITIES2_SOURCE
     ${CMAKE_SOURCE_DIR}/src/ai.cpp
+    ${CMAKE_SOURCE_DIR}/src/datapacks.cpp
     ${CMAKE_SOURCE_DIR}/src/difficulty_picker.cpp
     ${CMAKE_SOURCE_DIR}/src/discord_rpc.cpp
     ${CMAKE_SOURCE_DIR}/src/energy.cpp
@@ -149,6 +157,12 @@ add_dependencies(${PROJECT_NAME} fmt)
 # Link fmt
 target_link_directories(${PROJECT_NAME} PUBLIC "${CMAKE_BINARY_DIR}/src/fmt")
 target_link_libraries(${PROJECT_NAME} PUBLIC fmt)
+
+# Add pugixml as dependency
+add_dependencies(${PROJECT_NAME} pugixml)
+# Link pugixml
+target_link_directories(${PROJECT_NAME} PUBLIC "${CMAKE_BINARY_DIR}/src/pugixml")
+target_link_libraries(${PROJECT_NAME} PUBLIC pugixml)
 
 if (ENABLE_DISCORD_RPC)
     message(STATUS "Enabled Discord RPC.")

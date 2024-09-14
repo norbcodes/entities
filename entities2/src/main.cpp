@@ -32,6 +32,7 @@ The long awaited... entities2!!!!
 #include "exit_msg.hpp"
 #include "gameplay_info.hpp"
 #include "sleep.hpp"
+#include "datapacks.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
@@ -45,6 +46,14 @@ int main()
         GetConsoleMode(hOut, &dwMode);
         SetConsoleMode(hOut, dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING);
     #endif
+
+    DatapackEngine Datapacks;
+    
+    Datapacks.LoadAll();
+    BlockUntilEnter();
+
+    // Add this as well.
+    AddExitMsg(fmt::format("{1}Did you know? Each of these message has a {3}{2:.2f}%{1} chance to appear.{0}", RESET, WHITE, (1.0 / (double)GetExitMsgCount()) * 100, PURPLE));
 
     InitializeRPC();
 
@@ -120,3 +129,5 @@ int main()
 
     return 0;
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

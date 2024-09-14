@@ -45,3 +45,5 @@
  * \brief Used to calculate energy cost for armor moves. See energy.cpp
  */
 #define ARMOR_ENERGY_F      4.8
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

@@ -344,3 +344,5 @@ void Game(uint32_t mode, uint32_t& picker_flag)
     delete Player;
     delete Enemy;
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

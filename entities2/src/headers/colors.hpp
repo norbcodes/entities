@@ -254,3 +254,5 @@
  * \brief RGB value = 153,77,0
  * \hideinitializer
  */
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

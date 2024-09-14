@@ -181,3 +181,5 @@ void GenerateMoves(uint32_t* moves, uint32_t* move_types, double* energies)
     }
     PrintMoves(moves, move_types, energies);
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

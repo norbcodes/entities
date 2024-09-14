@@ -36,3 +36,5 @@ uint32_t rng(uint32_t a, uint32_t b)
     std::uniform_int_distribution<uint32_t> distribution(a,b);
     return distribution(E2_RNG::generator);
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

@@ -62,8 +62,9 @@ void Credits()
     fmt::print("{1}These fine colors picked out using {2}rgbcolorcode.com{0}{1}! B){0}\n", RESET, BLUE, BOLD);
     fmt::print("{1}Check out entity1 and the homepage at {2}github.com/norbcodes/entities{0}{1} :){0}\n\n", RESET, PURPLE, BOLD);
 
-    fmt::print("{1}{2}EXTERNAL LIBRARIES USED:{0}\n\t{3}{4}discord-rpc{0} {5}:: {6}{2}Thanks to Discord :){0}\n", RESET, GOLD, ITALIC, BLUE, BOLD, DARK_GRAY, LAVENDER);
-    fmt::print("\t{1}{2}{{{3}f{4}m{5}t{6}}}{0} {7}::{0} {8}{9}Thanks to the entire FMT lib team!! :P{0}\n\n", RESET, BOLD, RED, ORANGE, YELLOW, GREEN, BLUE, DARK_GRAY, ITALIC, WHITE);
+    fmt::print("{1}{2}EXTERNAL LIBRARIES USED:{0}\n  {3}{4}discord-rpc{0} {5}:: {6}{2}Thanks to Discord :){0}\n", RESET, GOLD, ITALIC, BLUE, BOLD, DARK_GRAY, LAVENDER);
+    fmt::print("  {1}{2}{{{3}f{4}m{5}t{6}}}{0} {7}::{0} {8}{9}Thanks to the entire FMT lib team!! :P{0}\n", RESET, BOLD, RED, ORANGE, YELLOW, GREEN, BLUE, DARK_GRAY, ITALIC, HOT_PINK);
+    fmt::print("  {1}{2}pugi{0}{3}{2}xml{0} {4}::{0} {5}{6}Thanks to Arseny Kapoulkine (a.k.a Zeux on github)!! :3{0}\n\n", RESET, WHITE, BOLD, BROWN, DARK_GRAY, PINK, ITALIC);
 
     fmt::print("{4}entities2.cpp version {1} compiled at {2} {3} ;){0}\n", RESET, ENTITIES2_VER, __DATE__, __TIME__, DARK_GRAY);
     Div();
@@ -79,3 +80,5 @@ void TerminalBell()
     fmt::print("\a");
     #endif // __ENTITIES2_TERMINAL_BELL__
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

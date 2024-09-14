@@ -297,3 +297,5 @@ void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& m
         return;
     }
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

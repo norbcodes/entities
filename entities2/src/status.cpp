@@ -161,3 +161,5 @@ void Entity::UpdateStatuses(std::string& msg, bool enemy_turn)
         }
     }
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
