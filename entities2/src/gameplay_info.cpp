@@ -39,6 +39,7 @@ static void Statuses()
     fmt::print("{2}{1}Invis{0}\n   {3}When an entity has this status, there's{0}\n   {3}a {5}{4}~20%{0} {3}chance of an attacker {5}missing{0}\n   {3}{5}the attack when attacking this entity.{0}\n", RESET, BOLD, HOT_PINK, WHITE, PURPLE, UNDERLINE);
     fmt::print("{3}{2}Poison{0}\n   {4}At the start of a {5}new round{0}, the entity that{0}\n   {4}has {5}their turn will recieve {6}{3}-{1}HP of damage.{0}\n", RESET, POISON_AMOUNT, DARK_GREEN, BOLD, WHITE, UNDERLINE, PURPLE);
     fmt::print("{2}{1}Thorns{0}\n   {3}When an entity with this status is{0}\n   {3}attacked, {4}50% of the damage{0}{3} goes back to the {4}attacker.{0}\n", RESET, BOLD, TEAL, WHITE, UNDERLINE);
+    fmt::print("{2}{1}Weakness{0}\n   {3}A weakened enemy has their HP and AR {4}{5}capped at 60 only.{0}\n   {3}Their energy replenishes {4}{5}75% less per round{0}{3}, too.{0}\n   {3}They also {4}{5}attack less{0}{3}. This status only lasts {6} rounds.{0}", RESET, BOLD, BROWN, WHITE, UNDERLINE, PURPLE, WEAKNESS_TIME_LEFT);
     EndDiv();
     BlockUntilEnter();
 }
