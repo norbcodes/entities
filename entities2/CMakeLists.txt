@@ -62,6 +62,7 @@ set(
 set(
     ENTITIES2_SOURCE
     ${CMAKE_SOURCE_DIR}/src/ai.cpp
+    ${CMAKE_SOURCE_DIR}/src/datapack_viewer.cpp
     ${CMAKE_SOURCE_DIR}/src/datapacks.cpp
     ${CMAKE_SOURCE_DIR}/src/difficulty_picker.cpp
     ${CMAKE_SOURCE_DIR}/src/discord_rpc.cpp

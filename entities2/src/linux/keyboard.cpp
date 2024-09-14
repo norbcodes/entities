@@ -111,9 +111,3 @@ void BlockUntilEnter()
     // Restore the old terminal settings
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 }
-
-/**
- * \brief Stop execution if any key on the keyboard is held down.
- * \warning Not actually needed in Linux version ¯\\_(ツ)_/¯
- */
-void Keyguard() {}

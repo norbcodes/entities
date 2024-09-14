@@ -40,7 +40,6 @@ static void GameOver(uint32_t& picker_flag, bool& is_running)
     fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
     EndDiv();
 
-    Keyguard();
     uint32_t choice = WaitForNumkey();
 
     if (choice == 1)
@@ -75,7 +74,6 @@ static void Victory(uint32_t& picker_flag, bool& is_running)
     fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
     EndDiv();
 
-    Keyguard();
     uint32_t choice = WaitForNumkey();
 
     if (choice == 1)
@@ -151,14 +149,12 @@ static void PlayerRound (
         fmt::print("{1}Choose your move. {2}{3}[0,1,2,3,4] (0 to exit)                                           {0}\n", RESET, WHITE, BOLD, GRAY);
         EndDiv();
         // Player
-        Keyguard();
         picked_move = WaitForNumkey();
 
         if (picked_move == 0)
         {
             fmt::print("{1}Do you really wanna end the battle? {2}{3}[y,n]                                                             {0}\n", RESET, RED, GRAY, BOLD);
             EndDiv();
-            Keyguard();
             if (BinaryChoice())
             {
                 is_running = false;

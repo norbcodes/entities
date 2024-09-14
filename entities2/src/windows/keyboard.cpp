@@ -8,14 +8,10 @@
  */
 
 #include <cstdint>
-
-/**
- * \def _WIN32_WINNT
- * \brief Required for windows.h
- */
-#define _WIN32_WINNT 0x0500
-
 #include <windows.h>
+#include <conio.h>
+
+#include "keyboard.hpp"
 
 /**
  * \brief Waits for a numeric key.
@@ -26,24 +22,10 @@ uint32_t WaitForNumkey()
     // Run in a while loop, and return the key
     while (true)
     {
-        if (GetConsoleWindow() != GetForegroundWindow())
+        char key = getch();
+        if (key >= 48 && key <= 57)
         {
-            continue;
-        }
-
-        for (int i = 0x30; i != 0x3A; i++)
-        {
-            if (GetKeyState(i) & 0x8000)
-            {
-                return i - 0x30;
-            }
-        }
-        for (int i = 0x60; i != 0x6A; i++)
-        {
-            if (GetKeyState(i) & 0x8000)
-            {
-                return i - 0x60;
-            }
+            return (uint32_t)(key - 48);
         }
     }
 }
@@ -57,17 +39,14 @@ bool BinaryChoice()
     // either y or n.
     while (true)
     {
-        if (GetConsoleWindow() != GetForegroundWindow())
-        {
-            continue;
-        }
+        char key = getch();
 
-        if (GetKeyState(0x59) & 0x8000)
+        if (key == 'y' || key == 'Y')
         {
             return true;
         }
 
-        else if (GetKeyState(0x4E) & 0x8000)
+        else if (key == 'n' || key == 'N')
         {
             return false;
         }
@@ -81,12 +60,7 @@ void BlockUntilEnter()
 {
     while (true)
     {
-        if (GetConsoleWindow() != GetForegroundWindow())
-        {
-            continue;
-        }
-
-        if (GetKeyState(VK_RETURN) & 0x8000)
+        if (getch() == 13)
         {
             break;
         }
@@ -94,26 +68,23 @@ void BlockUntilEnter()
 }
 
 /**
- * \details Stop execution if any key on the keyboard is held down.
+ * \details Get arrow key.
  */
-void Keyguard()
+uint32_t GetArrowKey()
 {
-    // Loop forever until no keys are pressed
-    bool _wait = true;
-    while (_wait)
+    while (true)
     {
-        if (GetConsoleWindow() != GetForegroundWindow())
+        char _unused = getch();
+        switch (getch())
         {
-            continue;
-        }
-
-        _wait = false;
-        for (int i = 0; i != 256; i++)
-        {
-            if (GetAsyncKeyState(i) & 0x8000)
-            {
-                _wait = true;
-            }
+            case 72:
+                return UP_KEY;
+            case 80:
+                return DOWN_KEY;
+            case 75:
+                return LEFT_KEY;
+            case 77:
+                return RIGHT_KEY;
         }
     }
 }

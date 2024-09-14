@@ -33,6 +33,7 @@ The long awaited... entities2!!!!
 #include "gameplay_info.hpp"
 #include "sleep.hpp"
 #include "datapacks.hpp"
+#include "datapack_viewer.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
@@ -47,11 +48,9 @@ int main()
         SetConsoleMode(hOut, dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING);
     #endif
 
+    // B)
     DatapackEngine Datapacks;
-    
     Datapacks.LoadAll();
-    BlockUntilEnter();
-
     // Add this as well.
     AddExitMsg(fmt::format("{1}Did you know? Each of these message has a {3}{2:.2f}%{1} chance to appear.{0}", RESET, WHITE, (1.0 / (double)GetExitMsgCount()) * 100, PURPLE));
 
@@ -64,7 +63,6 @@ int main()
             fmt::print("{1}Proceed with caution. {2}Do you still wanna play? [y,n]{0}\n", RESET, WHITE, RED);
             EndDiv();
 
-            Keyguard();
             if (!BinaryChoice())
             {
                 std::cout << std::endl;
@@ -80,14 +78,14 @@ int main()
         Div();
         fmt::print("{1}Welcome to {2}{3}entities2.cpp{0}{1}!!!!{0}\n{1}Pick an option:{0}\n\n", RESET, WHITE, GOLD, ITALIC);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
-        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Gameplay Info{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
-        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Quit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Gameplay Info{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
+        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Datapacks{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, PINK);
+        fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}Quit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
         EndDiv();
 
-        Keyguard();
         uint32_t option = WaitForNumkey();
 
-        if (option == 3)
+        if (option == 4)
         {
             ClearScreen();
             Div();
@@ -95,7 +93,6 @@ int main()
             std::cout << GetExitMsg() << std::endl;
             EndDiv();
 
-            Keyguard();
             if (BinaryChoice())
             {
                 ClearScreen();
@@ -118,6 +115,11 @@ int main()
         else if (option == 2)
         {
             GameplayInfoSec();
+        }
+        // DATAPACK VIEW
+        else if (option == 3)
+        {
+            DatapackViewer(Datapacks);
         }
         else
         {

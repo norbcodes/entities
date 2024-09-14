@@ -7,4 +7,3 @@
 uint32_t WaitForNumkey();
 bool BinaryChoice();
 void BlockUntilEnter();
-void Keyguard();

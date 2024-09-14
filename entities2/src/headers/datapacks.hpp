@@ -70,6 +70,9 @@ class DatapackEngine
         DatapackEngine();
         // Load ALL datapacks
         void LoadAll();
+        // Getters
+        uint32_t DatapackCount() const;
+        const Datapack& GetConstDatapackRef(uint32_t i) const;
 
     private:
         /**

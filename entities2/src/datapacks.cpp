@@ -183,4 +183,23 @@ void DatapackEngine::LoadAll()
     }
 }
 
+/**
+ * \brief Get the amount of Datapacks.
+ * \return The amount of Datapacks.
+ */
+uint32_t DatapackEngine::DatapackCount() const
+{
+    return this->datapacks.size();
+}
+
+/**
+ * \brief Return a constant reference to a Datapack instance.
+ * \param[in] i Index in the Datapack array.
+ * \return Constant reference to a Datapack instance.
+ */
+const Datapack& DatapackEngine::GetConstDatapackRef(uint32_t i) const
+{
+    return this->datapacks[i];
+}
+
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

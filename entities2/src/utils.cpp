@@ -25,6 +25,14 @@ void ClearScreen()
 }
 
 /**
+ * \brief Move cursor to the very upper left corner.
+ */
+void ResetCursor()
+{
+    fmt::print("\x1b[1;1H");
+}
+
+/**
  * \brief Visual divisor.
  */
 void Div()

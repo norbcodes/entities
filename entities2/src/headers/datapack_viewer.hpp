@@ -2,14 +2,8 @@
 
 #pragma once
 
-#include <cstdint>
+#include "datapacks.hpp"
 
-void ClearScreen();
-void ResetCursor();
-void Div();
-void EndDiv();
-void EndDivNoNewl();
-void Credits();
-void TerminalBell();
+void DatapackViewer(const DatapackEngine& datapacks);
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

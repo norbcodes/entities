@@ -25,7 +25,7 @@ void DifficultyPicker()
     {
         ClearScreen();
         Div();
-        fmt::print("{1}Select your difficulty:{0}\n\n", RESET, WHITE);
+        fmt::print("{2}<{0} {1}Difficulty Selection{0}\n\n", RESET, RED, WHITE);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}I kick Entities ass{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
         fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}I've seen worse{0}\n", RESET, BOLD, GOLD, DARK_GRAY, ORANGE);
         fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Down with the Entities{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
@@ -33,7 +33,6 @@ void DifficultyPicker()
         fmt::print("{3}[{0}{2}{1}5{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
         EndDiv();
 
-        Keyguard();
         uint32_t choice = WaitForNumkey();
 
         if (choice == 5)
