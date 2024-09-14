@@ -85,7 +85,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux OR CMAKE_SYSTEM_NAME MATCHES Android)
 
     message(STATUS "Linux detected. Adding Linux specific stuff.")
 
-elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
+elseif(CMAKE_SYSTEM_NAME MATCHES Windows OR CMAKE_SYSTEM_NAME MATCHES CYGWIN)
     add_compile_definitions(_WIN32 __WIN32__)
     add_compile_definitions(_WIN32 __WIN32__)
     add_compile_options(-mwindows)
@@ -122,6 +122,10 @@ elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
 #
 #    message(STATUS "MacOS detected. Adding MacOS specific stuff.")
 
+else()
+    message(FATAL_ERROR "It seems your system is not supported or wasn't detected properly."
+                        "CMAKE_SYSTEM_NAME returns ${CMAKE_SYSTEM_NAME}."
+                        "If you're on Windows or Linux and you recieved this error, create an issue on the entities2 github repository.")
 endif()
 
 if (ENABLE_DISCORD_RPC)
@@ -219,6 +223,7 @@ if (BUILD_DOCS)
     configure_file(${CMAKE_SOURCE_DIR}/Doxyfile ${CMAKE_BINARY_DIR}/Doxyfile)
     # Run!
     add_custom_target(docs COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_BINARY_DIR}/Doxyfile WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src COMMENT "Generating Doxygen documentation..." VERBATIM)
+    add_dependencies(${PROJECT_NAME} docs)
     message(STATUS "Documentation will be built.")
 endif()
 
