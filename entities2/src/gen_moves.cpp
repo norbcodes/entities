@@ -145,6 +145,7 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
                 break;
         }
     }
+    fmt::print("\n");
 }
 
 /**
