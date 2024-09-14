@@ -168,25 +168,19 @@ void Game(uint32_t mode, uint32_t& picker_flag)
             if (enemy_turn)
             {
                 fmt::print("{3}---<<< {1}{2}Enemy's{0} {3}turn! >>>---{0}\n", RESET, RED, BOLD, DARK_GRAY);
+                // Print history
+                fmt::print("{2}What happened last round:{0}\n{1}{0}\n\n", RESET, what_happened, WHITE);
+                what_happened = "";
+                Enemy->UpdateStatuses(what_happened, true);
             }
             else
             {
                 fmt::print("{3}---<<< {1}{2}Player's{0} {3}turn! >>>---{0}\n", RESET, BLUE, BOLD, DARK_GRAY);
-            }
-
-            // Print history
-            fmt::print("{2}What happened last round:{0}\n{1}{0}\n\n", RESET, what_happened, WHITE);
-            what_happened = "";
-
-            if (enemy_turn)  // if enemy turn
-            {
-                Enemy->UpdateStatuses(what_happened, true);
-            }
-            else  // if player turn turn
-            {
+                // Print history
+                fmt::print("{2}What happened last round:{0}\n{1}{0}\n\n", RESET, what_happened, WHITE);
+                what_happened = "";
                 Player->UpdateStatuses(what_happened, false);
             }
-            // random switch go brrrr
 
             // Increase energy
             Player->GiveEnergy(ENERGY_INC);

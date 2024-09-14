@@ -59,7 +59,7 @@ void Status::Age()
  */
 bool Entity::StatusActive(uint8_t type) const
 {
-    for (int i = 0; i != this->status_list.size(); i++)
+    for (size_t i = 0; i != this->status_list.size(); i++)
     {
         if (this->status_list[i].GetType() == type)
         {
@@ -75,6 +75,20 @@ bool Entity::StatusActive(uint8_t type) const
  */
 void Entity::GiveStatus(uint8_t type)
 {
+    if (type == WEAKNESS)
+    {
+        this->status_list.emplace_back(type, WEAKNESS_TIME_LEFT);
+        // Cap HP and AR at 60!!!!
+        if (this->health >= WEAKNESS_STAT_CAP)
+        {
+            this->health = WEAKNESS_STAT_CAP;
+        }
+        if (this->armor >= WEAKNESS_STAT_CAP)
+        {
+            this->armor = WEAKNESS_STAT_CAP;
+        }
+        return;
+    }
     this->status_list.emplace_back(type, STATUS_TIME_LEFT);
 }
 
@@ -111,7 +125,7 @@ void Entity::UpdateStatuses(std::string& msg, bool enemy_turn)
         return;
     }
     // yay
-    for (int i = 0; i < this->status_list.size(); i++)
+    for (size_t i = 0; i < this->status_list.size(); i++)
     {
         this->status_list[i].Age();
         // Only apply AutoHeal and Poison, Invis and IncreasedCrit and Thorns are handled in the Hurt method

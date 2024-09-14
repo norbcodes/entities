@@ -138,6 +138,7 @@ configure_file(${CMAKE_SOURCE_DIR}/src/headers/version.txt ${CMAKE_BINARY_DIR}/h
 
 # Create the main executable
 add_executable(${PROJECT_NAME} ${ENTITIES2_SOURCE})
+target_compile_options(${PROJECT_NAME} PUBLIC -Wall)
 target_include_directories(${PROJECT_NAME} PUBLIC ${SEARCH_IN})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 

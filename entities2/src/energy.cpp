@@ -24,11 +24,6 @@ Energy!
 #include "entity.hpp"
 
 /**
- * \def ARMOR_ENERGY_F
- * \brief Used to calculate energy cost for armor moves. See energy.cpp
- */
-
-/**
  * \brief Calculate energy cost.
  * \details Depending on the move and type of move, the higher the energetical cost can be.<br>
  *          This function calculates the energy cost.
@@ -67,13 +62,16 @@ double CalcEnergyCost(uint32_t move, uint32_t type)
                     cost = 25.0;
                     break;
                 case INVIS:
-                    cost = 25.0;
+                    cost = 28.0;
                     break;
                 case POISON:
                     cost = 30.0;
                     break;
                 case THORNS:
-                    cost = 25.0;
+                    cost = 28.0;
+                    break;
+                case WEAKNESS:
+                    cost = 40.0;
                     break;
             }
     }
@@ -88,7 +86,7 @@ void PrintEnergyBar(const Entity& entity)
 {
     uint32_t columns_count = roundf((entity.GetEnergy() / MAX_ENERGY) * 10);
     std::string columns = "";
-    for (int i = 0; i != columns_count; i++)
+    for (uint32_t i = 0; i != columns_count; i++)
     {
         columns += "#";
     }
@@ -117,6 +115,12 @@ double Entity::GetEnergy() const
  */
 void Entity::GiveEnergy(double val)
 {
+    // Give less if weakened
+    if (this->StatusActive(WEAKNESS))
+    {
+        val *= 0.75;  // 75%
+    }
+
     if (this->energy + val >= MAX_ENERGY)
     {
         this->energy = MAX_ENERGY;

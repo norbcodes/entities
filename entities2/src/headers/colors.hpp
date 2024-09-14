@@ -41,6 +41,7 @@
         #define LAVENDER            "\x1b[38;2;187;153;255m"
         #define YELLOW              "\x1b[38;2;255;255;38m"
         #define TEAL                "\x1b[38;2;0;130;181m"
+        #define BROWN               "\x1b[38;2;153;77;0m"
     #else // __ENTITIES2_4_BIT_COLORS__
         #define RESET               "\x1b[0m"
 
@@ -74,6 +75,7 @@
             #define LAVENDER            "\x1b[36m"
             #define YELLOW              "\x1b[33m"
             #define TEAL                "\x1b[96m"
+            #define BROWN               "\x1b[33m"
         #else // __ENTITIES2_4_BIT_AIXTERM__
             #define RED                 "\x1b[31m"
             #define BLUE                "\x1b[34m"
@@ -90,6 +92,7 @@
             #define LAVENDER            "\x1b[36m"
             #define YELLOW              "\x1b[33m"
             #define TEAL                "\x1b[36m"
+            #define BROWN               "\x1b[33m"
         #endif // __ENTITIES2_4_BIT_AIXTERM__
 
     #endif // __ENTITIES2_4_BIT_COLORS__
@@ -115,6 +118,7 @@
     #define LAVENDER            ""
     #define YELLOW              ""
     #define TEAL                ""
+    #define BROWN               ""
 #endif // __ENTITIES2_COLORS__
 
 /** 
@@ -242,5 +246,11 @@
 /**
  * \def TEAL
  * \brief RGB value = 0,130,181
+ * \hideinitializer
+ */
+
+/**
+ * \def BROWN
+ * \brief RGB value = 153,77,0
  * \hideinitializer
  */
