@@ -47,6 +47,7 @@ void DatapackViewer(const DatapackEngine& datapacks)
     int16_t selection = 0;
     int16_t scroll = 0;
     const int16_t scroll_max = datapacks.DatapackCount() - MAX_RENDER_COUNT;
+    const bool scrollable = datapacks.DatapackCount() > MAX_RENDER_COUNT;
     
     while (true)
     {
@@ -96,6 +97,15 @@ void DatapackViewer(const DatapackEngine& datapacks)
         }
         else if (option == DOWN_KEY)
         {
+            if (!scrollable)
+            {
+                if ((uint32_t)(selection + 1) == datapacks.DatapackCount())
+                {
+                    continue;
+                }
+                selection += 1;
+                continue;
+            }
             if (selection + 1 > (MAX_RENDER_COUNT - 1))
             {
                 if (scroll + 1 > scroll_max)

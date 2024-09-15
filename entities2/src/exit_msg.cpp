@@ -37,18 +37,21 @@ namespace E2_ExitMsg
         fmt::format("{1}Are you sure? {2}Windows is much worse...{0}", RESET, WHITE, ITALIC),
         fmt::format("{1}Of course, as if Windows is more fun!{0}", RESET, WHITE),
         fmt::format("{1}You know that Bill Gates approves of this game, right?{0}", RESET, WHITE),
+        fmt::format("{1}Right right, don't forget to close the windows on the way out.{0}", RESET, WHITE),
         #endif // _WIN32
 
         #ifdef __APPLE__
         fmt::format("{1}Are you sure? {2}Mac is much worse...{0}", RESET, WHITE, ITALIC),
         fmt::format("{1}Of course, as if Mac is more fun!{0}", RESET, WHITE),
         fmt::format("{1}You know that Steve Jobs approved of this game, right?{0}", RESET, WHITE),
+        fmt::format("{1}An Apple a day keeps the wallet away.{0}", RESET, WHITE),
         #endif // __APPLE__
 
         #ifdef __linux__
         fmt::format("{1}Are you sure? {2}Linux is much worse...{0}", RESET, WHITE, ITALIC),
         fmt::format("{1}Of course, as if Linux is more fun!{0}", RESET, WHITE),
         fmt::format("{1}You know that Linus Torvalds approves of this game, right?{0}", RESET, WHITE),
+        fmt::format("{1}Linuwux{0}", RESET, WHITE),
         #endif // __linux__
 
         fmt::format("{1}The enemy still has 6 hp left!{0}", RESET, WHITE),
@@ -93,7 +96,7 @@ namespace E2_ExitMsg
         fmt::format("{1}Goodbye :3{0}", RESET, WHITE),
         fmt::format("{1}QwQ{0}", RESET, WHITE),
         // Dethklok reference :3
-        fmt::format("{3}\"{0}{1}{2}Awaken, awaken, Mustakrakish, rise!{0}{3}\"{0}", RESET, RED, BOLD, DARK_GRAY),
+        fmt::format("{3}\"{0}{1}{2}Awaken, Awaken, Mustakrakish, rise!{0}{3}\"{0}", RESET, RED, BOLD, DARK_GRAY),
         fmt::format("{1}*{2}insert exit message here{0}{1}*{0}", RESET, WHITE, ITALIC),
         fmt::format("{1}>:p{0}", RESET, WHITE),
         fmt::format("{1}Dude, just choose a lower difficulty. No need for drastic measures.{0}", RESET, WHITE),
@@ -106,7 +109,12 @@ namespace E2_ExitMsg
         std::string("{red}{bold}Damn, my formatting broke{reset}"),
         // Metallica reference :O
         fmt::format("{3}\"{0}{1}{2}I'm the pain when you can't feel! Sad but true!{0}{3}\"{0}", RESET, PURPLE, BOLD, DARK_GRAY),
-        fmt::format("{1}Do\n  not\n     exit,\n          PLEASE{0}", RESET, WHITE)
+        fmt::format("{1}Do\n  not\n     exit,\n          PLEASE{0}", RESET, WHITE),
+        fmt::format("{1}I hate you >:({0}", RESET, WHITE),
+        fmt::format("{1}You KNOW that this is the best game ever made, right?{0}", RESET, WHITE),
+        fmt::format("{1}Classic, just give up when you fail once.{0}", RESET, WHITE),
+        fmt::format("{1};-;{0}", RESET, WHITE),
+        fmt::format("{1}Go f##k yourself :) jkjk{0}", RESET, WHITE)
     };
 }
 

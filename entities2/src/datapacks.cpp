@@ -13,7 +13,7 @@
 #include <fstream>
 #include <string>
 #include <pugixml.hpp>
-#include <iostream>
+#include <vector>
 
 #include "exit_msg.hpp"
 #include "datapacks.hpp"
@@ -156,7 +156,7 @@ DatapackEngine::DatapackEngine()
 
         for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator("./datapacks/"))
         {
-            // TODO: SYMLINK SUPPORT
+            // We don't need symlinks support lol
             // This iterates through all stuff in the folder.
             // Check if file:
             if (file.is_regular_file())
