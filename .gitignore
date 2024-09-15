@@ -16,3 +16,5 @@ build/*.so
 CMakeToolchain.txt
 Changelog.txt
 entities2/assets/note.txt
+RELEASES/
+RELEASES/*
