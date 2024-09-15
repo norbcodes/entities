@@ -76,7 +76,13 @@ int main()
         MainMenuRPC();
         ClearScreen();
         Div();
-        fmt::print("{1}Welcome to {2}{3}entities2.cpp{0}{1}!!!!{0}\n{1}Pick an option:{0}\n\n", RESET, WHITE, GOLD, ITALIC);
+        fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, LAVENDER, BOLD);
+        fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, LAVENDER, BOLD);
+        fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, LAVENDER, BOLD);
+        fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, LAVENDER, BOLD);
+        fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, LAVENDER, BOLD);
+        fmt::print("{1}                  A game by norbcodes.{0}\n\n", RESET, DARK_GRAY);
+        fmt::print("{1}Pick an option:{0}\n\n", RESET, WHITE);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
         fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Gameplay Info{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
         fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Datapacks{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, PINK);

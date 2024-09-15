@@ -13,6 +13,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+#include "keyboard.hpp"
+
 /**
  * \brief Waits for a numeric key.
  * \return The numeric key.
@@ -105,6 +107,46 @@ void BlockUntilEnter()
         if (option == '\n')
         {
             break;
+        }
+    }
+
+    // Restore the old terminal settings
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+}
+
+/**
+ * \details Get arrow key.
+ */
+uint32_t GetArrowKey()
+{
+        // SHAMELESSLY COPIED
+    struct termios oldt;
+    struct termios newt;
+
+    // Get the current terminal settings
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+
+    // Disable canonical mode and echo
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+    while (true)
+    {
+        if (getchar() == 27)
+        {
+            getchar();
+            switch(getchar())
+            {
+                case 'A':
+                    return UP_KEY;
+                case 'B':
+                    return DOWN_KEY;
+                case 'C':
+                    return RIGHT_KEY;
+                case 'D':
+                    return LEFT_KEY;
+            }
         }
     }
 
