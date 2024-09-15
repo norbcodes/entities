@@ -141,7 +141,7 @@ DatapackEngine::DatapackEngine()
         std::filesystem::create_directory("./datapacks/");
         // Write a lil readme.txt :)
         std::ofstream readme("./datapacks/readme.txt");
-        readme << "Hello!!!\nHere, you can put your .xml datapacks for entities2!\nYou may also create subfolders to organize your files.\nSymlinks are also supported!";
+        readme << "Hello!!!\nHere, you can put your .xml datapacks for entities2!\nYou may also create subfolders to organize your files.";
         readme.close();
         return;
         // Since we just created the folder, there's obviously not gonna be any XML files yet.
