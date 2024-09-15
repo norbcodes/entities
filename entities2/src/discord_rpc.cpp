@@ -138,3 +138,5 @@ void DestroyRPC()
     Discord_Shutdown();
     #endif // __ENTITIES2_DISCORD_RPC__
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

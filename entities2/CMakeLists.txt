@@ -3,6 +3,8 @@
 # The CMakeLists to build entities2.cpp
 cmake_minimum_required(VERSION 3.29 FATAL_ERROR)
 
+cmake_policy(SET CMP0077 NEW)
+
 # Do not make install rules pls
 # and disable other stuff
 set(FMT_INSTALL OFF)
@@ -10,16 +12,20 @@ set(FMT_DOC OFF)
 set(FMT_TEST OFF)
 add_subdirectory("${CMAKE_SOURCE_DIR}/src/fmt")
 
+# Do not make install rules pls too
+set(PUGIXML_INSTALL OFF CACHE BOOL "Enable installation rules")
+add_subdirectory("${CMAKE_SOURCE_DIR}/src/pugixml")
+
 # Set the project
 project(entities2 
         LANGUAGES CXX C
         DESCRIPTION "entities2 is a small silly turn based combat CLI game."
 )
 
-set(PROJECT_VERSION "v1.7.1")
+set(PROJECT_VERSION "v1.8.0")
 set(PROJECT_VERSION_MAJOR "1")
-set(PROJECT_VERSION_MINOR "7")
-set(PROJECT_VERSION_PATCH "1")
+set(PROJECT_VERSION_MINOR "8")
+set(PROJECT_VERSION_PATCH "0")
 set(PROJECT_VERSION_IS_DEV 0)
 
 include("CheckIncludeFileCXX")
@@ -43,6 +49,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/headers
     ${CMAKE_SOURCE_DIR}/src/fmt/include
     ${CMAKE_BINARY_DIR}/headers
+    ${CMAKE_BINARY_DIR}/src/pugixml/src
 )
 
 # Create macro list for Doxygen:
@@ -55,11 +62,15 @@ set(
 set(
     ENTITIES2_SOURCE
     ${CMAKE_SOURCE_DIR}/src/ai.cpp
+    ${CMAKE_SOURCE_DIR}/src/datapack_viewer.cpp
+    ${CMAKE_SOURCE_DIR}/src/datapacks.cpp
+    ${CMAKE_SOURCE_DIR}/src/difficulty_picker.cpp
     ${CMAKE_SOURCE_DIR}/src/discord_rpc.cpp
     ${CMAKE_SOURCE_DIR}/src/energy.cpp
     ${CMAKE_SOURCE_DIR}/src/entity.cpp
     ${CMAKE_SOURCE_DIR}/src/exit_msg.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay_info.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay_loop.cpp
     ${CMAKE_SOURCE_DIR}/src/gen_moves.cpp
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/pick_move.cpp
@@ -76,32 +87,56 @@ set(
 
 # Check if compiling for Linux
 message(STATUS "Checking OS...")
-if(CMAKE_SYSTEM_NAME MATCHES Linux)
-    add_compile_definitions(${PROJECT_NAME} PUBLIC __linux__)
+if(CMAKE_SYSTEM_NAME MATCHES Linux OR CMAKE_SYSTEM_NAME MATCHES Android)
+    add_compile_definitions(__linux__)
     list(APPEND PREDEFINED_MACROS_DOXY "__linux__")
-    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/Linux/headers")
-    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Linux/sleep.cpp" "${CMAKE_SOURCE_DIR}/src/Linux/keyboard.cpp")
+    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/linux/headers")
+    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/linux/sleep.cpp" "${CMAKE_SOURCE_DIR}/src/linux/keyboard.cpp")
     list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_unix.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_linux.cpp")
 
     message(STATUS "Linux detected. Adding Linux specific stuff.")
 
-elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
-    add_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32 __WIN32__)
+elseif(CMAKE_SYSTEM_NAME MATCHES Windows OR CMAKE_SYSTEM_NAME MATCHES CYGWIN)
+    add_compile_definitions(_WIN32 __WIN32__)
+    add_compile_definitions(_WIN32 __WIN32__)
+    add_compile_options(-mwindows)
     list(APPEND PREDEFINED_MACROS_DOXY "_WIN32" "__WIN32__")
-    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/Windows/headers")
-    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/Windows/sleep.cpp" "${CMAKE_SOURCE_DIR}/src/Windows/keyboard.cpp")
+    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/windows/headers")
+    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/windows/sleep.cpp" "${CMAKE_SOURCE_DIR}/src/windows/keyboard.cpp")
     list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_win.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_win.cpp")
+
+    # Configure RC script
+    configure_file(${CMAKE_SOURCE_DIR}/src/windows/e2_resources.txt ${CMAKE_BINARY_DIR}/e2_resources.rc)
+
+    # Compile RC script
+    add_custom_command(
+        OUTPUT ${CMAKE_BINARY_DIR}/e2_resources.res
+        COMMAND windres ${CMAKE_BINARY_DIR}/e2_resources.rc -o ${CMAKE_BINARY_DIR}/e2_resources.res
+        DEPENDS ${CMAKE_BINARY_DIR}/e2_resources.rc
+    )
+
+    add_custom_command(
+        OUTPUT ${CMAKE_BINARY_DIR}/e2_resources.o
+        COMMAND windres ${CMAKE_BINARY_DIR}/e2_resources.res -o ${CMAKE_BINARY_DIR}/e2_resources.o
+        DEPENDS ${CMAKE_BINARY_DIR}/e2_resources.res
+    )
+
+    list(APPEND ENTITIES2_SOURCE "${CMAKE_BINARY_DIR}/e2_resources.o")
 
     message(STATUS "Windows detected. Adding Windows specific stuff.")
 
 #elseif(CMAKE_SYSTEM_NAME MATCHES Darwin)
-#    add_compile_definitions(${PROJECT_NAME} PUBLIC __APPLE__)
+#    add_compile_definitions(__APPLE__)
 #    list(APPEND SEARCH_IN "${CMAKE_SOURCE_DIR}/src/MacOS/headers")
 #    list(APPEND ENTITIES2_SOURCE "${CMAKE_SOURCE_DIR}/src/MacOS/sleep.cpp")
 #    list(APPEND DISCORD_RPC_SOURCE "${CMAKE_SOURCE_DIR}/src/discord/connection_unix.cpp" "${CMAKE_SOURCE_DIR}/src/discord/discord_register_osx.m")
 #
 #    message(STATUS "MacOS detected. Adding MacOS specific stuff.")
 
+else()
+    message(FATAL_ERROR "It seems your system is not supported or wasn't detected properly."
+                        "CMAKE_SYSTEM_NAME returns ${CMAKE_SYSTEM_NAME}."
+                        "If you're on Windows or Linux and you recieved this error, create an issue on the entities2 github repository.")
 endif()
 
 if (ENABLE_DISCORD_RPC)
@@ -114,6 +149,7 @@ configure_file(${CMAKE_SOURCE_DIR}/src/headers/version.txt ${CMAKE_BINARY_DIR}/h
 
 # Create the main executable
 add_executable(${PROJECT_NAME} ${ENTITIES2_SOURCE})
+target_compile_options(${PROJECT_NAME} PUBLIC -Wall)
 target_include_directories(${PROJECT_NAME} PUBLIC ${SEARCH_IN})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
@@ -122,6 +158,12 @@ add_dependencies(${PROJECT_NAME} fmt)
 # Link fmt
 target_link_directories(${PROJECT_NAME} PUBLIC "${CMAKE_BINARY_DIR}/src/fmt")
 target_link_libraries(${PROJECT_NAME} PUBLIC fmt)
+
+# Add pugixml as dependency
+add_dependencies(${PROJECT_NAME} pugixml)
+# Link pugixml
+target_link_directories(${PROJECT_NAME} PUBLIC "${CMAKE_BINARY_DIR}/src/pugixml")
+target_link_libraries(${PROJECT_NAME} PUBLIC pugixml)
 
 if (ENABLE_DISCORD_RPC)
     message(STATUS "Enabled Discord RPC.")
@@ -199,6 +241,7 @@ if (BUILD_DOCS)
     configure_file(${CMAKE_SOURCE_DIR}/Doxyfile ${CMAKE_BINARY_DIR}/Doxyfile)
     # Run!
     add_custom_target(docs COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_BINARY_DIR}/Doxyfile WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src COMMENT "Generating Doxygen documentation..." VERBATIM)
+    add_dependencies(${PROJECT_NAME} docs)
     message(STATUS "Documentation will be built.")
 endif()
 

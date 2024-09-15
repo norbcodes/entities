@@ -79,6 +79,13 @@ void PickMove(Entity* ent1, Entity* ent2, uint32_t picked_move, uint32_t* moves,
                 what_happened += fmt::format("{2} {1}has applied {3}Thorns{1}.{0}", RESET, WHITE, who, TEAL);
                 ent1->TakeEnergy(energy_costs[picked_move]);
                 break;
+            case WEAKNESS:
+                ent2->GiveStatus(moves[picked_move]);
+                what_happened += fmt::format("{2} {1}has given {4}Weakness{1} to {3}{1}.{0}", RESET, WHITE, who, who_other, BROWN);
+                ent1->TakeEnergy(energy_costs[picked_move]);
+                break;
         }
     }
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

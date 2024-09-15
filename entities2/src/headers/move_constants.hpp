@@ -52,3 +52,5 @@
  * \brief Used during move generation. See gen_moves.cpp.
  */
 #define ARM_F               5
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

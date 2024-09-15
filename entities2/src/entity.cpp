@@ -22,19 +22,14 @@
 #include "rng.hpp"
 
 /**
- * \def ARMOR_F
- * \brief Used during difficulty scaling. See main.cpp.
- */
-
-/**
  * \brief Entity constructor function.
- * \details Initializes the Entity class, and allocates the status_list vector with size 64.
+ * \details Initializes the Entity class, and allocates the status_list vector with size 32.
  * \param[in] start_health Starting health.
  * \param[in] start_armor Starting armor.
  */
 Entity::Entity(int32_t start_health, int32_t start_armor) : health(start_health), armor(start_armor), energy(STARTING_ENERGY)
 {
-    this->status_list.reserve(64);
+    this->status_list.reserve(32);
 }
 
 /**
@@ -89,6 +84,17 @@ void Entity::HurtArmor(uint32_t dmg)
  */
 void Entity::Heal(uint32_t val)
 {
+    if (this->StatusActive(WEAKNESS))
+    {
+        if ((this->health + val) >= 60)
+        {
+            this->health = 60;
+            return;
+        }
+        this->health += val;
+        return;
+    }
+
     if ((this->health + val) >= MAX_STAT_CAP)
     {
         this->health = MAX_STAT_CAP;
@@ -103,6 +109,17 @@ void Entity::Heal(uint32_t val)
  */
 void Entity::RegenArmor(uint32_t val)
 {
+    if (this->StatusActive(WEAKNESS))
+    {
+        if ((this->armor + val) >= 60)
+        {
+            this->armor = 60;
+            return;
+        }
+        this->armor += val;
+        return;
+    }
+
     if ((this->armor + val) >= MAX_STAT_CAP)
     {
         this->armor = MAX_STAT_CAP;
@@ -151,6 +168,10 @@ void PrintEntityStats(const Entity& ent)
         {
             fmt::print("{2}*{3}{1}{0} ", RESET, _s.GetTimeLeft(), TEAL, DARK_GRAY);
         }
+        else if (_s.GetType() == WEAKNESS)
+        {
+            fmt::print("{2}W{3}{1}{0} ", RESET, _s.GetTimeLeft(), BROWN, DARK_GRAY);
+        }
     }
     fmt::print("\n");
 }
@@ -187,17 +208,26 @@ void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& m
     uint32_t thorns_hp_dmg = 0;
     uint32_t thorns_ar_dmg = 0;
     bool crit_flag = false;
+
+    // Check if weakened?
+    if (attacker.StatusActive(WEAKNESS))
+    {
+        health_dmg -= 3;
+    }
+
     // Crit
     if (attacker.StatusActive(INCR_CRIT) && rng(0, 100) > 70)
     {
         health_dmg *= 2;
         crit_flag = true;
     }
+
     // If victim has thorns...
     if (victim.StatusActive(THORNS))
     {
         thorns_hp_dmg = health_dmg >> 1;
     }
+
     // If victim has armor, we split health_dmg
     if (victim.GetArmor() > 0)
     {
@@ -205,6 +235,7 @@ void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& m
         health_dmg >>= 1;
         armor_dmg = _temp >> 1;
     }
+
     // If victim has thorns, we split thorns_hp_dmg too
     if (victim.StatusActive(THORNS) && attacker.GetArmor() > 0)
     {
@@ -212,8 +243,9 @@ void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& m
         thorns_hp_dmg >>= 1;
         thorns_ar_dmg = _temp >> 1;
     }
+
     // IF armor_dmg takes more armor than the victim has (armor < 0) then do this
-    if (armor_dmg > victim.GetArmor())
+    if (((int32_t)armor_dmg) > victim.GetArmor())
     {
         health_dmg += armor_dmg - victim.GetArmor();
         armor_dmg = victim.GetArmor();
@@ -265,3 +297,5 @@ void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& m
         return;
     }
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

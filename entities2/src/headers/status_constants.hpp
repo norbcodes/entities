@@ -14,7 +14,7 @@
  * \def STATUS_C
  * \brief Number of statuses.
  */
-#define STATUS_C            5
+#define STATUS_C            6
 
 /**
  * \def AUTO_HEAL
@@ -46,12 +46,24 @@
  */
 #define THORNS              4
 
+/**
+ * \def WEAKNESS
+ * \brief Weakness id number.
+ */
+#define WEAKNESS            5
+
 // Data
 /**
  * \def STATUS_TIME_LEFT
  * \brief Default value of how long Statuses last.
  */
 #define STATUS_TIME_LEFT    4
+
+/**
+ * \def WEAKNESS_TIME_LEFT
+ * \brief Default value of how long Weakness status lasts.
+ */
+#define WEAKNESS_TIME_LEFT  3
 
 /**
  * \def AUTO_HEAL_AMOUNT
@@ -64,3 +76,11 @@
  * \brief Amount of health AutoHeal takes.
  */
 #define POISON_AMOUNT       10
+
+/**
+ * \def WEAKNESS_STAT_CAP
+ * \brief The HP and AR that weakness caps at.
+ */
+#define WEAKNESS_STAT_CAP   60
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

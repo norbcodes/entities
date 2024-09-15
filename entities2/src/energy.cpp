@@ -24,11 +24,6 @@ Energy!
 #include "entity.hpp"
 
 /**
- * \def ARMOR_ENERGY_F
- * \brief Used to calculate energy cost for armor moves. See energy.cpp
- */
-
-/**
  * \brief Calculate energy cost.
  * \details Depending on the move and type of move, the higher the energetical cost can be.<br>
  *          This function calculates the energy cost.
@@ -61,19 +56,22 @@ double CalcEnergyCost(uint32_t move, uint32_t type)
             switch (move)
             {
                 case AUTO_HEAL:
-                    cost = 8.0;
+                    cost = 25.0;
                     break;
                 case INCR_CRIT:
-                    cost = 20.0;
+                    cost = 25.0;
                     break;
                 case INVIS:
-                    cost = 16.0;
+                    cost = 28.0;
                     break;
                 case POISON:
-                    cost = 16.0;
+                    cost = 30.0;
                     break;
                 case THORNS:
-                    cost = 15.0;
+                    cost = 28.0;
+                    break;
+                case WEAKNESS:
+                    cost = 40.0;
                     break;
             }
     }
@@ -88,12 +86,12 @@ void PrintEnergyBar(const Entity& entity)
 {
     uint32_t columns_count = roundf((entity.GetEnergy() / MAX_ENERGY) * 10);
     std::string columns = "";
-    for (int i = 0; i != columns_count; i++)
+    for (uint32_t i = 0; i != columns_count; i++)
     {
         columns += "#";
     }
     fmt::print("{1}[{0} {2}{3}{4:.<10}{0} {1}]{0} ", RESET, DARK_GRAY, BLUE, BOLD, columns);
-    fmt::print("{4}E: {1: >5.2f}{3}/{2} {4}{5:.1f}{3}%{0}\n", RESET, entity.GetEnergy(), MAX_ENERGY, WHITE, BLUE, ((entity.GetEnergy() / MAX_ENERGY) * 100));
+    fmt::print("{4}E: {1: >5.1f}{3}/{2} {4}{5:.1f}{3}%{0}\n", RESET, entity.GetEnergy(), MAX_ENERGY, WHITE, BLUE, ((entity.GetEnergy() / MAX_ENERGY) * 100));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,6 +115,12 @@ double Entity::GetEnergy() const
  */
 void Entity::GiveEnergy(double val)
 {
+    // Give less if weakened
+    if (this->StatusActive(WEAKNESS))
+    {
+        val *= 0.75;  // 75%
+    }
+
     if (this->energy + val >= MAX_ENERGY)
     {
         this->energy = MAX_ENERGY;
@@ -138,3 +142,5 @@ void Entity::TakeEnergy(double val)
     }
     this->energy -= val;
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

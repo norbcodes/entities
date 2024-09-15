@@ -41,6 +41,7 @@
         #define LAVENDER            "\x1b[38;2;187;153;255m"
         #define YELLOW              "\x1b[38;2;255;255;38m"
         #define TEAL                "\x1b[38;2;0;130;181m"
+        #define BROWN               "\x1b[38;2;153;77;0m"
     #else // __ENTITIES2_4_BIT_COLORS__
         #define RESET               "\x1b[0m"
 
@@ -74,6 +75,7 @@
             #define LAVENDER            "\x1b[36m"
             #define YELLOW              "\x1b[33m"
             #define TEAL                "\x1b[96m"
+            #define BROWN               "\x1b[33m"
         #else // __ENTITIES2_4_BIT_AIXTERM__
             #define RED                 "\x1b[31m"
             #define BLUE                "\x1b[34m"
@@ -90,6 +92,7 @@
             #define LAVENDER            "\x1b[36m"
             #define YELLOW              "\x1b[33m"
             #define TEAL                "\x1b[36m"
+            #define BROWN               "\x1b[33m"
         #endif // __ENTITIES2_4_BIT_AIXTERM__
 
     #endif // __ENTITIES2_4_BIT_COLORS__
@@ -115,6 +118,7 @@
     #define LAVENDER            ""
     #define YELLOW              ""
     #define TEAL                ""
+    #define BROWN               ""
 #endif // __ENTITIES2_COLORS__
 
 /** 
@@ -125,7 +129,7 @@
 
 /**
  * \def BOLD
- * \brief <b>Bold</b> text styling.
+ * \brief <b>Bold</b> text styling. <span style="background-color: rgb(0, 0, 0);"><b>\#\#\#TEST\#\#\#</b></span>
  * \hideinitializer
  */
 
@@ -138,13 +142,13 @@
 
 /**
  * \def ITALIC
- * \brief <i>Italic</i> text styling.
+ * \brief <i>Italic</i> text styling. <span style="background-color: rgb(0, 0, 0);"><i>\#\#\#TEST\#\#\#</i></span>
  * \hideinitializer
  */
 
 /**
  * \def UNDERLINE
- * \brief <u>Underline</u> text styling.
+ * \brief <u>Underline</u> text styling. <span style="background-color: rgb(0, 0, 0);"><u>\#\#\#TEST\#\#\#</u></span>
  * \hideinitializer
  */
 
@@ -157,90 +161,98 @@
 
 /**
  * \def RED
- * \brief RGB value = 255,25,0
+ * \brief RGB value = 255,25,0 <span style="background-color: rgb(0, 0, 0);color: rgb(255, 25, 0)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def BLUE
- * \brief RGB value = 36,80,255
+ * \brief RGB value = 36,80,255 <span style="background-color: rgb(0, 0, 0);color: rgb(36, 80, 255)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def ORANGE
- * \brief RGB value = 230,153,0
+ * \brief RGB value = 230,153,0 <span style="background-color: rgb(0, 0, 0);color: rgb(230, 153, 0)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def WHITE
- * \brief RGB value = 230,230,230
+ * \brief RGB value = 230,230,230 <span style="background-color: rgb(0, 0, 0);color: rgb(230, 230, 230)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def HOT_PINK
- * \brief RGB value = 153,0,77
+ * \brief RGB value = 153,0,77 <span style="background-color: rgb(0, 0, 0);color: rgb(153, 0, 77)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def GRAY
- * \brief RGB value = 99,99,99
+ * \brief RGB value = 99,99,99 <span style="background-color: rgb(0, 0, 0);color: rgb(99, 99, 99)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def DARK_GRAY
- * \brief RGB value = 68,68,68
+ * \brief RGB value = 68,68,68 <span style="background-color: rgb(0, 0, 0);color: rgb(68, 68, 68)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def PINK
- * \brief RGB value = 234,128,255
+ * \brief RGB value = 234,128,255 <span style="background-color: rgb(0, 0, 0);color: rgb(234, 128, 255)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def GOLD
- * \brief RGB value = 255,195,77
+ * \brief RGB value = 255,195,77 <span style="background-color: rgb(0, 0, 0);color: rgb(255, 195, 77)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def GREEN
- * \brief RGB value = 0,255,42
+ * \brief RGB value = 0,255,42 <span style="background-color: rgb(0, 0, 0);color: rgb(0, 255, 42)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def PURPLE
- * \brief RGB value = 76,0,230
+ * \brief RGB value = 76,0,230 <span style="background-color: rgb(0, 0, 0);color: rgb(76, 0, 230)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def DARK_GREEN
- * \brief RGB value = 181,196,27
+ * \brief RGB value = 181,196,27 <span style="background-color: rgb(0, 0, 0);color: rgb(181, 196, 27)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def LAVENDER
- * \brief RGB value = 187,153,255
+ * \brief RGB value = 187,153,255 <span style="background-color: rgb(0, 0, 0);color: rgb(187, 153, 255)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def YELLOW
- * \brief RGB value = 255,255,38
+ * \brief RGB value = 255,255,38 <span style="background-color: rgb(0, 0, 0);color: rgb(255, 255, 38)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 
 /**
  * \def TEAL
- * \brief RGB value = 0,130,181
+ * \brief RGB value = 0,130,181 <span style="background-color: rgb(0, 0, 0);color: rgb(0, 130, 181)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
+
+/**
+ * \def BROWN
+ * \brief RGB value = 153,77,0 <span style="background-color: rgb(0, 0, 0);color: rgb(153, 77, 0)">\#\#\#TEST\#\#\#</span>
+ * \hideinitializer
+ */
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

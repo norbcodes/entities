@@ -52,3 +52,5 @@
  * \brief Used during difficulty scaling. See main.cpp.
  */
 #define ARMOR_F             5
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

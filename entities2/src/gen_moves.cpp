@@ -107,7 +107,7 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
         // This looks funny lmao
         fmt::print("{2}[{3}{4}{1}{0}{2}]{0} ", RESET, i + 1, DARK_GRAY, GOLD, BOLD);
         // Print energy cost
-        fmt::print("{2}[{3}{4}{1: >5.2f}{0}{2}]{0}\t", RESET, energies[i], DARK_GRAY, BLUE, BOLD);
+        fmt::print("{2}[{3}{4}{1: >5.1f}{0}{2}]{0}\t", RESET, energies[i], DARK_GRAY, BLUE, BOLD);
         // Print the other
         switch (move_types[i])
         {
@@ -138,10 +138,14 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
                     case THORNS:
                         fmt::print("{2}Apply {1}Thorns {2}status! Opponent will {3}take damage too on attack{0}\n", RESET, TEAL, WHITE, BOLD);
                         break;
+                    case WEAKNESS:
+                        fmt::print("{2}Give opponent {1}Weakness {2}status! Opponent will weakened...{0}\n", RESET, BROWN, WHITE, BOLD);
+                        break;
                 }
                 break;
         }
     }
+    fmt::print("\n");
 }
 
 /**
@@ -177,3 +181,5 @@ void GenerateMoves(uint32_t* moves, uint32_t* move_types, double* energies)
     }
     PrintMoves(moves, move_types, energies);
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

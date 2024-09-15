@@ -18,16 +18,6 @@
 #include "rng.hpp"
 
 /**
- * \def POISON_AMOUNT
- * \brief Amount of health AutoHeal takes.
- */
-
-/**
- * \def ARM_F
- * \brief Used during move generation. See gen_moves.cpp.
- */
-
-/**
  * \def SKIP
  * \brief A smol little define, 4 means the Ai chose to skip the round.
  */
@@ -51,13 +41,11 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
     // I copy+pasted a lot of this shit
 
     // First, check if we can actually get any moves
-    bool available[4] = {false, false, false, false};
     uint32_t _sum = 0;
     for (int i = 0; i != 4; i++)
     {
         if (energies[i] <= enemy.GetEnergy())
         {
-            available[i] = true;
             _sum += 1;
         }
     }
@@ -68,34 +56,31 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
         return SKIP;
     }
 
-    if (rng(0, 100) > enemy.GetHealth())
+    // FIRST AND FOREMOST, IF WEAKNESS EXISTS, GO FOR IT.
+    for (int i = 0; i != 4; i++)
+    {
+        if (picks_list[i] == WEAKNESS && types_list[i] == STATUS && energies[i] <= enemy.GetEnergy())
+        {
+            return i;
+        }
+    }
+
+    if (((int32_t)rng(0, 100)) > enemy.GetHealth())
     {
         /*
         Difficulty table:
         EASY               60
-        MEDIUM             70
-        HARD               60
+        MEDIUM             50
+        HARD               40
         */
         if (rng(0, 100) > (60 - (difficulty_scale * 5)))
         {
             // Prioritize choosing poison
-            bool poison_available = false;
             for (int i = 0; i != 4; i++)
             {
                 if (picks_list[i] == POISON && energies[i] <= enemy.GetEnergy() && types_list[i] == STATUS)
                 {
-                    poison_available = true;
-                }
-            }
-
-            if (poison_available)
-            {
-                for (int i = 0; i != 4; i++)
-                {
-                    if (picks_list[i] == POISON && types_list[i] == STATUS)
-                    {
-                        return i;
-                    }
+                    return i;
                 }
             }
 
@@ -189,7 +174,7 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
             }
         }
 
-        if (player.GetHealth() <= highest_att)
+        if (player.GetHealth() <= ((int32_t)highest_att))
         {
             // Attack!
             for (int i = 0; i != 4; i++)
@@ -203,7 +188,6 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
         else
         {
             // find autoheal and apply
-            bool autoheal_available = false;
             for (int i = 0; i != 4; i++)
             {
                 if (types_list[i] == STATUS && picks_list[i] == AUTO_HEAL && energies[i] <= enemy.GetEnergy())
@@ -231,5 +215,20 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
             }
         }
     }
+
+    // If we got to this point well uhhhhhh
+    // Just pick the first move we have energy for
+    for (int i = 0; i != 4; i++)
+    {
+        if (energies[i] <= enemy.GetEnergy())
+        {
+            return i;
+        }
+    }
+
+    // Oh well, skip then.
+
     return SKIP;
 }
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

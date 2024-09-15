@@ -4,7 +4,6 @@
 
 #include <cstdint>
 
-bool MoveExists(uint32_t* moves, uint32_t* move_types, uint32_t val, uint32_t type);
-void GenerateMoves(uint32_t* moves, uint32_t* move_types, double* energies);
+void Game(uint32_t mode, uint32_t& picker_flag);
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
