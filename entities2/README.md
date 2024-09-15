@@ -1,7 +1,8 @@
 <h1>Compilation</h1>
 <p>
+<b>REMEMBER, DO NOT DOWNLOAD FROM "RELEASES" SECTION. GIT CLONE THIS REPO.</b><br>
 To compile:
-<pre><code>git clone https://github.com/norbcodes/entities --recursive
+<pre><code>git clone https://github.com/norbcodes/entities.git --recursive
 mkdir entities/enities2/build
 cd entities/enities2/build
 cmake ..
@@ -9,7 +10,7 @@ make
 </code></pre>
 <b>Remember to use --recursive to also clone the submodules!</b><br>
 You may also specify a custom generator. So if you're a MinGW user:
-<pre><code>git clone https://github.com/norbcodes/entities --recursive
+<pre><code>git clone https://github.com/norbcodes/entities.git --recursive
 mkdir entities/enities2/build
 cd entities/enities2/build
 cmake .. -G "MinGW Makefiles"
