@@ -1,6 +1,6 @@
 <h1>ENTITIES!</h1>
 <aside>
-<img src="./entities2/assets/entities2_big_image.png" alt="Entities2" style="width:200px;height:-1px" align="right">
+<img src="./entities2/assets/entities2_big_image_transparent.png" alt="Entities2" style="width:200px;height:-1px" align="right">
 </aside>
 <p>Now, you may be thinking...<br>
 <b>Norb, wtf is this?</b><br>
