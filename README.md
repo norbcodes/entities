@@ -1,4 +1,7 @@
 <h1>ENTITIES!</h1>
+<aside>
+<img src="./entities2/assets/entities2_big_image.png" alt="Entities2" style="width:200px;height:-1px" align="right">
+</aside>
 <p>Now, you may be thinking...<br>
 <b>Norb, wtf is this?</b><br>
 entities2.cpp is a little silly CLI game with turn based combat I made in 2 days!
