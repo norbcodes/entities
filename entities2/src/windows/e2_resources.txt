@@ -1,6 +1,0 @@
-#include "windows.h"
-#include <afxres.h>
-
-#define IDI_ICON1 1
-
-IDI_ICON1 ICON "${CMAKE_SOURCE_DIR}/assets/icon/entities2_icon.ico"
