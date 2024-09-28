@@ -30,7 +30,7 @@
  * \brief Constructor for Datapack class.
  * \param[in] path Path to the .xml file, in <b>const char*</b> form.
  */
-Datapack::Datapack(const char* path)
+Datapack::Datapack(const char* path) : Path(path), Failbit(false)
 {
     // IN CONSTRUCTOR, ONLY READ "META" SECTION.
     this->Xml.load_file(path);
@@ -38,22 +38,49 @@ Datapack::Datapack(const char* path)
     // Read
     this->Name = this->Xml.child("Datapack").child("Meta").child("Name").text().as_string();
     this->Author = this->Xml.child("Datapack").child("Meta").child("Author").text().as_string();
-    this->Description = this->Xml.child("Datapack").child("Meta").child("Description").text().as_string();
+    this->Description = this->Xml.child("Datapack").child("Meta").child("Description").text().as_string("No description specified.");
 }
 
 /**
  * \brief Constructor for Datapack class.
  * \param[in] path Path to the .xml file, in <b>const std::string&</b> form.
  */
-Datapack::Datapack(const std::string& path)
+Datapack::Datapack(const std::string& path) : Path(path), Failbit(false)
 {
     // IN CONSTRUCTOR, ONLY READ "META" SECTION.
     this->Xml.load_file(path.c_str());
     
     // Read
-    this->Name = this->Xml.child("Datapack").child("Meta").child("Name").text().as_string();
-    this->Author = this->Xml.child("Datapack").child("Meta").child("Author").text().as_string();
-    this->Description = this->Xml.child("Datapack").child("Meta").child("Description").text().as_string();
+    // Check if Datapack and Meta and Data
+    if (!this->Xml.child("Datapack") || !this->Xml.child("Datapack").child("Meta") || !this->Xml.child("Datapack").child("Data"))
+    {
+        this->Failbit = true;
+        return;
+    }
+
+    // Check if Name
+    if (this->Xml.child("Datapack").child("Meta").child("Name"))
+    {
+        this->Name = this->Xml.child("Datapack").child("Meta").child("Name").text().as_string();
+    }
+    else
+    {
+        this->Failbit = true;
+        return;
+    }
+    
+    // Check if Author
+    if (this->Xml.child("Datapack").child("Meta").child("Author"))
+    {
+        this->Author = this->Xml.child("Datapack").child("Meta").child("Author").text().as_string();
+    }
+    else
+    {
+        this->Failbit = true;
+        return;
+    }
+    
+    this->Description = this->Xml.child("Datapack").child("Meta").child("Description").text().as_string("No description specified.");
 }
 
 /**
@@ -90,6 +117,24 @@ const std::string& Datapack::GetDesc() const
 const pugi::xml_document& Datapack::GetXml() const
 {
     return this->Xml;
+}
+
+/**
+ * \brief Get path of the loaded .xml file.
+ * \return The path.
+ */
+const std::string& Datapack::GetPath() const
+{
+    return (this->Path);
+}
+
+/**
+ * \brief Check if the datapack has loaded properly.
+ * \return Boolean.
+ */
+bool Datapack::LoadSuccessful() const
+{
+    return !(this->Failbit);
 }
 
 /**

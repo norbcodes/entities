@@ -30,6 +30,8 @@ class Datapack
         const std::string& GetAuthor() const;
         const std::string& GetDesc() const;
         const pugi::xml_document& GetXml() const;
+        const std::string& GetPath() const;
+        bool LoadSuccessful() const;
         // :3
         void Load();
     private:
@@ -56,6 +58,18 @@ class Datapack
          * \brief The XML object of the datapack.
          */
         pugi::xml_document Xml;
+
+        /**
+         * \var std::string Path
+         * \brief Path to the XML file.
+         */
+        std::string Path;
+
+        /**
+         * \var bool Failbit
+         * \brief 'true' if failed to load said datapack.
+         */
+        bool Failbit;
 };
 
 /**
