@@ -72,7 +72,8 @@ void Credits()
 
     fmt::print("{1}{2}EXTERNAL LIBRARIES USED:{0}\n  {3}{4}discord-rpc{0} {5}:: {6}{2}Thanks to Discord :){0}\n", RESET, GOLD, ITALIC, BLUE, BOLD, DARK_GRAY, LAVENDER);
     fmt::print("  {1}{2}{{{3}f{4}m{5}t{6}}}{0} {7}::{0} {8}{9}Thanks to the entire FMT lib team!! :P{0}\n", RESET, BOLD, RED, ORANGE, YELLOW, GREEN, BLUE, DARK_GRAY, ITALIC, HOT_PINK);
-    fmt::print("  {1}{2}pugi{0}{3}{2}xml{0} {4}::{0} {5}{6}Thanks to Arseny Kapoulkine (a.k.a Zeux on github)!! :3{0}\n\n", RESET, WHITE, BOLD, BROWN, DARK_GRAY, PINK, ITALIC);
+    fmt::print("  {1}{2}pugi{0}{3}{2}xml{0} {4}::{0} {5}{6}Thanks to Arseny Kapoulkine (a.k.a Zeux on github)!! :3{0}\n", RESET, WHITE, BOLD, BROWN, DARK_GRAY, PINK, ITALIC);
+    fmt::print("  {1}{2}arg{3}parse{0} {4}::{0} {5}Thanks to p-ranav {6}for this cool lib :>{0}\n\n", RESET, ORANGE, BOLD, GOLD, DARK_GRAY, GREEN, DARK_GREEN);
 
     fmt::print("{4}entities2.cpp version {1} compiled at {2} {3} ;){0}\n", RESET, ENTITIES2_VER, __DATE__, __TIME__, DARK_GRAY);
     Div();

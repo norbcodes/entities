@@ -34,11 +34,12 @@ The long awaited... entities2!!!!
 #include "sleep.hpp"
 #include "datapacks.hpp"
 #include "datapack_viewer.hpp"
+#include "cmd_args.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
  */
-int main()
+int main(int argc, char* argv[])
 {
     #ifdef _WIN32
         // Create windows virtual cmd
@@ -48,9 +49,12 @@ int main()
         SetConsoleMode(hOut, dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING);
     #endif
 
+    // Arg parsing
+    GameArgs GameArguments(argc, argv);
+
     // B)
-    DatapackEngine Datapacks;
-    Datapacks.LoadAll();
+    DatapackEngine Datapacks(GameArguments);
+    Datapacks.LoadAll(GameArguments);
     // Add this as well.
     AddExitMsg(fmt::format("{1}Did you know? Each of these message has a {3}{2:.2f}%{1} chance to appear.{0}", RESET, WHITE, (1.0 / (double)GetExitMsgCount()) * 100, PURPLE));
 

@@ -4,3 +4,6 @@
 [submodule "entities2/src/pugixml"]
 	path = entities2/src/pugixml
 	url = https://github.com/zeux/pugixml.git
+[submodule "entities2/src/argparse"]
+	path = entities2/src/argparse
+	url = https://github.com/p-ranav/argparse.git

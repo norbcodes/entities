@@ -48,8 +48,9 @@ set(
     SEARCH_IN 
     ${CMAKE_SOURCE_DIR}/src/headers
     ${CMAKE_SOURCE_DIR}/src/fmt/include
+    ${CMAKE_SOURCE_DIR}/src/argparse/include
     ${CMAKE_BINARY_DIR}/headers
-    ${CMAKE_BINARY_DIR}/src/pugixml/src
+    ${CMAKE_SOURCE_DIR}/src/pugixml/src  # wtf how did this work before with CMAKE_BINARY_DIR?
 )
 
 # Create macro list for Doxygen:
@@ -62,6 +63,7 @@ set(
 set(
     ENTITIES2_SOURCE
     ${CMAKE_SOURCE_DIR}/src/ai.cpp
+    ${CMAKE_SOURCE_DIR}/src/cmd_args.cpp
     ${CMAKE_SOURCE_DIR}/src/datapack_viewer.cpp
     ${CMAKE_SOURCE_DIR}/src/datapacks.cpp
     ${CMAKE_SOURCE_DIR}/src/difficulty_picker.cpp
@@ -97,7 +99,6 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux OR CMAKE_SYSTEM_NAME MATCHES Android)
     message(STATUS "Linux detected. Adding Linux specific stuff.")
 
 elseif(CMAKE_SYSTEM_NAME MATCHES Windows OR CMAKE_SYSTEM_NAME MATCHES CYGWIN)
-    add_compile_definitions(_WIN32 __WIN32__)
     add_compile_definitions(_WIN32 __WIN32__)
     add_compile_options(-mwindows)
     list(APPEND PREDEFINED_MACROS_DOXY "_WIN32" "__WIN32__")

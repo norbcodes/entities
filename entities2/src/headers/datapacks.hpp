@@ -14,6 +14,8 @@
 #include <vector>
 #include <pugixml.hpp>
 
+#include "cmd_args.hpp"
+
 /**
  * \class Datapack
  * \brief Datapack class.
@@ -81,9 +83,9 @@ class DatapackEngine
 {
     public:
         // Constructor
-        DatapackEngine();
+        DatapackEngine(const GameArgs& game_args);
         // Load ALL datapacks
-        void LoadAll();
+        void LoadAll(const GameArgs& game_args);
         // Getters
         uint32_t DatapackCount() const;
         const Datapack& GetConstDatapackRef(uint32_t i) const;

@@ -77,6 +77,10 @@ void DatapackViewer(const DatapackEngine& datapacks)
                 fmt::print("{1}   {2: <10} {4}by{0}{1}{5} {3: <8}{0}\n", RESET, WHITE, obj.GetName(), obj.GetAuthor(), DARK_GRAY, BOLD);
             }
         }
+        if (datapacks.DatapackCount() == 0)
+        {
+            fmt::print("{1}   No datapacks!{0}\n", RESET, RED);
+        }
         fmt::print("{1}:: :: :: :: :: :: :: :: :: :: :: :: :: ::{0}\n\n", RESET, DARK_GRAY);
         fmt::print("{1}Press left arrow to go back. Press right arrow to view a datapacks' info.{0}\n", RESET, WHITE);
         EndDiv();

@@ -17,6 +17,7 @@
 
 #include "exit_msg.hpp"
 #include "datapacks.hpp"
+#include "cmd_args.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -177,8 +178,13 @@ void Datapack::Load()
  * \details Creates a folder for Datapacks ("./datapacks/"), also creates a readme.txt<br>
  *          If folder exists, then it reads all datapacks, and prepares them for loading stage.
  */
-DatapackEngine::DatapackEngine()
+DatapackEngine::DatapackEngine(const GameArgs& game_args)
 {
+    // Can load
+    if (game_args.NoDatapacks())
+    {
+        return;
+    }
     // Check if "datapacks" folder exists
     struct stat sb;
     if (!stat("./datapacks/", &sb) == 0)
@@ -220,8 +226,14 @@ DatapackEngine::DatapackEngine()
 /**
  * \brief Load all Datapacks :)
  */
-void DatapackEngine::LoadAll()
+void DatapackEngine::LoadAll(const GameArgs& game_args)
 {
+    // Check if we can load Datapacks
+    if (game_args.NoDatapacks())
+    {
+        return;
+    }
+    // Load
     for (uint8_t i = 0; i != this->datapacks.size(); i++)
     {
         this->datapacks[i].Load();
