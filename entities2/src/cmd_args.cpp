@@ -7,6 +7,7 @@
  * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
  */
 
+#include <string>
 #include <argparse/argparse.hpp>
 
 #include "cmd_args.hpp"
@@ -26,6 +27,15 @@ GameArgs::GameArgs(int argc, char* argv[]) : v_NoDatapacks(false)
         .flag()
         .store_into(this->v_NoDatapacks);
     
+    entities2.add_argument("-df", "--DatapackFolder")
+        .help("Where the game searches for .xml datapack files.\n(Relative paths start from the folder where the .exe is.)")
+        #ifdef _WIN32
+        .default_value(".\\datapacks\\")
+        #else
+        .default_value("./datapacks/")
+        #endif
+        .store_into(this->v_DatapackFolder);
+    
     // Parse :)
     entities2.parse_args(argc, argv);
 }
@@ -37,6 +47,15 @@ GameArgs::GameArgs(int argc, char* argv[]) : v_NoDatapacks(false)
 bool GameArgs::NoDatapacks() const
 {
     return (this->v_NoDatapacks);
+}
+
+/**
+ * \brief Getter for v_DatapackFolder variable.
+ * \return String, the path to the Datapack folder.
+ */
+const std::string& GameArgs::DatapackFolder() const
+{
+    return (this->v_DatapackFolder);
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

@@ -9,6 +9,8 @@
 
 #pragma once
 
+#include <string>
+
 /**
  * \class GameArgs
  * \brief GameArgs class.
@@ -21,6 +23,7 @@ class GameArgs
         GameArgs(int argc, char* argv[]);
         // Getters
         bool NoDatapacks() const;
+        const std::string& DatapackFolder() const;
     
     private:
         /**
@@ -28,6 +31,12 @@ class GameArgs
          * \brief Boolean value, as set by the "-nd" (or "--NoDatapacks") cmd argument.
          */
         bool v_NoDatapacks;
+
+        /**
+         * \var std::string v_DatapackFolder
+         * \brief Where the game searches for .xml datapack files.
+         */
+        std::string v_DatapackFolder;
 };
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

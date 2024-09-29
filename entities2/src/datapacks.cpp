@@ -14,6 +14,7 @@
 #include <string>
 #include <pugixml.hpp>
 #include <vector>
+#include <fmt/format.h>
 
 #include "exit_msg.hpp"
 #include "datapacks.hpp"
@@ -175,8 +176,9 @@ void Datapack::Load()
 
 /**
  * \brief DatapackEngine constructor.
- * \details Creates a folder for Datapacks ("./datapacks/"), also creates a readme.txt<br>
- *          If folder exists, then it reads all datapacks, and prepares them for loading stage.
+ * \details Creates a folder for Datapacks ("./datapacks/", or if specified with -df option),<br>
+ *          also creates a readme.txt If folder exists, then it reads all datapacks, and<br>
+ *          prepares them for loading stage.
  */
 DatapackEngine::DatapackEngine(const GameArgs& game_args)
 {
@@ -187,11 +189,11 @@ DatapackEngine::DatapackEngine(const GameArgs& game_args)
     }
     // Check if "datapacks" folder exists
     struct stat sb;
-    if (!stat("./datapacks/", &sb) == 0)
+    if (!stat(game_args.DatapackFolder().c_str(), &sb) == 0)
     {
-        std::filesystem::create_directory("./datapacks/");
+        std::filesystem::create_directory(game_args.DatapackFolder());
         // Write a lil readme.txt :)
-        std::ofstream readme("./datapacks/readme.txt");
+        std::ofstream readme(fmt::format("{0}readme.txt", game_args.DatapackFolder()));
         readme << "Hello!!!\nHere, you can put your .xml datapacks for entities2!\nYou may also create subfolders to organize your files.";
         readme.close();
         return;
@@ -205,7 +207,7 @@ DatapackEngine::DatapackEngine(const GameArgs& game_args)
         // First, reserve our little vector :3
         this->datapacks.reserve(32);
 
-        for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator("./datapacks/"))
+        for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator(game_args.DatapackFolder()))
         {
             // We don't need symlinks support lol
             // This iterates through all stuff in the folder.
