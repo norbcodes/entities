@@ -139,7 +139,7 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
                         fmt::print("{2}Apply {1}Thorns {2}status! Opponent will {3}take damage too on attack{0}\n", RESET, TEAL, WHITE, BOLD);
                         break;
                     case WEAKNESS:
-                        fmt::print("{2}Give opponent {1}Weakness {2}status! Opponent will weakened...{0}\n", RESET, BROWN, WHITE, BOLD);
+                        fmt::print("{2}Give opponent {1}Weakness {2}status! Opponent will be weakened...{0}\n", RESET, BROWN, WHITE, BOLD);
                         break;
                 }
                 break;
