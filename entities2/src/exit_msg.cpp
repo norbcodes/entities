@@ -114,7 +114,8 @@ namespace E2_ExitMsg
         fmt::format("{1}You KNOW that this is the best game ever made, right?{0}", RESET, WHITE),
         fmt::format("{1}Classic, just give up when you fail once.{0}", RESET, WHITE),
         fmt::format("{1};-;{0}", RESET, WHITE),
-        fmt::format("{1}Go f##k yourself :) jkjk{0}", RESET, WHITE)
+        fmt::format("{1}Go f##k yourself :) jkjk{0}", RESET, WHITE),
+        fmt::format("{1}I will report your Github account if you leave >:({0}", RESET, WHITE)
     };
 }
 
