@@ -24,6 +24,7 @@ class GameArgs
         // Getters
         bool NoDatapacks() const;
         const std::string& DatapackFolder() const;
+        const std::string& GlobalSettings() const;
     
     private:
         /**
@@ -37,6 +38,12 @@ class GameArgs
          * \brief Where the game searches for .xml datapack files.
          */
         std::string v_DatapackFolder;
+
+        /**
+         * \var std::string v_GlobalSettings
+         * \brief The path to the global settings json to use.
+         */
+        std::string v_GlobalSettings;
 };
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

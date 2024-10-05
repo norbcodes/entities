@@ -179,6 +179,7 @@ void Datapack::Load()
  * \details Creates a folder for Datapacks ("./datapacks/", or if specified with -df option),<br>
  *          also creates a readme.txt If folder exists, then it reads all datapacks, and<br>
  *          prepares them for loading stage.
+ * \param[in] game_args Game CMD arguments.
  */
 DatapackEngine::DatapackEngine(const GameArgs& game_args)
 {
@@ -227,6 +228,7 @@ DatapackEngine::DatapackEngine(const GameArgs& game_args)
 
 /**
  * \brief Load all Datapacks :)
+ * \param[in] game_args Game CMD arguments.
  */
 void DatapackEngine::LoadAll(const GameArgs& game_args)
 {

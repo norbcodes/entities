@@ -35,6 +35,7 @@ The long awaited... entities2!!!!
 #include "datapacks.hpp"
 #include "datapack_viewer.hpp"
 #include "cmd_args.hpp"
+#include "global_settings.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
@@ -50,11 +51,15 @@ int main(int argc, char* argv[])
     #endif
 
     // Arg parsing
-    GameArgs GameArguments(argc, argv);
+    GameArgs* GameArguments = new GameArgs(argc, argv);
+
+    // Global settings
+    GlobalSettingsClass* GlobalSettings = new GlobalSettingsClass(*GameArguments);
 
     // B)
-    DatapackEngine Datapacks(GameArguments);
-    Datapacks.LoadAll(GameArguments);
+    DatapackEngine* Datapacks = new DatapackEngine(*GameArguments);
+    Datapacks->LoadAll(*GameArguments);
+
     // Add this as well.
     AddExitMsg(fmt::format("{1}Did you know? Each of these message has a {3}{2:.2f}%{1} chance to appear.{0}", RESET, WHITE, (1.0 / (double)GetExitMsgCount()) * 100, PURPLE));
 
@@ -129,7 +134,7 @@ int main(int argc, char* argv[])
         // DATAPACK VIEW
         else if (option == 3)
         {
-            DatapackViewer(Datapacks);
+            DatapackViewer(*Datapacks);
         }
         else
         {
@@ -138,6 +143,7 @@ int main(int argc, char* argv[])
     }
 
     DestroyRPC();
+    GlobalSettings->Save(*GameArguments);
 
     return 0;
 }

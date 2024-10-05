@@ -36,6 +36,15 @@ GameArgs::GameArgs(int argc, char* argv[]) : v_NoDatapacks(false)
         #endif
         .store_into(this->v_DatapackFolder);
     
+    entities2.add_argument("-gs", "--GlobalSettings")
+        .help("Path to the global settings json file for the game to use.")
+        #ifdef _WIN32
+        .default_value(".\\global.json")
+        #else
+        .default_value("./global.json")
+        #endif
+        .store_into(this->v_GlobalSettings);
+    
     // Parse :)
     entities2.parse_args(argc, argv);
 }
@@ -56,6 +65,15 @@ bool GameArgs::NoDatapacks() const
 const std::string& GameArgs::DatapackFolder() const
 {
     return (this->v_DatapackFolder);
+}
+
+/**
+ * \brief Getter for v_GlobalSettings variable.
+ * \return String, the path to the global settings json file.
+ */
+const std::string& GameArgs::GlobalSettings() const
+{
+    return (this->v_GlobalSettings);
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

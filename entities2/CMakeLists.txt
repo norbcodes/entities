@@ -51,6 +51,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/argparse/include
     ${CMAKE_BINARY_DIR}/headers
     ${CMAKE_SOURCE_DIR}/src/pugixml/src  # wtf how did this work before with CMAKE_BINARY_DIR?
+    ${CMAKE_SOURCE_DIR}/src/nlohmann-json/include 
 )
 
 # Create macro list for Doxygen:
@@ -74,6 +75,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/gameplay_info.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay_loop.cpp
     ${CMAKE_SOURCE_DIR}/src/gen_moves.cpp
+    ${CMAKE_SOURCE_DIR}/src/global_settings.cpp
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/pick_move.cpp
     ${CMAKE_SOURCE_DIR}/src/rng.cpp
