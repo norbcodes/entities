@@ -22,7 +22,7 @@ class GlobalSettingsClass
     // I'm so fucking good at naming things
     public:
         GlobalSettingsClass(const GameArgs& game_args);
-        void Save(const GameArgs& game_args);
+        void Save(const GameArgs& game_args) const;
         // Getters
         bool GetDiscordEnabled() const;
         // Setters

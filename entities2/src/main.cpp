@@ -36,6 +36,7 @@ The long awaited... entities2!!!!
 #include "datapack_viewer.hpp"
 #include "cmd_args.hpp"
 #include "global_settings.hpp"
+#include "user_settings.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
@@ -52,10 +53,10 @@ int main(int argc, char* argv[])
 
     // Arg parsing
     GameArgs* GameArguments = new GameArgs(argc, argv);
-
     // Global settings
     GlobalSettingsClass* GlobalSettings = new GlobalSettingsClass(*GameArguments);
-
+    // User settings
+    UserSettingsClass* UserSettings = new UserSettingsClass(*GameArguments, *GlobalSettings);
     // B)
     DatapackEngine* Datapacks = new DatapackEngine(*GameArguments);
     Datapacks->LoadAll(*GameArguments);
@@ -63,7 +64,10 @@ int main(int argc, char* argv[])
     // Add this as well.
     AddExitMsg(fmt::format("{1}Did you know? Each of these message has a {3}{2:.2f}%{1} chance to appear.{0}", RESET, WHITE, (1.0 / (double)GetExitMsgCount()) * 100, PURPLE));
 
-    InitializeRPC();
+    if (GlobalSettings->GetDiscordEnabled())
+    {
+        InitializeRPC();
+    }
 
     #ifndef __ENTITIES2_DISABLE_UNSTABLE_WARNING__
         #if (ENTITIES2_VER_IS_DEV == 1)
@@ -82,7 +86,10 @@ int main(int argc, char* argv[])
 
     while (true)
     {
-        MainMenuRPC();
+        if (GlobalSettings->GetDiscordEnabled())
+        {
+            MainMenuRPC();
+        }
         ClearScreen();
         Div();
         fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, LAVENDER, BOLD);
@@ -124,7 +131,7 @@ int main(int argc, char* argv[])
         else if (option == 1)
         {
             // do
-            DifficultyPicker();
+            DifficultyPicker(*GlobalSettings, *UserSettings);
         }
         // INFO SECTION
         else if (option == 2)
@@ -142,8 +149,17 @@ int main(int argc, char* argv[])
         }
     }
 
-    DestroyRPC();
+    if (GlobalSettings->GetDiscordEnabled())
+    {
+        DestroyRPC();
+    }
     GlobalSettings->Save(*GameArguments);
+    UserSettings->Save(*GameArguments);
+
+    delete GameArguments;
+    delete GlobalSettings;
+    delete UserSettings;
+    delete Datapacks;
 
     return 0;
 }

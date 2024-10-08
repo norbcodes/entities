@@ -25,6 +25,7 @@ class GameArgs
         bool NoDatapacks() const;
         const std::string& DatapackFolder() const;
         const std::string& GlobalSettings() const;
+        const std::string& UserFolder() const;
     
     private:
         /**
@@ -44,6 +45,12 @@ class GameArgs
          * \brief The path to the global settings json to use.
          */
         std::string v_GlobalSettings;
+
+        /**
+         * \var std::string v_UserFolder
+         * \brief Path to the folder where User saves are saved.
+         */
+        std::string v_UserFolder;
 };
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

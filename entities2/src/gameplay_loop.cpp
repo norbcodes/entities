@@ -26,6 +26,8 @@
 #include "ai.hpp"
 #include "pick_move.hpp"
 #include "gen_moves.hpp"
+#include "global_settings.hpp"
+#include "user_settings.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,7 +113,8 @@ static void PlayerRound (
     uint8_t difficulty_scale,
     uint32_t* moves,
     uint32_t* move_types,
-    double* energy_costs
+    double* energy_costs,
+    UserSettingsClass& user_settings
 )
 {
     ClearScreen();
@@ -120,6 +123,8 @@ static void PlayerRound (
     if (Player->GetHealth() <= 0)
     {
         GameOver(picker_flag, is_running);
+        user_settings.IncreaseGamesLost(1);
+        user_settings.IncreaseTotalGames(1);
         return;
     }
 
@@ -205,7 +210,8 @@ static void EnemyRound (
     uint8_t difficulty_scale,
     uint32_t* moves,
     uint32_t* move_types,
-    double* energy_costs
+    double* energy_costs,
+    UserSettingsClass& user_settings
 )
 {
     ClearScreen();
@@ -214,6 +220,8 @@ static void EnemyRound (
     if (Enemy->GetHealth() <= 0)
     {
         Victory(picker_flag, is_running);
+        user_settings.IncreaseGamesWon(1);
+        user_settings.IncreaseTotalGames(1);
         return;
     }
 
@@ -269,8 +277,10 @@ static void EnemyRound (
  * \brief The game loop.
  * \param[in] mode Difficulty.
  * \param[out] picker_flag External flag to break a loop inside DifficultyPicker()
+ * \param[in] global_settings Global game settings.
+ * \param[in] user_settings User settings.
  */
-void Game(uint32_t mode, uint32_t& picker_flag)
+void Game(uint32_t mode, uint32_t& picker_flag, const GlobalSettingsClass& global_settings, UserSettingsClass& user_settings)
 {
     // Wowie
     uint8_t difficulty_scale;
@@ -310,7 +320,10 @@ void Game(uint32_t mode, uint32_t& picker_flag)
 
     while (is_running)
     {
-        GameplayRPC(enemy_turn);
+        if (global_settings.GetDiscordEnabled())
+        {
+            GameplayRPC(enemy_turn);
+        }
         // Generate 4 options to choose from.
         // There are 4 types: Attack, Heal, Regen armor, Status
         uint32_t* moves = new uint32_t[4]{100, 100, 100, 100};
@@ -319,11 +332,11 @@ void Game(uint32_t mode, uint32_t& picker_flag)
 
         if (enemy_turn)
         {
-            EnemyRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs);
+            EnemyRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, user_settings);
         }
         else
         {
-            PlayerRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs);
+            PlayerRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, user_settings);
         }
 
         // Increase energy

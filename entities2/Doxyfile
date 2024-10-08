@@ -965,7 +965,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = "${CMAKE_SOURCE_DIR}/src/" "${CMAKE_SOURCE_DIR}/src/headers/entity.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/move_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/entity_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/energy_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/colors.hpp" "${CMAKE_SOURCE_DIR}/src/Windows" "${CMAKE_SOURCE_DIR}/src/Linux" "${CMAKE_SOURCE_DIR}/src/headers/datapacks.hpp" "${CMAKE_SOURCE_DIR}/src/headers/cmd_args.hpp" "${CMAKE_SOURCE_DIR}/src/headers/global_settings.hpp"
+INPUT                  = "${CMAKE_SOURCE_DIR}/src/" "${CMAKE_SOURCE_DIR}/src/headers/entity.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/move_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/entity_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/energy_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/colors.hpp" "${CMAKE_SOURCE_DIR}/src/Windows" "${CMAKE_SOURCE_DIR}/src/Linux" "${CMAKE_SOURCE_DIR}/src/headers/datapacks.hpp" "${CMAKE_SOURCE_DIR}/src/headers/cmd_args.hpp" "${CMAKE_SOURCE_DIR}/src/headers/global_settings.hpp" "${CMAKE_SOURCE_DIR}/src/headers/user_settings.hpp"
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses

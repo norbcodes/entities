@@ -33,12 +33,8 @@ GlobalSettingsClass::GlobalSettingsClass(const GameArgs& game_args)
         this->v_DiscordEnabled = false;
         #endif //__ENTITIES2_DISCORD_RPC__
 
-        // Create json and write to it
-        std::ofstream Json(game_args.GlobalSettings().c_str());
-        nlohmann::json JsonData;
-        JsonData["Settings"] = {{"DiscordEnabled", this->v_DiscordEnabled}};
-        Json << JsonData.dump(4);
-        Json.close();
+        // Save
+        this->Save(game_args);
     }
     else
     {
@@ -58,7 +54,7 @@ GlobalSettingsClass::GlobalSettingsClass(const GameArgs& game_args)
  * \brief Save to file.
  * \param[in] game_args Game CMD arguments.
  */
-void GlobalSettingsClass::Save(const GameArgs& game_args)
+void GlobalSettingsClass::Save(const GameArgs& game_args) const
 {
     // Write to json :3
     nlohmann::json JsonData;

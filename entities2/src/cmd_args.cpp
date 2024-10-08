@@ -45,6 +45,15 @@ GameArgs::GameArgs(int argc, char* argv[]) : v_NoDatapacks(false)
         #endif
         .store_into(this->v_GlobalSettings);
     
+    entities2.add_argument("-uf", "--UserFolder")
+        .help("Path to the folder where User saves are saved.")
+        #ifdef _WIN32
+        .default_value(".\\users\\")
+        #else
+        .default_value("./users/")
+        #endif
+        .store_into(this->v_UserFolder);
+    
     // Parse :)
     entities2.parse_args(argc, argv);
 }
@@ -74,6 +83,15 @@ const std::string& GameArgs::DatapackFolder() const
 const std::string& GameArgs::GlobalSettings() const
 {
     return (this->v_GlobalSettings);
+}
+
+/**
+ * \brief Getter for v_UserFolder variable.
+ * \return String, Path to the folder where User saves are saved.
+ */
+const std::string& GameArgs::UserFolder() const
+{
+    return (this->v_UserFolder);
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

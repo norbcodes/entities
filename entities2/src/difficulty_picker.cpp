@@ -14,11 +14,15 @@
 #include "utils.hpp"
 #include "keyboard.hpp"
 #include "gameplay_loop.hpp"
+#include "global_settings.hpp"
+#include "user_settings.hpp"
 
 /**
  * \brief Pick a difficulty...
+ * \param[in] global_settings Global game settings.
+ * \param[in] user_settings User settings.
  */
-void DifficultyPicker()
+void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsClass& user_settings)
 {
     uint32_t picker_flag = true;
     while (picker_flag)
@@ -42,7 +46,7 @@ void DifficultyPicker()
         }
         else if (choice == 1 || choice == 2 || choice == 3 || choice == 4)
         {
-            Game(choice, picker_flag);
+            Game(choice, picker_flag, global_settings, user_settings);
         }
         else
         {
