@@ -79,6 +79,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/pick_move.cpp
     ${CMAKE_SOURCE_DIR}/src/rng.cpp
+    ${CMAKE_SOURCE_DIR}/src/settings_view.cpp
     ${CMAKE_SOURCE_DIR}/src/status.cpp
     ${CMAKE_SOURCE_DIR}/src/user_settings.cpp
     ${CMAKE_SOURCE_DIR}/src/utils.cpp

@@ -24,6 +24,10 @@
 #include "utils.hpp"
 #include "rng.hpp"
 
+/**
+ * \def MAX_LINE_CHARS
+ * \brief Used for login screen.
+ */
 #define MAX_LINE_CHARS 35
 
 static std::string GetSaveName(const GameArgs& game_args)
@@ -66,13 +70,7 @@ UserSettingsClass::UserSettingsClass(const GameArgs& game_args, const GlobalSett
     // Two, if there's atleast any user save files yet
     if (std::filesystem::is_empty(game_args.UserFolder()))
     {
-        // Folder empty, create brand new user save file
-        this->_Path = "";
-        this->_Ver = ENTITIES2_SAVE_VER;
-        this->v_Username = "Player";
-        this->s_GamesWon = 0;
-        this->s_GamesLost = 0;
-        this->s_TotalGames = 0;
+        this->_MakeDefault();
         // Save
         this->Save(game_args);
     }
@@ -147,11 +145,49 @@ UserSettingsClass::UserSettingsClass(const GameArgs& game_args, const GlobalSett
                 std::string option;
                 std::cin >> option;
                 // yay
+                // Error proof
+                try
+                {
+                    idk_what_to_name_this.at(option);
+                }
+                catch (const std::out_of_range& ex)
+                {
+                    fmt::print("{1}No user like that found.{0}                                                          \n\n", RESET, RED);
+                    continue;
+                }
+                // Load
                 this->Load(game_args, idk_what_to_name_this[option].string());
                 break;
             }
         }
     }
+}
+
+/**
+ * \brief Constructor with only game args and an username. Used during user creation within settings menu.
+ * \param[in] game_args Game CMD arguments.
+ * \param[in] username Username.
+ */
+UserSettingsClass::UserSettingsClass(const GameArgs& game_args, const std::string& username)
+{
+    this->_MakeDefault();
+    this->v_Username = username;
+    // Save
+    this->Save(game_args);
+}
+
+/**
+ * \brief Initialized settins with default values.
+ */
+void UserSettingsClass::_MakeDefault()
+{
+    // Folder empty, create brand new user save file
+    this->_Path = "";
+    this->_Ver = ENTITIES2_SAVE_VER;
+    this->v_Username = "Player";
+    this->s_GamesWon = 0;
+    this->s_GamesLost = 0;
+    this->s_TotalGames = 0;
 }
 
 /**

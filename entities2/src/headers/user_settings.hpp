@@ -16,9 +16,28 @@
 #include "cmd_args.hpp"
 #include "global_settings.hpp"
 
+/**
+ * \def ENTITIES2_SAVE_VER_MAJOR
+ * \brief Save format major version. (The 'x' in 'x.y.z')
+ */
 #define ENTITIES2_SAVE_VER_MAJOR 1
+
+/**
+ * \def ENTITIES2_SAVE_VER_MINOR
+ * \brief Save format minor version. (The 'y' in 'x.y.z')
+ */
 #define ENTITIES2_SAVE_VER_MINOR 0
+
+/**
+ * \def ENTITIES2_SAVE_VER_PATCH
+ * \brief Save format patch version. (The 'z' in 'x.y.z')
+ */
 #define ENTITIES2_SAVE_VER_PATCH 0
+
+/**
+ * \def ENTITIES2_SAVE_VER
+ * \brief Quick macro to get the version.
+ */
 #define ENTITIES2_SAVE_VER       ((ENTITIES2_SAVE_VER_MAJOR * 100000) + (ENTITIES2_SAVE_VER_MINOR * 1000) + (ENTITIES2_SAVE_VER_PATCH * 10))
 
 /**
@@ -30,6 +49,7 @@ class UserSettingsClass
 {
     public:
         UserSettingsClass(const GameArgs& game_args, const GlobalSettingsClass& global_settings);
+        UserSettingsClass(const GameArgs& game_args, const std::string& username);  // for user creation within settings menu
         void Save(const GameArgs& game_args);
         void Load(const GameArgs& game_args, const std::string& path);
         // Getters
@@ -49,6 +69,7 @@ class UserSettingsClass
         void SetUsername(const std::string& new_user);
     
     private:
+        void _MakeDefault();
         // Yaaay :3
         // s_* are stats, v_* are settings
 

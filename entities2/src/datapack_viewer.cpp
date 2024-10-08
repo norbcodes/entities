@@ -70,7 +70,7 @@ void DatapackViewer(const DatapackEngine& datapacks)
             }
             if (i == (uint32_t)selection)
             {
-                fmt::print("{1} {4}>{0}{1} {6}{2: <10}{0} {5}by{0}{1}{4} {3: <8}{0}\n", RESET, WHITE, obj.GetName(), obj.GetAuthor(), BOLD, DARK_GRAY, UNDERLINE);
+                fmt::print("{1}{4}   {2: <10} by {3: <8}{0}\n", RESET, WHITE_BACKGROUND, obj.GetName(), obj.GetAuthor(), BLACK);
             }
             else
             {

@@ -115,7 +115,8 @@ namespace E2_ExitMsg
         fmt::format("{1}Classic, just give up when you fail once.{0}", RESET, WHITE),
         fmt::format("{1};-;{0}", RESET, WHITE),
         fmt::format("{1}Go f##k yourself :) jkjk{0}", RESET, WHITE),
-        fmt::format("{1}I will report your Github account if you leave >:({0}", RESET, WHITE)
+        fmt::format("{1}I will report your Github account if you leave >:({0}", RESET, WHITE),
+        fmt::format("{1}Meow meerpppp :3{0}", RESET, WHITE)
     };
 }
 
@@ -176,7 +177,9 @@ std::string ExitMsgFormatter(const std::string& str)
         fmt::arg("lavender", LAVENDER),
         fmt::arg("yellow", YELLOW),
         fmt::arg("teal", TEAL),
-        fmt::arg("brown", BROWN)
+        fmt::arg("brown", BROWN),
+        fmt::arg("black", BLACK),
+        fmt::arg("white_bg", WHITE_BACKGROUND)
     );
 }
 

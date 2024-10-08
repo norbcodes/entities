@@ -37,6 +37,7 @@ The long awaited... entities2!!!!
 #include "cmd_args.hpp"
 #include "global_settings.hpp"
 #include "user_settings.hpp"
+#include "settings_view.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
@@ -101,13 +102,14 @@ int main(int argc, char* argv[])
         fmt::print("{1}Pick an option:{0}\n\n", RESET, WHITE);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
         fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Gameplay Info{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
-        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Datapacks{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, PINK);
-        fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}Quit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Datapacks{0}\n", RESET, BOLD, GOLD, DARK_GRAY, PINK);
+        fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}Settings{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, BROWN);
+        fmt::print("{3}[{0}{2}{1}5{0}{3}]{0} {4}Quit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
         EndDiv();
 
         uint32_t option = WaitForNumkey();
 
-        if (option == 4)
+        if (option == 5)
         {
             ClearScreen();
             Div();
@@ -142,6 +144,10 @@ int main(int argc, char* argv[])
         else if (option == 3)
         {
             DatapackViewer(*Datapacks);
+        }
+        else if (option == 4)
+        {
+            SettingsView(*GameArguments, *GlobalSettings, *UserSettings);
         }
         else
         {
