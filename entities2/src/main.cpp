@@ -38,6 +38,7 @@ The long awaited... entities2!!!!
 #include "global_settings.hpp"
 #include "user_settings.hpp"
 #include "settings_view.hpp"
+#include "rng.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
@@ -93,11 +94,48 @@ int main(int argc, char* argv[])
         }
         ClearScreen();
         Div();
-        fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, LAVENDER, BOLD);
-        fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, LAVENDER, BOLD);
-        fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, LAVENDER, BOLD);
-        fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, LAVENDER, BOLD);
-        fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, LAVENDER, BOLD);
+
+        std::string title_col;
+        switch (rng(0,6))
+        {
+            case 0:
+                title_col = WHITE;
+                break;
+            case 1:
+                title_col = RED;
+                break;
+            case 2:
+                title_col = BLUE;
+                break;
+            case 3:
+                title_col = ORANGE;
+                break;
+            case 4:
+                title_col = WHITE;
+                break;
+            case 5:
+                title_col = HOT_PINK;
+                break;
+            case 6:
+                title_col = GRAY;
+                break;
+            case 7:
+                title_col = PINK;
+                break;
+            case 8:
+                title_col = GOLD;
+                break;
+            case 9:
+                title_col = GREEN;
+                break;
+        }
+
+        fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
+        fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
+        fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
+        fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
+        fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
+
         fmt::print("{1}                  A game by norbcodes.{0}\n\n", RESET, DARK_GRAY);
         fmt::print("{1}Pick an option:{0}\n\n", RESET, WHITE);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
