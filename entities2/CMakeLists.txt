@@ -102,7 +102,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux OR CMAKE_SYSTEM_NAME MATCHES Android)
 
     message(STATUS "Linux detected. Adding Linux specific stuff.")
 
-elseif(CMAKE_SYSTEM_NAME MATCHES Windows OR CMAKE_SYSTEM_NAME MATCHES CYGWIN)
+elseif(CMAKE_SYSTEM_NAME MATCHES Windows OR CMAKE_SYSTEM_NAME MATCHES CYGWIN OR CMAKE_SYSTEM MATCHES MSYS)
     add_compile_definitions(_WIN32 __WIN32__)
     add_compile_options(-mwindows)
     list(APPEND PREDEFINED_MACROS_DOXY "_WIN32" "__WIN32__")
