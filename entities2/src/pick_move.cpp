@@ -15,6 +15,7 @@
 #include "move_constants.hpp"
 #include "entity.hpp"
 #include "colors.hpp"
+#include "user_settings.hpp"
 
 /**
  * \brief When you pick a move, this function carries out the move.
@@ -27,15 +28,16 @@
  * \param[in] enemy_turn True = Enemy's turn, False = Player's turn
  * \param[out] what_happened The "What happened:" text, which is why it's string&,<br>
  *                           because we write into it.
+ * \param[in] user_settings User game settings.
  */
-void PickMove(Entity* ent1, Entity* ent2, uint32_t picked_move, uint32_t* moves, uint32_t* move_types, double* energy_costs, bool enemy_turn, std::string& what_happened)
+void PickMove(Entity* ent1, Entity* ent2, uint32_t picked_move, uint32_t* moves, uint32_t* move_types, double* energy_costs, bool enemy_turn, std::string& what_happened, UserSettingsClass& user_settings)
 {
     std::string who = (!enemy_turn) ? fmt::format("{1}{2}Player{0}", RESET, BLUE, BOLD) : fmt::format("{1}{2}Enemy{0}", RESET, RED, BOLD);
     std::string who_other = (enemy_turn) ? fmt::format("{1}{2}Player{0}", RESET, BLUE, BOLD) : fmt::format("{1}{2}Enemy{0}", RESET, RED, BOLD);
 
     if (move_types[picked_move] == ATTACK)
     {
-        EntityAttack(*ent1, *ent2, moves[picked_move], what_happened, enemy_turn);
+        EntityAttack(*ent1, *ent2, moves[picked_move], what_happened, enemy_turn, user_settings);
         ent1->TakeEnergy(energy_costs[picked_move]);
     }
     else if (move_types[picked_move] == HEAL)

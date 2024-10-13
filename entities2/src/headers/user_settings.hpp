@@ -17,28 +17,28 @@
 #include "global_settings.hpp"
 
 /**
- * \def ENTITIES2_SAVE_VER_MAJOR
+ * \def ENTITIES2_USER_SAVE_VER_MAJOR
  * \brief Save format major version. (The 'x' in 'x.y.z')
  */
-#define ENTITIES2_SAVE_VER_MAJOR 1
+#define ENTITIES2_USER_SAVE_VER_MAJOR 1
 
 /**
- * \def ENTITIES2_SAVE_VER_MINOR
+ * \def ENTITIES2_USER_SAVE_VER_MINOR
  * \brief Save format minor version. (The 'y' in 'x.y.z')
  */
-#define ENTITIES2_SAVE_VER_MINOR 0
+#define ENTITIES2_USER_SAVE_VER_MINOR 0
 
 /**
- * \def ENTITIES2_SAVE_VER_PATCH
+ * \def ENTITIES2_USER_SAVE_VER_PATCH
  * \brief Save format patch version. (The 'z' in 'x.y.z')
  */
-#define ENTITIES2_SAVE_VER_PATCH 0
+#define ENTITIES2_USER_SAVE_VER_PATCH 0
 
 /**
- * \def ENTITIES2_SAVE_VER
+ * \def ENTITIES2_USER_SAVE_VER
  * \brief Quick macro to get the version.
  */
-#define ENTITIES2_SAVE_VER       ((ENTITIES2_SAVE_VER_MAJOR * 100000) + (ENTITIES2_SAVE_VER_MINOR * 1000) + (ENTITIES2_SAVE_VER_PATCH * 10))
+#define ENTITIES2_USER_SAVE_VER       ((ENTITIES2_USER_SAVE_VER_MAJOR * 10000000) + (ENTITIES2_USER_SAVE_VER_MINOR * 100000) + (ENTITIES2_USER_SAVE_VER_PATCH * 1000))
 
 /**
  * \class UserSettingsClass

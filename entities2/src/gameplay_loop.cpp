@@ -35,9 +35,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-static void GameOver(uint32_t& picker_flag, bool& is_running)
+static void GameOver(uint32_t& picker_flag, bool& is_running, UserSettingsClass& user_settings)
 {
-    fmt::print("{1}---<<< {3}{2}Player{0} {1}dead. {4}{2}Enemy{0}{1} wins!!! >>>---{0}\n\n", RESET, WHITE, BOLD, BLUE, RED);
+    fmt::print("{1}---<<< {3}{2}{5}{0} {1}dead. {4}{2}Enemy{0}{1} wins!!! >>>---{0}\n\n", RESET, WHITE, BOLD, BLUE, RED, user_settings.GetUsername());
     fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
     fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
     EndDiv();
@@ -69,9 +69,9 @@ static void GameOver(uint32_t& picker_flag, bool& is_running)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-static void Victory(uint32_t& picker_flag, bool& is_running)
+static void Victory(uint32_t& picker_flag, bool& is_running, UserSettingsClass& user_settings)
 {
-    fmt::print("{1}---<<< {4}{2}Enemy{0} {1}dead. {3}{2}Player{0}{1} wins!!! >>>---{0}\n\n", RESET, WHITE, BOLD, BLUE, RED);
+    fmt::print("{1}---<<< {4}{2}Enemy{0} {1}dead. {3}{2}{5}{0}{1} wins!!! >>>---{0}\n\n", RESET, WHITE, BOLD, BLUE, RED, user_settings.GetUsername());
     fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
     fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
     EndDiv();
@@ -122,13 +122,13 @@ static void PlayerRound (
 
     if (Player->GetHealth() <= 0)
     {
-        GameOver(picker_flag, is_running);
+        GameOver(picker_flag, is_running, user_settings);
         user_settings.IncreaseGamesLost(1);
         user_settings.IncreaseTotalGames(1);
         return;
     }
 
-    fmt::print("{3}---<<< {1}{2}Player's{0} {3}turn! >>>---{0}\n", RESET, BLUE, BOLD, DARK_GRAY);
+    fmt::print("{3}---<<< {1}{2}{4}'s{0} {3}turn! >>>---{0}\n", RESET, BLUE, BOLD, DARK_GRAY, user_settings.GetUsername());
     // Print history
     fmt::print("{2}What happened last round:{0}\n{1}{0}\n\n", RESET, what_happened, WHITE);
     what_happened = "";
@@ -136,9 +136,9 @@ static void PlayerRound (
     Player->UpdateStatuses(what_happened, false);
 
     // Print stats
-    fmt::print("{1}{2}[PLAYER]{0}\t", RESET, BLUE, BOLD);
+    fmt::print("{1}{2}[{3}]{0}\n ", RESET, BLUE, BOLD, user_settings.GetUsername());
     PrintEntityStats(*Player);
-    fmt::print("{1}{2}[ENEMY] {0}\t", RESET, RED, BOLD);
+    fmt::print("{1}{2}[ENEMY] {0}\n ", RESET, RED, BOLD);
     PrintEntityStats(*Enemy);
     fmt::print("\n");
     // Print energy bars
@@ -147,6 +147,7 @@ static void PlayerRound (
     fmt::print("\n");
 
     GenerateMoves(moves, move_types, energy_costs);
+    fmt::print("{1}[{2}{3}5{0}{1}]{0} {1}[{5}{3} 10.0{0}{1}]{0}\t{4}Regenerate moves...{0}\n\n", RESET, DARK_GRAY, GOLD, BOLD, WHITE, BLUE);
 
     uint32_t picked_move;
     while (true)
@@ -173,25 +174,50 @@ static void PlayerRound (
         }
 
         picked_move--;
-
-        // Check if Player has enough energy
-        if (energy_costs[picked_move] > Player->GetEnergy())
+        
+        if (!(picked_move >= 0 && picked_move <= 4))
         {
-            fmt::print("{1}Not enough energy!                                                            {0}\n", RESET, RED);
-            continue;
+            what_happened += fmt::format("{1}{2}{4}{0} {3}skipped the round.{0}", RESET, BLUE, BOLD, WHITE, user_settings.GetUsername());
+            return;
         }
 
-        break;
+        // Check if Player has enough energy
+        if (picked_move != 4)
+        {
+            if (energy_costs[picked_move] > Player->GetEnergy())
+            {
+                fmt::print("{1}Not enough energy!                                                            {0}\n", RESET, RED);
+                continue;
+            }
+
+            break;
+        }
+        else
+        {
+            // reroll move
+            if (Player->GetEnergy() >= REROLL_MOVE_COST)
+            {
+                Player->TakeEnergy(REROLL_MOVE_COST);
+                what_happened = fmt::format("{1}{2}{4}{0}{3} rerolled their moves...{0}", RESET, BOLD, BLUE, WHITE, user_settings.GetUsername());
+                PlayerRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, user_settings);
+                return;
+            }
+            else
+            {
+                fmt::print("{1}Not enough energy!                                                            {0}\n", RESET, RED);
+                continue;
+            }
+        }
     }
 
-    // if pick is not 0, 1, 2, 3 or 9 = skip round
-    if (picked_move != 1 && picked_move != 2 && picked_move != 3 && picked_move != 4 && picked_move != 0)
+    // if pick is not 0, 1, 2, 3, 4 = skip round
+    if (!(picked_move >= 0 && picked_move <= 4))
     {
-        what_happened += fmt::format("{1}{2}Player{0} {3}skipped the round.{0}", RESET, BLUE, BOLD, WHITE);
+        what_happened += fmt::format("{1}{2}{4}{0} {3}skipped the round.{0}", RESET, BLUE, BOLD, WHITE, user_settings.GetUsername());
         return;
     }
 
-    PickMove(Player, Enemy, picked_move, moves, move_types, energy_costs, enemy_turn, what_happened);
+    PickMove(Player, Enemy, picked_move, moves, move_types, energy_costs, enemy_turn, what_happened, user_settings);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -219,7 +245,7 @@ static void EnemyRound (
 
     if (Enemy->GetHealth() <= 0)
     {
-        Victory(picker_flag, is_running);
+        Victory(picker_flag, is_running, user_settings);
         user_settings.IncreaseGamesWon(1);
         user_settings.IncreaseTotalGames(1);
         return;
@@ -233,9 +259,9 @@ static void EnemyRound (
     Enemy->UpdateStatuses(what_happened, true);
 
     // Print stats
-    fmt::print("{1}{2}[PLAYER]{0}\t", RESET, BLUE, BOLD);
+    fmt::print("{1}{2}[{3}]{0}\n ", RESET, BLUE, BOLD, user_settings.GetUsername());
     PrintEntityStats(*Player);
-    fmt::print("{1}{2}[ENEMY] {0}\t", RESET, RED, BOLD);
+    fmt::print("{1}{2}[ENEMY] {0}\n ", RESET, RED, BOLD);
     PrintEntityStats(*Enemy);
     fmt::print("\n");
     // Print energy bars
@@ -264,7 +290,7 @@ static void EnemyRound (
         return;
     }
 
-    PickMove(Enemy, Player, picked_move, moves, move_types, energy_costs, enemy_turn, what_happened);
+    PickMove(Enemy, Player, picked_move, moves, move_types, energy_costs, enemy_turn, what_happened, user_settings);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -316,7 +342,7 @@ void Game(uint32_t mode, uint32_t& picker_flag, const GlobalSettingsClass& globa
     // Gameplay loop
     bool is_running = true;
     bool enemy_turn = false;  // true = Enemy, false = Player
-    std::string what_happened = fmt::format("{1}{2}The fights begins.{0}", RESET, RED, ITALIC);
+    std::string what_happened = fmt::format("{1}{2}The fights begins. Good luck {3}!{0}", RESET, RED, ITALIC, user_settings.GetUsername());
 
     while (is_running)
     {

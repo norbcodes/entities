@@ -159,7 +159,7 @@ int main(int argc, char* argv[])
             {
                 ClearScreen();
                 Credits();
-                SleepSeconds(2);
+                SleepSeconds(1);
                 break;
             }
             else

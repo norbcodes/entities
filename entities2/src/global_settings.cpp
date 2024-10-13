@@ -7,9 +7,11 @@
  * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
  */
 
+#include <cstdint>
 #include <sys/stat.h>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <iostream>
 
 #include "cmd_args.hpp"
 #include "global_settings.hpp"
@@ -33,6 +35,9 @@ GlobalSettingsClass::GlobalSettingsClass(const GameArgs& game_args)
         this->v_DiscordEnabled = false;
         #endif //__ENTITIES2_DISCORD_RPC__
 
+        // Save version
+        this->_Ver = ENTITIES2_GLOBAL_SAVE_VER;
+
         // Save
         this->Save(game_args);
     }
@@ -44,6 +49,7 @@ GlobalSettingsClass::GlobalSettingsClass(const GameArgs& game_args)
 
         // LOAD EVERYTHING!
         this->v_DiscordEnabled = JsonData["Settings"]["DiscordEnabled"];
+        this->_Ver = JsonData["Meta"]["GSVer"];
 
         // :3
         Json.close();
@@ -62,11 +68,18 @@ void GlobalSettingsClass::Save(const GameArgs& game_args) const
 
     // Stick it in
     JsonData["Settings"] = {{"DiscordEnabled", this->v_DiscordEnabled}};
+    JsonData["Meta"] = {{"GSVer", this->_Ver}};
 
     // Write
     Json << JsonData.dump(4);
     Json.close();
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * \brief Getter for v_DiscordEnabled.
@@ -82,6 +95,21 @@ bool GlobalSettingsClass::GetDiscordEnabled() const
 }
 
 /**
+ * \brief Getter for _Ver.
+ * \return The version.
+ */
+uint32_t GlobalSettingsClass::GetSaveVer() const
+{
+    return (this->_Ver);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
  * \brief Setter for v_DiscordEnabled.
  * \param[in] o Boolean.
  */
@@ -90,6 +118,15 @@ void GlobalSettingsClass::SetDiscordEnabled(bool o)
     #ifdef __ENTITIES2_DISCORD_RPC__
     this->v_DiscordEnabled = o;
     #endif //__ENTITIES2_DISCORD_RPC__
+}
+
+/**
+ * \brief Setter for _Ver.
+ * \param[in] o Boolean.
+ */
+void GlobalSettingsClass::SetSaveVer(uint32_t o)
+{
+    this->_Ver = o;
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

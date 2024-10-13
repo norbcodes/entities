@@ -183,7 +183,7 @@ void UserSettingsClass::_MakeDefault()
 {
     // Folder empty, create brand new user save file
     this->_Path = "";
-    this->_Ver = ENTITIES2_SAVE_VER;
+    this->_Ver = ENTITIES2_USER_SAVE_VER;
     this->v_Username = "Player";
     this->s_GamesWon = 0;
     this->s_GamesLost = 0;
@@ -206,7 +206,7 @@ void UserSettingsClass::Save(const GameArgs& game_args)
     // Settings
     JsonData["Settings"] = {{"Username", this->v_Username}};
     // Meta
-    JsonData["Meta"]["SVer"] = this->_Ver;
+    JsonData["Meta"]["USVer"] = this->_Ver;
     // Save
     if (this->_Path == "")
     {
@@ -242,7 +242,7 @@ void UserSettingsClass::Load(const GameArgs& game_args, const std::string& path)
     // Settings
     this->v_Username = JsonData["Settings"]["Username"];
     // Meta
-    this->_Ver = JsonData["Meta"]["SVer"];
+    this->_Ver = JsonData["Meta"]["USVer"];
     Json.close();
 }
 

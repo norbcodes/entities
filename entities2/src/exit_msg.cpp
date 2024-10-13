@@ -116,7 +116,13 @@ namespace E2_ExitMsg
         fmt::format("{1};-;{0}", RESET, WHITE),
         fmt::format("{1}Go f##k yourself :) jkjk{0}", RESET, WHITE),
         fmt::format("{1}I will report your Github account if you leave >:({0}", RESET, WHITE),
-        fmt::format("{1}Meow meerpppp :3{0}", RESET, WHITE)
+        fmt::format("{1}Meow meerpppp :3{0}", RESET, WHITE),
+        fmt::format("{1}Blerp{0}", RESET, WHITE),
+        fmt::format("{1}And the \"Best Player\" award goes to...{0}", RESET, WHITE),
+        fmt::format("{1}no balls :>{0}", RESET, WHITE),
+        fmt::format("{1}@_@{0}", RESET, WHITE),
+        fmt::format("{1}Yeah go play your Valorant or whatever you kids play nowadays{0}", RESET, WHITE),
+        fmt::format("{1}AAAAAAAAAAAAAAAA{0}", RESET, WHITE)
     };
 }
 
