@@ -122,7 +122,8 @@ namespace E2_ExitMsg
         fmt::format("{1}no balls :>{0}", RESET, WHITE),
         fmt::format("{1}@_@{0}", RESET, WHITE),
         fmt::format("{1}Yeah go play your Valorant or whatever you kids play nowadays{0}", RESET, WHITE),
-        fmt::format("{1}AAAAAAAAAAAAAAAA{0}", RESET, WHITE)
+        fmt::format("{1}AAAAAAAAAAAAAAAA{0}", RESET, WHITE),
+        std::string("")
     };
 }
 
