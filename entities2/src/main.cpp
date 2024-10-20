@@ -39,6 +39,7 @@ The long awaited... entities2!!!!
 #include "user_settings.hpp"
 #include "settings_view.hpp"
 #include "rng.hpp"
+#include "greetings.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
@@ -137,6 +138,7 @@ int main(int argc, char* argv[])
         fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
 
         fmt::print("{1}                  A game by norbcodes.{0}\n\n", RESET, DARK_GRAY);
+        fmt::print("{0}\n\n", GetGreeting(*UserSettings));
         fmt::print("{1}Pick an option:{0}\n\n", RESET, WHITE);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
         fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Gameplay Info{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
