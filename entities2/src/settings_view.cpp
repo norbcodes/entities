@@ -24,28 +24,68 @@ static void UserCreationScreen(const GameArgs& game_args)
     // Here we create a new user.
     ClearScreen();
     Div();
-    fmt::print("{1}Enter your username: {0}\n\n", RESET, WHITE);
-    EndDivNoNewl();
-    // get
-    std::string name;
-    std::cin >> name;
-    // Create new user and delete
-    UserSettingsClass* new_user = new UserSettingsClass(game_args, name);
-    new_user->Save(game_args);
-    delete new_user;
+    while (true)
+    {
+        fmt::print("{1}Enter your username: {0}\n\n", RESET, WHITE);
+        EndDivNoNewl();
+        // get
+        std::string name;
+        std::getline(std::cin, name);
+        // mmmmmm
+        // Check for spaces
+        bool rewind = false;
+        for (uint32_t i = 0; i != name.size(); i++)
+        {
+            if (name[i] == ' ')
+            {
+                rewind = true;
+            }
+        }
+        // Oopsie daisy
+        if (rewind)
+        {
+            fmt::print("{1}Username cannot have spaces!                                                     {0}\n", RESET, RED);
+            continue;
+        }
+        // Create new user and delete
+        UserSettingsClass* new_user = new UserSettingsClass(game_args, name);
+        new_user->Save(game_args);
+        delete new_user;
+        break;
+    }
 }
 
 static void NewUsername(UserSettingsClass& user_settings)
 {
     ClearScreen();
     Div();
-    fmt::print("{1}Enter your username: {0}\n\n", RESET, WHITE);
-    EndDivNoNewl();
-    // yessss
-    std::string name;
-    std::cin >> name;
-    // mmmmmm
-    user_settings.SetUsername(name);
+    while (true)
+    {
+        fmt::print("{1}Enter your username: {0}\n\n", RESET, WHITE);
+        EndDivNoNewl();
+        // yessss
+        std::string name;
+        std::getline(std::cin, name);
+        // mmmmmm
+        // Check for spaces
+        bool rewind = false;
+        for (uint32_t i = 0; i != name.size(); i++)
+        {
+            if (name[i] == ' ')
+            {
+                rewind = true;
+            }
+        }
+        // uwu
+        if (rewind)
+        {
+            fmt::print("{1}Username cannot have spaces!                                                     {0}\n", RESET, RED);
+            continue;
+        }
+
+        user_settings.SetUsername(name);
+        break;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

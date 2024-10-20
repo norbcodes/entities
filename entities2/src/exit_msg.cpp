@@ -148,7 +148,7 @@ void AddExitMsg(const std::string& str)
 
 /**
  * \brief Get the total amount of exit messages.
- * \return The totala amount of exit messages.
+ * \return The total amount of exit messages.
  */
 uint32_t GetExitMsgCount()
 {
