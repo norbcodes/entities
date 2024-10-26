@@ -74,7 +74,11 @@ uint32_t GetArrowKey()
 {
     while (true)
     {
-        char _unused = getch();
+        char first = getch();
+        if (!(first == 0 || first == 224))
+        {
+            continue;
+        }
         switch (getch())
         {
             case 72:
@@ -85,6 +89,8 @@ uint32_t GetArrowKey()
                 return LEFT_KEY;
             case 77:
                 return RIGHT_KEY;
+            default:
+                break;
         }
     }
 }

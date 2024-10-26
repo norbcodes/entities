@@ -152,7 +152,7 @@ static void PlayerRound (
     uint32_t picked_move;
     while (true)
     {
-        fmt::print("{1}Choose your move. {2}{3}[0,1,2,3,4] (0 to exit)                                           {0}\n", RESET, WHITE, BOLD, GRAY);
+        fmt::print("{1}Choose your move. {2}{3}[1,2,3,4,5] (0 to exit)                                           {0}\n", RESET, WHITE, BOLD, GRAY);
         EndDiv();
         // Player
         picked_move = WaitForNumkey();
@@ -270,17 +270,22 @@ static void EnemyRound (
     fmt::print("\n");
 
     GenerateMoves(moves, move_types, energy_costs);
+    fmt::print("\n");
 
     uint32_t picked_move = AiChoose(moves, move_types, energy_costs, *Player, *Enemy, difficulty_scale);
 
     // Print random num
-    for (int i = 0; i != 20000; i++)
+    // this bugs out completely on Linux
+    #ifndef __linux__
+    for (uint32_t i = 0; i != 20000; i++)
     {
         fmt::print("{1}{2}The AI is thinking... {3}{0}\n", RESET, GOLD, ITALIC, rng(1, 4));
         EndDivNoNewl();
     }
+    #endif // __linux__
 
     fmt::print("{1}{2}The AI is thinking... {3}{0}\n", RESET, GOLD, ITALIC, picked_move + 1);
+    EndDiv();
     SleepSeconds(2);
 
     // if pick is not 0, 1, 2, 3 or 9 = skip round
