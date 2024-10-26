@@ -62,10 +62,12 @@ int main(int argc, char* argv[])
     UserSettingsClass* UserSettings = new UserSettingsClass(*GameArguments, *GlobalSettings);
     // B)
     DatapackEngine* Datapacks = new DatapackEngine(*GameArguments);
-    Datapacks->LoadAll(*GameArguments);
+    Datapacks->LoadAll(*GameArguments, *UserSettings);
 
     // Add this as well.
     AddExitMsg(fmt::format("{1}Did you know? Each of these message has a {3}{2:.2f}%{1} chance to appear.{0}", RESET, WHITE, (1.0 / (double)GetExitMsgCount()) * 100, PURPLE));
+    // And this
+    InitializeGreets(*UserSettings);
 
     if (GlobalSettings->GetDiscordEnabled())
     {
@@ -138,7 +140,7 @@ int main(int argc, char* argv[])
         fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
 
         fmt::print("{1}                  A game by norbcodes.{0}\n\n", RESET, DARK_GRAY);
-        fmt::print("{0}\n\n", GetGreeting(*UserSettings));
+        fmt::print("{0}\n\n", GetGreeting());
         fmt::print("{1}Pick an option:{0}\n\n", RESET, WHITE);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
         fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Gameplay Info{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);

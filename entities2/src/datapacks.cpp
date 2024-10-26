@@ -19,6 +19,9 @@
 #include "exit_msg.hpp"
 #include "datapacks.hpp"
 #include "cmd_args.hpp"
+#include "game_string_formatter.hpp"
+#include "greetings.hpp"
+#include "user_settings.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,12 +145,13 @@ bool Datapack::LoadSuccessful() const
 /**
  * \brief Get Datapack contents and load self.
  */
-void Datapack::Load()
+void Datapack::Load(const UserSettingsClass& user_settings)
 {
     // YAAAY now we load :3
 
     for (pugi::xml_node Data : this->Xml.child("Datapack").child("Data").children())
     {
+        // ExitMsg
         if (std::string(Data.name()) == std::string("ExitMsg"))
         {
             // Oki
@@ -155,12 +159,98 @@ void Datapack::Load()
             if (Data.attribute("formatted").as_bool())
             {
                 // Formatting ON, format string and put into ExitMsg array
-                AddExitMsg(ExitMsgFormatter(Data.text().as_string()));
+                AddExitMsg(MsgFormatter(Data.text().as_string(), user_settings));
             }
             else
             {
                 // Same thing, but with no formatting
                 AddExitMsg(Data.text().as_string());
+            }
+        }
+        // Greet
+        else if (std::string(Data.name()) == std::string("Greet"))
+        {
+            // Okay
+            // Get the time for the greeting
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            // Morning
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            if (Data.attribute("time").as_string() == std::string("Morning"))
+            {
+                // Morning time, check formatting
+                if (Data.attribute("formatted").as_bool())
+                {
+                    // Formatting ON, format string and put into array
+                    AddGreetMsg(MsgFormatter(Data.text().as_string(), user_settings), G_MORNING);
+                }
+                else
+                {
+                    AddGreetMsg(Data.text().as_string(), G_MORNING);
+                }
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            // Afternoon
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            else if (Data.attribute("time").as_string() == std::string("Afternoon"))
+            {
+                // Afternoon time, check formatting
+                if (Data.attribute("formatted").as_bool())
+                {
+                    // Formatting ON, format string and put into array
+                    AddGreetMsg(MsgFormatter(Data.text().as_string(), user_settings), G_AFTERNOON);
+                }
+                else
+                {
+                    AddGreetMsg(Data.text().as_string(), G_AFTERNOON);
+                }
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            // Evening
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            else if (Data.attribute("time").as_string() == std::string("Evening"))
+            {
+                // Evening time, check formatting
+                if (Data.attribute("formatted").as_bool())
+                {
+                    // Formatting ON, format string and put into array
+                    AddGreetMsg(MsgFormatter(Data.text().as_string(), user_settings), G_EVENING);
+                }
+                else
+                {
+                    AddGreetMsg(Data.text().as_string(), G_EVENING);
+                }
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            // Early Night
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            else if (Data.attribute("time").as_string() == std::string("EarlyNight"))
+            {
+                // Early Night time, check formatting
+                if (Data.attribute("formatted").as_bool())
+                {
+                    // Formatting ON, format string and put into array
+                    AddGreetMsg(MsgFormatter(Data.text().as_string(), user_settings), G_ENIGHT);
+                }
+                else
+                {
+                    AddGreetMsg(Data.text().as_string(), G_ENIGHT);
+                }
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            // 3 AM time
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            else if (Data.attribute("time").as_string() == std::string("3AM"))
+            {
+                // 3 AM time, check formatting
+                if (Data.attribute("formatted").as_bool())
+                {
+                    // Formatting ON, format string and put into array
+                    AddGreetMsg(MsgFormatter(Data.text().as_string(), user_settings), G_3AM);
+                }
+                else
+                {
+                    AddGreetMsg(Data.text().as_string(), G_3AM);
+                }
             }
         }
     }
@@ -229,8 +319,9 @@ DatapackEngine::DatapackEngine(const GameArgs& game_args)
 /**
  * \brief Load all Datapacks :)
  * \param[in] game_args Game CMD arguments.
+ * \param[in] user_settings User game settings.
  */
-void DatapackEngine::LoadAll(const GameArgs& game_args)
+void DatapackEngine::LoadAll(const GameArgs& game_args, const UserSettingsClass& user_settings)
 {
     // Check if we can load Datapacks
     if (game_args.NoDatapacks())
@@ -240,7 +331,7 @@ void DatapackEngine::LoadAll(const GameArgs& game_args)
     // Load
     for (uint8_t i = 0; i != this->datapacks.size(); i++)
     {
-        this->datapacks[i].Load();
+        this->datapacks[i].Load(user_settings);
     }
 }
 

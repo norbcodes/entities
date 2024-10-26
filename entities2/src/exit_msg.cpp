@@ -11,6 +11,7 @@
 // Yep
 
 #include <vector>
+#include <string>
 #include <fmt/core.h>
 
 #include "colors.hpp"
@@ -19,7 +20,7 @@
 /**
  * \namespace E2_ExitMsg
  * \brief E2_ExitMsg game namespace.
- * \details Internal game namespace, stores a fixed length array of std::string's:<br>
+ * \details Internal game namespace, stores a dynamic length array of std::string's:<br>
  *          The actual exit messages. These also change depending on the platform<br>
  *          they were compiled on.<br><br>
  *          Variables inside of this namespace should not be used outside of this file (exit_msg.cpp)<br>
@@ -153,42 +154,6 @@ void AddExitMsg(const std::string& str)
 uint32_t GetExitMsgCount()
 {
     return E2_ExitMsg::exit_msg.size();
-}
-
-/**
- * \brief Format custom exit messages defined in Datapacks.
- * \param[in] str The string to format.
- * \return Formatted string.
- */
-std::string ExitMsgFormatter(const std::string& str)
-{
-    return fmt::format(
-        str,
-        fmt::arg("reset", RESET),
-        fmt::arg("bold", BOLD),
-        fmt::arg("faint", FAINT),
-        fmt::arg("italic", ITALIC),
-        fmt::arg("underline", UNDERLINE),
-        fmt::arg("blinking", BLINKING),
-        fmt::arg("red", RED),
-        fmt::arg("blue", BLUE),
-        fmt::arg("orange", ORANGE),
-        fmt::arg("white", WHITE),
-        fmt::arg("hot_pink", HOT_PINK),
-        fmt::arg("gray", GRAY),
-        fmt::arg("dark_gray", DARK_GRAY),
-        fmt::arg("pink", PINK),
-        fmt::arg("gold", GOLD),
-        fmt::arg("green", GREEN),
-        fmt::arg("purple", PURPLE),
-        fmt::arg("dark_green", DARK_GREEN),
-        fmt::arg("lavender", LAVENDER),
-        fmt::arg("yellow", YELLOW),
-        fmt::arg("teal", TEAL),
-        fmt::arg("brown", BROWN),
-        fmt::arg("black", BLACK),
-        fmt::arg("white_bg", WHITE_BACKGROUND)
-    );
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

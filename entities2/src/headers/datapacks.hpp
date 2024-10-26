@@ -15,6 +15,7 @@
 #include <pugixml.hpp>
 
 #include "cmd_args.hpp"
+#include "user_settings.hpp"
 
 /**
  * \class Datapack
@@ -35,7 +36,7 @@ class Datapack
         const std::string& GetPath() const;
         bool LoadSuccessful() const;
         // :3
-        void Load();
+        void Load(const UserSettingsClass& user_settings);
     private:
         /**
          * \var std::string Name
@@ -85,7 +86,7 @@ class DatapackEngine
         // Constructor
         DatapackEngine(const GameArgs& game_args);
         // Load ALL datapacks
-        void LoadAll(const GameArgs& game_args);
+        void LoadAll(const GameArgs& game_args, const UserSettingsClass& user_settings);
         // Getters
         uint32_t DatapackCount() const;
         const Datapack& GetConstDatapackRef(uint32_t i) const;

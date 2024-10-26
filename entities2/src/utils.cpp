@@ -65,7 +65,7 @@ void Credits()
     Div();
     fmt::print("{1}{2}DEM CREDITS!!!!{0}\n\n", RESET, GOLD, ITALIC);
     fmt::print("{2}{3}Game{0} {1}by{0} {4}{3}Norb{0}\n", RESET, WHITE, GOLD, BOLD, BLUE);
-    fmt::print("{1}{2}Coded{0} {3}in{0} {4}{2}C++{0}\n", RESET, HOT_PINK, BOLD, WHITE, GREEN);
+    fmt::print("{1}{2}Written{0} {3}in{0} {4}{2}C++{0}\n", RESET, HOT_PINK, BOLD, WHITE, GREEN);
     fmt::print("{1}v1.0 coded in about 2 days.{0}\n{2}(As of writting the credits, Discord says I spent 6 hours on VScode){0}\n", RESET, WHITE, DARK_GRAY);
     fmt::print("{1}These fine colors picked out using {2}rgbcolorcode.com{0}{1}! B){0}\n", RESET, BLUE, BOLD);
     fmt::print("{1}Check out entity1 and the homepage at {2}github.com/norbcodes/entities{0}{1} :){0}\n\n", RESET, PURPLE, BOLD);

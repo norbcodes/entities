@@ -1,16 +1,11 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
-/*
-Exit messages lmfao
-*/
-
 #pragma once
 
-#include <cstdint>
 #include <string>
 
-const std::string& GetExitMsg();
-void AddExitMsg(const std::string& str);
-uint32_t GetExitMsgCount();
+#include "user_settings.hpp"
+
+std::string MsgFormatter(const std::string& str, const UserSettingsClass& user_settings);
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
