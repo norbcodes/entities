@@ -247,7 +247,7 @@ void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& m
     }
 
     // IF armor_dmg takes more armor than the victim has (armor < 0) then do this
-    if (((int32_t)armor_dmg) > victim.GetArmor())
+    if ((static_cast<int32_t>(armor_dmg)) > victim.GetArmor())
     {
         health_dmg += armor_dmg - victim.GetArmor();
         armor_dmg = victim.GetArmor();

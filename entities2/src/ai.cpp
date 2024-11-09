@@ -65,7 +65,7 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
         }
     }
 
-    if (((int32_t)rng(0, 100)) > enemy.GetHealth())
+    if ((static_cast<int32_t>(rng(0, 100))) > enemy.GetHealth())
     {
         /*
         Difficulty table:
@@ -174,7 +174,7 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
             }
         }
 
-        if (player.GetHealth() <= ((int32_t)highest_att))
+        if (player.GetHealth() <= (static_cast<int32_t>(highest_att)))
         {
             // Attack!
             for (int i = 0; i != 4; i++)

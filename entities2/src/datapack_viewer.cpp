@@ -68,7 +68,7 @@ void DatapackViewer(const DatapackEngine& datapacks)
                 fmt::print("{1}   Failed to load: \"{2}\"{0}\n", RESET, RED, obj.GetPath());
                 continue;
             }
-            if (i == (uint32_t)selection)
+            if (i == static_cast<uint32_t>(selection))
             {
                 fmt::print("{1}{4}   {2: <10} by {3: <8}{0}\n", RESET, WHITE_BACKGROUND, obj.GetName(), obj.GetAuthor(), BLACK);
             }
@@ -108,7 +108,7 @@ void DatapackViewer(const DatapackEngine& datapacks)
         {
             if (!scrollable)
             {
-                if ((uint32_t)(selection + 1) == datapacks.DatapackCount())
+                if (static_cast<uint32_t>(selection + 1) == datapacks.DatapackCount())
                 {
                     continue;
                 }
