@@ -289,7 +289,6 @@ void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& m
                 msg += fmt::format(" {2}-{1}AR{0}", RESET, armor_dmg, PURPLE);
             }
             return;
-            return;
         }
         msg += fmt::format("{4}{3}Enemy{0} {2}has attacked {5}{3}{9}{0}{2}! {8}{7}CRITICAL HIT{0}{2}! {5}{3}Player{0} {6}-{1}HP{0}", RESET, health_dmg, WHITE, BOLD, RED, BLUE, PURPLE, ITALIC, GOLD, user_settings.GetUsername());
         if (armor_dmg > 0)
