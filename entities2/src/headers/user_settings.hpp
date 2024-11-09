@@ -38,7 +38,7 @@
  * \def ENTITIES2_USER_SAVE_VER
  * \brief Quick macro to get the version.
  */
-#define ENTITIES2_USER_SAVE_VER       ((ENTITIES2_USER_SAVE_VER_MAJOR * 10000000) + (ENTITIES2_USER_SAVE_VER_MINOR * 100000) + (ENTITIES2_USER_SAVE_VER_PATCH * 1000))
+#define ENTITIES2_USER_SAVE_VER       ((ENTITIES2_USER_SAVE_VER_MAJOR * 1000000) + (ENTITIES2_USER_SAVE_VER_MINOR * 1000) + (ENTITIES2_USER_SAVE_VER_PATCH))
 
 /**
  * \class UserSettingsClass
@@ -48,10 +48,11 @@
 class UserSettingsClass
 {
     public:
-        UserSettingsClass(const GameArgs& game_args, const GlobalSettingsClass& global_settings);
+        UserSettingsClass(const GameArgs& game_args);
         UserSettingsClass(const GameArgs& game_args, const std::string& username);  // for user creation within settings menu
+        UserSettingsClass(const std::string& username);
         void Save(const GameArgs& game_args);
-        void Load(const GameArgs& game_args, const std::string& path);
+        void Load(const std::string& path);
         // Getters
         uint32_t GetGamesWon() const;
         uint32_t GetGamesLost() const;

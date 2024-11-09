@@ -116,6 +116,7 @@ void BlockUntilEnter()
 
 /**
  * \details Get arrow key.
+ * \return Arrow key codes, see the macros.
  */
 uint32_t GetArrowKey()
 {

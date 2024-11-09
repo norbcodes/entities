@@ -56,8 +56,9 @@ static std::string GetSaveName(const GameArgs& game_args)
 
 /**
  * \brief Constructor of UserSettingsClass.
+ * \param[in] game_args CMD arguments.
  */
-UserSettingsClass::UserSettingsClass(const GameArgs& game_args, const GlobalSettingsClass& global_settings)
+UserSettingsClass::UserSettingsClass(const GameArgs& game_args)
 {
     // So we check two things...
     // One, if users folder exists
@@ -95,7 +96,7 @@ UserSettingsClass::UserSettingsClass(const GameArgs& game_args, const GlobalSett
         if (file_count == 1)
         {
             // Only one found, so we load that
-            this->Load(game_args, idk_what_to_name_this.begin()->second.string());
+            this->Load(idk_what_to_name_this.begin()->second.string());
         }
         else
         {
@@ -156,7 +157,7 @@ UserSettingsClass::UserSettingsClass(const GameArgs& game_args, const GlobalSett
                     continue;
                 }
                 // Load
-                this->Load(game_args, idk_what_to_name_this[option].string());
+                this->Load(idk_what_to_name_this[option].string());
                 break;
             }
         }
@@ -174,6 +175,16 @@ UserSettingsClass::UserSettingsClass(const GameArgs& game_args, const std::strin
     this->v_Username = username;
     // Save
     this->Save(game_args);
+}
+
+/**
+ * \brief Constructor with only the username. Used during demo playback to create a "husk" instead of loading user data.
+ * \param[in] username Username.
+ */
+UserSettingsClass::UserSettingsClass(const std::string& username)
+{
+    this->_MakeDefault();
+    this->v_Username = username;
 }
 
 /**
@@ -226,10 +237,9 @@ void UserSettingsClass::Save(const GameArgs& game_args)
 
 /**
  * \brief Load user settings from a json file.
- * \param[in] game_args Game arguments.
  * \param[in] path Path to the json file.
  */
-void UserSettingsClass::Load(const GameArgs& game_args, const std::string& path)
+void UserSettingsClass::Load(const std::string& path)
 {
     // Reverse of "save" method
     std::ifstream Json(path);

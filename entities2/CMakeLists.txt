@@ -67,6 +67,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/cmd_args.cpp
     ${CMAKE_SOURCE_DIR}/src/datapack_viewer.cpp
     ${CMAKE_SOURCE_DIR}/src/datapacks.cpp
+    ${CMAKE_SOURCE_DIR}/src/demo_system.cpp
     ${CMAKE_SOURCE_DIR}/src/difficulty_picker.cpp
     ${CMAKE_SOURCE_DIR}/src/discord_rpc.cpp
     ${CMAKE_SOURCE_DIR}/src/energy.cpp
@@ -156,7 +157,7 @@ configure_file(${CMAKE_SOURCE_DIR}/src/headers/version.txt ${CMAKE_BINARY_DIR}/h
 
 # Create the main executable
 add_executable(${PROJECT_NAME} ${ENTITIES2_SOURCE})
-target_compile_options(${PROJECT_NAME} PUBLIC -Wall)
+target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra)
 target_include_directories(${PROJECT_NAME} PUBLIC ${SEARCH_IN})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 

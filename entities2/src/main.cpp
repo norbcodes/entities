@@ -26,6 +26,7 @@ The long awaited... entities2!!!!
 
 #include "colors.hpp"
 #include "difficulty_picker.hpp"
+#include "gameplay_loop.hpp"
 #include "discord_rpc.hpp"
 #include "utils.hpp"
 #include "keyboard.hpp"
@@ -40,9 +41,13 @@ The long awaited... entities2!!!!
 #include "settings_view.hpp"
 #include "rng.hpp"
 #include "greetings.hpp"
+#include "version.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
+ * \param[in] argc CMD argument count.
+ * \param[in] argv Arguments.
+ * \return Exit code.
  */
 int main(int argc, char* argv[])
 {
@@ -59,7 +64,13 @@ int main(int argc, char* argv[])
     // Global settings
     GlobalSettingsClass* GlobalSettings = new GlobalSettingsClass(*GameArguments);
     // User settings
-    UserSettingsClass* UserSettings = new UserSettingsClass(*GameArguments, *GlobalSettings);
+    UserSettingsClass* UserSettings = new UserSettingsClass(*GameArguments);
+    // If playing back demo, don't do ANYTHING, just play
+    if (GameArguments->DemoToPlay() != "")
+    {
+        DemoPlaybackGame(GameArguments->DemoToPlay());
+        return 0;
+    }
     // B)
     DatapackEngine* Datapacks = new DatapackEngine(*GameArguments);
     Datapacks->LoadAll(*GameArguments, *UserSettings);
@@ -133,13 +144,14 @@ int main(int argc, char* argv[])
                 break;
         }
 
+        // I love when ascii art looks like this :)
         fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
         fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
         fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
         fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
         fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
 
-        fmt::print("{1}                  A game by norbcodes.{0}\n\n", RESET, DARK_GRAY);
+        fmt::print("{3}{2: <8}              {1}A game by norbcodes.{0}\n\n", RESET, DARK_GRAY, ENTITIES2_VER, GREEN);
         fmt::print("{0}\n\n", GetGreeting());
         fmt::print("{1}Pick an option:{0}\n\n", RESET, WHITE);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
@@ -175,7 +187,7 @@ int main(int argc, char* argv[])
         else if (option == 1)
         {
             // do
-            DifficultyPicker(*GlobalSettings, *UserSettings);
+            DifficultyPicker(*GlobalSettings, *UserSettings, *GameArguments);
         }
         // INFO SECTION
         else if (option == 2)

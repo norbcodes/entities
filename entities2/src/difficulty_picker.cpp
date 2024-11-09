@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <fmt/core.h>
 
+#include "cmd_args.hpp"
 #include "colors.hpp"
 #include "utils.hpp"
 #include "keyboard.hpp"
@@ -21,10 +22,12 @@
  * \brief Pick a difficulty...
  * \param[in] global_settings Global game settings.
  * \param[in] user_settings User settings.
+ * \param[in] game_args CMD arguments.
  */
-void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsClass& user_settings)
+void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsClass& user_settings, const GameArgs& game_args)
 {
-    uint32_t picker_flag = true;
+    bool picker_flag = true;
+    bool record_demo = false;
     while (picker_flag)
     {
         ClearScreen();
@@ -34,6 +37,14 @@ void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsCl
         fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}I've seen worse{0}\n", RESET, BOLD, GOLD, DARK_GRAY, ORANGE);
         fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Down with the Entities{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
         fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}Random!{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
+        if (record_demo)
+        {
+            fmt::print("{3}[{0}{2}{1}9{0}{3}]{0} {4}Record demo: {5}ON{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, WHITE, GREEN);
+        }
+        else
+        {
+            fmt::print("{3}[{0}{2}{1}9{0}{3}]{0} {4}Record demo: {5}OFF{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, WHITE, RED);
+        }
         fmt::print("{3}[{0}{2}{1}5{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
         EndDiv();
 
@@ -46,7 +57,11 @@ void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsCl
         }
         else if (choice == 1 || choice == 2 || choice == 3 || choice == 4)
         {
-            Game(choice, picker_flag, global_settings, user_settings);
+            Game(choice, picker_flag, game_args, global_settings, user_settings, record_demo ? 1 : 0);
+        }
+        else if (choice == 9)
+        {
+            record_demo = !record_demo;
         }
         else
         {

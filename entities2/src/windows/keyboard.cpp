@@ -25,7 +25,7 @@ uint32_t WaitForNumkey()
         char key = getch();
         if (key >= 48 && key <= 57)
         {
-            return (uint32_t)(key - 48);
+            return static_cast<uint32_t>(key - 48);
         }
     }
 }
@@ -69,13 +69,14 @@ void BlockUntilEnter()
 
 /**
  * \details Get arrow key.
+ * \return Arrow key codes, see the macros.
  */
 uint32_t GetArrowKey()
 {
     while (true)
     {
         char first = getch();
-        if (!(first == 0 || first == 224))
+        if (first != 0)
         {
             continue;
         }

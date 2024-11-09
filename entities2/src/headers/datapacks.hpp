@@ -38,6 +38,8 @@ class Datapack
         // :3
         void Load(const UserSettingsClass& user_settings);
     private:
+        void _constructor(const char* path);  // the actual
+
         /**
          * \var std::string Name
          * \brief Name of the datapack.

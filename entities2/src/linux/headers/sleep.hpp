@@ -5,3 +5,4 @@
 #include <cstdint>
 
 void SleepSeconds(uint32_t seconds);
+void SleepMiliseconds(uint32_t miliseconds);

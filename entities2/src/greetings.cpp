@@ -161,8 +161,9 @@ const std::string GetGreeting()
         return E2_Greets::EveningGreets[ rng(0, E2_Greets::EveningGreets.size() - 1) ];
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
-    else if (EARLY_NIGHT_START <= local_time->tm_hour && local_time->tm_hour <= EARLY_NIGHT_END)
+    else if (EARLY_NIGHT_START <= local_time->tm_hour || local_time->tm_hour <= EARLY_NIGHT_END)
     {
+        // fixed this
         return E2_Greets::EarlyNightGreets[ rng(0, E2_Greets::EarlyNightGreets.size() - 1) ];
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -173,7 +174,7 @@ const std::string GetGreeting()
     ///////////////////////////////////////////////////////////////////////////////////////////
     // Make the compiler shut up
     // This will never show up sooooooo
-    return fmt::format("{1}Uh......{0}", RESET, WHITE);
+    return fmt::format("{1}Uh...... {2}?{0}", RESET, WHITE, local_time->tm_hour);
 }
 
 /**

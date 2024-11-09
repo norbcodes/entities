@@ -1,5 +1,14 @@
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
+/**
+ * \file status.cpp
+ * \author norbcodes
+ * \brief Status class method implementations and stuff
+ * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ */
+
+// How did I forget this?
+
 #include <cstdint>
 #include <string>
 #include <fmt/core.h>

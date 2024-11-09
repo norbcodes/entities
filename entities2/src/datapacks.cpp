@@ -32,28 +32,13 @@
 // Datapack methods
 
 /**
- * \brief Constructor for Datapack class.
+ * \brief The ACTUAL constructor for Datapack class.
  * \param[in] path Path to the .xml file, in <b>const char*</b> form.
  */
-Datapack::Datapack(const char* path) : Path(path), Failbit(false)
+void Datapack::_constructor(const char* path)
 {
     // IN CONSTRUCTOR, ONLY READ "META" SECTION.
     this->Xml.load_file(path);
-    
-    // Read
-    this->Name = this->Xml.child("Datapack").child("Meta").child("Name").text().as_string();
-    this->Author = this->Xml.child("Datapack").child("Meta").child("Author").text().as_string();
-    this->Description = this->Xml.child("Datapack").child("Meta").child("Description").text().as_string("No description specified.");
-}
-
-/**
- * \brief Constructor for Datapack class.
- * \param[in] path Path to the .xml file, in <b>const std::string&</b> form.
- */
-Datapack::Datapack(const std::string& path) : Path(path), Failbit(false)
-{
-    // IN CONSTRUCTOR, ONLY READ "META" SECTION.
-    this->Xml.load_file(path.c_str());
     
     // Read
     // Check if Datapack and Meta and Data
@@ -86,6 +71,24 @@ Datapack::Datapack(const std::string& path) : Path(path), Failbit(false)
     }
     
     this->Description = this->Xml.child("Datapack").child("Meta").child("Description").text().as_string("No description specified.");
+}
+
+/**
+ * \brief Constructor for Datapack class.
+ * \param[in] path Path to the .xml file, in <b>const char*</b> form.
+ */
+Datapack::Datapack(const char* path) : Path(path), Failbit(false)
+{
+    this->_constructor(path);
+}
+
+/**
+ * \brief Constructor for Datapack class.
+ * \param[in] path Path to the .xml file, in <b>const std::string&</b> form.
+ */
+Datapack::Datapack(const std::string& path) : Path(path), Failbit(false)
+{
+    this->_constructor(path.c_str());
 }
 
 /**
@@ -144,6 +147,7 @@ bool Datapack::LoadSuccessful() const
 
 /**
  * \brief Get Datapack contents and load self.
+ * \param[in] user_settings User settings.
  */
 void Datapack::Load(const UserSettingsClass& user_settings)
 {
