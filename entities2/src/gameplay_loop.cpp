@@ -31,6 +31,8 @@
 #include "user_settings.hpp"
 #include "demo_system.hpp"
 #include "cmd_args.hpp"
+#include "translation_engine.hpp"
+#include "game_string_formatter.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,11 +40,12 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-static void GameOver(bool& picker_flag, bool& is_running, const std::string& username)
+static void GameOver(bool& picker_flag, bool& is_running, const std::string& username, const TranslationEngine& GameTranslation)
 {
-    fmt::print("{1}---<<< {3}{2}{5}{0} {1}dead. {4}{2}Enemy{0}{1} wins!!! >>>---{0}\n\n", RESET, WHITE, BOLD, BLUE, RED, username);
-    fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
-    fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
+    fmt::print(CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.gameover"), fmt::arg("username", username)));
+    fmt::print("\n\n");
+    fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED, GameTranslation.GetTranslated("general.exit"));
+    fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK, GameTranslation.GetTranslated("game.moves.rematch"));
     EndDiv();
 
     uint32_t choice = WaitForNumkey();
@@ -72,11 +75,12 @@ static void GameOver(bool& picker_flag, bool& is_running, const std::string& use
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-static void Victory(bool& picker_flag, bool& is_running, const std::string& username)
+static void Victory(bool& picker_flag, bool& is_running, const std::string& username, const TranslationEngine& GameTranslation)
 {
-    fmt::print("{1}---<<< {4}{2}Enemy{0} {1}dead. {3}{2}{5}{0}{1} wins!!! >>>---{0}\n\n", RESET, WHITE, BOLD, BLUE, RED, username);
-    fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
-    fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Rematch!{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK);
+    fmt::print(CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.victory"), fmt::arg("username", username)));
+    fmt::print("\n\n");
+    fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED, GameTranslation.GetTranslated("general.exit"));
+    fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, HOT_PINK, GameTranslation.GetTranslated("game.moves.rematch"));
     EndDiv();
 
     uint32_t choice = WaitForNumkey();
@@ -119,7 +123,8 @@ static void PlayerRound (
     double* energy_costs,
     UserSettingsClass& user_settings,
     uint8_t demo_mode,
-    Demo* cur_demo
+    Demo* cur_demo,
+    const TranslationEngine& GameTranslation
 )
 {
     ClearScreen();
@@ -132,16 +137,17 @@ static void PlayerRound (
         ///////////////////
         if (demo_mode == 0 || demo_mode == 1)
         {
-            GameOver(picker_flag, is_running, user_settings.GetUsername());
+            GameOver(picker_flag, is_running, user_settings.GetUsername(), GameTranslation);
             user_settings.IncreaseGamesLost(1);
             user_settings.IncreaseTotalGames(1);
         }
         return;
     }
 
-    fmt::print("{3}---<<< {1}{2}{4}'s{0} {3}turn! >>>---{0}\n", RESET, BLUE, BOLD, DARK_GRAY, user_settings.GetUsername());
+    fmt::print(MsgFormatter(GameTranslation.GetTranslated("game.battle.ply_header"), user_settings));
+    fmt::print("\n");
     // Print history
-    fmt::print("{2}What happened last round:{0}\n{1}{0}\n\n", RESET, what_happened, WHITE);
+    fmt::print("{0}\n\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.battle.what_happened"), fmt::arg("what_happened", what_happened)));
     what_happened = "";
 
     Player->UpdateStatuses(what_happened, false);
@@ -149,7 +155,7 @@ static void PlayerRound (
     // Print stats
     fmt::print("{1}{2}[{3}]{0}\n ", RESET, BLUE, BOLD, user_settings.GetUsername());
     PrintEntityStats(*Player);
-    fmt::print("{1}{2}[ENEMY] {0}\n ", RESET, RED, BOLD);
+    fmt::print("{1}{2}[{3}]{0}\n ", RESET, RED, BOLD, GameTranslation.GetTranslated("game.battle.enemy"));
     PrintEntityStats(*Enemy);
     fmt::print("\n");
     // Print energy bars
@@ -157,13 +163,13 @@ static void PlayerRound (
     PrintEnergyBar(*Enemy);
     fmt::print("\n");
 
-    GenerateMoves(moves, move_types, energy_costs);
-    fmt::print("{1}[{2}{3}5{0}{1}]{0} {1}[{5}{3} 10.0{0}{1}]{0}\t{4}Regenerate moves...{0}\n\n", RESET, DARK_GRAY, GOLD, BOLD, WHITE, BLUE);
+    GenerateMoves(moves, move_types, energy_costs, GameTranslation);
+    fmt::print("{1}[{2}{3}5{0}{1}]{0} {1}[{5}{3} 10.0{0}{1}]{0}\t{4}{6}{0}\n\n", RESET, DARK_GRAY, GOLD, BOLD, WHITE, BLUE, GameTranslation.GetTranslated("game.battle.regen_moves"));
 
     uint32_t picked_move;
     while (true)
     {
-        fmt::print("{1}Choose your move. {2}{3}[1,2,3,4,5] (0 to exit)                                           {0}\n", RESET, WHITE, BOLD, GRAY);
+        fmt::print("{0: <95}\n", MsgFormatterNoUser(GameTranslation.GetTranslated("game.battle.move_choose")));
         EndDiv();
         // Player
         ///////////////////
@@ -182,7 +188,7 @@ static void PlayerRound (
 
         if (picked_move == 0)
         {
-            fmt::print("{1}Do you really wanna end the battle? {2}{3}[y,n]                                                             {0}\n", RESET, RED, GRAY, BOLD);
+            fmt::print("{1}{4} {2}{3}[y,n]                                                                                              {0}\n", RESET, RED, DARK_GRAY, BOLD, GameTranslation.GetTranslated("game.battle.exit"));
             EndDiv();
 
             bool choice;
@@ -227,7 +233,7 @@ static void PlayerRound (
         
         if (picked_move > 4)
         {
-            what_happened += fmt::format("{1}{2}{4}{0} {3}skipped the round.{0}", RESET, BLUE, BOLD, WHITE, user_settings.GetUsername());
+            what_happened += fmt::format("{1}{2}{4}{0} {3}{5}{0}", RESET, BLUE, BOLD, WHITE, user_settings.GetUsername(), GameTranslation.GetTranslated("game.battle.skip"));
             return;
         }
 
@@ -236,7 +242,7 @@ static void PlayerRound (
         {
             if (energy_costs[picked_move] > Player->GetEnergy())
             {
-                fmt::print("{1}Not enough energy!                                                            {0}\n", RESET, RED);
+                fmt::print("{1}{2: <90}{0}\n", RESET, RED, GameTranslation.GetTranslated("game.battle.no_energy"));
                 continue;
             }
 
@@ -248,13 +254,13 @@ static void PlayerRound (
             if (Player->GetEnergy() >= REROLL_MOVE_COST)
             {
                 Player->TakeEnergy(REROLL_MOVE_COST);
-                what_happened = fmt::format("{1}{2}{4}{0}{3} rerolled their moves...{0}", RESET, BOLD, BLUE, WHITE, user_settings.GetUsername());
-                PlayerRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, user_settings, demo_mode, cur_demo);
+                what_happened = MsgFormatter(GameTranslation.GetTranslated("game.battle.rerolled"), user_settings);
+                PlayerRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, user_settings, demo_mode, cur_demo, GameTranslation);
                 return;
             }
             else
             {
-                fmt::print("{1}Not enough energy!                                                            {0}\n", RESET, RED);
+                fmt::print("{1}{2: <90}{0}\n", RESET, RED, GameTranslation.GetTranslated("game.battle.no_energy"));
                 continue;
             }
         }
@@ -263,7 +269,7 @@ static void PlayerRound (
     // if pick is not 0, 1, 2, 3, 4 = skip round
     if (picked_move > 4)
     {
-        what_happened += fmt::format("{1}{2}{4}{0} {3}skipped the round.{0}", RESET, BLUE, BOLD, WHITE, user_settings.GetUsername());
+        what_happened += fmt::format("{1}{2}{4}{0} {3}{5}{0}", RESET, BLUE, BOLD, WHITE, user_settings.GetUsername(), GameTranslation.GetTranslated("game.battle.skip"));
         return;
     }
 
@@ -289,7 +295,8 @@ static void EnemyRound (
     double* energy_costs,
     UserSettingsClass& user_settings,
     uint8_t demo_mode,
-    Demo* cur_demo
+    Demo* cur_demo,
+    const TranslationEngine& GameTranslation
 )
 {
     ClearScreen();
@@ -302,16 +309,16 @@ static void EnemyRound (
         ///////////////////
         if (demo_mode == 0 || demo_mode == 1)
         {
-            Victory(picker_flag, is_running, user_settings.GetUsername());
+            Victory(picker_flag, is_running, user_settings.GetUsername(), GameTranslation);
             user_settings.IncreaseGamesWon(1);
             user_settings.IncreaseTotalGames(1);
         }
         return;
     }
 
-    fmt::print("{3}---<<< {1}{2}Enemy's{0} {3}turn! >>>---{0}\n", RESET, RED, BOLD, DARK_GRAY);
+    fmt::print("{0}\n", MsgFormatterNoUser(GameTranslation.GetTranslated("game.battle.ene_header")));
     // Print history
-    fmt::print("{2}What happened last round:{0}\n{1}{0}\n\n", RESET, what_happened, WHITE);
+    fmt::print("{0}\n\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.battle.what_happened"), fmt::arg("what_happened", what_happened)));
     what_happened = "";
 
     Enemy->UpdateStatuses(what_happened, true);
@@ -319,7 +326,7 @@ static void EnemyRound (
     // Print stats
     fmt::print("{1}{2}[{3}]{0}\n ", RESET, BLUE, BOLD, user_settings.GetUsername());
     PrintEntityStats(*Player);
-    fmt::print("{1}{2}[ENEMY] {0}\n ", RESET, RED, BOLD);
+    fmt::print("{1}{2}[{3}]{0}\n ", RESET, RED, BOLD, GameTranslation.GetTranslated("game.battle.enemy"));
     PrintEntityStats(*Enemy);
     fmt::print("\n");
     // Print energy bars
@@ -327,7 +334,7 @@ static void EnemyRound (
     PrintEnergyBar(*Enemy);
     fmt::print("\n");
 
-    GenerateMoves(moves, move_types, energy_costs);
+    GenerateMoves(moves, move_types, energy_costs, GameTranslation);
     fmt::print("\n");
 
     uint32_t picked_move;
@@ -350,19 +357,19 @@ static void EnemyRound (
     #ifndef __linux__
     for (uint32_t i = 0; i != 20000; i++)
     {
-        fmt::print("{1}{2}The AI is thinking... {3}{0}\n", RESET, GOLD, ITALIC, rng(1, 4));
+        fmt::print("{1}{2}{4} {3}{0}\n", RESET, GOLD, ITALIC, rng(1, 4), GameTranslation.GetTranslated("game.battle.ai_think"));
         EndDivNoNewl();
     }
     #endif // __linux__
 
-    fmt::print("{1}{2}The AI is thinking... {3}{0}\n", RESET, GOLD, ITALIC, picked_move + 1);
+    fmt::print("{1}{2}{4} {3}{0}\n", RESET, GOLD, ITALIC, picked_move + 1, GameTranslation.GetTranslated("game.battle.ai_think"));
     EndDiv();
     SleepSeconds(2);
 
     // if pick is not 0, 1, 2, 3 or 9 = skip round
     if (picked_move > 3 && picked_move != 9)
     {
-        what_happened += fmt::format("{2}{3}Enemy {1}skipped the round.{0}", RESET, WHITE, RED, BOLD);
+        what_happened += MsgFormatterNoUser(GameTranslation.GetTranslated("game.battle.enemy_skip"));
         return;
     }
 
@@ -383,8 +390,15 @@ static void EnemyRound (
  * \param[in] global_settings Global game settings.
  * \param[in] user_settings User settings.
  * \param[in] demo_mode 0 = No demo, proceed as normal; 1 = Recording
+ * \param[in] GameTranslation Game translation system, for localized strings.
  */
-void Game(uint32_t mode, bool& picker_flag, const GameArgs& game_args, const GlobalSettingsClass& global_settings, UserSettingsClass& user_settings, uint8_t demo_mode)
+void Game(uint32_t mode, 
+          bool& picker_flag, 
+          const GameArgs& game_args, 
+          const GlobalSettingsClass& global_settings, 
+          UserSettingsClass& user_settings, 
+          uint8_t demo_mode,
+          const TranslationEngine& GameTranslation)
 {
     // Wowie
     uint8_t difficulty_scale;
@@ -434,7 +448,7 @@ void Game(uint32_t mode, bool& picker_flag, const GameArgs& game_args, const Glo
     // Gameplay loop
     bool is_running = true;
     bool enemy_turn = false;  // true = Enemy, false = Player
-    std::string what_happened = fmt::format("{1}{2}The fights begins. Good luck {3}!{0}", RESET, RED, ITALIC, user_settings.GetUsername());
+    std::string what_happened = MsgFormatter(GameTranslation.GetTranslated("game.battle.announce"), user_settings);
 
     ///////////////////
     if (demo_mode == 1) { CurrentDemo->TimeBegin(); }
@@ -453,11 +467,11 @@ void Game(uint32_t mode, bool& picker_flag, const GameArgs& game_args, const Glo
 
         if (enemy_turn)
         {
-            EnemyRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, user_settings, demo_mode, CurrentDemo);
+            EnemyRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, user_settings, demo_mode, CurrentDemo, GameTranslation);
         }
         else
         {
-            PlayerRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, user_settings, demo_mode, CurrentDemo);
+            PlayerRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, user_settings, demo_mode, CurrentDemo, GameTranslation);
         }
 
         // Increase energy
@@ -484,8 +498,9 @@ void Game(uint32_t mode, bool& picker_flag, const GameArgs& game_args, const Glo
 /**
  * \brief The game loop, when playing back a demo.
  * \param[in] demo_path Path to a demo to playback.
+ * \param[in] GameTranslation Game translation system, for localized strings.
  */
-void DemoPlaybackGame(const std::string& demo_path)
+void DemoPlaybackGame(const std::string& demo_path, const TranslationEngine& GameTranslation)
 {
     // The demo loads
     bool failbit = false;
@@ -533,12 +548,13 @@ void DemoPlaybackGame(const std::string& demo_path)
     // Gameplay loop
     bool is_running = true;
     bool enemy_turn = false;  // true = Enemy, false = Player
-    std::string what_happened = fmt::format("{1}{2}The fights begins. Good luck {3}!{0}", RESET, RED, ITALIC, CurrentDemo->GetUsername());
 
     // Fake picker_flag
     bool picker_flag = true;
     // UserSettingsClass "husk", doesn't save, just exists so this can work
-    UserSettingsClass* user_settings = new UserSettingsClass(CurrentDemo->GetUsername());
+    UserSettingsClass* _user_settings = new UserSettingsClass(CurrentDemo->GetUsername());
+
+    std::string what_happened = MsgFormatter(GameTranslation.GetTranslated("game.battle.announce"), *_user_settings);
 
     while (is_running)
     {
@@ -550,11 +566,11 @@ void DemoPlaybackGame(const std::string& demo_path)
 
         if (enemy_turn)
         {
-            EnemyRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, *user_settings, 2, CurrentDemo);
+            EnemyRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, *_user_settings, 2, CurrentDemo, GameTranslation);
         }
         else
         {
-            PlayerRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, *user_settings, 2, CurrentDemo);
+            PlayerRound(picker_flag, is_running, enemy_turn, what_happened, Enemy, Player, difficulty_scale, moves, move_types, energy_costs, *_user_settings, 2, CurrentDemo, GameTranslation);
         }
 
         // Increase energy
@@ -571,9 +587,9 @@ void DemoPlaybackGame(const std::string& demo_path)
     delete Player;
     delete Enemy;
     delete CurrentDemo;
-    delete user_settings;
+    delete _user_settings;
 
-    fmt::print("\n\n\n{1}Press enter to continue.{0}", RESET, WHITE);
+    fmt::print("\n\n\n{1}{2}{0}", RESET, WHITE, GameTranslation.GetTranslated("general.enter_to_exit"));
     BlockUntilEnter();
 }
 

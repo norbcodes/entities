@@ -10,6 +10,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
 
 #include "cmd_args.hpp"
 #include <nlohmann/json.hpp>
@@ -52,10 +53,11 @@ class GlobalSettingsClass
         // Getters
         bool GetDiscordEnabled() const;
         uint32_t GetSaveVer() const;
+        const std::string& GetLanguageId() const;
         // Setters
         void SetDiscordEnabled(bool o);
         void SetSaveVer(uint32_t o);
-    
+        void SetLanguageId(const std::string& lang);
     private:
         // SETTINGS
 
@@ -64,6 +66,12 @@ class GlobalSettingsClass
          * \brief Boolean value, wheter Discord RPC is enabled.
          */
         bool v_DiscordEnabled;
+
+        /**
+         * \var std::string v_Language
+         * \brief Saved language setting.
+         */
+        std::string v_Language;
 
         /**
          * \var uint32_t _Ver

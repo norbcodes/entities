@@ -10,8 +10,10 @@
 #include <string>
 #include <fmt/format.h>
 
+#include "game_string_formatter.hpp"
 #include "colors.hpp"
 #include "user_settings.hpp"
+#include "version.hpp"
 
 /**
  * \brief Format custom messages defined in Datapacks.
@@ -24,30 +26,20 @@ std::string MsgFormatter(const std::string& str, const UserSettingsClass& user_s
     return fmt::format(
         str,
         fmt::arg("username", user_settings.GetUsername()),
-        fmt::arg("reset", RESET),
-        fmt::arg("bold", BOLD),
-        fmt::arg("faint", FAINT),
-        fmt::arg("italic", ITALIC),
-        fmt::arg("underline", UNDERLINE),
-        fmt::arg("blinking", BLINKING),
-        fmt::arg("red", RED),
-        fmt::arg("blue", BLUE),
-        fmt::arg("orange", ORANGE),
-        fmt::arg("white", WHITE),
-        fmt::arg("hot_pink", HOT_PINK),
-        fmt::arg("gray", GRAY),
-        fmt::arg("dark_gray", DARK_GRAY),
-        fmt::arg("pink", PINK),
-        fmt::arg("gold", GOLD),
-        fmt::arg("green", GREEN),
-        fmt::arg("purple", PURPLE),
-        fmt::arg("dark_green", DARK_GREEN),
-        fmt::arg("lavender", LAVENDER),
-        fmt::arg("yellow", YELLOW),
-        fmt::arg("teal", TEAL),
-        fmt::arg("brown", BROWN),
-        fmt::arg("black", BLACK),
-        fmt::arg("white_bg", WHITE_BACKGROUND)
+        _body
+    );
+}
+
+/**
+ * \brief Format custom messages defined in Datapacks, now without using User Settings.
+ * \param[in] str The string to format.
+ * \return Formatted string.
+ */
+std::string MsgFormatterNoUser(const std::string& str)
+{
+    return fmt::format(
+        str,
+        _body
     );
 }
 

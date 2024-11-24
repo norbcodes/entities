@@ -28,7 +28,7 @@ class GameArgs
         const std::string& UserFolder() const;
         const std::string& DemoFolder() const;
         const std::string& DemoToPlay() const;
-    
+        const std::string& LanguageOverride() const;
     private:
         /**
          * \var bool v_NoDatapacks
@@ -65,6 +65,12 @@ class GameArgs
          * \brief Path to a demo to play!
          */
         std::string v_DemoToPlay;
+
+        /**
+         * \var std::string v_LanguageOverride
+         * \brief Language override for the game.
+         */
+        std::string v_LanguageOverride;
 };
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

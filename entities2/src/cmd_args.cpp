@@ -70,9 +70,21 @@ GameArgs::GameArgs(int argc, char* argv[]) : v_NoDatapacks(false)
         .default_value("")
         .store_into(this->v_DemoToPlay);
     
+    entities2.add_argument("-lo", "--LanguageOverride")
+        .help("Ignore saved language in global.json, and load this language instead.\n(Note: use language id, like \"EN-US\")")
+        .default_value("")
+        .store_into(this->v_LanguageOverride);
+    
     // Parse :)
     entities2.parse_args(argc, argv);
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 /**
  * \brief Getter for v_NoDatapacks variable.
@@ -126,6 +138,15 @@ const std::string& GameArgs::DemoFolder() const
 const std::string& GameArgs::DemoToPlay() const
 {
     return (this->v_DemoToPlay);
+}
+
+/**
+ * \brief Getter for v_LanguageOverride variable.
+ * \return Language override.
+ */
+const std::string& GameArgs::LanguageOverride() const
+{
+    return (this->v_LanguageOverride);
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

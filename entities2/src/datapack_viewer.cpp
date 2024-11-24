@@ -14,6 +14,8 @@
 #include "utils.hpp"
 #include "keyboard.hpp"
 #include "datapacks.hpp"
+#include "translation_engine.hpp"
+#include "game_string_formatter.hpp"
 
 /** 
  * \def MAX_RENDER_COUNT
@@ -21,16 +23,17 @@
  */
 #define MAX_RENDER_COUNT 8
 
-static void DatapackView(const Datapack& datapack)
+static void DatapackView(const Datapack& datapack, const TranslationEngine& GameTranslation)
 {
     ClearScreen();
     Div();
 
-    fmt::print("{1}< {2}DATAPACK VIEW{0}\n\n", RESET, WHITE, PINK);
-    fmt::print("{1}Metadata:{0}\n", RESET, ORANGE);
-    fmt::print("{1}   Name:        {2}{0}\n", RESET, WHITE, datapack.GetName());
-    fmt::print("{1}   Author:      {2}{0}\n", RESET, WHITE, datapack.GetAuthor());
-    fmt::print("{1}   Description: {2}{0}\n", RESET, WHITE, datapack.GetDesc());
+    fmt::print("{1}< {2}{3}{0}\n\n", RESET, WHITE, PINK, GameTranslation.GetTranslated("menu.datapacks.title2"));
+    fmt::print("{1}{2}{0}\n", RESET, ORANGE, GameTranslation.GetTranslated("menu.datapacks.subtitle"));
+    fmt::print("{1}   {3: <16} {2}{0}\n", RESET, WHITE, datapack.GetName(), GameTranslation.GetTranslated("menu.datapacks.name"));
+    fmt::print("{1}   {3: <16} {2}{0}\n", RESET, WHITE, datapack.GetAuthor(), GameTranslation.GetTranslated("menu.datapacks.author"));
+    fmt::print("{1}   {3: <16} {2}{0}\n", RESET, WHITE, datapack.GetDatapackId(), GameTranslation.GetTranslated("menu.datapacks.id"));
+    fmt::print("{1}   {3: <16} {2}{0}\n", RESET, WHITE, datapack.GetDesc(), GameTranslation.GetTranslated("menu.datapacks.desc"));
 
     EndDiv();
 
@@ -40,8 +43,9 @@ static void DatapackView(const Datapack& datapack)
 /** 
  * \brief Datapack Viewer!
  * \param[in] datapacks An instance of DatapackEngine class, in const reference mode.
+ * \param[in] GameTranslation Game Translation System, for localized strings.
  */
-void DatapackViewer(const DatapackEngine& datapacks)
+void DatapackViewer(const DatapackEngine& datapacks, const TranslationEngine& GameTranslation)
 {
     ClearScreen();
     int16_t selection = 0;
@@ -54,8 +58,9 @@ void DatapackViewer(const DatapackEngine& datapacks)
         ResetCursor();
         Div();
         // Print stuff
-        fmt::print("{1}<{0} {2}{3}DATAPACKS{0}\n\n", RESET, WHITE, PINK, BOLD);
-        fmt::print("{1}Currently loaded {2}{3}{0}{1} datapacks.{0}\n{1}Use up,down arrows to scroll.{0}\n\n", RESET, WHITE, PURPLE, datapacks.DatapackCount());
+        fmt::print("{1}<{0} {2}{3}{4}{0}\n\n", RESET, WHITE, PINK, BOLD, GameTranslation.GetTranslated("menu.datapacks.title"));
+        fmt::print("{0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.datapacks.loaded"), fmt::arg("datapack_count", datapacks.DatapackCount())));
+        fmt::print("{1}{2}{0}\n\n", RESET, WHITE, GameTranslation.GetTranslated("menu.datapacks.help1"));
 
         // Now comes the fun part!
         fmt::print("{1}:: :: :: :: :: :: :: :: :: :: :: :: :: ::{0}\n", RESET, DARK_GRAY);
@@ -65,24 +70,24 @@ void DatapackViewer(const DatapackEngine& datapacks)
             const Datapack& obj = datapacks.GetConstDatapackRef(i + scroll);
             if (!obj.LoadSuccessful())
             {
-                fmt::print("{1}   Failed to load: \"{2}\"{0}\n", RESET, RED, obj.GetPath());
+                fmt::print("{1}   {3} \"{2}\"{0}\n", RESET, RED, obj.GetPath(), GameTranslation.GetTranslated(obj.GetFailReason()));
                 continue;
             }
             if (i == static_cast<uint32_t>(selection))
             {
-                fmt::print("{1}{4}   {2: <10} by {3: <8}{0}\n", RESET, WHITE_BACKGROUND, obj.GetName(), obj.GetAuthor(), BLACK);
+                fmt::print("{1}{4}   {2: <10} {5} {3: <8}{0}\n", RESET, WHITE_BACKGROUND, obj.GetName(), obj.GetAuthor(), BLACK, GameTranslation.GetTranslated("general.by"));
             }
             else
             {
-                fmt::print("{1}   {2: <10} {4}by{0}{1}{5} {3: <8}{0}\n", RESET, WHITE, obj.GetName(), obj.GetAuthor(), DARK_GRAY, BOLD);
+                fmt::print("{1}   {2: <10} {4}{6}{0}{1}{5} {3: <8}{0}\n", RESET, WHITE, obj.GetName(), obj.GetAuthor(), DARK_GRAY, BOLD, GameTranslation.GetTranslated("general.by"));
             }
         }
         if (datapacks.DatapackCount() == 0)
         {
-            fmt::print("{1}   No datapacks!{0}\n", RESET, RED);
+            fmt::print("{1}   {2}{0}\n", RESET, RED, GameTranslation.GetTranslated("menu.datapacks.empty"));
         }
         fmt::print("{1}:: :: :: :: :: :: :: :: :: :: :: :: :: ::{0}\n\n", RESET, DARK_GRAY);
-        fmt::print("{1}Press left arrow to go back. Press right arrow to view a datapacks' info.{0}\n", RESET, WHITE);
+        fmt::print("{1}{2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.datapacks.info"));
         EndDiv();
 
         uint32_t option = GetArrowKey();
@@ -130,7 +135,7 @@ void DatapackViewer(const DatapackEngine& datapacks)
         {
             if (datapacks.GetConstDatapackRef(selection + scroll).LoadSuccessful())
             {
-                DatapackView(datapacks.GetConstDatapackRef(selection + scroll));
+                DatapackView(datapacks.GetConstDatapackRef(selection + scroll), GameTranslation);
             }
             ClearScreen();
         }

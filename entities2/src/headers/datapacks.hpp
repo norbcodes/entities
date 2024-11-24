@@ -16,6 +16,7 @@
 
 #include "cmd_args.hpp"
 #include "user_settings.hpp"
+#include "translation_engine.hpp"
 
 /**
  * \class Datapack
@@ -31,12 +32,14 @@ class Datapack
         // Getters
         const std::string& GetName() const;
         const std::string& GetAuthor() const;
+        const std::string& GetDatapackId() const;
         const std::string& GetDesc() const;
         const pugi::xml_document& GetXml() const;
         const std::string& GetPath() const;
         bool LoadSuccessful() const;
+        const std::string& GetFailReason() const;
         // :3
-        void Load(const UserSettingsClass& user_settings);
+        void Load(const UserSettingsClass& user_settings, TranslationEngine& GameTranslation);
     private:
         void _constructor(const char* path);  // the actual
 
@@ -51,6 +54,12 @@ class Datapack
          * \brief Author of the datapack.
          */
         std::string Author;
+
+        /**
+         * \var std::string DatapackId
+         * \brief Datapack Identifier.
+         */
+        std::string DatapackId;
 
         /**
          * \var std::string Description
@@ -75,6 +84,12 @@ class Datapack
          * \brief 'true' if failed to load said datapack.
          */
         bool Failbit;
+
+        /**
+         * \var std::string FailReason
+         * \brief If Failbit is true, this holds the reason why the Datapack errored.
+         */
+        std::string FailReason;
 };
 
 /**
@@ -88,7 +103,7 @@ class DatapackEngine
         // Constructor
         DatapackEngine(const GameArgs& game_args);
         // Load ALL datapacks
-        void LoadAll(const GameArgs& game_args, const UserSettingsClass& user_settings);
+        void LoadAll(const GameArgs& game_args, const UserSettingsClass& user_settings, TranslationEngine& GameTranslation);
         // Getters
         uint32_t DatapackCount() const;
         const Datapack& GetConstDatapackRef(uint32_t i) const;

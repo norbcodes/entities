@@ -37,6 +37,7 @@ GlobalSettingsClass::GlobalSettingsClass(const GameArgs& game_args)
 
         // Save version
         this->_Ver = ENTITIES2_GLOBAL_SAVE_VER;
+        this->v_Language = "EN-US";
 
         // Save
         this->Save(game_args);
@@ -49,6 +50,7 @@ GlobalSettingsClass::GlobalSettingsClass(const GameArgs& game_args)
 
         // LOAD EVERYTHING!
         this->v_DiscordEnabled = JsonData["Settings"]["DiscordEnabled"];
+        this->v_Language = JsonData["Settings"]["Language"];
         this->_Ver = JsonData["Meta"]["GSVer"];
 
         // :3
@@ -67,7 +69,9 @@ void GlobalSettingsClass::Save(const GameArgs& game_args) const
     std::ofstream Json(game_args.GlobalSettings());
 
     // Stick it in
-    JsonData["Settings"] = {{"DiscordEnabled", this->v_DiscordEnabled}};
+    JsonData["Settings"] = {};
+    JsonData["Settings"]["DiscordEnabled"] = this->v_DiscordEnabled;
+    JsonData["Settings"]["Language"] = this->v_Language;
     JsonData["Meta"] = {{"GSVer", this->_Ver}};
 
     // Write
@@ -103,6 +107,15 @@ uint32_t GlobalSettingsClass::GetSaveVer() const
     return (this->_Ver);
 }
 
+/**
+ * \brief Getter for v_Language.
+ * \return The language setting.
+ */
+const std::string& GlobalSettingsClass::GetLanguageId() const
+{
+    return (this->v_Language);
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,6 +140,15 @@ void GlobalSettingsClass::SetDiscordEnabled(bool o)
 void GlobalSettingsClass::SetSaveVer(uint32_t o)
 {
     this->_Ver = o;
+}
+
+/**
+ * \brief Setter for v_Language.
+ * \param[in] lang The language id to set the language setting to.
+ */
+void GlobalSettingsClass::SetLanguageId(const std::string& lang)
+{
+    this->v_Language = lang;
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

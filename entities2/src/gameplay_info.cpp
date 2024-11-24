@@ -16,30 +16,33 @@
 #include "colors.hpp"
 #include "utils.hpp"
 #include "keyboard.hpp"
+#include "translation_engine.hpp"
+#include "game_string_formatter.hpp"
 
-static void TipsNTricks()
+static void TipsNTricks(const TranslationEngine& GameTranslation)
 {
     ClearScreen();
     Div();
-    fmt::print("{3}<{0} {1}{2}TIPS 'N' TRICKS{0}\n\n", RESET, GOLD, BOLD, WHITE);
-    fmt::print("{1}- You can use skip a round by choosing neither 0, 1, 2, 3 or 4.{0}\n", RESET, WHITE);
-    fmt::print("{1}- If need be, you can skip a round to recharge your energy.{0}\n", RESET, WHITE);
-    fmt::print("{1}- The AI will try to attack if it has more than 60 HP.{0}\n", RESET, WHITE);
+    fmt::print("{3}<{0} {1}{2}{4}{0}\n\n", RESET, GOLD, BOLD, WHITE, GameTranslation.GetTranslated("menu.ginfo.tiptitle"));
+    fmt::print("{1}- {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.ginfo.tip1"));
+    fmt::print("{1}- {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.ginfo.tip2"));
+    fmt::print("{1}- {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.ginfo.tip3"));
     EndDiv();
     BlockUntilEnter();
 }
 
-static void Statuses()
+static void Statuses(const TranslationEngine& GameTranslation)
 {
     ClearScreen();
     Div();
-    fmt::print("{5}<{0} {1}{2}STATUSES{0} {4}{3}and what they do...{0}\n\n", RESET, GOLD, BOLD, ITALIC, BLUE, WHITE);
-    fmt::print("{2}{3}AutoHeal{0}\n   {4}At the start of a {5}new round{0}, the entity that{0}\n   {4}has {5}their turn will recieve {6}{3}+{1}HP of health.{0}\n", RESET, AUTO_HEAL_AMOUNT, GREEN, BOLD, WHITE, UNDERLINE, PURPLE);
-    fmt::print("{2}{1}IncreasedCrit{0}\n   {3}When an entity has this status, it has {4}about {5}~30%{0}\n   {3}of dealing a {4}critical attack{0}{3}, which deals{0}\n   {3}significantly {4}more damage.{0}\n", RESET, BOLD, RED, WHITE, UNDERLINE, PURPLE);
-    fmt::print("{2}{1}Invis{0}\n   {3}When an entity has this status, there's{0}\n   {3}a {5}{4}~20%{0} {3}chance of an attacker {5}missing{0}\n   {3}{5}the attack when attacking this entity.{0}\n", RESET, BOLD, HOT_PINK, WHITE, PURPLE, UNDERLINE);
-    fmt::print("{3}{2}Poison{0}\n   {4}At the start of a {5}new round{0}, the entity that{0}\n   {4}has {5}their turn will recieve {6}{3}-{1}HP of damage.{0}\n", RESET, POISON_AMOUNT, DARK_GREEN, BOLD, WHITE, UNDERLINE, PURPLE);
-    fmt::print("{2}{1}Thorns{0}\n   {3}When an entity with this status is{0}\n   {3}attacked, {4}50% of the damage{0}{3} goes back to the {4}attacker.{0}\n", RESET, BOLD, TEAL, WHITE, UNDERLINE);
-    fmt::print("{2}{1}Weakness{0}\n   {3}A weakened enemy has their HP and AR {4}{5}capped at 60 only.{0}\n   {3}Their energy replenishes {4}{5}75% less per round{0}{3}, too.{0}\n   {3}They also {4}{5}attack less{0}{3}. This status only lasts {6} rounds.{0}\n", RESET, BOLD, BROWN, WHITE, UNDERLINE, PURPLE, WEAKNESS_TIME_LEFT);
+    fmt::print("{5}<{0} {1}{2}{6}{0} {4}{3}{7}{0}\n\n", RESET, GOLD, BOLD, ITALIC, BLUE, WHITE, GameTranslation.GetTranslated("menu.ginfo.statustitle1"), GameTranslation.GetTranslated("menu.ginfo.statustitle2"));
+    fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, GREEN, BOLD, GameTranslation.GetTranslated("menu.ginfo.autoheal"), CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.autoheal.info"), fmt::arg("autoheal_amount", AUTO_HEAL_AMOUNT)));
+    fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, RED, BOLD, GameTranslation.GetTranslated("menu.ginfo.increasedcrit"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.icrit.info")));
+    fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, HOT_PINK, BOLD, GameTranslation.GetTranslated("menu.ginfo.invis"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.invis.info")));
+    fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, DARK_GREEN, BOLD, GameTranslation.GetTranslated("menu.ginfo.poison"), CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.poison.info"), fmt::arg("poison_amount", POISON_AMOUNT)));
+    fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, TEAL, BOLD, GameTranslation.GetTranslated("menu.ginfo.thorns"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.thorns.info")));
+    fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, BROWN, BOLD, GameTranslation.GetTranslated("menu.ginfo.weak"), CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.weak.info"), fmt::arg("weakness_time", WEAKNESS_TIME_LEFT)));
+    
     EndDiv();
     BlockUntilEnter();
 }
@@ -48,29 +51,30 @@ static void Statuses()
  * \brief The gameplay info function.
  * \details An interactive menu that you can navigate to learn more about this game<br>
  *          how it plays, neat tips and trick, and more!
+ * \param[in] GameTranslation Game translation system, for localized strings.
  */
-void GameplayInfoSec()
+void GameplayInfoSec(const TranslationEngine& GameTranslation)
 {
     while (true)
     {
         ClearScreen();
         Div();
-        fmt::print("{2}<{0} {1}Gameplay Info!{0}\n\n", RESET, GOLD, WHITE);
+        fmt::print("{2}<{0} {1}{3}{0}\n\n", RESET, GOLD, WHITE, GameTranslation.GetTranslated("menu.ginfo.title"));
         // Print options
-        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Tips and Tricks{0}\n", RESET, BOLD, GOLD, DARK_GRAY, PINK);
-        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Statuses and what they do{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
-        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Exit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, PINK, GameTranslation.GetTranslated("menu.ginfo.tips"));
+        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}{5}{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER, GameTranslation.GetTranslated("menu.ginfo.status"));
+        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED, GameTranslation.GetTranslated("general.exit"));
         EndDiv();
         // Get optionnn
         uint32_t option = WaitForNumkey();
         // Yay
         if (option == 1)
         {
-            TipsNTricks();
+            TipsNTricks(GameTranslation);
         }
         else if (option == 2)
         {
-            Statuses();
+            Statuses(GameTranslation);
         }
         else if (option == 3)
         {

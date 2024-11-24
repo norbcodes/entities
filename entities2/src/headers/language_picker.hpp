@@ -2,9 +2,11 @@
 
 #pragma once
 
-#include "global_settings.hpp"
-#include "user_settings.hpp"
+#include <string>
 
-void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_settings, UserSettingsClass& user_settings);
+#include "translation_engine.hpp"
+#include "global_settings.hpp"
+
+const std::string PickLanguage(const TranslationEngine& GameTranslation, GlobalSettingsClass& GlobalSettings);
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

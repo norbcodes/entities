@@ -146,7 +146,7 @@ void PrintEntityStats(const Entity& ent)
     // Print HP and AR and S
     fmt::print("{3}{4}HP: {0}{5}{1:>3} {6}{4}AR: {0}{5}{2:>3}{0} {7}{4}S: {0}", RESET, ent.GetHealth(), ent.GetArmor(), GREEN, BOLD, WHITE, PINK, GOLD);
     // Iterate through the statuses and print them
-    for (int i = 0; i != ent.StatusCount(); i++)
+    for (uint8_t i = 0; i != ent.StatusCount(); i++)
     {
         Status _s = ent.GetStatusAt(i);
         if (_s.GetType() == AUTO_HEAL)

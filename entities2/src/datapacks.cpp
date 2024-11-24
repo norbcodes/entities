@@ -42,9 +42,24 @@ void Datapack::_constructor(const char* path)
     
     // Read
     // Check if Datapack and Meta and Data
-    if (!this->Xml.child("Datapack") || !this->Xml.child("Datapack").child("Meta") || !this->Xml.child("Datapack").child("Data"))
+    if (!this->Xml.child("Datapack"))
     {
         this->Failbit = true;
+        this->FailReason = "menu.datapacks.error1";
+        return;
+    }
+
+    if (!this->Xml.child("Datapack").child("Meta"))
+    {
+        this->Failbit = true;
+        this->FailReason = "menu.datapacks.error2";
+        return;
+    }
+
+    if (!this->Xml.child("Datapack").child("Data"))
+    {
+        this->Failbit = true;
+        this->FailReason = "menu.datapacks.error3";
         return;
     }
 
@@ -56,6 +71,7 @@ void Datapack::_constructor(const char* path)
     else
     {
         this->Failbit = true;
+        this->FailReason = "menu.datapacks.error4";
         return;
     }
     
@@ -67,6 +83,19 @@ void Datapack::_constructor(const char* path)
     else
     {
         this->Failbit = true;
+        this->FailReason = "menu.datapacks.error5";
+        return;
+    }
+
+    // Check if datapack id
+    if (this->Xml.child("Datapack").child("Meta").child("DatapackId"))
+    {
+        this->DatapackId = this->Xml.child("Datapack").child("Meta").child("DatapackId").text().as_string();
+    }
+    else
+    {
+        this->Failbit = true;
+        this->FailReason = "menu.datapacks.error6";
         return;
     }
     
@@ -91,6 +120,12 @@ Datapack::Datapack(const std::string& path) : Path(path), Failbit(false)
     this->_constructor(path.c_str());
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
  * \brief Get Datapack Name.
  * \return The name.
@@ -107,6 +142,15 @@ const std::string& Datapack::GetName() const
 const std::string& Datapack::GetAuthor() const
 {
     return (this->Author);
+}
+
+/**
+ * \brief Get Datapack Identifier.
+ * \return The ID.
+ */
+const std::string& Datapack::GetDatapackId() const
+{
+    return (this->DatapackId);
 }
 
 /**
@@ -146,116 +190,190 @@ bool Datapack::LoadSuccessful() const
 }
 
 /**
+ * \brief Get why the Datapack failed.
+ * \return String.
+ */
+const std::string& Datapack::GetFailReason() const
+{
+    return (this->FailReason);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
  * \brief Get Datapack contents and load self.
  * \param[in] user_settings User settings.
+ * \param[in] GameTranslation Game Translation System.
  */
-void Datapack::Load(const UserSettingsClass& user_settings)
+void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& GameTranslation)
 {
     // YAAAY now we load :3
 
-    for (pugi::xml_node Data : this->Xml.child("Datapack").child("Data").children())
+    for (pugi::xml_node Node : this->Xml.child("Datapack").child("Data").children())
     {
         // ExitMsg
-        if (std::string(Data.name()) == std::string("ExitMsg"))
+        if (std::string(Node.name()) == std::string("ExitMsg"))
         {
             // Oki
+            // Check if not empty
+            if (Node.text().as_string() == std::string(""))
+            {
+                this->Failbit = true;
+                this->FailReason = "menu.datapacks.error10";
+                return;
+            }
             // Try to get the "formatted" attribute:
-            if (Data.attribute("formatted").as_bool())
+            if (Node.attribute("formatted").as_bool())
             {
                 // Formatting ON, format string and put into ExitMsg array
-                AddExitMsg(MsgFormatter(Data.text().as_string(), user_settings));
+                AddExitMsg(MsgFormatter(Node.text().as_string(), user_settings));
             }
             else
             {
                 // Same thing, but with no formatting
-                AddExitMsg(Data.text().as_string());
+                AddExitMsg(Node.text().as_string());
             }
         }
         // Greet
-        else if (std::string(Data.name()) == std::string("Greet"))
+        else if (std::string(Node.name()) == std::string("Greet"))
         {
             // Okay
             // Get the time for the greeting
+            // Check if not empty
+            if (Node.text().as_string() == std::string(""))
+            {
+                this->Failbit = true;
+                this->FailReason = "menu.datapacks.error9";
+                return;
+            }
+
             ///////////////////////////////////////////////////////////////////////////////////////////
             // Morning
             ///////////////////////////////////////////////////////////////////////////////////////////
-            if (Data.attribute("time").as_string() == std::string("Morning"))
+            if (Node.attribute("time").as_string() == std::string("Morning"))
             {
                 // Morning time, check formatting
-                if (Data.attribute("formatted").as_bool())
+                if (Node.attribute("formatted").as_bool())
                 {
                     // Formatting ON, format string and put into array
-                    AddGreetMsg(MsgFormatter(Data.text().as_string(), user_settings), G_MORNING);
+                    AddGreetMsg(MsgFormatter(Node.text().as_string(), user_settings), G_MORNING);
                 }
                 else
                 {
-                    AddGreetMsg(Data.text().as_string(), G_MORNING);
+                    AddGreetMsg(Node.text().as_string(), G_MORNING);
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
             // Afternoon
             ///////////////////////////////////////////////////////////////////////////////////////////
-            else if (Data.attribute("time").as_string() == std::string("Afternoon"))
+            else if (Node.attribute("time").as_string() == std::string("Afternoon"))
             {
                 // Afternoon time, check formatting
-                if (Data.attribute("formatted").as_bool())
+                if (Node.attribute("formatted").as_bool())
                 {
                     // Formatting ON, format string and put into array
-                    AddGreetMsg(MsgFormatter(Data.text().as_string(), user_settings), G_AFTERNOON);
+                    AddGreetMsg(MsgFormatter(Node.text().as_string(), user_settings), G_AFTERNOON);
                 }
                 else
                 {
-                    AddGreetMsg(Data.text().as_string(), G_AFTERNOON);
+                    AddGreetMsg(Node.text().as_string(), G_AFTERNOON);
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
             // Evening
             ///////////////////////////////////////////////////////////////////////////////////////////
-            else if (Data.attribute("time").as_string() == std::string("Evening"))
+            else if (Node.attribute("time").as_string() == std::string("Evening"))
             {
                 // Evening time, check formatting
-                if (Data.attribute("formatted").as_bool())
+                if (Node.attribute("formatted").as_bool())
                 {
                     // Formatting ON, format string and put into array
-                    AddGreetMsg(MsgFormatter(Data.text().as_string(), user_settings), G_EVENING);
+                    AddGreetMsg(MsgFormatter(Node.text().as_string(), user_settings), G_EVENING);
                 }
                 else
                 {
-                    AddGreetMsg(Data.text().as_string(), G_EVENING);
+                    AddGreetMsg(Node.text().as_string(), G_EVENING);
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
             // Early Night
             ///////////////////////////////////////////////////////////////////////////////////////////
-            else if (Data.attribute("time").as_string() == std::string("EarlyNight"))
+            else if (Node.attribute("time").as_string() == std::string("EarlyNight"))
             {
                 // Early Night time, check formatting
-                if (Data.attribute("formatted").as_bool())
+                if (Node.attribute("formatted").as_bool())
                 {
                     // Formatting ON, format string and put into array
-                    AddGreetMsg(MsgFormatter(Data.text().as_string(), user_settings), G_ENIGHT);
+                    AddGreetMsg(MsgFormatter(Node.text().as_string(), user_settings), G_ENIGHT);
                 }
                 else
                 {
-                    AddGreetMsg(Data.text().as_string(), G_ENIGHT);
+                    AddGreetMsg(Node.text().as_string(), G_ENIGHT);
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
             // 3 AM time
             ///////////////////////////////////////////////////////////////////////////////////////////
-            else if (Data.attribute("time").as_string() == std::string("3AM"))
+            else if (Node.attribute("time").as_string() == std::string("3AM"))
             {
                 // 3 AM time, check formatting
-                if (Data.attribute("formatted").as_bool())
+                if (Node.attribute("formatted").as_bool())
                 {
                     // Formatting ON, format string and put into array
-                    AddGreetMsg(MsgFormatter(Data.text().as_string(), user_settings), G_3AM);
+                    AddGreetMsg(MsgFormatter(Node.text().as_string(), user_settings), G_3AM);
                 }
                 else
                 {
-                    AddGreetMsg(Data.text().as_string(), G_3AM);
+                    AddGreetMsg(Node.text().as_string(), G_3AM);
                 }
             }
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            // Else? Error
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            else
+            {
+                this->Failbit = true;
+                this->FailReason = "menu.datapacks.error8";
+                return;
+            }
+        }
+        // Translation
+        else if (std::string(Node.name()) == std::string("Translation"))
+        {
+            // Check if lang attribute exists
+            if (Node.attribute("lang").as_string() == std::string(""))
+            {
+                this->Failbit = true;
+                this->FailReason = "menu.datapacks.error7";
+                return;
+            }
+
+            // Check if id attribute exists
+            if (Node.attribute("id").as_string() == std::string(""))
+            {
+                this->Failbit = true;
+                this->FailReason = "menu.datapacks.error7";
+                return;
+            }
+
+            // Check if node is not empty
+            if (Node.text().as_string() == std::string(""))
+            {
+                this->Failbit = true;
+                this->FailReason = "menu.datapacks.error7";
+                return;
+            }
+
+            // Now add
+            GameTranslation.AddTranslation(
+                Node.attribute("lang").as_string(), 
+                Node.attribute("id").as_string(), 
+                Node.text().as_string()
+            );
         }
     }
 }
@@ -324,8 +442,9 @@ DatapackEngine::DatapackEngine(const GameArgs& game_args)
  * \brief Load all Datapacks :)
  * \param[in] game_args Game CMD arguments.
  * \param[in] user_settings User game settings.
+ * \param[in] GameTranslation Game Translation System.
  */
-void DatapackEngine::LoadAll(const GameArgs& game_args, const UserSettingsClass& user_settings)
+void DatapackEngine::LoadAll(const GameArgs& game_args, const UserSettingsClass& user_settings, TranslationEngine& GameTranslation)
 {
     // Check if we can load Datapacks
     if (game_args.NoDatapacks())
@@ -335,7 +454,7 @@ void DatapackEngine::LoadAll(const GameArgs& game_args, const UserSettingsClass&
     // Load
     for (uint8_t i = 0; i != this->datapacks.size(); i++)
     {
-        this->datapacks[i].Load(user_settings);
+        this->datapacks[i].Load(user_settings, GameTranslation);
     }
 }
 

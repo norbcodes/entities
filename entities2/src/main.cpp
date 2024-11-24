@@ -38,10 +38,12 @@ The long awaited... entities2!!!!
 #include "cmd_args.hpp"
 #include "global_settings.hpp"
 #include "user_settings.hpp"
-#include "settings_view.hpp"
+#include "settings_viewer.hpp"
 #include "rng.hpp"
 #include "greetings.hpp"
 #include "version.hpp"
+#include "translation_engine.hpp"
+#include "game_string_formatter.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
@@ -59,26 +61,44 @@ int main(int argc, char* argv[])
         SetConsoleMode(hOut, dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING);
     #endif
 
+    // LOAD ESSENTIAL SYSTEMS.
     // Arg parsing
     GameArgs* GameArguments = new GameArgs(argc, argv);
+    // Translations
+    TranslationEngine* GameTranslation = new TranslationEngine;
+    GameTranslation->LoadEnglish();
     // Global settings
     GlobalSettingsClass* GlobalSettings = new GlobalSettingsClass(*GameArguments);
+    // Now set language, hehe
+    if (GameArguments->LanguageOverride() != std::string(""))
+    {
+        if (GameTranslation->LangIdExists(GameArguments->LanguageOverride()))
+        {
+            GameTranslation->SetLang(GameArguments->LanguageOverride());
+        }
+        else
+        {
+            GameTranslation->SetLang("EN-US");
+        }
+    }
+    else
+    {
+        GameTranslation->SetLang(GlobalSettings->GetLanguageId());
+    }
     // User settings
     UserSettingsClass* UserSettings = new UserSettingsClass(*GameArguments);
     // If playing back demo, don't do ANYTHING, just play
     if (GameArguments->DemoToPlay() != "")
     {
-        DemoPlaybackGame(GameArguments->DemoToPlay());
+        DemoPlaybackGame(GameArguments->DemoToPlay(), *GameTranslation);
         return 0;
     }
     // B)
     DatapackEngine* Datapacks = new DatapackEngine(*GameArguments);
-    Datapacks->LoadAll(*GameArguments, *UserSettings);
-
-    // Add this as well.
-    AddExitMsg(fmt::format("{1}Did you know? Each of these message has a {3}{2:.2f}%{1} chance to appear.{0}", RESET, WHITE, (1.0 / (double)GetExitMsgCount()) * 100, PURPLE));
-    // And this
-    InitializeGreets(*UserSettings);
+    if (!GameArguments->NoDatapacks())
+    {
+        Datapacks->LoadAll(*GameArguments, *UserSettings, *GameTranslation);
+    }
 
     if (GlobalSettings->GetDiscordEnabled())
     {
@@ -88,8 +108,7 @@ int main(int argc, char* argv[])
     #ifndef __ENTITIES2_DISABLE_UNSTABLE_WARNING__
         #if (ENTITIES2_VER_IS_DEV == 1)
             Div();
-            fmt::print("{1}You are using a game build that is {2}still under Development!{0}\n", RESET, RED, BOLD);
-            fmt::print("{1}Proceed with caution. {2}Do you still wanna play? [y,n]{0}\n", RESET, WHITE, RED);
+            fmt::print("{0}\n", MsgFormatter(GameTranslation->GetTranslated("menu.unstable"), *UserSettings));
             EndDiv();
 
             if (!BinaryChoice())
@@ -151,14 +170,26 @@ int main(int argc, char* argv[])
         fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
         fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
 
-        fmt::print("{3}{2: <8}              {1}A game by norbcodes.{0}\n\n", RESET, DARK_GRAY, ENTITIES2_VER, GREEN);
-        fmt::print("{0}\n\n", GetGreeting());
-        fmt::print("{1}Pick an option:{0}\n\n", RESET, WHITE);
-        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
-        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Gameplay Info{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
-        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Datapacks{0}\n", RESET, BOLD, GOLD, DARK_GRAY, PINK);
-        fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}Settings{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, BROWN);
-        fmt::print("{3}[{0}{2}{1}5{0}{3}]{0} {4}Quit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+        fmt::print("{2}{3: <8}              {1}{4}{0}", RESET, DARK_GRAY, GREEN, ENTITIES2_VER, GameTranslation->GetTranslated("menu.main.subtitle"));
+        fmt::print("\n\n");
+        ////////////////////////////////////////
+        // Greet
+        bool Was_Translated_Greet;
+        std::string greet = GetGreeting(*GameTranslation, Was_Translated_Greet);
+        if (Was_Translated_Greet)
+        {
+            greet = MsgFormatter(greet, *UserSettings);
+        }
+        std::cout << greet;
+        ////////////////////////////////////////
+        fmt::print("\n\n");
+        fmt::print("{1}{2}{0}", RESET, WHITE, MsgFormatter(GameTranslation->GetTranslated("menu.main.optionpick"), *UserSettings));
+        fmt::print("\n\n");
+        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN, GameTranslation->GetTranslated("menu.main.play"));
+        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER, GameTranslation->GetTranslated("menu.main.ginfo"));
+        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, PINK, GameTranslation->GetTranslated("menu.main.datapacks"));
+        fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}{5}{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, BROWN, GameTranslation->GetTranslated("menu.main.settings"));
+        fmt::print("{3}[{0}{2}{1}5{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED, GameTranslation->GetTranslated("general.quit"));
         EndDiv();
 
         uint32_t option = WaitForNumkey();
@@ -167,8 +198,14 @@ int main(int argc, char* argv[])
         {
             ClearScreen();
             Div();
-            fmt::print("{1}Confirm exit? [y,n]{0}\n\n", RESET, RED);
-            std::cout << GetExitMsg() << std::endl;
+            fmt::print("{1}{2} [y,n]{0}\n\n", RESET, RED, GameTranslation->GetTranslated("menu.exit.confirm"));
+            bool Was_Translated_Exit;
+            std::string exit_msg = GetExitMsg(*GameTranslation, Was_Translated_Exit);
+            if (Was_Translated_Exit)
+            {
+                exit_msg = CustomMsgFormatter(exit_msg, *UserSettings, fmt::arg("perc", (1.0 / (double)GetExitMsgCount()) * 100));
+            }
+            std::cout << exit_msg << std::endl;
             EndDiv();
 
             if (BinaryChoice())
@@ -187,21 +224,21 @@ int main(int argc, char* argv[])
         else if (option == 1)
         {
             // do
-            DifficultyPicker(*GlobalSettings, *UserSettings, *GameArguments);
+            DifficultyPicker(*GlobalSettings, *UserSettings, *GameArguments, *GameTranslation);
         }
         // INFO SECTION
         else if (option == 2)
         {
-            GameplayInfoSec();
+            GameplayInfoSec(*GameTranslation);
         }
         // DATAPACK VIEW
         else if (option == 3)
         {
-            DatapackViewer(*Datapacks);
+            DatapackViewer(*Datapacks, *GameTranslation);
         }
         else if (option == 4)
         {
-            SettingsView(*GameArguments, *GlobalSettings, *UserSettings);
+            SettingsView(*GameArguments, *GlobalSettings, *UserSettings, *GameTranslation);
         }
         else
         {

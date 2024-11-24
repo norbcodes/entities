@@ -19,6 +19,7 @@
 #include "colors.hpp"
 #include "user_settings.hpp"
 #include "rng.hpp"
+#include "translation_engine.hpp"
 
 /** 
  * \def MORNING_START
@@ -81,65 +82,59 @@ namespace E2_Greets
      * \var std::vector<std::string> MorningGreets
      * \brief A dynamic array of morning greetings.
      */
-    std::vector<std::string> MorningGreets;
+    std::vector<std::string> MorningGreets = {
+        "greet.morning.1",
+        "greet.morning.2",
+        "greet.morning.3"
+    };
 
     /**
      * \var std::vector<std::string> AfternoonGreets
      * \brief A dynamic array of afternoon greetings.
      */
-    std::vector<std::string> AfternoonGreets;
+    std::vector<std::string> AfternoonGreets = {
+        "greet.afternoon.1",
+        "greet.afternoon.2",
+        "greet.afternoon.3"
+    };
 
     /**
      * \var std::vector<std::string> EveningGreets
      * \brief A dynamic array of evening greetings.
      */
-    std::vector<std::string> EveningGreets;
+    std::vector<std::string> EveningGreets = {
+        "greet.evening.1",
+        "greet.evening.2",
+        "greet.evening.3"
+    };
 
     /**
      * \var std::vector<std::string> EarlyNightGreets
      * \brief A dynamic array of early night greetings.
      */
-    std::vector<std::string> EarlyNightGreets;
+    std::vector<std::string> EarlyNightGreets = {
+        "greet.earlynight.1",
+        "greet.earlynight.2"
+    };
 
     /**
      * \var std::vector<std::string> ThreeAmGreets
      * \brief A dynamic array of 3 am greetings.
      */
-    std::vector<std::string> ThreeAmGreets;
+    std::vector<std::string> ThreeAmGreets = {
+        "greet.threeam.1",
+        "greet.threeam.2",
+        "greet.threeam.3"
+    };
 };
 
 /**
- * \brief Initializer for the greetings system.
- * \param[in] user_settings User game settings.
- */
-void InitializeGreets(const UserSettingsClass& user_settings)
-{
-    // Morning
-    E2_Greets::MorningGreets.emplace_back(fmt::format("{1}Good morning, {2}. Ready to kill?{0}", RESET, WHITE, user_settings.GetUsername()));
-    E2_Greets::MorningGreets.emplace_back(fmt::format("{1}Good morning, {2}. Grab a coffee and crush some entities.{0}", RESET, WHITE, user_settings.GetUsername()));
-    E2_Greets::MorningGreets.emplace_back(fmt::format("{1}Good morning, {2}. Rise and shine!{0}", RESET, WHITE, user_settings.GetUsername()));
-    // Afternoon
-    E2_Greets::AfternoonGreets.emplace_back(fmt::format("{1}Good afternoon, {2}. Back for more blood.{0}", RESET, WHITE, user_settings.GetUsername()));
-    E2_Greets::AfternoonGreets.emplace_back(fmt::format("{1}Good afternoon, {2}. Today's lunch: Entities{0}", RESET, WHITE, user_settings.GetUsername()));
-    E2_Greets::AfternoonGreets.emplace_back(fmt::format("{1}Good afternoon, {2}. I would really go for a nap now...{0}", RESET, WHITE, user_settings.GetUsername()));
-    // Evening
-    E2_Greets::EveningGreets.emplace_back(fmt::format("{1}Good evening, {2}. 5 minutes until bedtime.{0}", RESET, WHITE, user_settings.GetUsername()));
-    E2_Greets::EveningGreets.emplace_back(fmt::format("{1}Good evening, {2}. Entities are sleepy now, surprise attack!{0}", RESET, WHITE, user_settings.GetUsername()));
-    E2_Greets::EveningGreets.emplace_back(fmt::format("{1}Good evening, {3}. *{2}Yawn{0}{1}*{0}", RESET, WHITE, ITALIC, user_settings.GetUsername()));
-    // Early Night
-    E2_Greets::EarlyNightGreets.emplace_back(fmt::format("{1}Good evening, {2}. Can't sleep yet?{0}", RESET, WHITE, user_settings.GetUsername()));
-    E2_Greets::EarlyNightGreets.emplace_back(fmt::format("{1}Good evening, {2}. Was dinner yummy?{0}", RESET, WHITE, user_settings.GetUsername()));
-    // 3 AM greets
-    E2_Greets::ThreeAmGreets.emplace_back(fmt::format("{1}Good evening, {2}. Spooky time!{0}", RESET, WHITE, user_settings.GetUsername()));
-    E2_Greets::ThreeAmGreets.emplace_back(fmt::format("{1}Good evening, {2}. The line between mortal and the other side blurs...{0}", RESET, WHITE, user_settings.GetUsername()));
-    E2_Greets::ThreeAmGreets.emplace_back(fmt::format("{1}Good evening, {2}. Something feels off..{0}", RESET, WHITE, user_settings.GetUsername()));
-}
-
-/**
  * \brief Return a greeting.
+ * \param[in] GameTranslation Game Translation System, so the greets are localized.
+ * \param[out] Was_Translated Set to 'true' if the greet can be translated.
  * \return The greeting.
  */
-const std::string GetGreeting()
+const std::string GetGreeting(const TranslationEngine& GameTranslation, bool& Was_Translated)
 {
     std::time_t now = std::time(0);
     std::tm* local_time = std::localtime(&now);
@@ -148,28 +143,78 @@ const std::string GetGreeting()
     ///////////////////////////////////////////////////////////////////////////////////////////
     if (MORNING_START <= local_time->tm_hour && local_time->tm_hour <= MORNING_END)
     {
-        return E2_Greets::MorningGreets[ rng(0, E2_Greets::MorningGreets.size() - 1) ];
+        std::string greet = E2_Greets::MorningGreets[ rng(0, E2_Greets::MorningGreets.size() - 1) ];
+        if (GameTranslation.TranslationStringExists(greet))
+        {
+            Was_Translated = true;
+            return GameTranslation.GetTranslated(greet);
+        }
+        else
+        {
+            Was_Translated = false;
+            return greet;
+        }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
     else if (AFTERNOON_START <= local_time->tm_hour && local_time->tm_hour <= AFTERNOON_END)
     {
-        return E2_Greets::AfternoonGreets[ rng(0, E2_Greets::AfternoonGreets.size() - 1) ];
+        std::string greet = E2_Greets::AfternoonGreets[ rng(0, E2_Greets::AfternoonGreets.size() - 1) ];
+        if (GameTranslation.TranslationStringExists(greet))
+        {
+            Was_Translated = true;
+            return GameTranslation.GetTranslated(greet);
+        }
+        else
+        {
+            Was_Translated = false;
+            return greet;
+        }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
     else if (EVENING_START <= local_time->tm_hour && local_time->tm_hour <= EVENING_END)
     {
-        return E2_Greets::EveningGreets[ rng(0, E2_Greets::EveningGreets.size() - 1) ];
+        std::string greet = E2_Greets::EveningGreets[ rng(0, E2_Greets::EveningGreets.size() - 1) ];
+        if (GameTranslation.TranslationStringExists(greet))
+        {
+            Was_Translated = true;
+            return GameTranslation.GetTranslated(greet);
+        }
+        else
+        {
+            Was_Translated = false;
+            return greet;
+        }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
     else if (EARLY_NIGHT_START <= local_time->tm_hour || local_time->tm_hour <= EARLY_NIGHT_END)
     {
         // fixed this
-        return E2_Greets::EarlyNightGreets[ rng(0, E2_Greets::EarlyNightGreets.size() - 1) ];
+        std::string greet = E2_Greets::EarlyNightGreets[ rng(0, E2_Greets::EarlyNightGreets.size() - 1) ];
+        if (GameTranslation.TranslationStringExists(greet))
+        {
+            Was_Translated = true;
+            return GameTranslation.GetTranslated(greet);
+        }
+        else
+        {
+            Was_Translated = false;
+            return greet;
+        }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
     else if (local_time->tm_hour == 3)
     {
-        return E2_Greets::ThreeAmGreets[ rng(0, E2_Greets::ThreeAmGreets.size() - 1) ];
+        std::string greet = E2_Greets::ThreeAmGreets[ rng(0, E2_Greets::ThreeAmGreets.size() - 1) ];
+        if (GameTranslation.TranslationStringExists(greet))
+        {
+            Was_Translated = true;
+            return GameTranslation.GetTranslated(greet);
+        }
+        else
+        {
+            Was_Translated = false;
+            return greet;
+        }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
     // Make the compiler shut up

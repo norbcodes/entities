@@ -9,7 +9,9 @@ Exit messages lmfao
 #include <cstdint>
 #include <string>
 
-const std::string& GetExitMsg();
+#include "translation_engine.hpp"
+
+const std::string GetExitMsg(const TranslationEngine& GameTranslation, bool& Was_Translated);
 void AddExitMsg(const std::string& str);
 uint32_t GetExitMsgCount();
 
