@@ -13,6 +13,8 @@
 #include <map>
 #include <unordered_map>
 
+#include "global_settings.hpp"
+
 /**
  * \class TranslationEngine
  * \brief TranslationEngine class.
@@ -25,7 +27,7 @@ class TranslationEngine
         TranslationEngine();
         void LoadEnglish(); // IS ALWAYS CALLED!
         // Setters + Adders
-        void SetLang(const std::string& id);
+        void SetLang(const std::string& id, GlobalSettingsClass& global_settings);
         void AddTranslation(const std::string& lang_id, const std::string& trans_id, const std::string& str);
         // Getters
         const std::string& GetCurrentLangId() const;
@@ -33,8 +35,10 @@ class TranslationEngine
         const std::string& GetTranslated(const std::string& str, const std::string& lang_id) const;
         bool TranslationStringExists(const std::string& what) const;
         bool LangIdExists(const std::string& what) const;
-        std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator Begin() const;
-        std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator End() const;
+        std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator LangIteratorBegin() const;
+        std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator LangIteratorEnd() const;
+        std::unordered_map<std::string, std::string>::const_iterator TranslationIteratorBegin(const std::string& id) const;
+        std::unordered_map<std::string, std::string>::const_iterator TranslationIteratorEnd(const std::string& id) const;
     private:
         /**
          * \var std::string CurrentLangId

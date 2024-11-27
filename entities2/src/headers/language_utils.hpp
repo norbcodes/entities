@@ -5,7 +5,9 @@
 #include <string>
 
 #include "translation_engine.hpp"
+#include "cmd_args.hpp"
+#include "user_settings.hpp"
 
-const std::string PickLanguage(const TranslationEngine& GameTranslation);
+void LanguageUtilitiesMenu(const TranslationEngine& GameTranslation, const GameArgs& GameArguments, const UserSettingsClass& UserSettings);
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

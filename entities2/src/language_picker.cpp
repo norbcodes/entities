@@ -18,7 +18,6 @@
 #include "game_string_formatter.hpp"
 #include "translation_engine.hpp"
 #include "keyboard.hpp"
-#include "global_settings.hpp"
 
 /**
  * \def MAX_RENDER_COUNT
@@ -29,10 +28,9 @@
 /**
  * \brief Under the hood, returns a language id that is chosen in this fancy user menu.
  * \param[in] GameTranslation Game translation system.
- * \param[in] GlobalSettings Global game settings.
  * \return Language id.
  */
-const std::string PickLanguage(const TranslationEngine& GameTranslation, GlobalSettingsClass& GlobalSettings)
+const std::string PickLanguage(const TranslationEngine& GameTranslation)
 {
     ClearScreen();
     Div();
@@ -42,7 +40,7 @@ const std::string PickLanguage(const TranslationEngine& GameTranslation, GlobalS
     std::vector<std::string> LangList;
     LangList.reserve(16);
 
-    for (std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator i = GameTranslation.Begin(); i != GameTranslation.End(); i++)
+    for (std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator i = GameTranslation.LangIteratorBegin(); i != GameTranslation.LangIteratorEnd(); i++)
     {
         LangList.emplace_back(i->first);
     }
@@ -123,12 +121,10 @@ const std::string PickLanguage(const TranslationEngine& GameTranslation, GlobalS
         }
         else if (option == RIGHT_KEY)
         {
-            GlobalSettings.SetLanguageId(LangList[selection + scroll]);
             return LangList[selection + scroll];
         }
     }
-
-    GlobalSettings.SetLanguageId("EN-US");
+;
     return "EN-US";
 }
 

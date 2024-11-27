@@ -73,7 +73,7 @@ namespace E2_ExitMsg
         fmt::format("{1}\"{2}{3}We live, forevah! The time! Has come! We live, forevah!{0}{1}\"{0}", RESET, DARK_GRAY, LAVENDER, BOLD),
         "exit.message.19",
         // Tally Hall reference :)
-        fmt::format("{1}\"{2}{3}Do you like how I walk, do you like how I talk?\nDo you like how my face disintigrates into chalk?{0}{1}\"{0}", RESET, DARK_GRAY, TEAL, BOLD),
+        fmt::format("{1}\"{2}{3}Do you like how I walk, do you like how I talk?{4}Do you like how my face disintigrates into chalk?{0}{1}\"{0}", RESET, DARK_GRAY, TEAL, BOLD, '\n'),
         "exit.message.21",
         "exit.message.22",
         "exit.message.23",

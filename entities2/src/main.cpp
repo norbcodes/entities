@@ -74,16 +74,16 @@ int main(int argc, char* argv[])
     {
         if (GameTranslation->LangIdExists(GameArguments->LanguageOverride()))
         {
-            GameTranslation->SetLang(GameArguments->LanguageOverride());
+            GameTranslation->SetLang(GameArguments->LanguageOverride(), *GlobalSettings);
         }
         else
         {
-            GameTranslation->SetLang("EN-US");
+            GameTranslation->SetLang("EN-US", *GlobalSettings);
         }
     }
     else
     {
-        GameTranslation->SetLang(GlobalSettings->GetLanguageId());
+        GameTranslation->SetLang(GlobalSettings->GetLanguageId(), *GlobalSettings);
     }
     // User settings
     UserSettingsClass* UserSettings = new UserSettingsClass(*GameArguments);
@@ -211,7 +211,7 @@ int main(int argc, char* argv[])
             if (BinaryChoice())
             {
                 ClearScreen();
-                Credits();
+                Credits(*GameTranslation);
                 SleepSeconds(1);
                 break;
             }

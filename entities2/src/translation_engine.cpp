@@ -14,6 +14,7 @@
 
 #include "translation_engine.hpp"
 #include "game_string_formatter.hpp"
+#include "global_settings.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,9 +30,11 @@ TranslationEngine::TranslationEngine() {}
 /**
  * \brief Set/change language.
  * \param[in] id The language id to switch to.
+ * \param[out] global_settings Apply language change and save in global settings too.
  */
-void TranslationEngine::SetLang(const std::string& id)
+void TranslationEngine::SetLang(const std::string& id, GlobalSettingsClass& global_settings)
 {
+    global_settings.SetLanguageId(id);
     this->CurrentLangId = id;
 }
 
@@ -136,7 +139,7 @@ bool TranslationEngine::LangIdExists(const std::string& what) const
  * \brief An iterator of the internal std::map.
  * \return std::map<...>::const_iterator
  */
-std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator TranslationEngine::Begin() const
+std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator TranslationEngine::LangIteratorBegin() const
 {
     return (this->Register.begin());
 }
@@ -145,9 +148,29 @@ std::map<std::string, std::unordered_map<std::string, std::string>>::const_itera
  * \brief An iterator of the internal std::map.
  * \return std::map<...>::const_iterator
  */
-std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator TranslationEngine::End() const
+std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator TranslationEngine::LangIteratorEnd() const
 {
     return (this->Register.end());
+}
+
+/**
+ * \brief An iterator of a language's translation keys.
+ * \param[in] id ID of the language to iterate through.
+ * \return std::unordered_map<...>::const_iterator
+ */
+std::unordered_map<std::string, std::string>::const_iterator TranslationEngine::TranslationIteratorBegin(const std::string& id) const
+{
+    return (this->Register.at(id).begin());
+}
+
+/**
+ * \brief An iterator of a language's translation keys.
+ * \param[in] id ID of the language to iterate through.
+ * \return std::unordered_map<...>::const_iterator
+ */
+std::unordered_map<std::string, std::string>::const_iterator TranslationEngine::TranslationIteratorEnd(const std::string& id) const
+{
+    return (this->Register.at(id).end());
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -158,6 +181,7 @@ std::map<std::string, std::unordered_map<std::string, std::string>>::const_itera
 
 /**
  * \brief Load all of English translation.
+ * \note This is always loaded.
  */
 void TranslationEngine::LoadEnglish()
 {
@@ -186,7 +210,7 @@ void TranslationEngine::LoadEnglish()
     this->Register["EN-US"]["menu.main.datapacks"]          = "Datapacks";
     this->Register["EN-US"]["menu.main.settings"]           = "Settings";
     this->Register["EN-US"]["menu.exit.confirm"]            = "Confirm exit?";
-    this->Register["EN-US"]["menu.unstable"]                = "{red}You are using a game build that is {bold}still under Development!{reset}\n{white}Proceed with caution. {red}Do you still wanna play? [y,n]{reset}";
+    this->Register["EN-US"]["menu.unstable"]                = "{red}You are using a game build that is {bold}still under Development!{reset}{nl}{white}Proceed with caution. {red}Do you still wanna play? [y,n]{reset}";
 
     // Difficulty picker texts
     this->Register["EN-US"]["menu.diffpicker.title"]        = "Difficulty Selection";
@@ -230,17 +254,17 @@ void TranslationEngine::LoadEnglish()
     this->Register["EN-US"]["menu.ginfo.statustitle1"]      = "STATUSES";
     this->Register["EN-US"]["menu.ginfo.statustitle2"]      = "and what they do...";
     this->Register["EN-US"]["menu.ginfo.autoheal"]          = "AutoHeal";
-    this->Register["EN-US"]["menu.ginfo.autoheal.info"]     = "{white}At the start of a {underline}new round{reset}{white}, the entity that{reset}\n   {white}has {underline}their turn will recieve {purple}{bold}+{autoheal_amount}HP of health.{reset}";
+    this->Register["EN-US"]["menu.ginfo.autoheal.info"]     = "{white}At the start of a {underline}new round{reset}{white}, the entity that{reset}{nl}   {white}has {underline}their turn will recieve {purple}{bold}+{autoheal_amount}HP of health.{reset}";
     this->Register["EN-US"]["menu.ginfo.icrit"]             = "IncreasedCrit";
-    this->Register["EN-US"]["menu.ginfo.icrit.info"]        = "{white}When an entity has this status, it has {underline}about {purple}~30%{reset}\n   {white}of dealing a {underline}critical attack{reset}{white}, which deals{reset}\n   {white}significantly {underline}more damage.{reset}";
+    this->Register["EN-US"]["menu.ginfo.icrit.info"]        = "{white}When an entity has this status, it has {underline}about {purple}~30%{reset}{nl}   {white}of dealing a {underline}critical attack{reset}{white}, which deals{reset}{nl}   {white}significantly {underline}more damage.{reset}";
     this->Register["EN-US"]["menu.ginfo.invis"]             = "Invisibility";
-    this->Register["EN-US"]["menu.ginfo.invis.info"]        = "{white}When an entity has this status, there's{reset}\n   {white}a {underline}{purple}~20%{reset} {white}chance of an attacker {underline}missing{reset}\n   {white}{underline}the attack when attacking this entity.{reset}";
+    this->Register["EN-US"]["menu.ginfo.invis.info"]        = "{white}When an entity has this status, there's{reset}{nl}   {white}a {underline}{purple}~20%{reset} {white}chance of an attacker {underline}missing{reset}{nl}   {white}{underline}the attack when attacking this entity.{reset}";
     this->Register["EN-US"]["menu.ginfo.poison"]            = "Poison";
-    this->Register["EN-US"]["menu.ginfo.poison.info"]       = "{white}At the start of a {underline}new round{reset}, the entity that{reset}\n   {white}has {underline}their turn will recieve {purple}{bold}-{poison_amount}HP of damage.{reset}";
+    this->Register["EN-US"]["menu.ginfo.poison.info"]       = "{white}At the start of a {underline}new round{reset}, the entity that{reset}{nl}   {white}has {underline}their turn will recieve {purple}{bold}-{poison_amount}HP of damage.{reset}";
     this->Register["EN-US"]["menu.ginfo.thorns"]            = "Thorns";
-    this->Register["EN-US"]["menu.ginfo.thorns.info"]       = "{white}When an entity with this status is{reset}\n   {white}attacked, {underline}50% of the damage{reset}{white} goes back to the {underline}attacker.{reset}";
+    this->Register["EN-US"]["menu.ginfo.thorns.info"]       = "{white}When an entity with this status is{reset}{nl}   {white}attacked, {underline}50% of the damage{reset}{white} goes back to the {underline}attacker.{reset}";
     this->Register["EN-US"]["menu.ginfo.weak"]              = "Weakness";
-    this->Register["EN-US"]["menu.ginfo.weak.info"]         = "{white}A weakened enemy has their HP and AR {underline}{purple}capped at 60 only.{reset}\n   {white}Their energy replenishes {underline}{purple}75% less per round{reset}{white}, too.{reset}\n   {white}They also {underline}{purple}attack less{reset}{white}. This status only lasts {weakness_time} rounds.{reset}";
+    this->Register["EN-US"]["menu.ginfo.weak.info"]         = "{white}A weakened enemy has their HP and AR {underline}{purple}capped at 60 only.{reset}{nl}   {white}Their energy replenishes {underline}{purple}75% less per round{reset}{white}, too.{reset}{nl}   {white}They also {underline}{purple}attack less{reset}{white}. This status only lasts {weakness_time} rounds.{reset}";
 
     // Settings texts
     this->Register["EN-US"]["menu.options.title"]           = "Settings";
@@ -251,6 +275,9 @@ void TranslationEngine::LoadEnglish()
     this->Register["EN-US"]["menu.options.login"]           = "Logged in as";
     this->Register["EN-US"]["menu.options.currlang"]        = "Current language:";
     this->Register["EN-US"]["menu.options.changelang"]      = "Change language...";
+    this->Register["EN-US"]["menu.options.langutils"]       = "Language utilities...";
+    this->Register["EN-US"]["menu.options.export1"]         = "Export language to Datapack (xml)...";
+    this->Register["EN-US"]["menu.options.export2"]         = "Export language as Text (txt)...";
     this->Register["EN-US"]["menu.options.newuser"]         = "Create new user...";
     this->Register["EN-US"]["menu.options.changename"]      = "Change username...";
     this->Register["EN-US"]["menu.options.help1"]           = "{white}Press {green}1{white} to enter {green}Edit{white} mode. Press {red}9{white} to {red}go back to main menu{white}.{reset}";
@@ -264,6 +291,10 @@ void TranslationEngine::LoadEnglish()
     this->Register["EN-US"]["menu.options.lang.line1"]      = "Current language: {lang}";
     this->Register["EN-US"]["menu.options.lang.line2"]      = "There are {lang_count} languages loaded.";
     this->Register["EN-US"]["menu.options.lang.line3"]      = "Up/down arrows to move, right to select language and left to leave.";
+
+    // Language utilities texts
+    this->Register["EN-US"]["menu.langutils.success"]       = "Successfully exported language {lang_id}!";
+    this->Register["EN-US"]["menu.langutils.fail"]          = "Something bad happened during exporting...";
 
     // Greet texts
     this->Register["EN-US"]["greet.morning.1"]              = "{white}Good morning, {username}. Ready to kill?{reset}";
@@ -283,7 +314,7 @@ void TranslationEngine::LoadEnglish()
 
     // Gameplay strings
     this->Register["EN-US"]["game.battle.announce"]         = "{red}{italic}The fights begins. Good luck {username}!{reset}";
-    this->Register["EN-US"]["game.battle.what_happened"]    = "{white}What happened last round:{reset}\n{what_happened}{reset}";
+    this->Register["EN-US"]["game.battle.what_happened"]    = "{white}What happened last round:{reset}{nl}{what_happened}{reset}";
     this->Register["EN-US"]["game.battle.ply_header"]       = "{dark_gray}---<<< {blue}{bold}{username}'s{reset} {dark_gray}turn! >>>---{reset}";
     this->Register["EN-US"]["game.battle.ene_header"]       = "{dark_gray}---<<< {red}{bold}Enemy's{reset} {dark_gray}turn! >>>---{reset}";
     this->Register["EN-US"]["game.battle.enemy"]            = "ENEMY";
@@ -344,7 +375,7 @@ void TranslationEngine::LoadEnglish()
     this->Register["EN-US"]["exit.message.29"]              = "{white}Is your fridge running...?{reset}";
     this->Register["EN-US"]["exit.message.30"]              = "{white}Is your stove turned off...?{reset}";
     this->Register["EN-US"]["exit.message.31"]              = "{white}What? Heap memory allocs scared you away?{reset}";
-    this->Register["EN-US"]["exit.message.32"]              = "{white}There's a chance a neutrino particle is\npassing through your skull right now.{reset}";
+    this->Register["EN-US"]["exit.message.32"]              = "{white}There's a chance a neutrino particle is{nl}passing through your skull right now.{reset}";
     this->Register["EN-US"]["exit.message.33"]              = "{white}Let that sink in.{reset}";
     this->Register["EN-US"]["exit.message.34"]              = "{white}Oh no! Your 'y' button just broke!{reset}";
     this->Register["EN-US"]["exit.message.35"]              = "{white}LMFAOOOOO{reset}";
@@ -363,7 +394,7 @@ void TranslationEngine::LoadEnglish()
     this->Register["EN-US"]["exit.message.52"]              = "{red}exit{reset}{white}(){reset}";
     this->Register["EN-US"]["exit.message.53"]              = "{white}No syntax highlighting for you!!!{reset}";
     this->Register["EN-US"]["exit.message.54"]              = "{{red}}{{bold}}Damn, my formatting broke{{reset}}";
-    this->Register["EN-US"]["exit.message.56"]              = "{white}Do\n  not\n     exit,\n          PLEASE{reset}";
+    this->Register["EN-US"]["exit.message.56"]              = "{white}Do{nl}  not{nl}     exit,{nl}          PLEASE{reset}";
     this->Register["EN-US"]["exit.message.57"]              = "{white}I hate you >:({reset}";
     this->Register["EN-US"]["exit.message.58"]              = "{white}You KNOW that this is the best game ever made, right?{reset}";
     this->Register["EN-US"]["exit.message.59"]              = "{white}Classic, just give up when you fail once.{reset}";
@@ -374,6 +405,22 @@ void TranslationEngine::LoadEnglish()
     this->Register["EN-US"]["exit.message.67"]              = "{white}Yeah go play your Valorant or whatever you kids play nowadays{reset}";
     this->Register["EN-US"]["exit.message.70"]              = "{white}When's your birthday?{reset}";
     this->Register["EN-US"]["exit.message.special"]         = "{white}Did you know? Each of these message has a {purple}{perc:.2f}%{white} chance to appear.{reset}";
+
+    // Credits :3
+    this->Register["EN-US"]["credits.title1"]               = "DEM CREDITS!!!!";
+    this->Register["EN-US"]["credits.gameby"]               = "{gold}{bold}Game{reset} {white}by{reset} {blue}{bold}Norb{reset}";
+    this->Register["EN-US"]["credits.writtenin"]            = "{hot_pink}{bold}Written{reset} {white}in{reset} {green}{bold}C++{reset}";
+    this->Register["EN-US"]["credits.moreinfo1"]            = "v1.0 coded in about 2 days.";
+    this->Register["EN-US"]["credits.moreinfo2"]            = "(As of writting the credits, Discord says I spent 6 hours on VScode)";
+    this->Register["EN-US"]["credits.moreinfo3"]            = "These fine colors picked out using";
+    this->Register["EN-US"]["credits.moreinfo4"]            = "Check out entity1 and the homepage at";
+    this->Register["EN-US"]["credits.title2"]               = "EXTERNAL LIBRARIES USED:";
+    this->Register["EN-US"]["credits.discordlib"]           = "{blue}{bold}discord-rpc{reset} {dark_gray}:: {lavender}{italic}Thanks to {name} :){reset}";
+    this->Register["EN-US"]["credits.fmtlib"]               = "{bold}{red}{{{orange}f{yellow}m{green}t{blue}}}{reset} {dark_gray}::{reset} {hot_pink}{italic}Thanks to the entire {name} lib team!! :P{reset}";
+    this->Register["EN-US"]["credits.pugilib"]              = "{white}{bold}pugi{reset}{brown}{bold}xml{reset} {dark_gray}::{reset} {pink}{italic}Thanks to {name} (a.k.a {name2} on github)!! :3{reset}";
+    this->Register["EN-US"]["credits.arglib"]               = "{orange}{bold}arg{gold}parse{reset} {dark_gray}::{reset} {green}{italic}Thanks to {name} {dark_green}for this cool lib :>{reset}";
+    this->Register["EN-US"]["credits.jsonlib"]              = "{blue}{bold}{italic}json{reset} {dark_gray}::{reset} {teal}{italic}Thanks to {name} for this epic lib!!{reset}";
+    this->Register["EN-US"]["credits.compiled"]             = "{dark_gray}entities2.cpp version {entities2_ver} compiled at {compile_date} {compile_time} ;){reset}";
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

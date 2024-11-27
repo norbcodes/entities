@@ -22,6 +22,9 @@
  * \brief A quick macro often repeated in the 2 formatter functions and 2 templated formatter functions.
  */
 #define _body   fmt::arg("entities2_ver", ENTITIES2_VER), \
+                fmt::arg("nl", '\n'), \
+                fmt::arg("compile_time", __TIME__), \
+                fmt::arg("compile_date", __DATE__), \
                 fmt::arg("reset", RESET), \
                 fmt::arg("bold", BOLD), \
                 fmt::arg("faint", FAINT), \

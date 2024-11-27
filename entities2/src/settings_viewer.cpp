@@ -21,6 +21,7 @@
 #include "translation_engine.hpp"
 #include "game_string_formatter.hpp"
 #include "language_picker.hpp"
+#include "language_utils.hpp"
 
 static void UserCreationScreen(const GameArgs& game_args, const TranslationEngine& GameTranslation)
 {
@@ -157,28 +158,38 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
                 fmt::print("{1}2   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.changelang"));
             }
 
+            if (selection == 2)
+            {
+                fmt::print("{1}{2}3   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.langutils"));
+            }
+            else
+            {
+                fmt::print("{1}3   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.langutils"));
+            }
+
+
             fmt::print("{1}........................................{0}\n\n", RESET, DARK_GRAY);
             ////////////////////////////////////
             // USER
             fmt::print("{1}{2:.^40}{0}\n", RESET, DARK_GRAY, GameTranslation.GetTranslated("menu.options.cat3"));
             fmt::print("{1}:: {4} {2}{3}{0}\n", RESET, WHITE, BOLD, user_settings.GetUsername(), GameTranslation.GetTranslated("menu.options.login"));
 
-            if (selection == 2)
-            {
-                fmt::print("{1}{2}3   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.newuser"));
-            }
-            else
-            {
-                fmt::print("{1}3   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.newuser"));
-            }
-
             if (selection == 3)
             {
-                fmt::print("{1}{2}4   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.changename"));
+                fmt::print("{1}{2}4   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.newuser"));
             }
             else
             {
-                fmt::print("{1}4   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.changename"));
+                fmt::print("{1}4   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.newuser"));
+            }
+
+            if (selection == 4)
+            {
+                fmt::print("{1}{2}5   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.changename"));
+            }
+            else
+            {
+                fmt::print("{1}5   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.changename"));
             }
 
             fmt::print("{1}........................................{0}\n\n", RESET, DARK_GRAY);
@@ -215,12 +226,15 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
                             global_settings.SetDiscordEnabled(!global_settings.GetDiscordEnabled());
                             break;
                         case 1:
-                            GameTranslation.SetLang( PickLanguage(GameTranslation, global_settings) );
+                            GameTranslation.SetLang( PickLanguage(GameTranslation), global_settings );
                             break;
                         case 2:
-                            UserCreationScreen(game_args, GameTranslation);
+                            LanguageUtilitiesMenu(GameTranslation, game_args, user_settings);
                             break;
                         case 3:
+                            UserCreationScreen(game_args, GameTranslation);
+                            break;
+                        case 4:
                             NewUsername(user_settings, GameTranslation);
                             break;
                     }
@@ -246,6 +260,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
             fmt::print("{1}{2:.^40}{0}\n", RESET, DARK_GRAY, GameTranslation.GetTranslated("menu.options.cat2"));
             fmt::print("{1}:: {2} {3}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.currlang"), GameTranslation.GetTranslated("lang.name"));
             fmt::print("{1}>   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.changelang"));
+            fmt::print("{1}>   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.langutils"));
             ////////////////////////////////////
             fmt::print("{1}........................................{0}\n\n", RESET, DARK_GRAY);
             fmt::print("{1}{2:.^40}{0}\n", RESET, DARK_GRAY, GameTranslation.GetTranslated("menu.options.cat3"));
