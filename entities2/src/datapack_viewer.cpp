@@ -131,7 +131,7 @@ void DatapackViewer(const DatapackEngine& datapacks, const TranslationEngine& Ga
             }
             selection += 1;
         }
-        else if (option == RIGHT_KEY)
+        else if (option == RIGHT_KEY && datapacks.DatapackCount() > 0)
         {
             if (datapacks.GetConstDatapackRef(selection + scroll).LoadSuccessful())
             {
