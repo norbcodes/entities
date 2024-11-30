@@ -774,8 +774,8 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["general.off"]                  = "Выкл.";
     this->Register["ru-RU"]["general.by"]                   = "от";
     this->Register["ru-RU"]["general.enter_to_exit"]        = "Нажмите Enter, чтобы продолжить.";
-    //this->Register["ru-RU"]["general.healed"]               = ;
-    //this->Register["ru-RU"]["general.regenerated"]          = ;
+    this->Register["ru-RU"]["general.healed"]               = "восстановил";
+    this->Register["ru-RU"]["general.regenerated"]          = "восстановил";
 
     // Main menu texts
     this->Register["ru-RU"]["menu.main.subtitle"]           = "Игра, созданная norbcodes.";
@@ -872,8 +872,8 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["menu.langutils.success"]       = "Язык {lang_id} экспортирован успешно!";
     this->Register["ru-RU"]["menu.langutils.fail"]          = "При экспорте произошла ошибка...";
     this->Register["ru-RU"]["menu.langutils.getpath"]       = "Введите путь к текстовому файлу:";
-    //this->Register["ru-RU"]["menu.langutils.pathfail"]      ;
-    //this->Register["ru-RU"]["menu.langutils.notfile"]       ;
+    this->Register["ru-RU"]["menu.langutils.pathfail"]      = "Такого пути не существует!";
+    this->Register["ru-RU"]["menu.langutils.notfile"]       = "Путь не указывает на файл!";
 
     // Greet texts
     this->Register["ru-RU"]["greet.morning.1"]              = "{white}Доброе утро, {username}. Готовы убивать?{reset}";
@@ -905,8 +905,8 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["game.battle.no_energy"]        = "Недостаточно энергии!";
     this->Register["ru-RU"]["game.battle.rerolled"]         = "{blue}{bold}{username}{reset}{white} сменил ходы...{reset}";
     this->Register["ru-RU"]["game.battle.ai_think"]         = "ИИ думает...";
-    this->Register["ru-RU"]["game.moves.attack"]            = "{red}Атаковать! {white}Нанести противнику {purple}{value}{white} единиц урона.{reset}";
-    this->Register["ru-RU"]["game.moves.heal"]              = "{green}Исцелить! {white}Вы получите {purple}+{value}{white} HP{reset}";
+    this->Register["ru-RU"]["game.moves.attack"]            = "{red}Атака! {white}Нанести противнику {purple}{value}{white} единиц урона.{reset}";
+    this->Register["ru-RU"]["game.moves.heal"]              = "{green}Исцеление! {white}Вы получите {purple}+{value}{white} HP{reset}";
     this->Register["ru-RU"]["game.moves.regen"]             = "{blue}Восстановить защиту{white}! Вы получите {purple}+{value}{white} AR{reset}";
     this->Register["ru-RU"]["game.moves.autoheal"]          = "{white}Применить статус {green}Регенерация{white}! Восстанавливает {purple}{value} {white}HP когда наступает ваш ход{reset}";
     this->Register["ru-RU"]["game.moves.icrit"]             = "{white}Применить статус {red}Повышение крит. шанса{white}! Увеличивает {red}шанс крит. попадания при атаке{reset}";
@@ -916,21 +916,21 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["game.moves.weakness"]          = "{white}Наложить на противника статус {brown}Слабость{white}! Противник будет ослаблен...{reset}";
     this->Register["ru-RU"]["game.moves.gameover"]          = "{white}---<<< Игрок {blue}{bold}{username}{reset} {white}мёртв. {red}{bold}Противник{reset}{white} победил!!! >>>---{reset}";
     this->Register["ru-RU"]["game.moves.victory"]           = "{white}---<<< {red}{bold}Противник{reset} {white}мёртв. Игрок {blue}{bold}{username}{reset}{white} победил!!! >>>---{reset}";
-    this->Register["ru-RU"]["game.moves.rematch"]           = "Rematch!";
-    //this->Register["ru-RU"]["game.applied.autoheal"]        = ;
-    //this->Register["ru-RU"]["game.applied.incr_crit"]       = ;
-    //this->Register["ru-RU"]["game.applied.invis"]           = ;
-    //this->Register["ru-RU"]["game.applied.poison"]          = ;
-    //this->Register["ru-RU"]["game.applied.thorns"]          = ;
-    //this->Register["ru-RU"]["game.applied.weakness"]        = ;
+    this->Register["ru-RU"]["game.moves.rematch"]           = "Реванш!";
+    this->Register["ru-RU"]["game.applied.autoheal"]        = "{white}применил статус {green}Регенерация{white}.";
+    this->Register["ru-RU"]["game.applied.incr_crit"]       = "{white}применил статус {red}Повышение крит. шанса{white}.";
+    this->Register["ru-RU"]["game.applied.invis"]           = "{white}применил статус {hot_pink}Невидимка{white}.";
+    this->Register["ru-RU"]["game.applied.poison"]          = "{who} {white}наложил статус {dark_green}Яд{white} на {who2}{white}.{reset}";
+    this->Register["ru-RU"]["game.applied.thorns"]          = "{white}применил статус {teal}Шипы{white}.";
+    this->Register["ru-RU"]["game.applied.weakness"]        = "{who} {white}наложил статус {brown}Слабость{white} на {who2}{white}.{reset}";
 
     // Entity attack texts
-    //this->Register["sk-SK"]["entity.attack.ply_missed"]     = ;
-    //this->Register["sk-SK"]["entity.attack.ene_missed"]     = ;
-    //this->Register["sk-SK"]["entity.attack.ply_normal"]     = ;
-    //this->Register["sk-SK"]["entity.attack.ply_crit"]       = ;
-    //this->Register["sk-SK"]["entity.attack.ene_normal"]     = ;
-    //this->Register["sk-SK"]["entity.attack.ene_crit"]       = ;
+    this->Register["ru-RU"]["entity.attack.ply_missed"]     = "{blue}{bold}{username}{reset} {white}попытался атаковать, но {italic}промахнулся{reset}{white}!{reset}";
+    this->Register["ru-RU"]["entity.attack.ene_missed"]     = "{red}{bold}Противник{reset} {white}попытался атаковать, но {italic}промахнулся{reset}{white}!{reset}";
+    this->Register["ru-RU"]["entity.attack.ply_normal"]     = "{blue}{bold}{username}{reset} {white}атаковал {red}{bold}противника{reset}{white}! {red}{bold}Противник{reset} {purple}-{dmg}HP{reset}";
+    this->Register["ru-RU"]["entity.attack.ply_crit"]       = "{blue}{bold}{username}{reset} {white}атаковал {red}{bold}противника{reset}{white}! {gold}{italic}КРИТ. УДАР{reset}{white}! {red}{bold}Противник{reset} {purple}-{dmg}HP{reset}";
+    this->Register["ru-RU"]["entity.attack.ene_normal"]     = "{red}{bold}Противник{reset} {white}атаковал {blue}{bold}{username}{reset}{white}! {blue}{bold}{username}{reset} {purple}-{dmg}HP{reset}";
+    this->Register["ru-RU"]["entity.attack.ene_crit"]       = "{red}{bold}Противник{reset} {white}атаковал {blue}{bold}{username}{reset}{white}! {gold}{italic}КРИТ. УДАР{reset}{white}! {blue}{bold}{username}{reset} {purple}-{dmg}HP{reset}";
 
     // Exit messages :3
     this->Register["ru-RU"]["exit.message.1"]               = "{white}Нееееет не уходи :<{reset}";

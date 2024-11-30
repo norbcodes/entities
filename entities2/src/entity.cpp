@@ -192,6 +192,7 @@ void PrintEntityStats(const Entity& ent)
  *                 because we are writing to it.
  * \param[in] enemy_turn Name is self explanatory. Just changes which prompts are written to msg.
  * \param[in] user_settings User game settings.
+ * \param[in] GameTranslation For localized strings.
  */
 void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn, UserSettingsClass& user_settings, const TranslationEngine& GameTranslation)
 {
