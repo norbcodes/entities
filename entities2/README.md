@@ -9,6 +9,7 @@ cmake ..
 make
 </code></pre>
 <b>Remember to use --recursive to also clone the submodules!</b><br>
+<b>If you wish to test a dev build, you need to explicitly use <code>--branch</code> parameter when cloning!</b><br>
 You may also specify a custom generator. So if you're a MinGW user:
 <pre><code>git clone https://github.com/norbcodes/entities.git --recursive
 mkdir entities/enities2/build
