@@ -249,6 +249,8 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
                             NewUsername(user_settings, GameTranslation);
                             break;
                     }
+                    user_settings.Save(game_args);
+                    global_settings.Save(game_args);
             }
         }
         else

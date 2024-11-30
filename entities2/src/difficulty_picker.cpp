@@ -60,6 +60,8 @@ void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsCl
         else if (choice == 1 || choice == 2 || choice == 3 || choice == 4)
         {
             Game(choice, picker_flag, game_args, global_settings, user_settings, record_demo ? 1 : 0, GameTranslation);
+            user_settings.Save(game_args);
+            global_settings.Save(game_args);
         }
         else if (choice == 9)
         {
