@@ -26,7 +26,8 @@ static void TipsNTricks(const TranslationEngine& GameTranslation)
     fmt::print("{3}<{0} {1}{2}{4}{0}\n\n", RESET, GOLD, BOLD, WHITE, GameTranslation.GetTranslated("menu.ginfo.tiptitle"));
     fmt::print("{1}- {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.ginfo.tip1"));
     fmt::print("{1}- {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.ginfo.tip2"));
-    fmt::print("{1}- {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.ginfo.tip3"));
+    fmt::print("{1}- {2}{0}\n\n", RESET, WHITE, GameTranslation.GetTranslated("menu.ginfo.tip3"));
+    fmt::print("{1}{2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("general.enter_to_exit"));
     EndDiv();
     BlockUntilEnter();
 }
@@ -41,8 +42,9 @@ static void Statuses(const TranslationEngine& GameTranslation)
     fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, HOT_PINK, BOLD, GameTranslation.GetTranslated("menu.ginfo.invis"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.invis.info")));
     fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, DARK_GREEN, BOLD, GameTranslation.GetTranslated("menu.ginfo.poison"), CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.poison.info"), fmt::arg("poison_amount", POISON_AMOUNT)));
     fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, TEAL, BOLD, GameTranslation.GetTranslated("menu.ginfo.thorns"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.thorns.info")));
-    fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, BROWN, BOLD, GameTranslation.GetTranslated("menu.ginfo.weak"), CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.weak.info"), fmt::arg("weakness_time", WEAKNESS_TIME_LEFT)));
-    
+    fmt::print("{1}{2}{3}{0}\n   {4}\n\n", RESET, BROWN, BOLD, GameTranslation.GetTranslated("menu.ginfo.weak"), CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.weak.info"), fmt::arg("weakness_time", WEAKNESS_TIME_LEFT)));
+    fmt::print("{1}{2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("general.enter_to_exit"));
+    EndDiv();
     EndDiv();
     BlockUntilEnter();
 }

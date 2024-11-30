@@ -124,8 +124,8 @@ const std::string PickLanguage(const TranslationEngine& GameTranslation)
             return LangList[selection + scroll];
         }
     }
-;
-    return "EN-US";
+
+    return GameTranslation.GetCurrentLangId();
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
