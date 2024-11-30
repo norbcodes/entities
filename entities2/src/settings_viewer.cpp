@@ -108,7 +108,7 @@ static void NewUsername(UserSettingsClass& user_settings, const TranslationEngin
 void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_settings, UserSettingsClass& user_settings, TranslationEngine& GameTranslation)
 {
     int32_t selection = 0;
-    const int32_t selection_count = 4;
+    const int32_t selection_count = 5;
     bool edit_mode = false;
     bool in_settings = true;
     while (in_settings)

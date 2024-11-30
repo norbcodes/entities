@@ -46,6 +46,7 @@
         #define TEAL                "\x1b[38;2;0;130;181m"
         #define BROWN               "\x1b[38;2;153;77;0m"
         #define BLACK               "\x1b[38;2;0;0;0m"
+        #define LIGHT_BLUE          "\x1b[38;2;102;230;255m"
         // BACKGROUND COLORS
         #define WHITE_BACKGROUND    "\x1b[48;2;230;230;230m"
     #else // __ENTITIES2_4_BIT_COLORS__
@@ -83,6 +84,7 @@
             #define TEAL                "\x1b[96m"
             #define BROWN               "\x1b[33m"
             #define BLACK               "\x1b[30m"
+            #define LIGHT_BLUE          "\x1b[94m"
             #define WHITE_BACKGROUND    "\x1b[47m"
         #else // __ENTITIES2_4_BIT_AIXTERM__
             #define RED                 "\x1b[31m"
@@ -102,6 +104,7 @@
             #define TEAL                "\x1b[36m"
             #define BROWN               "\x1b[33m"
             #define BLACK               "\x1b[30m"
+            #define LIGHT_BLUE          "\x1b[36m"
             #define WHITE_BACKGROUND    "\x1b[47m"
         #endif // __ENTITIES2_4_BIT_AIXTERM__
 
@@ -130,6 +133,7 @@
     #define TEAL                ""
     #define BROWN               ""
     #define BLACK               ""
+    #define LIGHT_BLUE          ""
     #define WHITE_BACKGROUND    ""
 #endif // __ENTITIES2_COLORS__
 
@@ -274,8 +278,14 @@
  */
 
 /**
+ * \def LIGHT_BLUE
+ * \brief RGB value = 102,230,255 <span style="background-color: rgb(0, 0, 0);color: rgb(102, 230, 255)">\#\#\#TEST\#\#\#</span>
+ * \hideinitializer
+ */
+
+/**
  * \def WHITE_BACKGROUND
- * \brief RGB value = 0,0,0 <span style="background-color: rgb(255, 255, 255);color: rgb(0, 0, 0)">\#\#\#TEST\#\#\#</span>
+ * \brief <span style="background-color: rgb(255, 255, 255);color: rgb(0, 0, 0)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 

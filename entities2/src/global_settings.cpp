@@ -37,7 +37,7 @@ GlobalSettingsClass::GlobalSettingsClass(const GameArgs& game_args)
 
         // Save version
         this->_Ver = ENTITIES2_GLOBAL_SAVE_VER;
-        this->v_Language = "EN-US";
+        this->v_Language = "en-US";
 
         // Save
         this->Save(game_args);

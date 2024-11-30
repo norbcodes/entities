@@ -42,6 +42,8 @@ option(4BIT_AIXTERM             "Enable bright colors basically (ONLY WORKS WHEN
 option(DISABLE_TERMINAL_BELL    "Disable terminal bell." OFF)
 option(BUILD_DOCS               "Build doxygen documentation." OFF)
 option(DISABLE_UNSTABLE_WARN    "Disable warning when starting up a development build of the game." OFF)
+option(BUILT_IN_RUSSIAN         "Embed all of Russian translation into the game. Will increase file size!" OFF)
+option(BUILT_IN_SLOVAK          "Embed all of Slovak translation into the game. Will increase file size!" OFF)
 
 # Set search paths
 set(
@@ -259,4 +261,16 @@ endif()
 # Disable build warn?
 if (DISABLE_UNSTABLE_WARN)
     target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISABLE_UNSTABLE_WARNING__)
+endif()
+
+# Translations
+if (BUILT_IN_RUSSIAN)
+    message(STATUS "Russian translation will be baked in! Expect an increase in file size.")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_BAKED_IN_RUSSIAN__)
+endif()
+
+# Translations
+if (BUILT_IN_SLOVAK)
+    message(STATUS "Slovak translation will be baked in! Expect an increase in file size.")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_BAKED_IN_SLOVAK__)
 endif()

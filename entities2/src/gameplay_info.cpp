@@ -37,7 +37,7 @@ static void Statuses(const TranslationEngine& GameTranslation)
     Div();
     fmt::print("{5}<{0} {1}{2}{6}{0} {4}{3}{7}{0}\n\n", RESET, GOLD, BOLD, ITALIC, BLUE, WHITE, GameTranslation.GetTranslated("menu.ginfo.statustitle1"), GameTranslation.GetTranslated("menu.ginfo.statustitle2"));
     fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, GREEN, BOLD, GameTranslation.GetTranslated("menu.ginfo.autoheal"), CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.autoheal.info"), fmt::arg("autoheal_amount", AUTO_HEAL_AMOUNT)));
-    fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, RED, BOLD, GameTranslation.GetTranslated("menu.ginfo.increasedcrit"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.icrit.info")));
+    fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, RED, BOLD, GameTranslation.GetTranslated("menu.ginfo.icrit"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.icrit.info")));
     fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, HOT_PINK, BOLD, GameTranslation.GetTranslated("menu.ginfo.invis"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.invis.info")));
     fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, DARK_GREEN, BOLD, GameTranslation.GetTranslated("menu.ginfo.poison"), CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.poison.info"), fmt::arg("poison_amount", POISON_AMOUNT)));
     fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, TEAL, BOLD, GameTranslation.GetTranslated("menu.ginfo.thorns"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.thorns.info")));

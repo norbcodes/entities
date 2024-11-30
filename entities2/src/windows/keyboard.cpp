@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <windows.h>
 #include <conio.h>
+#include <iostream>
 
 #include "keyboard.hpp"
 
@@ -22,7 +23,7 @@ uint32_t WaitForNumkey()
     // Run in a while loop, and return the key
     while (true)
     {
-        char key = getch();
+        char key = _getch();
         if (key >= 48 && key <= 57)
         {
             return static_cast<uint32_t>(key - 48);
@@ -39,7 +40,7 @@ bool BinaryChoice()
     // either y or n.
     while (true)
     {
-        char key = getch();
+        char key = _getch();
 
         if (key == 'y' || key == 'Y')
         {
@@ -60,7 +61,7 @@ void BlockUntilEnter()
 {
     while (true)
     {
-        if (getch() == 13)
+        if (_getch() == 13)
         {
             break;
         }
@@ -75,23 +76,26 @@ uint32_t GetArrowKey()
 {
     while (true)
     {
-        char first = getch();
-        if (first != 0)
+        char first = _getch();
+        if (first == 0 || first == -32)
+        {
+            switch (_getch())
+            {
+                case 72:
+                    return UP_KEY;
+                case 80:
+                    return DOWN_KEY;
+                case 75:
+                    return LEFT_KEY;
+                case 77:
+                    return RIGHT_KEY;
+                default:
+                    break;
+            }
+        }
+        else
         {
             continue;
-        }
-        switch (getch())
-        {
-            case 72:
-                return UP_KEY;
-            case 80:
-                return DOWN_KEY;
-            case 75:
-                return LEFT_KEY;
-            case 77:
-                return RIGHT_KEY;
-            default:
-                break;
         }
     }
 }

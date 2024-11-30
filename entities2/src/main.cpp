@@ -67,6 +67,15 @@ int main(int argc, char* argv[])
     // Translations
     TranslationEngine* GameTranslation = new TranslationEngine;
     GameTranslation->LoadEnglish();
+
+    #ifdef __ENTITIES2_BAKED_IN_SLOVAK__
+    GameTranslation->LoadSlovak();
+    #endif
+
+    #ifdef __ENTITIES2_BAKED_IN_RUSSIAN__
+    GameTranslation->LoadRussian();
+    #endif
+
     // Global settings
     GlobalSettingsClass* GlobalSettings = new GlobalSettingsClass(*GameArguments);
     // Now set language, hehe
@@ -180,7 +189,7 @@ int main(int argc, char* argv[])
         {
             greet = MsgFormatter(greet, *UserSettings);
         }
-        std::cout << greet;
+        fmt::print("{0}", greet);
         ////////////////////////////////////////
         fmt::print("\n\n");
         fmt::print("{1}{2}{0}", RESET, WHITE, MsgFormatter(GameTranslation->GetTranslated("menu.main.optionpick"), *UserSettings));
@@ -205,7 +214,7 @@ int main(int argc, char* argv[])
             {
                 exit_msg = CustomMsgFormatter(exit_msg, *UserSettings, fmt::arg("perc", (1.0 / (double)GetExitMsgCount()) * 100));
             }
-            std::cout << exit_msg << std::endl;
+            fmt::print("{0}\n", exit_msg);
             EndDiv();
 
             if (BinaryChoice())

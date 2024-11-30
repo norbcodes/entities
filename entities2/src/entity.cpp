@@ -21,6 +21,8 @@
 #include "utils.hpp"
 #include "rng.hpp"
 #include "user_settings.hpp"
+#include "translation_engine.hpp"
+#include "game_string_formatter.hpp"
 
 /**
  * \brief Entity constructor function.
@@ -191,17 +193,17 @@ void PrintEntityStats(const Entity& ent)
  * \param[in] enemy_turn Name is self explanatory. Just changes which prompts are written to msg.
  * \param[in] user_settings User game settings.
  */
-void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn, UserSettingsClass& user_settings)
+void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn, UserSettingsClass& user_settings, const TranslationEngine& GameTranslation)
 {
     // if victim has invis
     if (victim.StatusActive(INVIS) && rng(0, 100) > 80)
     {
         if (enemy_turn)
         {
-            msg += fmt::format("{4}{1}Enemy{0} {3}tried to attack, but {2}missed{0}{3}!{0}", RESET, BOLD, ITALIC, WHITE, RED);
+            msg += MsgFormatterNoUser(GameTranslation.GetTranslated("entity.attack.ene_missed"));
             return;
         }
-        msg += fmt::format("{4}{1}{5}{0} {3}tried to attack, but {2}missed{0}{3}!{0}", RESET, BOLD, ITALIC, WHITE, BLUE, user_settings.GetUsername());
+        msg += MsgFormatter(GameTranslation.GetTranslated("entity.attack.ply_missed"), user_settings);
         return;
     }
 
@@ -265,14 +267,14 @@ void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& m
     {
         if (!crit_flag)
         {
-            msg += fmt::format("{5}{3}{7}{0} {2}has attacked {4}{3}Enemy{0}{2}! {4}{3}Enemy{0} {6}-{1}HP{0}", RESET, health_dmg, WHITE, BOLD, RED, BLUE, PURPLE, user_settings.GetUsername());
+            msg += CustomMsgFormatter(GameTranslation.GetTranslated("entity.attack.ply_normal"), user_settings, fmt::arg("dmg", health_dmg));
             if (armor_dmg > 0)
             {
                 msg += fmt::format(" {2}-{1}AR{0}", RESET, armor_dmg, PURPLE);
             }
             return;
         }
-        msg += fmt::format("{5}{3}{9}{0} {2}has attacked {4}{3}Enemy{0}{2}! {8}{7}CRITICAL HIT{0}{2}! {4}{3}Enemy{0} {6}-{1}HP{0}", RESET, health_dmg, WHITE, BOLD, RED, BLUE, PURPLE, ITALIC, GOLD, user_settings.GetUsername());
+        msg += CustomMsgFormatter(GameTranslation.GetTranslated("entity.attack.ply_crit"), user_settings, fmt::arg("dmg", health_dmg));
         if (armor_dmg > 0)
         {
             msg += fmt::format(" {2}-{1}AR{0}", RESET, armor_dmg, PURPLE);
@@ -283,14 +285,14 @@ void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& m
     {
         if (!crit_flag)
         {
-            msg += fmt::format("{4}{3}Enemy{0} {2}has attacked {5}{3}{7}{0}{2}! {5}{3}Player{0} {6}-{1}HP{0}", RESET, health_dmg, WHITE, BOLD, RED, BLUE, PURPLE, user_settings.GetUsername());
+            msg += CustomMsgFormatter(GameTranslation.GetTranslated("entity.attack.ene_normal"), user_settings, fmt::arg("dmg", health_dmg));
             if (armor_dmg > 0)
             {
                 msg += fmt::format(" {2}-{1}AR{0}", RESET, armor_dmg, PURPLE);
             }
             return;
         }
-        msg += fmt::format("{4}{3}Enemy{0} {2}has attacked {5}{3}{9}{0}{2}! {8}{7}CRITICAL HIT{0}{2}! {5}{3}Player{0} {6}-{1}HP{0}", RESET, health_dmg, WHITE, BOLD, RED, BLUE, PURPLE, ITALIC, GOLD, user_settings.GetUsername());
+        msg += CustomMsgFormatter(GameTranslation.GetTranslated("entity.attack.ene_crit"), user_settings, fmt::arg("dmg", health_dmg));
         if (armor_dmg > 0)
         {
             msg += fmt::format(" {2}-{1}AR{0}", RESET, armor_dmg, PURPLE);

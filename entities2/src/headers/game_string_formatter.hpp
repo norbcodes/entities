@@ -48,6 +48,7 @@
                 fmt::arg("teal", TEAL), \
                 fmt::arg("brown", BROWN), \
                 fmt::arg("black", BLACK), \
+                fmt::arg("light_blue", LIGHT_BLUE), \
                 fmt::arg("white_bg", WHITE_BACKGROUND)
 
 std::string MsgFormatter(const std::string& str, const UserSettingsClass& user_settings);

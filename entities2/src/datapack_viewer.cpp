@@ -87,7 +87,7 @@ void DatapackViewer(const DatapackEngine& datapacks, const TranslationEngine& Ga
             fmt::print("{1}   {2}{0}\n", RESET, RED, GameTranslation.GetTranslated("menu.datapacks.empty"));
         }
         fmt::print("{1}:: :: :: :: :: :: :: :: :: :: :: :: :: ::{0}\n\n", RESET, DARK_GRAY);
-        fmt::print("{1}{2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.datapacks.info"));
+        fmt::print("{1}{2}{0}\n", RESET, WHITE, MsgFormatterNoUser(GameTranslation.GetTranslated("menu.datapacks.info")));
         EndDiv();
 
         uint32_t option = GetArrowKey();

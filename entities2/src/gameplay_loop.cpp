@@ -188,8 +188,8 @@ static void PlayerRound (
 
         if (picked_move == 0)
         {
-            fmt::print("{1}{4} {2}{3}[y,n]                                                                                              {0}\n", RESET, RED, DARK_GRAY, BOLD, GameTranslation.GetTranslated("game.battle.exit"));
-            EndDiv();
+            fmt::print("{1}{4} {2}{3}[y,n]                                                                         {0}\n", RESET, RED, DARK_GRAY, BOLD, GameTranslation.GetTranslated("game.battle.exit"));
+            EndDivNoNewl();
 
             bool choice;
 
@@ -273,7 +273,7 @@ static void PlayerRound (
         return;
     }
 
-    PickMove(Player, Enemy, picked_move, moves, move_types, energy_costs, enemy_turn, what_happened, user_settings);
+    PickMove(Player, Enemy, picked_move, moves, move_types, energy_costs, enemy_turn, what_happened, user_settings, GameTranslation);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -373,7 +373,7 @@ static void EnemyRound (
         return;
     }
 
-    PickMove(Enemy, Player, picked_move, moves, move_types, energy_costs, enemy_turn, what_happened, user_settings);
+    PickMove(Enemy, Player, picked_move, moves, move_types, energy_costs, enemy_turn, what_happened, user_settings, GameTranslation);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

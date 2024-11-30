@@ -80,6 +80,12 @@ void Credits(const TranslationEngine& GameTranslation)
     fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.arglib"), fmt::arg("name", "p-ranav")));
     fmt::print("  {0}\n\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.jsonlib"), fmt::arg("name", "Nlohmann")));
 
+    fmt::print("{1}{2}{0}\n", RESET, ORANGE, GameTranslation.GetTranslated("credits.title3"));
+    fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.slovak"), fmt::arg("name", "Norb")));
+    fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.russian"), fmt::arg("name", "Artezon")));
+    fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.portuguese"), fmt::arg("name", "MF366")));
+    fmt::print("  {0}\n\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.tagalog"), fmt::arg("name", "SpaceHunyango")));
+
     fmt::print("{0}\n", MsgFormatterNoUser(GameTranslation.GetTranslated("credits.compiled")));
     Div();
 }
