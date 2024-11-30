@@ -178,7 +178,6 @@ int main(int argc, char* argv[])
         fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
         fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
         fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
-
         fmt::print("{2}{3: <8}              {1}{4}{0}", RESET, DARK_GRAY, GREEN, ENTITIES2_VER, GameTranslation->GetTranslated("menu.main.subtitle"));
         fmt::print("\n\n");
         ////////////////////////////////////////

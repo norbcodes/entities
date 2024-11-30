@@ -45,6 +45,11 @@ static void UserCreationScreen(const GameArgs& game_args, const TranslationEngin
                 rewind = true;
             }
         }
+        // Check if username is empty
+        if (name == std::string(""))
+        {
+            rewind = true;
+        }
         // Oopsie daisy
         if (rewind)
         {
@@ -81,6 +86,12 @@ static void NewUsername(UserSettingsClass& user_settings, const TranslationEngin
             }
         }
         // uwu
+        // Check if username is empty
+        if (name == std::string(""))
+        {
+            rewind = true;
+        }
+        // owo
         if (rewind)
         {
             fmt::print("{1}{2: <90}{0}\n", RESET, RED, GameTranslation.GetTranslated("menu.options.usererror"));

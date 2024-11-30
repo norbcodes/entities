@@ -213,6 +213,7 @@ void TranslationEngine::LoadEnglish()
     this->Register["en-US"]["general.enter_to_exit"]        = "Press enter to continue.";
     this->Register["en-US"]["general.healed"]               = "healed";
     this->Register["en-US"]["general.regenerated"]          = "regenerated";
+    this->Register["en-US"]["general.enemy"]                = "Enemy";
 
     // Main menu texts
     this->Register["en-US"]["menu.main.subtitle"]           = "A game by norbcodes.";
@@ -494,6 +495,7 @@ void TranslationEngine::LoadSlovak()
     this->Register["sk-SK"]["general.enter_to_exit"]        = "Enterom naspäť.";
     this->Register["sk-SK"]["general.healed"]               = "si uzdravil";
     this->Register["sk-SK"]["general.regenerated"]          = "si regeneroval";
+    this->Register["sk-SK"]["general.enemy"]                = "Nepriateľ";
 
     // Main menu texts
     this->Register["sk-SK"]["menu.main.subtitle"]           = "Hra vytvorená vývorajom norbcodes.";
@@ -776,6 +778,7 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["general.enter_to_exit"]        = "Нажмите Enter, чтобы продолжить.";
     this->Register["ru-RU"]["general.healed"]               = "восстановил";
     this->Register["ru-RU"]["general.regenerated"]          = "восстановил";
+    this->Register["ru-RU"]["general.enemy"]                = "Противник";
 
     // Main menu texts
     this->Register["ru-RU"]["menu.main.subtitle"]           = "Игра, созданная norbcodes.";
@@ -827,19 +830,19 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["menu.ginfo.tip2"]              = "При необходимости вы можете пропустить ход, чтобы восстановить энергию.";
     this->Register["ru-RU"]["menu.ginfo.tip3"]              = "ИИ будет пытаться атаковать вас, если у него больше 60 очков здоровья (HP).";
     this->Register["ru-RU"]["menu.ginfo.statustitle1"]      = "СТАТУСЫ";
-    this->Register["ru-RU"]["menu.ginfo.statustitle2"]      = "и что они делают...";
+    this->Register["ru-RU"]["menu.ginfo.statustitle2"]      = "и как они работают...";
     this->Register["ru-RU"]["menu.ginfo.autoheal"]          = "Регенерация";
-    this->Register["ru-RU"]["menu.ginfo.autoheal.info"]     = "{white}{underline}В начале раунда{reset}{white} тот, до кого {reset}{white}дошла {underline}очередь,{reset}{nl}   {white}будет получать {purple}{bold}+{autoheal_amount} очков здоровья (HP).{reset}";
+    this->Register["ru-RU"]["menu.ginfo.autoheal.info"]     = "{white}{underline}В начале раунда{reset}{white} тот, до кого {reset}{white}дошла {underline}очередь{reset}{white},{nl}   будет получать {purple}{bold}+{autoheal_amount} очков здоровья (HP){reset}{white}.{reset}";
     this->Register["ru-RU"]["menu.ginfo.icrit"]             = "Повышение крит. шанса";
-    this->Register["ru-RU"]["menu.ginfo.icrit.info"]        = "{white}При атаке сущность, обладающая данным статусом,{reset}{nl}   {white}с вероятностью {underline}около {purple}~30%{reset} наносит {underline}критический удар{reset}{white},{nl}   {white}который имеет{reset} значительно {underline}больше урона.{reset}";
+    this->Register["ru-RU"]["menu.ginfo.icrit.info"]        = "{white}При атаке сущность, обладающая данным статусом,{nl}   с вероятностью {underline}около {purple}~30%{reset}{white} наносит {underline}критический удар{reset}{white},{nl}   {white}который наносит значительно {underline}больше урона{reset}{white}.{reset}";
     this->Register["ru-RU"]["menu.ginfo.invis"]             = "Невидимка";
-    this->Register["ru-RU"]["menu.ginfo.invis.info"]        = "{white}Когда сущность обладает данным статусом, атакующий{reset}{nl}   {white}её противник может {underline}промахнуться{reset} с вероятностью{reset} {white}{underline}{purple}~20%.{reset}";
+    this->Register["ru-RU"]["menu.ginfo.invis.info"]        = "{white}Когда сущность обладает данным статусом, атакующий{nl}   её противник может {underline}промахнуться{reset} с вероятностью{reset} {white}{underline}{purple}~20%{reset}{white}.{reset}";
     this->Register["ru-RU"]["menu.ginfo.poison"]            = "Яд";
-    this->Register["ru-RU"]["menu.ginfo.poison.info"]       = "{white}{underline}В начале раунда{reset}{white} тот, до кого{reset}{white} дошла {underline}очередь,{reset}{nl}   {white}будет получать урон {purple}{bold}-{poison_amount} HP.{reset}";
+    this->Register["ru-RU"]["menu.ginfo.poison.info"]       = "{white}{underline}В начале раунда{reset}{white} тот, до кого {reset}{white}дошла {underline}очередь{reset}{white},{nl}   будет получать урон {purple}{bold}-{poison_amount} HP{reset}{white}.{reset}";
     this->Register["ru-RU"]["menu.ginfo.thorns"]            = "Шипы";
-    this->Register["ru-RU"]["menu.ginfo.thorns.info"]       = "{white}Когда сущность, обладающая данным статусом, подвергается{reset}{nl}   {white}атаке, {reset}{white}{underline}50% урона{reset}{white} возвращается {underline}атакующей сущности.{reset}";
+    this->Register["ru-RU"]["menu.ginfo.thorns.info"]       = "{white}Когда сущность, обладающая данным статусом, подвергается{nl}   атаке, {reset}{white}{underline}50% урона{reset}{white} возвращается {underline}атакующей сущности{reset}{white}.{reset}";
     this->Register["ru-RU"]["menu.ginfo.weak"]              = "Слабость";
-    this->Register["ru-RU"]["menu.ginfo.weak.info"]         = "{white}Для ослабленных противников действует {underline}{purple}ограничение{reset}{nl}   {white}в 60 очков здоровья (HP) и брони (AR){reset}, {white}за раунд у них{nl}   восполняется {underline}{purple}на 75% меньше энергии{reset}{white}, {reset}{white}а также они{nl}   {underline}{purple}реже атакуют{reset}{white}. Этот статус длится {weakness_time} раунда.{reset}";
+    this->Register["ru-RU"]["menu.ginfo.weak.info"]         = "{white}Для ослабленных противников действует {underline}{purple}ограничение{nl}   {underline}{purple}в 60 очков здоровья (HP) и брони (AR){reset}, {white}за раунд у них{nl}   восполняется {underline}{purple}на 75% меньше энергии{reset}{white}, {reset}{white}а также они{nl}   {underline}{purple}реже атакуют{reset}{white}. Этот статус длится {weakness_time} раунда.{reset}";
 
     // Settings texts
     this->Register["ru-RU"]["menu.options.title"]           = "Настройки";
@@ -956,7 +959,7 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["exit.message.14"]              = "{white}Просто уходите. Вы - недостойный противник.{reset}";
     this->Register["ru-RU"]["exit.message.15"]              = "{white}Ладно{reset}";
     this->Register["ru-RU"]["exit.message.16"]              = "{white}Ты изменяешь мне с Java-играми?{reset}";
-    this->Register["ru-RU"]["exit.message.19"]              = "{white}Пророчество гласит, что вы продолжите игру. Вы смеете помешать исполнению этого пророчества?{reset}";
+    this->Register["ru-RU"]["exit.message.19"]              = "{white}Пророчество гласит, что вы продолжите игру.{nl}Вы смеете помешать исполнению этого пророчества?{reset}";
     this->Register["ru-RU"]["exit.message.21"]              = "{white}Благодарим вас за скачивание нашего вируса :3{reset}";
     this->Register["ru-RU"]["exit.message.22"]              = "{white}Нажмите 'y', и вы будете лежать в гробу!{reset}";
     this->Register["ru-RU"]["exit.message.23"]              = "{white}Не будь глупышкой! Побудь ещё немного здесь!{reset}";
@@ -1000,10 +1003,10 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["exit.message.special"]         = "{white}А вы знали? Вероятность появления каждого из этих сообщений составляет {purple}{perc:.2f}%{white}.{reset}";
 
     // Credits :3
-    this->Register["ru-RU"]["credits.title1"]               = "ИНФОРМАЦИЯ!!!!";
+    this->Register["ru-RU"]["credits.title1"]               = "ВОТ ОНИ - ТИТРЫ!";
     this->Register["ru-RU"]["credits.gameby"]               = "{gold}{bold}Игра{reset} {white}от{reset} {blue}{bold}Norb{reset}";
     this->Register["ru-RU"]["credits.writtenin"]            = "{hot_pink}{bold}Игра написана{reset} {white}на{reset} {green}{bold}C++{reset}";
-    this->Register["ru-RU"]["credits.moreinfo1"]            = "Версия 1.0 написана примерно за 2 дня.";
+    this->Register["ru-RU"]["credits.moreinfo1"]            = "Версия 1.0 создана примерно за 2 дня.";
     this->Register["ru-RU"]["credits.moreinfo2"]            = "(Пока я пишу эти титры, Discord говорит, что я сижу в VS Code уже 6 часов)";
     this->Register["ru-RU"]["credits.moreinfo3"]            = "Эти прекрасные цвета подобраны с помощью";
     this->Register["ru-RU"]["credits.moreinfo4"]            = "Зацените entity1 и главную страницу";
@@ -1011,7 +1014,7 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["credits.discordlib"]           = "{blue}{bold}discord-rpc{reset} {dark_gray}:: {lavender}{italic}Спасибо, {name} :){reset}";
     this->Register["ru-RU"]["credits.fmtlib"]               = "{bold}{red}{{{orange}f{yellow}m{green}t{blue}}}{reset} {dark_gray}::{reset} {hot_pink}{italic}Спасибо всей команде разработчиков библиотеки {name}!! :P{reset}";
     this->Register["ru-RU"]["credits.pugilib"]              = "{white}{bold}pugi{reset}{brown}{bold}xml{reset} {dark_gray}::{reset} {pink}{italic}Спасибо {name} ({name2} на GitHub)!! :3{reset}";
-    this->Register["ru-RU"]["credits.arglib"]               = "{orange}{bold}arg{gold}parse{reset} {dark_gray}::{reset} {green}{italic}Спасибо {name} {dark_green}за эту классную библиотеку :>{reset}";
+    this->Register["ru-RU"]["credits.arglib"]               = "{orange}{bold}arg{gold}parse{reset} {dark_gray}::{reset} {green}{italic}Спасибо {name} {dark_green}за такую классную библиотеку :>{reset}";
     this->Register["ru-RU"]["credits.jsonlib"]              = "{blue}{bold}{italic}json{reset} {dark_gray}::{reset} {teal}{italic}Спасибо {name} за эту шикарную библиотеку!!{reset}";
     this->Register["ru-RU"]["credits.compiled"]             = "{dark_gray}entities2.cpp версия {entities2_ver} скомпилирована {compile_date} {compile_time} ;){reset}";
     this->Register["ru-RU"]["credits.title3"]               = "ОТДЕЛЬНОЕ СПАСИБО ПЕРЕВОДЧИКАМ:";

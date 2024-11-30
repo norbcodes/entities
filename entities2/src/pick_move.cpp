@@ -35,8 +35,8 @@
  */
 void PickMove(Entity* ent1, Entity* ent2, uint32_t picked_move, uint32_t* moves, uint32_t* move_types, double* energy_costs, bool enemy_turn, std::string& what_happened, UserSettingsClass& user_settings, const TranslationEngine& GameTranslation)
 {
-    std::string who = (!enemy_turn) ? fmt::format("{1}{2}{3}{0}", RESET, BLUE, BOLD, user_settings.GetUsername()) : fmt::format("{1}{2}Enemy{0}", RESET, RED, BOLD);
-    std::string who_other = (enemy_turn) ? fmt::format("{1}{2}{3}{0}", RESET, BLUE, BOLD, user_settings.GetUsername()) : fmt::format("{1}{2}Enemy{0}", RESET, RED, BOLD);
+    std::string who = (!enemy_turn) ? fmt::format("{1}{2}{3}{0}", RESET, BLUE, BOLD, user_settings.GetUsername()) : fmt::format("{1}{2}{3}{0}", RESET, RED, BOLD, GameTranslation.GetTranslated("general.enemy"));
+    std::string who_other = (enemy_turn) ? fmt::format("{1}{2}{3}{0}", RESET, BLUE, BOLD, user_settings.GetUsername()) : fmt::format("{1}{2}{3}{0}", RESET, RED, BOLD, GameTranslation.GetTranslated("general.enemy"));
 
     if (move_types[picked_move] == ATTACK)
     {

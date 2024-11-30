@@ -28,7 +28,7 @@ set(PROJECT_VERSION_MINOR "9")
 set(PROJECT_VERSION_PATCH "0")
 set(PROJECT_VERSION_IS_DEV 1)
 
-include("CheckIncludeFileCXX")
+include(CheckCXXCompilerFlag)
 
 # Options for compilation.
 option(STATIC_LIBS              "Statically link against C and C++ standard lib." OFF)
@@ -162,7 +162,18 @@ configure_file(${CMAKE_SOURCE_DIR}/src/headers/version.txt ${CMAKE_BINARY_DIR}/h
 
 # Create the main executable
 add_executable(${PROJECT_NAME} ${ENTITIES2_SOURCE})
-target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra)
+target_compile_options(${PROJECT_NAME} PUBLIC -Wall)
+# Yeeee
+check_cxx_compiler_flag("-Wextra" SUPPORTS_WEXTRA)
+if (SUPPORTS_WEXTRA)
+    target_compile_options(${PROJECT_NAME} PUBLIC -Wextra)
+else()
+    check_cxx_compiler_flag("-W" SUPPORTS_WONLY)
+    if (SUPPORTS_WONLY)
+        target_compile_options(${PROJECT_NAME} PUBLIC -W)
+    endif()
+endif()
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${SEARCH_IN})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
@@ -201,7 +212,7 @@ if (STATIC_LIBS)
 endif()
 
 # Check if OPTIMIZATION
-if (OPTIMIZE)
+if (OPTIMIZE OR CMAKE_BUILD_TYPE MATCHES Release)
     target_compile_options(${PROJECT_NAME} PUBLIC -O2 -g0 -ggdb0 -s)
     message(STATUS "Enabled optimization.")
 endif()
