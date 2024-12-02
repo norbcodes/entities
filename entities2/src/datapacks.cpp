@@ -15,6 +15,8 @@
 #include <pugixml.hpp>
 #include <vector>
 #include <fmt/format.h>
+#include <map>
+#include <unordered_map>
 
 #include "exit_msg.hpp"
 #include "datapacks.hpp"
@@ -332,6 +334,30 @@ void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& G
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
+            //All times
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            else if (Node.attribute("time").as_string() == std::string("All"))
+            {
+                // 3 AM time, check formatting
+                if (Node.attribute("formatted").as_bool())
+                {
+                    // Formatting ON, format string and put into array
+                    AddGreetMsg(MsgFormatter(Node.text().as_string(), user_settings), G_MORNING);
+                    AddGreetMsg(MsgFormatter(Node.text().as_string(), user_settings), G_AFTERNOON);
+                    AddGreetMsg(MsgFormatter(Node.text().as_string(), user_settings), G_EVENING);
+                    AddGreetMsg(MsgFormatter(Node.text().as_string(), user_settings), G_ENIGHT);
+                    AddGreetMsg(MsgFormatter(Node.text().as_string(), user_settings), G_3AM);
+                }
+                else
+                {
+                    AddGreetMsg(Node.text().as_string(), G_MORNING);
+                    AddGreetMsg(Node.text().as_string(), G_AFTERNOON);
+                    AddGreetMsg(Node.text().as_string(), G_EVENING);
+                    AddGreetMsg(Node.text().as_string(), G_ENIGHT);
+                    AddGreetMsg(Node.text().as_string(), G_3AM);
+                }
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////
             // Else? Error
             ///////////////////////////////////////////////////////////////////////////////////////////
             else
@@ -368,12 +394,29 @@ void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& G
                 return;
             }
 
-            // Now add
-            GameTranslation.AddTranslation(
-                Node.attribute("lang").as_string(), 
-                Node.attribute("id").as_string(), 
-                Node.text().as_string()
-            );
+            // Check if lang attribute is "All"
+            if (Node.attribute("lang").as_string() == std::string("All"))
+            {
+                // This is special because this means this translation string will be
+                // the same on all languages
+                for (std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator i = GameTranslation.LangIteratorBegin(); i != GameTranslation.LangIteratorEnd(); i++)
+                {
+                    GameTranslation.AddTranslation(
+                        i->first,
+                        Node.attribute("id").as_string(),
+                        Node.text().as_string()
+                    );
+                }
+            }
+            else
+            {
+                // Now add
+                GameTranslation.AddTranslation(
+                    Node.attribute("lang").as_string(),
+                    Node.attribute("id").as_string(),
+                    Node.text().as_string()
+                );
+            }
         }
     }
 }
