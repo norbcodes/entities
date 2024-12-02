@@ -28,6 +28,7 @@ class TranslationEngine
         void LoadEnglish(); // IS ALWAYS CALLED!
         void LoadSlovak();
         void LoadRussian();
+        void LoadTagalog();
         // Setters + Adders
         void SetLang(const std::string& id, GlobalSettingsClass& global_settings);
         void AddTranslation(const std::string& lang_id, const std::string& trans_id, const std::string& str);

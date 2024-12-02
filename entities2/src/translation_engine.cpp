@@ -482,6 +482,7 @@ void TranslationEngine::LoadEnglish()
 void TranslationEngine::LoadSlovak()
 {
     #ifdef __ENTITIES2_BAKED_IN_SLOVAK__
+    
     // Language specific strings
     this->Register["sk-SK"]["lang.name"]                    = "Slovenčina (Slovensko)";
     this->Register["sk-SK"]["lang.id"]                      = "sk-SK";
@@ -739,6 +740,7 @@ void TranslationEngine::LoadSlovak()
     this->Register["sk-SK"]["credits.russian"]              = "{purple}{bold}{name}{reset} {dark_gray}::{reset} {white}Preložil do {bold}ruštiny{reset}";
     this->Register["sk-SK"]["credits.portuguese"]           = "{yellow}{bold}{name}{reset} {dark_gray}::{reset} {white}Preložil do {bold}portugalčiny{reset}";
     this->Register["sk-SK"]["credits.tagalog"]              = "{light_blue}{bold}{name}{reset} {dark_gray}::{reset} {white}Preložil do jazyka {bold}tagalóg{reset}";
+    
     #endif // __ENTITIES2_BAKED_IN_SLOVAK__
 }
 
@@ -765,6 +767,7 @@ void TranslationEngine::LoadSlovak()
 void TranslationEngine::LoadRussian()
 {
     #ifdef __ENTITIES2_BAKED_IN_RUSSIAN__
+    
     // Language specific strings
     this->Register["ru-RU"]["lang.name"]                    = "Русский (Россия)";
     this->Register["ru-RU"]["lang.id"]                      = "ru-RU";
@@ -1022,7 +1025,293 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["credits.russian"]              = "{purple}{bold}{name}{reset} {dark_gray}::{reset} {white}{bold}русский{reset} {white}язык{reset}";
     this->Register["ru-RU"]["credits.portuguese"]           = "{yellow}{bold}{name}{reset} {dark_gray}::{reset} {white}{bold}португальский{reset} {white}язык{reset}";
     this->Register["ru-RU"]["credits.tagalog"]              = "{light_blue}{bold}{name}{reset} {dark_gray}::{reset} {white}{bold}тагальский{reset} {white}язык{reset}";
+    
     #endif // __ENTITIES2_BAKED_IN_RUSSIAN__
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * \brief Load all of Tagalog translation.
+ * \note Needs to be enabled when cmake is invoked...
+ */
+void TranslationEngine::LoadTagalog()
+{
+    #ifdef __ENTITIES2_BAKED_IN_TAGALOG__
+
+    // Language specific strings
+    this->Register["tl-PH"]["lang.name"]                    = "Tagalog (Pilipinas)";
+    this->Register["tl-PH"]["lang.id"]                      = "tl-PH";
+
+    // General texts
+    this->Register["tl-PH"]["general.quit"]                 = "Umalis";
+    this->Register["tl-PH"]["general.exit"]                 = "Lumabas";
+    this->Register["tl-PH"]["general.on"]                   = "ON";
+    this->Register["tl-PH"]["general.off"]                  = "OFF";
+    this->Register["tl-PH"]["general.by"]                   = "ni";
+    this->Register["tl-PH"]["general.enter_to_exit"]        = "Pindutin ang 'enter' para magpatuloy.";
+    //this->Register["tl-PH"]["general.healed"]               = ;
+    //this->Register["tl-PH"]["general.regenerated"]          = ;
+    //this->Register["tl-PH"]["general.enemy"]                = ;
+
+    // Main menu texts
+    this->Register["tl-PH"]["menu.main.subtitle"]           = "Isang larong gawa ni norbcodes.";
+    this->Register["tl-PH"]["menu.main.optionpick"]         = "Mga Pagpipilian:";
+    this->Register["tl-PH"]["menu.main.play"]               = "Maglaro";
+    this->Register["tl-PH"]["menu.main.ginfo"]              = "Impormasyon ng Laro";
+    this->Register["tl-PH"]["menu.main.datapacks"]          = "Mga Datapack";
+    this->Register["tl-PH"]["menu.main.settings"]           = "Setting";
+    this->Register["tl-PH"]["menu.exit.confirm"]            = "Kumpirmahin ang paglabas?";
+    this->Register["tl-PH"]["menu.unstable"]                = "{red}Gumagamit ka ng bersyon na {bold}hindi pa pinal!{reset}{nl}{white}Mag-ingat sa pagpapatuloy. {red}Nais mo pa bang maglaro? [y,n]{reset}";
+
+    // Difficulty picker texts
+    this->Register["tl-PH"]["menu.diffpicker.title"]        = "Antas ng Kahirapan";
+    this->Register["tl-PH"]["menu.diffpicker.easy"]         = "Ubusin ang mga Nilalang!";
+    this->Register["tl-PH"]["menu.diffpicker.medium"]       = "Wala 'to sa 'kin";
+    this->Register["tl-PH"]["menu.diffpicker.hard"]         = "Ibagsak ang mga Nilalang!";
+    this->Register["tl-PH"]["menu.diffpicker.random"]       = "Halu-halo! ";
+    this->Register["tl-PH"]["menu.diffpicker.record"]       = "I-record ang demo";
+
+    // Datapack viewer stuff
+    this->Register["tl-PH"]["menu.datapacks.title"]         = "Datapacks";
+    this->Register["tl-PH"]["menu.datapacks.loaded"]        = "{white}Kasalukuyang kinakarga ang {purple}{datapack_count}{reset}{white} na datapack.{reset}";
+    this->Register["tl-PH"]["menu.datapacks.help1"]         = "Gamitin ang up at down arrow para gumalaw.";
+    this->Register["tl-PH"]["menu.datapacks.empty"]         = "Wala ang mga datapack!";
+    this->Register["tl-PH"]["menu.datapacks.info"]          = "Pindutin ang left arrow para bumalik.{nl}Pindutin ang right arrow para tingnan ang impormasyon ng datapacks.";
+    this->Register["tl-PH"]["menu.datapacks.title2"]        = "Datapack Info";
+    this->Register["tl-PH"]["menu.datapacks.subtitle"]      = "Metadata:";
+    this->Register["tl-PH"]["menu.datapacks.name"]          = "Pangalan:";
+    this->Register["tl-PH"]["menu.datapacks.author"]        = "May-akda:";
+    this->Register["tl-PH"]["menu.datapacks.id"]            = "Datapack id:";
+    this->Register["tl-PH"]["menu.datapacks.desc"]          = "Deskripsyon:";
+    this->Register["tl-PH"]["menu.datapacks.error1"]        = "Nawawala ang main \"Datapack\" block!";
+    this->Register["tl-PH"]["menu.datapacks.error2"]        = "Nawawala ang main \"Meta\" block!";
+    this->Register["tl-PH"]["menu.datapacks.error3"]        = "Nawawala ang main \"Data\" block!";
+    this->Register["tl-PH"]["menu.datapacks.error4"]        = "Nawawala ang pangalan ng datapack!";
+    this->Register["tl-PH"]["menu.datapacks.error5"]        = "Nawawala ang may-akda ng datapack!";
+    this->Register["tl-PH"]["menu.datapacks.error6"]        = "Nawawala ang datapack identificator!";
+    this->Register["tl-PH"]["menu.datapacks.error7"]        = "Sira ang translations!";
+    this->Register["tl-PH"]["menu.datapacks.error8"]        = "Ang pagbati ay walang sinabing oras!";
+    this->Register["tl-PH"]["menu.datapacks.error9"]        = "Walang pagbati!";
+    this->Register["tl-PH"]["menu.datapacks.error10"]       = "Walang exit message!";
+
+    // Gameplay info
+    this->Register["tl-PH"]["menu.ginfo.title"]             = "Imporasyon ng Laro!";
+    this->Register["tl-PH"]["menu.ginfo.tips"]              = "Mga payo at diskarte";
+    this->Register["tl-PH"]["menu.ginfo.status"]            = "Ang mga status at ang kanilang mga gamit";
+    this->Register["tl-PH"]["menu.ginfo.tiptitle"]          = "MGA PAYO & DISKARTE!";
+    this->Register["tl-PH"]["menu.ginfo.tip1"]              = "Maaari mong ipagpaliban ang tira na hindi pinipili ang 0, 1, 2, 3, o 4.";
+    this->Register["tl-PH"]["menu.ginfo.tip2"]              = "Kung kinakailangan, maaari mong ipagpaliban ang round para ibalik ang iyong enerhiya.";
+    this->Register["tl-PH"]["menu.ginfo.tip3"]              = "Susubukan kang atakihin ng AI kapag nasa higit na 60 ang kanyang HP.";
+    this->Register["tl-PH"]["menu.ginfo.statustitle1"]      = "ANG MGA STATUS";
+    this->Register["tl-PH"]["menu.ginfo.statustitle2"]      = "at ang kanilang mga gamit...";
+    this->Register["tl-PH"]["menu.ginfo.autoheal"]          = "AutoHeal";
+    this->Register["tl-PH"]["menu.ginfo.autoheal.info"]     = "{white}Sa simula ng {underline}bagong round{reset}{white}, ang may-ari{reset}{nl}   {white}ng {underline}turn ay makakatanggap ng {purple}{bold}+{autoheal_amount}HP.{reset}";
+    this->Register["tl-PH"]["menu.ginfo.icrit"]             = "IncreasedCrit";
+    this->Register["tl-PH"]["menu.ginfo.icrit.info"]        = "{white}Kung sinuman ang may status na ito ay magkakaroon ng {underline}{purple}~30%{reset}{nl}   {white}ng pagtira ng {underline}kritikal na pag-atake{reset}{white}, na nagbibigay ng{reset}{nl}   {white}mas {underline}maraming damage.{reset}";
+    this->Register["tl-PH"]["menu.ginfo.invis"]             = "Invisibility";
+    this->Register["tl-PH"]["menu.ginfo.invis.info"]        = "{white}Kung sinuman ang may status na ito ay may{reset}{nl}   {white}a {underline}{purple}~20%{reset} {white}tsansang {underline}sumablay ang tira{reset}{nl}   {white}{underline}ng mga umaatake.{reset}";
+    this->Register["tl-PH"]["menu.ginfo.poison"]            = "Poison";
+    this->Register["tl-PH"]["menu.ginfo.poison.info"]       = "{white}Sa simula ng {underline}bagong round{reset}, ang may-ari{reset}{nl}   {white}ng {underline}turn ay makakatanggap ng {purple}{bold}-{poison_amount}HP ng damage.{reset}";
+    this->Register["tl-PH"]["menu.ginfo.thorns"]            = "Thorns";
+    this->Register["tl-PH"]["menu.ginfo.thorns.info"]       = "{white}Kapag ang gumamit nito ay{reset}{nl}   {white}inatake, {underline}50% ng damage{reset}{white} ay ibabalik sa {underline}umatake.{reset}";
+    this->Register["tl-PH"]["menu.ginfo.weak"]              = "Weakness";
+    this->Register["tl-PH"]["menu.ginfo.weak.info"]         = "{white}Ang HP at AR ng mahinang kalaban ay {underline}{purple}aabot hanggang 60 lamang.{reset}{nl}   {white}Ang kanilang enerhiya ay babalik ng {underline}{purple}kulang sa 75% bawat round{reset}{white}.{reset}{nl}   {white}Ang kanyang pag-atake ay{underline}{purple}'di gaanong kalakas{reset}{white}.{nl}   Ang status na ito ay aabot lamang sa {weakness_time} round.{reset}";
+
+    // Settings texts
+    this->Register["tl-PH"]["menu.options.title"]           = "Mga Pagpipilian";
+    this->Register["tl-PH"]["menu.options.cat1"]            = " 1 SETTING NG DISCORD ";
+    this->Register["tl-PH"]["menu.options.cat2"]            = " 2 SETTING NG WIKA ";
+    this->Register["tl-PH"]["menu.options.cat3"]            = " 3 SETTING NG GUMAGAMIT ";
+    this->Register["tl-PH"]["menu.options.c1o1"]            = "Discord RPC:";
+    this->Register["tl-PH"]["menu.options.login"]           = "Naka-login bilang";
+    this->Register["tl-PH"]["menu.options.currlang"]        = "Kasalukyang wika:";
+    this->Register["tl-PH"]["menu.options.changelang"]      = "Palitan ang wika...";
+    this->Register["tl-PH"]["menu.options.langutils"]       = "Utility Pang-Wika...";
+    this->Register["tl-PH"]["menu.options.export1"]         = "I-export ang wika sa Datapack (xml)...";
+    this->Register["tl-PH"]["menu.options.export2"]         = "I-export ang wika bilang Text (txt)...";
+    this->Register["tl-PH"]["menu.options.export3"]         = "Palitan ang TXT sa Datapack (xml)...";
+    this->Register["tl-PH"]["menu.options.newuser"]         = "Gumawa ng bagong user...";
+    this->Register["tl-PH"]["menu.options.changename"]      = "Palitan ang username...";
+    this->Register["tl-PH"]["menu.options.help1"]           = "{white}Pindutin ang {green}1{white} para pumasok sa {green}Edit{white} mode.{nl}Pindutin ang {red}9{white} para {red}bumalik sa main menu{white}.{reset}";
+    this->Register["tl-PH"]["menu.options.help2"]           = "{white}Pindutin ang {red}left arrow{white} para lumabas sa {red}Edit{white} mode.{reset}";
+    this->Register["tl-PH"]["menu.options.help3"]           = "{white}Gamitin ang {purple}up at down arrow{white} para {purple}gumalaw{white}.{reset}";
+    this->Register["tl-PH"]["menu.options.help4"]           = "{white}Pindutin ang {yellow}right arrow{white} para {yellow}palitan ang setting{white}.{reset}";
+    this->Register["tl-PH"]["menu.options.enteruser"]       = "Isulat ang iyong username:";
+    this->Register["tl-PH"]["menu.options.usererror"]       = "Walang espasyo sa username!";
+    this->Register["tl-PH"]["menu.options.lang.select"]     = "Pagpipilian ng mga Wika";
+    this->Register["tl-PH"]["menu.options.lang.loading"]    = "Kumakarga...";
+    this->Register["tl-PH"]["menu.options.lang.line1"]      = "Kasalukyang wika: {lang}";
+    this->Register["tl-PH"]["menu.options.lang.line2"]      = "{lang_count} mga wika ang naka-load.";
+    this->Register["tl-PH"]["menu.options.lang.line3"]      = "Up/down arrow para gumalaw, right arrow para pumili ng wika at left arrow para umalis.";
+
+    // Language utilities texts
+    this->Register["tl-PH"]["menu.langutils.success"]       = "Tagumpay na na-export ang wikang {lang_id}!";
+    this->Register["tl-PH"]["menu.langutils.fail"]          = "May masamang nangyari habang nag-eexport";
+    this->Register["tl-PH"]["menu.langutils.getpath"]       = "Paki-input ng path sa TXT:";
+    this->Register["tl-PH"]["menu.langutils.pathfail"]      = "Hindi mahanap ang path!";
+    this->Register["tl-PH"]["menu.langutils.notfile"]       = "Ang path ay hindi tugma sa file!";
+
+    // Greet texts
+    this->Register["tl-PH"]["greet.morning.1"]              = "{white}Magandang umaga, {username}. Handa ka na bang pumatay?{reset}";
+    this->Register["tl-PH"]["greet.morning.2"]              = "{white}Magandang umaga, {username}. Kumuha na ng kape at durugin ang mga kalaban.{reset}";
+    this->Register["tl-PH"]["greet.morning.3"]              = "{white}Magandang umaga, {username}. Bangon na!{reset}";
+    this->Register["tl-PH"]["greet.afternoon.1"]            = "{white}Magandang hapon, {username}. Naparito ka ba para sa mambasag ng bungo?{reset}";
+    this->Register["tl-PH"]["greet.afternoon.2"]            = "{white}Magandang hapon, {username}. Ang Tanghalian: Mga Nilalang {reset}";
+    this->Register["tl-PH"]["greet.afternoon.3"]            = "{white}Magandang hapon, {username}. Gusto kong umidlip ngayon din...{reset}";
+    this->Register["tl-PH"]["greet.evening.1"]              = "{white}Magandang gabi, {username}. 5 minuto pa bago matulog.{reset}";
+    this->Register["tl-PH"]["greet.evening.2"]              = "{white}Magandang gabi, {username}. Tulog na ang mga halimaw, supresahin natin sila! {reset}";
+    this->Register["tl-PH"]["greet.evening.3"]              = "{white}Magandang gabi, {username}. *{italic}Hikab{reset}{white}*{reset}";
+    this->Register["tl-PH"]["greet.earlynight.1"]           = "{white}Magandang gabi, {username}. Hindi ka pa tulog?{reset}";
+    this->Register["tl-PH"]["greet.earlynight.2"]           = "{white}Magandang gabi, {username}. Masarap ba ang hapunan mo?{reset}";
+    this->Register["tl-PH"]["greet.threeam.1"]              = "{white}Magandang gabi, {username}. Oras na ng kababalaghan!{reset}";
+    this->Register["tl-PH"]["greet.threeam.2"]              = "{white}Magandang gabi, {username}. Halos 'di na matukoy ang guhit sa pagitan ng mortal at ang kabilang dako...{reset}";
+    this->Register["tl-PH"]["greet.threeam.3"]              = "{white}Magandang gabi, {username}. May kakaibang nangyayari...{reset}";
+
+    // Gameplay strings
+    this->Register["tl-PH"]["game.battle.announce"]         = "{red}{italic}Nagsimula na ang laban. Galingan mo, {username}!{reset}";
+    this->Register["tl-PH"]["game.battle.what_happened"]    = "{white}Ang nakaraang round:{reset}{nl}{what_happened}{reset}";
+    this->Register["tl-PH"]["game.battle.ply_header"]       = "{dark_gray}---<<< {dark_gray}Tira ni{reset} {blue}{bold}{username}! >>>---{reset}";
+    this->Register["tl-PH"]["game.battle.ene_header"]       = "{dark_gray}---<<< {dark_gray}Tira ng{reset} {red}{bold}kalaban! >>>---{reset}";
+    this->Register["tl-PH"]["game.battle.enemy"]            = "KALABAN";
+    this->Register["tl-PH"]["game.battle.regen_moves"]      = "Binabago ang mga aksyon...";
+    this->Register["tl-PH"]["game.battle.move_choose"]      = "{white}Piliin ang iyong aksyon. {dark_gray}{bold}[1,2,3,4,5] (0 para lumabas){reset}";
+    this->Register["tl-PH"]["game.battle.exit"]             = "Nais mo bang tapusin ang laban?";
+    this->Register["tl-PH"]["game.battle.skip"]             = "Pinagpaliban ang tira.";
+    this->Register["tl-PH"]["game.battle.enemy_skip"]       = "{white}Ipinagpaliban ng{reset} {red}{bold}kalaban{reset} {white}ang kanyang tira.{reset}";
+    this->Register["tl-PH"]["game.battle.no_energy"]        = "Kulang sa enerhiya!";
+    this->Register["tl-PH"]["game.battle.rerolled"]         = "{blue}Na-reroll ni {bold}{username}{reset}{white} ang kanyang mga aksyon...{reset}";
+    this->Register["tl-PH"]["game.battle.ai_think"]         = "Nag-iisip ang AI...";
+    this->Register["tl-PH"]["game.moves.attack"]            = "{red}Umatake! {white}Bigyan ng {purple}{value}{white} damage ang kalaban mo.{reset}";
+    this->Register["tl-PH"]["game.moves.heal"]              = "{green}Maghilom! {white}Bibigyan ka ng {purple}+{value}{white} HP{reset}";
+    this->Register["tl-PH"]["game.moves.regen"]             = "{blue}Regen armor{white}! Bibigyan ka ng {purple}+{value}{white} AR{reset}";
+    this->Register["tl-PH"]["game.moves.autoheal"]          = "{white}Paganahin ang {green}AutoHeal {white}status! Bibigyan ka ng {purple}{value} {white}HP kapag tira mo na.{reset}";
+    this->Register["tl-PH"]["game.moves.icrit"]             = "{white}Paganahin ang {red}IncreasedCrit {white}status! Mas mataas na tsansa ng {red}kritikal na pag-atake{reset}";
+    this->Register["tl-PH"]["game.moves.invis"]             = "{white}Paganahin ang {hot_pink}Invis {white}status! Ang kalaban ay may tsansang {hot_pink}sumablay sa pagtira{reset}";
+    this->Register["tl-PH"]["game.moves.poison"]            = "{white}Bigyan ang kalaban ng {dark_green}Poison {white}status!  {purple}{value}{white} poison damage {reset}";
+    this->Register["tl-PH"]["game.moves.thorns"]            = "{white}Paganahin ang {teal}Thorns {white}status! Ang kalaban ay {bold}makakatanggap din ng damage kapag ika'y inatake{reset}";
+    this->Register["tl-PH"]["game.moves.weakness"]          = "{white}Bigyan ang kalaban ng {brown}Weakness {white}status! Maghihina ang kalaban...{reset}";
+    this->Register["tl-PH"]["game.moves.gameover"]          = "{white}---<<< {white}Namatay si{reset} {blue}{bold}{username}.{reset} {white}Panalo ang{reset} {red}{bold}kalaban!>>>---{reset}";
+    this->Register["tl-PH"]["game.moves.victory"]           = "{white}---<<< {white}Namatay ang{reset} {red}{bold}kalaban.{reset} {white}Panalo si{reset} {blue}{bold}{username}!>>>---{reset}";
+    this->Register["tl-PH"]["game.moves.rematch"]           = "Ulitin ang laban!";
+    //this->Register["tl-PH"]["game.applied.autoheal"]        = ;
+    //this->Register["tl-PH"]["game.applied.incr_crit"]       = ;
+    //this->Register["tl-PH"]["game.applied.invis"]           = ;
+    //this->Register["tl-PH"]["game.applied.poison"]          = ;
+    //this->Register["tl-PH"]["game.applied.thorns"]          = ;
+    //this->Register["tl-PH"]["game.applied.weakness"]        = ;
+
+    // Entity attack texts
+    //this->Register["tl-PH"]["entity.attack.ply_missed"]     = ;
+    //this->Register["tl-PH"]["entity.attack.ene_missed"]     = ;
+    //this->Register["tl-PH"]["entity.attack.ply_normal"]     = ;
+    //this->Register["tl-PH"]["entity.attack.ply_crit"]       = ;
+    //this->Register["tl-PH"]["entity.attack.ene_normal"]     = ;
+    //this->Register["tl-PH"]["entity.attack.ene_crit"]       = ;
+
+    // Exit messages :3
+    this->Register["tl-PH"]["exit.message.1"]               = "{white}Uuuyyyyyy! 'Wag mo 'kong iwan :<{reset}";
+    this->Register["tl-PH"]["exit.message.win2"]            = "{white}Sigurado ka? {italic}Mas malala ang Windows...{reset}";
+    this->Register["tl-PH"]["exit.message.win3"]            = "{white}Syempre, kung kwela lang sana ang Windows!{reset}{reset}";
+    this->Register["tl-PH"]["exit.message.win4"]            = "{white}Alam mo namang gusto ni Bill Gates ang larong ito, 'di ba?{reset}";
+    this->Register["tl-PH"]["exit.message.win5"]            = "{white}'Wag mong kalimutang patayin 'yung WINDOWS paglabas mo.{reset}";
+    this->Register["tl-PH"]["exit.message.mac2"]            = "{white}Sigurado ka? {italic}Mas malala ang Mac...{reset}";
+    this->Register["tl-PH"]["exit.message.mac3"]            = "{white}Syempre, kung kwela lang sana ang Mac!{reset}";
+    this->Register["tl-PH"]["exit.message.mac4"]            = "{white}Alam mo namang gusto ni Steve Jobs ang larong ito, 'di ba?{reset}";
+    this->Register["tl-PH"]["exit.message.mac5"]            = "{white}Aanhin mo ang IPhone, kung wala ka namang datung?{reset}";
+    this->Register["tl-PH"]["exit.message.lix2"]            = "{white}Sigurado ka? {italic}Mas malala ang Linux...{reset}";
+    this->Register["tl-PH"]["exit.message.lix3"]            = "{white}Syempre, kung kwela lang sana ang Linux!{reset}";
+    this->Register["tl-PH"]["exit.message.lix4"]            = "{white}Alam mo namang gusto ni Linus Torvalds ang larong ito, 'di ba?{reset}";
+    this->Register["tl-PH"]["exit.message.lix5"]            = "{white}Linuwux{reset}";
+    this->Register["tl-PH"]["exit.message.6"]               = "{white}May 6 na HP pa 'yung kalaban mo!{reset}";
+    this->Register["tl-PH"]["exit.message.8"]               = "{white}Huh? Bakit?{reset}";
+    this->Register["tl-PH"]["exit.message.9"]               = "{white}Kapag umalis ka, burado agad ang kill count mo!{reset}";
+    this->Register["tl-PH"]["exit.message.10"]              = "{white}Kahit paano sinubukan mo. Wala akong reklamo diyan.{reset}";
+    this->Register["tl-PH"]["exit.message.11"]              = "{white}'Wag ka munang umalis!{reset}";
+    this->Register["tl-PH"]["exit.message.12"]              = "{white}Pssst, kapag nanatili ka, bibigyan kita ng 3 libreng powerups... ;){reset}";
+    this->Register["tl-PH"]["exit.message.13"]              = "{white}Sigurado ka? Mapanganib ang labas...{reset}";
+    this->Register["tl-PH"]["exit.message.14"]              = "{white}Tsk, lumayas ka. Mahinang nilalang.{reset}";
+    this->Register["tl-PH"]["exit.message.15"]              = "{white}Okey{reset}";
+    this->Register["tl-PH"]["exit.message.16"]              = "{white}Pangga, pinagpalit mo na ba 'ko sa mga larong Java?{reset}";
+    this->Register["tl-PH"]["exit.message.19"]              = "{white}Nakasaad sa propesiya na dapat mong ituloy ang laro. Sinusuway mo na ba ang iyong kapalaran?{reset}";
+    this->Register["tl-PH"]["exit.message.21"]              = "{white}Salamat sa pag-download ng malware namin :3{reset}";
+    this->Register["tl-PH"]["exit.message.22"]              = "{white}Pindutin ang 'y' at ika'y hihiga sa iyong kabaong!{reset}";
+    this->Register["tl-PH"]["exit.message.23"]              = "{white}'Wag kang baliw! Manatili ka pa nang matagal!{reset}";
+    this->Register["tl-PH"]["exit.message.24"]              = "{white}Nasa loob ng iyong dingding ang mga Nilalang{reset}";
+    this->Register["tl-PH"]["exit.message.25"]              = "{white}Ako, si norbcodes, ay nakatambay sa kisame mo{reset}";
+    this->Register["tl-PH"]["exit.message.26"]              = "{white}Seryoso ka?{reset}";
+    this->Register["tl-PH"]["exit.message.27"]              = "{white}Weeh. 'Di nga.{reset}";
+    this->Register["tl-PH"]["exit.message.28"]              = "{white}Nakupo, babeeee!{reset}";
+    this->Register["tl-PH"]["exit.message.29"]              = "{white}Tumatakbo ba 'yung ref mo...?{reset}";
+    this->Register["tl-PH"]["exit.message.30"]              = "{white}Nakapatay ba 'yung kalan mo...?{reset}";
+    this->Register["tl-PH"]["exit.message.31"]              = "{white}Ano? Natakot ka sa heap memory allocs?{reset}";
+    this->Register["tl-PH"]["exit.message.32"]              = "{white}May tsansang matatamaan ang ulo mo ng{nl}neutrino particle{reset}";
+    this->Register["tl-PH"]["exit.message.33"]              = "{white}Isip-isip din 'pag may time.{reset}";
+    this->Register["tl-PH"]["exit.message.34"]              = "{white}Nakupo! Nasira 'yung 'y' button mo!{reset}";
+    this->Register["tl-PH"]["exit.message.35"]              = "{white}HAHAHAHA{reset}";
+    this->Register["tl-PH"]["exit.message.36"]              = "{white}Gawa-gawa lang ang labas. Gising. Gumising ka.{reset}";
+    this->Register["tl-PH"]["exit.message.37"]              = "{white}Mas kwela ba ang mga orihinal na Nilalang?{reset}";
+    this->Register["tl-PH"]["exit.message.39"]              = "{white}Ako, si norbcodes, ay tutol sa pasya mo >:({reset}";
+    this->Register["tl-PH"]["exit.message.40"]              = "{white}Sisirain ko 'yang keyboard mo{reset}";
+    this->Register["tl-PH"]["exit.message.41"]              = "{white}Bumalik ka. Magkakaroon tayo ng pizza party.{reset}";
+    this->Register["tl-PH"]["exit.message.42"]              = "{white}Paalam :3{reset}";
+    this->Register["tl-PH"]["exit.message.45"]              = "{white}*{italic}isulat ang exit message dito{reset}{white}*{reset}";
+    this->Register["tl-PH"]["exit.message.47"]              = "{white}'Tol, piliin mo 'yung mas madali. 'Wag mong pahirapan 'yang sarili mo.{reset}";
+    this->Register["tl-PH"]["exit.message.48"]              = "{white}*{italic}isulat ang pagbabanta rito {reset}{white}*{reset}";
+    this->Register["tl-PH"]["exit.message.49"]              = "{white}Sige na nga. Umalis ka sa harapan ko.{reset}";
+    this->Register["tl-PH"]["exit.message.50"]              = "{white}Manatili ka pa pwease :({reset}";
+    this->Register["tl-PH"]["exit.message.51"]              = "{white}><>     <---- isda{reset}";
+    this->Register["tl-PH"]["exit.message.52"]              = "{red}exit{reset}{white}(){reset}";
+    this->Register["tl-PH"]["exit.message.53"]              = "{white}Walang syntax highlighting para sa 'yo!!!{reset}";
+    this->Register["tl-PH"]["exit.message.54"]              = "{{red}}{{bold}}Putsa, sira 'yung formatting ko{{reset}}";
+    this->Register["tl-PH"]["exit.message.56"]              = "{white}Huwag{nl}     kang{nl}         umalis,{nl}                PAKIUSAP{reset}";
+    this->Register["tl-PH"]["exit.message.57"]              = "{white}Ayoko sa 'yo >:( {reset}";
+    this->Register["tl-PH"]["exit.message.58"]              = "{white}ALAM mo namang ito ang pinaka-dabest na laro, 'di ba?{reset}";
+    this->Register["tl-PH"]["exit.message.59"]              = "{white}Magaling. Natalo lang ng isang beses, suko agad.{reset}";
+    this->Register["tl-PH"]["exit.message.61"]              = "{white}I-rereport kita sa GitHub 'pag umalis ka >:({reset}";
+    this->Register["tl-PH"]["exit.message.62"]              = "{white}Miyaw meerpppp :3{reset}";
+    this->Register["tl-PH"]["exit.message.64"]              = "{white}At ang \"Pinakamahusay na Manlalaro\" ay iginawad kay...{reset}";
+    this->Register["tl-PH"]["exit.message.65"]              = "{white}walang bayag :>{reset}";
+    this->Register["tl-PH"]["exit.message.67"]              = "{white}Laruin mo na 'yang Valorant o kung ano man 'yung nilalaro ng mga bata ngayon{reset}";
+    this->Register["tl-PH"]["exit.message.70"]              = "{white}Kailan 'yung kaarawan mo?{reset}";
+    this->Register["tl-PH"]["exit.message.special"]         = "{white}Alam mo ba? May {purple}{perc:.2f}%{white} tsansang magpakita rito ang bawat mensahe.{reset}";
+
+    // Credits :3
+    this->Register["tl-PH"]["credits.title1"]               = "KREDITS, MGA TSONG!!!";
+    this->Register["tl-PH"]["credits.gameby"]               = "{gold}{bold}Laro{reset} {white}ni{reset} {blue}{bold}Norb{reset}";
+    this->Register["tl-PH"]["credits.writtenin"]            = "{hot_pink}{bold}Isinulat{reset} {white}gamit ang{reset} {green}{bold}C++{reset}";
+    this->Register["tl-PH"]["credits.moreinfo1"]            = "Na-icode ang v1.0 sa loob ng 2 araw.";
+    this->Register["tl-PH"]["credits.moreinfo2"]            = "(Habang sinusulat ko ang credits, naka-6 na oras daw ako sa VScode sabi ng Discord)";
+    this->Register["tl-PH"]["credits.moreinfo3"]            = "Itong mga pinong kulay ay pinili gamit ang";
+    this->Register["tl-PH"]["credits.moreinfo4"]            = "Bisitahin ang entity1 at ang homepage sa";
+    this->Register["tl-PH"]["credits.title2"]               = "ANG MGA GINAMIT NA EXTERNAL LIBRARY:";
+    this->Register["tl-PH"]["credits.discordlib"]           = "{blue}{bold}discord-rpc{reset} {dark_gray}:: {lavender}{italic}Salamat kay {name} :){reset}";
+    this->Register["tl-PH"]["credits.fmtlib"]               = "{bold}{red}{{{orange}f{yellow}m{green}t{blue}}}{reset} {dark_gray}::{reset} {hot_pink}{italic}Salamat sa buong {name} lib team!! :P{reset}";
+    this->Register["tl-PH"]["credits.pugilib"]              = "{white}{bold}pugi{reset}{brown}{bold}xml{reset} {dark_gray}::{reset} {pink}{italic}Salamat kay {name} (alyas {name2} sa github)!! :3{reset}";
+    this->Register["tl-PH"]["credits.arglib"]               = "{orange}{bold}arg{gold}parse{reset} {dark_gray}::{reset} {green}{italic}Salamat kay {name} {dark_green}para sa astig lib na 'to :>{reset}";
+    this->Register["tl-PH"]["credits.jsonlib"]              = "{blue}{bold}{italic}json{reset} {dark_gray}::{reset} {teal}{italic}Salamat kay {name} para sa halimaw na lib na 'to!!{reset}";
+    this->Register["tl-PH"]["credits.compiled"]             = "{dark_gray}Na-compile ang entities2.cpp version {entities2_ver} sa {compile_date} {compile_time} ;){reset}";
+    this->Register["tl-PH"]["credits.title3"]               = "MARAMING SALAMAT SA MGA TAGASALIN:";
+    this->Register["tl-PH"]["credits.slovak"]               = "{blue}{bold}{name}{reset} {dark_gray}::{reset} {white}{bold}wikang Ingles{reset}{white} (base game lang) at {bold}Eslobako{reset}";
+    this->Register["tl-PH"]["credits.russian"]              = "{purple}{bold}{name}{reset} {dark_gray}::{reset} {white}Sinalin sa {bold}wikang Ruso{reset}";
+    this->Register["tl-PH"]["credits.portuguese"]           = "{yellow}{bold}{name}{reset} {dark_gray}::{reset} {white}Sinalin sa {bold}wikang Portuges{reset}";
+    this->Register["tl-PH"]["credits.tagalog"]              = "{light_blue}{bold}{name}{reset} {dark_gray}::{reset} {white}Sinalin sa {bold}wikang Tagalog{reset}";
+
+    #endif // __ENTITIES2_BAKED_IN_TAGALOG__
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

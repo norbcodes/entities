@@ -76,6 +76,10 @@ int main(int argc, char* argv[])
     GameTranslation->LoadRussian();
     #endif
 
+    #ifdef __ENTITIES2_BAKED_IN_TAGALOG__
+    GameTranslation->LoadTagalog();
+    #endif
+
     // Global settings
     GlobalSettingsClass* GlobalSettings = new GlobalSettingsClass(*GameArguments);
     // Now set language, hehe
