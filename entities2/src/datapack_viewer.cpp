@@ -34,6 +34,7 @@ static void DatapackView(const Datapack& datapack, const TranslationEngine& Game
     fmt::print("{1}   {3: <16} {2}{0}\n", RESET, WHITE, datapack.GetAuthor(), GameTranslation.GetTranslated("menu.datapacks.author"));
     fmt::print("{1}   {3: <16} {2}{0}\n", RESET, WHITE, datapack.GetDatapackId(), GameTranslation.GetTranslated("menu.datapacks.id"));
     fmt::print("{1}   {3: <16} {2}{0}\n\n", RESET, WHITE, datapack.GetDesc(), GameTranslation.GetTranslated("menu.datapacks.desc"));
+    fmt::print("{1}{2} {3}{0}\n\n", RESET, WHITE, GameTranslation.GetTranslated("menu.datapacks.size"), datapack.GetFilesizeFormatted(GameTranslation));
     fmt::print("{1}{2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("general.enter_to_exit"));
     EndDiv();
     EndDiv();

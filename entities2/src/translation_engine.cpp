@@ -245,6 +245,8 @@ void TranslationEngine::LoadEnglish()
     this->Register["en-US"]["menu.datapacks.author"]        = "Author:";
     this->Register["en-US"]["menu.datapacks.id"]            = "Datapack id:";
     this->Register["en-US"]["menu.datapacks.desc"]          = "Description:";
+    this->Register["en-US"]["menu.datapacks.size"]          = "Size on disk:";
+    this->Register["en-US"]["menu.datapacks.veryhuge"]      = "Bigger than Jupiter";
     this->Register["en-US"]["menu.datapacks.error1"]        = "Main \"Datapack\" block missing!";
     this->Register["en-US"]["menu.datapacks.error2"]        = "Main \"Meta\" block missing!";
     this->Register["en-US"]["menu.datapacks.error3"]        = "Main \"Data\" block missing!";
@@ -528,6 +530,8 @@ void TranslationEngine::LoadSlovak()
     this->Register["sk-SK"]["menu.datapacks.author"]        = "Autor:";
     this->Register["sk-SK"]["menu.datapacks.id"]            = "Identifikátor:";
     this->Register["sk-SK"]["menu.datapacks.desc"]          = "Popis:";
+    this->Register["sk-SK"]["menu.datapacks.size"]          = "Veľkosť na disku:";
+    this->Register["sk-SK"]["menu.datapacks.veryhuge"]      = "Väčší ako Jupiter";
     this->Register["sk-SK"]["menu.datapacks.error1"]        = "XML sekcia \"Datapack\" neexistuje!";
     this->Register["sk-SK"]["menu.datapacks.error2"]        = "XML sekcia \"Meta\" neexistuje!";
     this->Register["sk-SK"]["menu.datapacks.error3"]        = "XML sekcia \"Data\" neexistuje!";
@@ -813,6 +817,8 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["menu.datapacks.author"]        = "Автор:";
     this->Register["ru-RU"]["menu.datapacks.id"]            = "ID датапака:";
     this->Register["ru-RU"]["menu.datapacks.desc"]          = "Описание:";
+    this->Register["ru-RU"]["menu.datapacks.size"]          = "Размер на диске:";
+    this->Register["ru-RU"]["menu.datapacks.veryhuge"]      = "Больше Юпитера";
     this->Register["ru-RU"]["menu.datapacks.error1"]        = "Отсутствует основной раздел \"Datapack\"!";
     this->Register["ru-RU"]["menu.datapacks.error2"]        = "Отсутствует основной раздел \"Meta\"!";
     this->Register["ru-RU"]["menu.datapacks.error3"]        = "Отсутствует основной раздел \"Data\"!";
@@ -1098,6 +1104,8 @@ void TranslationEngine::LoadTagalog()
     this->Register["tl-PH"]["menu.datapacks.author"]        = "May-akda:";
     this->Register["tl-PH"]["menu.datapacks.id"]            = "Datapack id:";
     this->Register["tl-PH"]["menu.datapacks.desc"]          = "Deskripsyon:";
+    //this->Register["tl-PH"]["menu.datapacks.size"]          = ;
+    //this->Register["tl-PH"]["menu.datapacks.veryhuge"]      = ;
     this->Register["tl-PH"]["menu.datapacks.error1"]        = "Nawawala ang main \"Datapack\" block!";
     this->Register["tl-PH"]["menu.datapacks.error2"]        = "Nawawala ang main \"Meta\" block!";
     this->Register["tl-PH"]["menu.datapacks.error3"]        = "Nawawala ang main \"Data\" block!";

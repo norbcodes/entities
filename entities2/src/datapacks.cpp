@@ -17,6 +17,7 @@
 #include <fmt/format.h>
 #include <map>
 #include <unordered_map>
+#include <cmath>
 
 #include "exit_msg.hpp"
 #include "datapacks.hpp"
@@ -102,6 +103,9 @@ void Datapack::_constructor(const char* path)
     }
     
     this->Description = this->Xml.child("Datapack").child("Meta").child("Description").text().as_string("No description specified.");
+
+    // Also grab file size
+    this->Bytes_Filesize = static_cast<uint32_t>(std::filesystem::file_size(path));
 }
 
 /**
@@ -200,6 +204,54 @@ const std::string& Datapack::GetFailReason() const
     return (this->FailReason);
 }
 
+/**
+ * \brief Return Datapack file size in bytes.
+ * \return The Datapack file size in bytes.
+ */
+uint32_t Datapack::GetFilesizeInBytes() const
+{
+    return (this->Bytes_Filesize);
+}
+
+/**
+ * \brief Return Datapack file size, formatted.
+ * \param[in] GameTranslation
+ * \return The Datapack file size, formatted.
+ */
+const std::string Datapack::GetFilesizeFormatted(const TranslationEngine& GameTranslation) const
+{
+    double size = this->Bytes_Filesize;
+    uint16_t divs = 0;
+    // In this loop, we will try to convert to a higher unit
+    // If the conversion results in a number that is < 1.0
+    // Then that's our sign to stop
+    while (true)
+    {
+        if (size / 1000.0 < 1.0)
+        {
+            break;
+        }
+        size /= 1000.0;
+        divs++;
+    }
+    // Now, we print.
+    switch (divs)
+    {
+        case 0:
+            // We are in bytes.
+            return fmt::format("{0} B", size);
+        case 1:
+            // We are in kilobytes.
+            return fmt::format("{0:.2f} KB", size);
+        case 2:
+            // We are in megabytes.
+            return fmt::format("{0:.2f} MB", size);
+        default:
+            // HOW
+            return GameTranslation.GetTranslated("menu.datapacks.veryhuge");
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -237,7 +289,14 @@ void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& G
             else
             {
                 // Same thing, but with no formatting
-                AddExitMsg(Node.text().as_string());
+                if (Node.attribute("local_translation").as_bool())
+                {
+                    AddExitMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()));
+                }
+                else
+                {
+                    AddExitMsg(Node.text().as_string());
+                }
             }
         }
         // Greet
@@ -266,7 +325,14 @@ void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& G
                 }
                 else
                 {
-                    AddGreetMsg(Node.text().as_string(), G_MORNING);
+                    if (Node.attribute("local_translation").as_bool())
+                    {
+                        AddGreetMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()), G_MORNING);
+                    }
+                    else
+                    {
+                        AddGreetMsg(Node.text().as_string(), G_MORNING);
+                    }
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
@@ -282,7 +348,14 @@ void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& G
                 }
                 else
                 {
-                    AddGreetMsg(Node.text().as_string(), G_AFTERNOON);
+                    if (Node.attribute("local_translation").as_bool())
+                    {
+                        AddGreetMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()), G_AFTERNOON);
+                    }
+                    else
+                    {
+                        AddGreetMsg(Node.text().as_string(), G_AFTERNOON);
+                    }
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
@@ -298,7 +371,14 @@ void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& G
                 }
                 else
                 {
-                    AddGreetMsg(Node.text().as_string(), G_EVENING);
+                    if (Node.attribute("local_translation").as_bool())
+                    {
+                        AddGreetMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()), G_EVENING);
+                    }
+                    else
+                    {
+                        AddGreetMsg(Node.text().as_string(), G_EVENING);
+                    }
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
@@ -314,7 +394,14 @@ void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& G
                 }
                 else
                 {
-                    AddGreetMsg(Node.text().as_string(), G_ENIGHT);
+                    if (Node.attribute("local_translation").as_bool())
+                    {
+                        AddGreetMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()), G_ENIGHT);
+                    }
+                    else
+                    {
+                        AddGreetMsg(Node.text().as_string(), G_ENIGHT);
+                    }
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
@@ -330,7 +417,14 @@ void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& G
                 }
                 else
                 {
-                    AddGreetMsg(Node.text().as_string(), G_3AM);
+                    if (Node.attribute("local_translation").as_bool())
+                    {
+                        AddGreetMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()), G_3AM);
+                    }
+                    else
+                    {
+                        AddGreetMsg(Node.text().as_string(), G_3AM);
+                    }
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
@@ -350,11 +444,22 @@ void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& G
                 }
                 else
                 {
-                    AddGreetMsg(Node.text().as_string(), G_MORNING);
-                    AddGreetMsg(Node.text().as_string(), G_AFTERNOON);
-                    AddGreetMsg(Node.text().as_string(), G_EVENING);
-                    AddGreetMsg(Node.text().as_string(), G_ENIGHT);
-                    AddGreetMsg(Node.text().as_string(), G_3AM);
+                    if (Node.attribute("local_translation").as_bool())
+                    {
+                        AddGreetMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()), G_MORNING);
+                        AddGreetMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()), G_AFTERNOON);
+                        AddGreetMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()), G_EVENING);
+                        AddGreetMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()), G_ENIGHT);
+                        AddGreetMsg(fmt::format("{0}.{1}", this->DatapackId, Node.text().as_string()), G_3AM);
+                    }
+                    else
+                    {
+                        AddGreetMsg(Node.text().as_string(), G_MORNING);
+                        AddGreetMsg(Node.text().as_string(), G_AFTERNOON);
+                        AddGreetMsg(Node.text().as_string(), G_EVENING);
+                        AddGreetMsg(Node.text().as_string(), G_ENIGHT);
+                        AddGreetMsg(Node.text().as_string(), G_3AM);
+                    }
                 }
             }
             ///////////////////////////////////////////////////////////////////////////////////////////
@@ -401,21 +506,44 @@ void Datapack::Load(const UserSettingsClass& user_settings, TranslationEngine& G
                 // the same on all languages
                 for (std::map<std::string, std::unordered_map<std::string, std::string>>::const_iterator i = GameTranslation.LangIteratorBegin(); i != GameTranslation.LangIteratorEnd(); i++)
                 {
-                    GameTranslation.AddTranslation(
-                        i->first,
-                        Node.attribute("id").as_string(),
-                        Node.text().as_string()
-                    );
+                    if (Node.attribute("overwrite").as_bool())
+                    {
+                        GameTranslation.AddTranslation(
+                            i->first,
+                            Node.attribute("id").as_string(),
+                            Node.text().as_string()
+                        );
+                    }
+                    else
+                    {
+                        GameTranslation.AddTranslation(
+                            i->first,
+                            fmt::format("{0}.{1}", this->DatapackId, Node.attribute("id").as_string()),
+                            Node.text().as_string()
+                        );
+                    }
                 }
             }
             else
             {
-                // Now add
-                GameTranslation.AddTranslation(
-                    Node.attribute("lang").as_string(),
-                    Node.attribute("id").as_string(),
-                    Node.text().as_string()
-                );
+                if (Node.attribute("overwrite").as_bool())
+                {
+                    // Now add
+                    GameTranslation.AddTranslation(
+                        Node.attribute("lang").as_string(),
+                        Node.attribute("id").as_string(),
+                        Node.text().as_string()
+                    );
+                }
+                else
+                {
+                    // Now add
+                    GameTranslation.AddTranslation(
+                        Node.attribute("lang").as_string(),
+                        fmt::format("{0}.{1}", this->DatapackId, Node.attribute("id").as_string()),
+                        Node.text().as_string()
+                    );
+                }
             }
         }
     }

@@ -38,6 +38,8 @@ class Datapack
         const std::string& GetPath() const;
         bool LoadSuccessful() const;
         const std::string& GetFailReason() const;
+        uint32_t GetFilesizeInBytes() const;
+        const std::string GetFilesizeFormatted(const TranslationEngine& GameTranslation) const;
         // :3
         void Load(const UserSettingsClass& user_settings, TranslationEngine& GameTranslation);
     private:
@@ -90,6 +92,12 @@ class Datapack
          * \brief If Failbit is true, this holds the reason why the Datapack errored.
          */
         std::string FailReason;
+
+        /**
+         * \var uint32_t Bytes_Filesize
+         * \brief The file size of the Datapack.
+         */
+        uint32_t Bytes_Filesize;  // meaning it's in bytes
 };
 
 /**

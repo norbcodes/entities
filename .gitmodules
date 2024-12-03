@@ -1,9 +1,0 @@
-[submodule "entities2/src/fmt"]
-	path = entities2/src/fmt
-	url = https://github.com/fmtlib/fmt
-[submodule "entities2/src/pugixml"]
-	path = entities2/src/pugixml
-	url = https://github.com/zeux/pugixml.git
-[submodule "entities2/src/argparse"]
-	path = entities2/src/argparse
-	url = https://github.com/p-ranav/argparse.git
