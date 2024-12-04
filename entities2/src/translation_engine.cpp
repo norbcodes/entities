@@ -77,7 +77,15 @@ const std::string& TranslationEngine::GetTranslated(const std::string& str) cons
     }
     catch (const std::out_of_range& E)
     {
-        return str;
+        try
+        {
+            // As Artezon said, "returning translation key would confuse normal people aka non-programmers"
+            return this->Register.at("en-US").at(str);
+        }
+        catch (const std::out_of_range& E2)
+        {
+            return str;
+        }
     }
 }
 
@@ -95,7 +103,14 @@ const std::string& TranslationEngine::GetTranslated(const std::string& str, cons
     }
     catch (const std::out_of_range& E)
     {
-        return str;
+        try
+        {
+            return this->Register.at("en-US").at(str);
+        }
+        catch (const std::out_of_range& E2)
+        {
+            return str;
+        }
     }
 }
 
@@ -788,14 +803,14 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["general.enemy"]                = "Противник";
 
     // Main menu texts
-    this->Register["ru-RU"]["menu.main.subtitle"]           = "Игра, созданная norbcodes.";
+    this->Register["ru-RU"]["menu.main.subtitle"]           = "Игра от norbcodes.";
     this->Register["ru-RU"]["menu.main.optionpick"]         = "Выберите вариант:";
     this->Register["ru-RU"]["menu.main.play"]               = "Играть";
     this->Register["ru-RU"]["menu.main.ginfo"]              = "Информация об игре";
     this->Register["ru-RU"]["menu.main.datapacks"]          = "Датапаки";
     this->Register["ru-RU"]["menu.main.settings"]           = "Настройки";
     this->Register["ru-RU"]["menu.exit.confirm"]            = "Точно хотите выйти?";
-    this->Register["ru-RU"]["menu.unstable"]                = "{red}Вы используете сборку игры, которая {bold} находится в разработке!{reset}{nl}{white}Пользуйтесь с осторожностью. {red}Вы всё ещё хотите играть? [y,n]{reset}";
+    this->Register["ru-RU"]["menu.unstable"]                = "{red}Вы используете сборку игры, которая {bold}находится в разработке!{reset}{nl}{white}Используйте с осторожностью. {red}Вы хотите продолжить? [y,n]{reset}";
 
     // Difficulty picker texts
     this->Register["ru-RU"]["menu.diffpicker.title"]        = "Выбор уровня сложности";
@@ -851,7 +866,7 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["menu.ginfo.thorns"]            = "Шипы";
     this->Register["ru-RU"]["menu.ginfo.thorns.info"]       = "{white}Когда сущность, обладающая данным статусом, подвергается{nl}   атаке, {reset}{white}{underline}50% урона{reset}{white} возвращается {underline}атакующей сущности{reset}{white}.{reset}";
     this->Register["ru-RU"]["menu.ginfo.weak"]              = "Слабость";
-    this->Register["ru-RU"]["menu.ginfo.weak.info"]         = "{white}Для ослабленных противников действует {underline}{purple}ограничение{nl}   {underline}{purple}в 60 очков здоровья (HP) и брони (AR){reset}, {white}за раунд у них{nl}   восполняется {underline}{purple}на 75% меньше энергии{reset}{white}, {reset}{white}а также они{nl}   {underline}{purple}реже атакуют{reset}{white}. Этот статус длится {weakness_time} раунда.{reset}";
+    this->Register["ru-RU"]["menu.ginfo.weak.info"]         = "{white}Для ослабленных противников действует {underline}{purple}ограничение{reset}{nl}   {underline}{purple}в 60 очков здоровья (HP) и брони (AR){reset}, {white}за раунд у них{nl}   восполняется {underline}{purple}на 75% меньше энергии{reset}{white}, {reset}{white}а также они{nl}   {underline}{purple}реже атакуют{reset}{white}. Этот статус длится {weakness_time} раунда.{reset}";
 
     // Settings texts
     this->Register["ru-RU"]["menu.options.title"]           = "Настройки";
@@ -897,8 +912,8 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["greet.evening.1"]              = "{white}Добрый вечер, {username}. Осталось 5 минут до отхода ко сну.{reset}";
     this->Register["ru-RU"]["greet.evening.2"]              = "{white}Добрый вечер, {username}. Сущности уже хотят спать, внезапное нападение!{reset}";
     this->Register["ru-RU"]["greet.evening.3"]              = "{white}Добрый вечер, {username}. *{italic}зевает{reset}{white}*{reset}";
-    this->Register["ru-RU"]["greet.earlynight.1"]           = "{white}Спокойной ночи, {username}. Не можешь уснуть?{reset}";
-    this->Register["ru-RU"]["greet.earlynight.2"]           = "{white}Спокойной ночи, {username}. Ужин сегодня был вкусным?{reset}";
+    this->Register["ru-RU"]["greet.earlynight.1"]           = "{white}Доброй ночи, {username}. Не можешь уснуть?{reset}";
+    this->Register["ru-RU"]["greet.earlynight.2"]           = "{white}Доброй ночи, {username}. Ужин сегодня был вкусным?{reset}";
     this->Register["ru-RU"]["greet.threeam.1"]              = "{white}Доброй ночи, {username}. Настало время для ужасов!{reset}";
     this->Register["ru-RU"]["greet.threeam.2"]              = "{white}Сладких снов, {username}. Грань между смертным и потусторонним стирается...{reset}";
     this->Register["ru-RU"]["greet.threeam.3"]              = "{white}Доброй ночи, {username}. Что-то не так..{reset}";
@@ -926,9 +941,9 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["game.moves.poison"]            = "{white}Наложить на противника статус {dark_green}Яд{white}! Наносит {purple}{value}{white} единиц урона ядом{reset}";
     this->Register["ru-RU"]["game.moves.thorns"]            = "{white}Применить статус {teal}Шипы{white}! Противник при атаке {bold}также будет получать урон{reset}";
     this->Register["ru-RU"]["game.moves.weakness"]          = "{white}Наложить на противника статус {brown}Слабость{white}! Противник будет ослаблен...{reset}";
-    this->Register["ru-RU"]["game.moves.gameover"]          = "{white}---<<< Игрок {blue}{bold}{username}{reset} {white}мёртв. {red}{bold}Противник{reset}{white} победил!!! >>>---{reset}";
-    this->Register["ru-RU"]["game.moves.victory"]           = "{white}---<<< {red}{bold}Противник{reset} {white}мёртв. Игрок {blue}{bold}{username}{reset}{white} победил!!! >>>---{reset}";
-    this->Register["ru-RU"]["game.moves.rematch"]           = "Реванш!";
+    this->Register["ru-RU"]["game.moves.gameover"]          = "{white}---<<< {blue}{bold}{username}{reset} {white}мёртв. {red}{bold}Противник{reset}{white} побеждает!!! >>>---{reset}";
+    this->Register["ru-RU"]["game.moves.victory"]           = "{white}---<<< {red}{bold}Противник{reset} {white}мёртв. {blue}{bold}{username}{reset}{white} побеждает!!! >>>---{reset}";
+    this->Register["ru-RU"]["game.moves.rematch"]           = "Ещё раз";
     this->Register["ru-RU"]["game.applied.autoheal"]        = "{white}применил статус {green}Регенерация{white}.";
     this->Register["ru-RU"]["game.applied.incr_crit"]       = "{white}применил статус {red}Повышение крит. шанса{white}.";
     this->Register["ru-RU"]["game.applied.invis"]           = "{white}применил статус {hot_pink}Невидимка{white}.";
