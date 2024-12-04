@@ -57,6 +57,7 @@ static void ExportLanguageAsDatapack(const std::string& id, const TranslationEng
         pugi::xml_node TransNode = DataNode.append_child("Translation");
         TransNode.append_attribute("lang").set_value(id.c_str());
         TransNode.append_attribute("id").set_value((i->first).c_str());
+        TransNode.append_attribute("overwrite").set_value(true);
         TransNode.text().set((i->second).c_str());
     }
 
@@ -200,6 +201,7 @@ static void ConvertTxtToXml(const TranslationEngine& GameTranslation, const Game
                 pugi::xml_node TransNode = DataNode.append_child("Translation");
                 TransNode.append_attribute("lang").set_value(lang_id.c_str());
                 TransNode.append_attribute("id").set_value((trans_keys[i]).c_str());
+                TransNode.append_attribute("overwrite").set_value(true);
                 TransNode.text().set((trans_strings[i]).c_str());
             }
             // Save file

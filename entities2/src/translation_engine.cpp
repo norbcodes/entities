@@ -77,14 +77,21 @@ const std::string& TranslationEngine::GetTranslated(const std::string& str) cons
     }
     catch (const std::out_of_range& E)
     {
-        try
-        {
-            // As Artezon said, "returning translation key would confuse normal people aka non-programmers"
-            return this->Register.at("en-US").at(str);
-        }
-        catch (const std::out_of_range& E2)
+        if (str == "lang.name" || str == "lang.id")
         {
             return str;
+        }
+        else
+        {
+            try
+            {
+                // As Artezon said, "returning translation key would confuse normal people aka non-programmers"
+                return this->Register.at("en-US").at(str);
+            }
+            catch (const std::out_of_range& E2)
+            {
+                return str;
+            }
         }
     }
 }
@@ -103,13 +110,20 @@ const std::string& TranslationEngine::GetTranslated(const std::string& str, cons
     }
     catch (const std::out_of_range& E)
     {
-        try
-        {
-            return this->Register.at("en-US").at(str);
-        }
-        catch (const std::out_of_range& E2)
+        if (str == "lang.name" || str == "lang.id")
         {
             return str;
+        }
+        else
+        {
+            try
+            {
+                return this->Register.at("en-US").at(str);
+            }
+            catch (const std::out_of_range& E2)
+            {
+                return str;
+            }
         }
     }
 }
@@ -1337,4 +1351,291 @@ void TranslationEngine::LoadTagalog()
     #endif // __ENTITIES2_BAKED_IN_TAGALOG__
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * \brief Load all of Portuguese translation.
+ * \note Needs to be enabled when cmake is invoked...
+ */
+void TranslationEngine::LoadPortuguese()
+{
+    #ifdef __ENTITIES2_BAKED_IN_PORTUGUESE__
+
+    // Language specific strings
+    //this->Register["pt-PT"]["lang.name"]                    = ;
+    this->Register["pt-PT"]["lang.id"]                      = "pt-PT";
+
+    // General texts
+    //this->Register["pt-PT"]["general.quit"]                 = ;
+    //this->Register["pt-PT"]["general.exit"]                 = ;
+    //this->Register["pt-PT"]["general.on"]                   = ;
+    //this->Register["pt-PT"]["general.off"]                  = ;
+    //this->Register["pt-PT"]["general.by"]                   = ;
+    //this->Register["pt-PT"]["general.enter_to_exit"]        = ;
+    //this->Register["pt-PT"]["general.healed"]               = ;
+    //this->Register["pt-PT"]["general.regenerated"]          = ;
+    //this->Register["pt-PT"]["general.enemy"]                = ;
+
+    // Main menu texts
+    //this->Register["pt-PT"]["menu.main.subtitle"]           = ;
+    //this->Register["pt-PT"]["menu.main.optionpick"]         = ;
+    //this->Register["pt-PT"]["menu.main.play"]               = ;
+    //this->Register["pt-PT"]["menu.main.ginfo"]              = ;
+    //this->Register["pt-PT"]["menu.main.datapacks"]          = ;
+    //this->Register["pt-PT"]["menu.main.settings"]           = ;
+    //this->Register["pt-PT"]["menu.exit.confirm"]            = ;
+    //this->Register["pt-PT"]["menu.unstable"]                = ;
+
+    // Difficulty picker texts
+    //this->Register["pt-PT"]["menu.diffpicker.title"]        = ;
+    //this->Register["pt-PT"]["menu.diffpicker.easy"]         = ;
+    //this->Register["pt-PT"]["menu.diffpicker.medium"]       = ;
+    //this->Register["pt-PT"]["menu.diffpicker.hard"]         = ;
+    //this->Register["pt-PT"]["menu.diffpicker.random"]       = ;
+    //this->Register["pt-PT"]["menu.diffpicker.record"]       = ;
+
+    // Datapack viewer stuff
+    //this->Register["pt-PT"]["menu.datapacks.title"]         = ;
+    //this->Register["pt-PT"]["menu.datapacks.loaded"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.help1"]         = ;
+    //this->Register["pt-PT"]["menu.datapacks.empty"]         = ;
+    //this->Register["pt-PT"]["menu.datapacks.info"]          = ;
+    //this->Register["pt-PT"]["menu.datapacks.title2"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.subtitle"]      = ;
+    //this->Register["pt-PT"]["menu.datapacks.name"]          = ;
+    //this->Register["pt-PT"]["menu.datapacks.author"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.id"]            = ;
+    //this->Register["pt-PT"]["menu.datapacks.desc"]          = ;
+    //this->Register["pt-PT"]["menu.datapacks.size"]          = ;
+    //this->Register["pt-PT"]["menu.datapacks.veryhuge"]      = ;
+    //this->Register["pt-PT"]["menu.datapacks.error1"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.error2"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.error3"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.error4"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.error5"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.error6"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.error7"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.error8"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.error9"]        = ;
+    //this->Register["pt-PT"]["menu.datapacks.error10"]       = ;
+
+    // Gameplay info
+    //this->Register["pt-PT"]["menu.ginfo.title"]             = ;
+    //this->Register["pt-PT"]["menu.ginfo.tips"]              = ;
+    //this->Register["pt-PT"]["menu.ginfo.status"]            = ;
+    //this->Register["pt-PT"]["menu.ginfo.tiptitle"]          = ;
+    //this->Register["pt-PT"]["menu.ginfo.tip1"]              = ;
+    //this->Register["pt-PT"]["menu.ginfo.tip2"]              = ;
+    //this->Register["pt-PT"]["menu.ginfo.tip3"]              = ;
+    //this->Register["pt-PT"]["menu.ginfo.statustitle1"]      = ;
+    //this->Register["pt-PT"]["menu.ginfo.statustitle2"]      = ;
+    //this->Register["pt-PT"]["menu.ginfo.autoheal"]          = ;
+    //this->Register["pt-PT"]["menu.ginfo.autoheal.info"]     = ;
+    //this->Register["pt-PT"]["menu.ginfo.icrit"]             = ;
+    //this->Register["pt-PT"]["menu.ginfo.icrit.info"]        = ;
+    //this->Register["pt-PT"]["menu.ginfo.invis"]             = ;
+    //this->Register["pt-PT"]["menu.ginfo.invis.info"]        = ;
+    //this->Register["pt-PT"]["menu.ginfo.poison"]            = ;
+    //this->Register["pt-PT"]["menu.ginfo.poison.info"]       = ;
+    //this->Register["pt-PT"]["menu.ginfo.thorns"]            = ;
+    //this->Register["pt-PT"]["menu.ginfo.thorns.info"]       = ;
+    //this->Register["pt-PT"]["menu.ginfo.weak"]              = ;
+    //this->Register["pt-PT"]["menu.ginfo.weak.info"]         = ;
+
+    // Settings texts
+    //this->Register["pt-PT"]["menu.options.title"]           = ;
+    //this->Register["pt-PT"]["menu.options.cat1"]            = ;
+    //this->Register["pt-PT"]["menu.options.cat2"]            = ;
+    //this->Register["pt-PT"]["menu.options.cat3"]            = ;
+    //this->Register["pt-PT"]["menu.options.c1o1"]            = ;
+    //this->Register["pt-PT"]["menu.options.login"]           = ;
+    //this->Register["pt-PT"]["menu.options.currlang"]        = ;
+    //this->Register["pt-PT"]["menu.options.changelang"]      = ;
+    //this->Register["pt-PT"]["menu.options.langutils"]       = ;
+    //this->Register["pt-PT"]["menu.options.export1"]         = ;
+    //this->Register["pt-PT"]["menu.options.export2"]         = ;
+    //this->Register["pt-PT"]["menu.options.export3"]         = ;
+    //this->Register["pt-PT"]["menu.options.newuser"]         = ;
+    //this->Register["pt-PT"]["menu.options.changename"]      = ;
+    //this->Register["pt-PT"]["menu.options.help1"]           = ;
+    //this->Register["pt-PT"]["menu.options.help2"]           = ;
+    //this->Register["pt-PT"]["menu.options.help3"]           = ;
+    //this->Register["pt-PT"]["menu.options.help4"]           = ;
+    //this->Register["pt-PT"]["menu.options.enteruser"]       = ;
+    //this->Register["pt-PT"]["menu.options.usererror"]       = ;
+    //this->Register["pt-PT"]["menu.options.lang.select"]     = ;
+    //this->Register["pt-PT"]["menu.options.lang.loading"]    = ;
+    //this->Register["pt-PT"]["menu.options.lang.line1"]      = ;
+    //this->Register["pt-PT"]["menu.options.lang.line2"]      = ;
+    //this->Register["pt-PT"]["menu.options.lang.line3"]      = ;
+
+    // Language utilities texts
+    //this->Register["pt-PT"]["menu.langutils.success"]       = ;
+    //this->Register["pt-PT"]["menu.langutils.fail"]          = ;
+    //this->Register["pt-PT"]["menu.langutils.getpath"]       = ;
+    //this->Register["pt-PT"]["menu.langutils.pathfail"]      = ;
+    //this->Register["pt-PT"]["menu.langutils.notfile"]       = ;
+
+    // Greet texts
+    //this->Register["pt-PT"]["greet.morning.1"]              = ;
+    //this->Register["pt-PT"]["greet.morning.2"]              = ;
+    //this->Register["pt-PT"]["greet.morning.3"]              = ;
+    //this->Register["pt-PT"]["greet.afternoon.1"]            = ;
+    //this->Register["pt-PT"]["greet.afternoon.2"]            = ;
+    //this->Register["pt-PT"]["greet.afternoon.3"]            = ;
+    //this->Register["pt-PT"]["greet.evening.1"]              = ;
+    //this->Register["pt-PT"]["greet.evening.2"]              = ;
+    //this->Register["pt-PT"]["greet.evening.3"]              = ;
+    //this->Register["pt-PT"]["greet.earlynight.1"]           = ;
+    //this->Register["pt-PT"]["greet.earlynight.2"]           = ;
+    //this->Register["pt-PT"]["greet.threeam.1"]              = ;
+    //this->Register["pt-PT"]["greet.threeam.2"]              = ;
+    //this->Register["pt-PT"]["greet.threeam.3"]              = ;
+
+    // Gameplay strings
+    //this->Register["pt-PT"]["game.battle.announce"]         = ;
+    //this->Register["pt-PT"]["game.battle.what_happened"]    = ;
+    //this->Register["pt-PT"]["game.battle.ply_header"]       = ;
+    //this->Register["pt-PT"]["game.battle.ene_header"]       = ;
+    //this->Register["pt-PT"]["game.battle.enemy"]            = ;
+    //this->Register["pt-PT"]["game.battle.regen_moves"]      = ;
+    //this->Register["pt-PT"]["game.battle.move_choose"]      = ;
+    //this->Register["pt-PT"]["game.battle.exit"]             = ;
+    //this->Register["pt-PT"]["game.battle.skip"]             = ;
+    //this->Register["pt-PT"]["game.battle.enemy_skip"]       = ;
+    //this->Register["pt-PT"]["game.battle.no_energy"]        = ;
+    //this->Register["pt-PT"]["game.battle.rerolled"]         = ;
+    //this->Register["pt-PT"]["game.battle.ai_think"]         = ;
+    //this->Register["pt-PT"]["game.moves.attack"]            = ;
+    //this->Register["pt-PT"]["game.moves.heal"]              = ;
+    //this->Register["pt-PT"]["game.moves.regen"]             = ;
+    //this->Register["pt-PT"]["game.moves.autoheal"]          = ;
+    //this->Register["pt-PT"]["game.moves.icrit"]             = ;
+    //this->Register["pt-PT"]["game.moves.invis"]             = ;
+    //this->Register["pt-PT"]["game.moves.poison"]            = ;
+    //this->Register["pt-PT"]["game.moves.thorns"]            = ;
+    //this->Register["pt-PT"]["game.moves.weakness"]          = ;
+    //this->Register["pt-PT"]["game.moves.gameover"]          = ;
+    //this->Register["pt-PT"]["game.moves.victory"]           = ;
+    //this->Register["pt-PT"]["game.moves.rematch"]           = ;
+    //this->Register["pt-PT"]["game.applied.autoheal"]        = ;
+    //this->Register["pt-PT"]["game.applied.incr_crit"]       = ;
+    //this->Register["pt-PT"]["game.applied.invis"]           = ;
+    //this->Register["pt-PT"]["game.applied.poison"]          = ;
+    //this->Register["pt-PT"]["game.applied.thorns"]          = ;
+    //this->Register["pt-PT"]["game.applied.weakness"]        = ;
+
+    // Entity attack texts
+    //this->Register["pt-PT"]["entity.attack.ply_missed"]     = ;
+    //this->Register["pt-PT"]["entity.attack.ene_missed"]     = ;
+    //this->Register["pt-PT"]["entity.attack.ply_normal"]     = ;
+    //this->Register["pt-PT"]["entity.attack.ply_crit"]       = ;
+    //this->Register["pt-PT"]["entity.attack.ene_normal"]     = ;
+    //this->Register["pt-PT"]["entity.attack.ene_crit"]       = ;
+
+    // Exit messages :3
+    //this->Register["pt-PT"]["exit.message.1"]               = ;
+    //this->Register["pt-PT"]["exit.message.win2"]            = ;
+    //this->Register["pt-PT"]["exit.message.win3"]            = ;
+    //this->Register["pt-PT"]["exit.message.win4"]            = ;
+    //this->Register["pt-PT"]["exit.message.win5"]            = ;
+    //this->Register["pt-PT"]["exit.message.mac2"]            = ;
+    //this->Register["pt-PT"]["exit.message.mac3"]            = ;
+    //this->Register["pt-PT"]["exit.message.mac4"]            = ;
+    //this->Register["pt-PT"]["exit.message.mac5"]            = ;
+    //this->Register["pt-PT"]["exit.message.lix2"]            = ;
+    //this->Register["pt-PT"]["exit.message.lix3"]            = ;
+    //this->Register["pt-PT"]["exit.message.lix4"]            = ;
+    //this->Register["pt-PT"]["exit.message.lix5"]            = ;
+    //this->Register["pt-PT"]["exit.message.6"]               = ;
+    //this->Register["pt-PT"]["exit.message.8"]               = ;
+    //this->Register["pt-PT"]["exit.message.9"]               = ;
+    //this->Register["pt-PT"]["exit.message.10"]              = ;
+    //this->Register["pt-PT"]["exit.message.11"]              = ;
+    //this->Register["pt-PT"]["exit.message.12"]              = ;
+    //this->Register["pt-PT"]["exit.message.13"]              = ;
+    //this->Register["pt-PT"]["exit.message.14"]              = ;
+    //this->Register["pt-PT"]["exit.message.15"]              = ;
+    //this->Register["pt-PT"]["exit.message.16"]              = ;
+    //this->Register["pt-PT"]["exit.message.19"]              = ;
+    //this->Register["pt-PT"]["exit.message.21"]              = ;
+    //this->Register["pt-PT"]["exit.message.22"]              = ;
+    //this->Register["pt-PT"]["exit.message.23"]              = ;
+    //this->Register["pt-PT"]["exit.message.24"]              = ;
+    //this->Register["pt-PT"]["exit.message.25"]              = ;
+    //this->Register["pt-PT"]["exit.message.26"]              = ;
+    //this->Register["pt-PT"]["exit.message.27"]              = ;
+    //this->Register["pt-PT"]["exit.message.28"]              = ;
+    //this->Register["pt-PT"]["exit.message.29"]              = ;
+    //this->Register["pt-PT"]["exit.message.30"]              = ;
+    //this->Register["pt-PT"]["exit.message.31"]              = ;
+    //this->Register["pt-PT"]["exit.message.32"]              = ;
+    //this->Register["pt-PT"]["exit.message.33"]              = ;
+    //this->Register["pt-PT"]["exit.message.34"]              = ;
+    //this->Register["pt-PT"]["exit.message.35"]              = ;
+    //this->Register["pt-PT"]["exit.message.36"]              = ;
+    //this->Register["pt-PT"]["exit.message.37"]              = ;
+    //this->Register["pt-PT"]["exit.message.39"]              = ;
+    //this->Register["pt-PT"]["exit.message.40"]              = ;
+    //this->Register["pt-PT"]["exit.message.41"]              = ;
+    //this->Register["pt-PT"]["exit.message.42"]              = ;
+    //this->Register["pt-PT"]["exit.message.45"]              = ;
+    //this->Register["pt-PT"]["exit.message.47"]              = ;
+    //this->Register["pt-PT"]["exit.message.48"]              = ;
+    //this->Register["pt-PT"]["exit.message.49"]              = ;
+    //this->Register["pt-PT"]["exit.message.50"]              = ;
+    //this->Register["pt-PT"]["exit.message.51"]              = ;
+    //this->Register["pt-PT"]["exit.message.52"]              = ;
+    //this->Register["pt-PT"]["exit.message.53"]              = ;
+    //this->Register["pt-PT"]["exit.message.54"]              = ;
+    //this->Register["pt-PT"]["exit.message.56"]              = ;
+    //this->Register["pt-PT"]["exit.message.57"]              = ;
+    //this->Register["pt-PT"]["exit.message.58"]              = ;
+    //this->Register["pt-PT"]["exit.message.59"]              = ;
+    //this->Register["pt-PT"]["exit.message.61"]              = ;
+    //this->Register["pt-PT"]["exit.message.62"]              = ;
+    //this->Register["pt-PT"]["exit.message.64"]              = ;
+    //this->Register["pt-PT"]["exit.message.65"]              = ;
+    //this->Register["pt-PT"]["exit.message.67"]              = ;
+    //this->Register["pt-PT"]["exit.message.70"]              = ;
+    //this->Register["pt-PT"]["exit.message.special"]         = ;
+
+    // Credits :3
+    //this->Register["pt-PT"]["credits.title1"]               = ;
+    //this->Register["pt-PT"]["credits.gameby"]               = ;
+    //this->Register["pt-PT"]["credits.writtenin"]            = ;
+    //this->Register["pt-PT"]["credits.moreinfo1"]            = ;
+    //this->Register["pt-PT"]["credits.moreinfo2"]            = ;
+    //this->Register["pt-PT"]["credits.moreinfo3"]            = ;
+    //this->Register["pt-PT"]["credits.moreinfo4"]            = ;
+    //this->Register["pt-PT"]["credits.title2"]               = ;
+    //this->Register["pt-PT"]["credits.discordlib"]           = ;
+    //this->Register["pt-PT"]["credits.fmtlib"]               = ;
+    //this->Register["pt-PT"]["credits.pugilib"]              = ;
+    //this->Register["pt-PT"]["credits.arglib"]               = ;
+    //this->Register["pt-PT"]["credits.jsonlib"]              = ;
+    //this->Register["pt-PT"]["credits.compiled"]             = ;
+    //this->Register["pt-PT"]["credits.title3"]               = ;
+    //this->Register["pt-PT"]["credits.slovak"]               = ;
+    //this->Register["pt-PT"]["credits.russian"]              = ;
+    //this->Register["pt-PT"]["credits.portuguese"]           = ;
+    //this->Register["pt-PT"]["credits.tagalog"]              = ;
+
+    #endif // __ENTITIES2_BAKED_IN_PORTUGUESE__
+}
+
+// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.
