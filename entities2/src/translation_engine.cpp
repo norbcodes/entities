@@ -77,6 +77,9 @@ const std::string& TranslationEngine::GetTranslated(const std::string& str) cons
     }
     catch (const std::out_of_range& E)
     {
+        #ifdef __ENTITIES2_TRANSLATION_OLD_BEHAVIOR__
+        return str;
+        #else // __ENTITIES2_TRANSLATION_OLD_BEHAVIOR__
         if (str == "lang.name" || str == "lang.id")
         {
             return str;
@@ -93,6 +96,7 @@ const std::string& TranslationEngine::GetTranslated(const std::string& str) cons
                 return str;
             }
         }
+        #endif // __ENTITIES2_TRANSLATION_OLD_BEHAVIOR__
     }
 }
 
@@ -110,6 +114,9 @@ const std::string& TranslationEngine::GetTranslated(const std::string& str, cons
     }
     catch (const std::out_of_range& E)
     {
+        #ifdef __ENTITIES2_TRANSLATION_OLD_BEHAVIOR__
+        return str;
+        #else // __ENTITIES2_TRANSLATION_OLD_BEHAVIOR__
         if (str == "lang.name" || str == "lang.id")
         {
             return str;
@@ -125,6 +132,7 @@ const std::string& TranslationEngine::GetTranslated(const std::string& str, cons
                 return str;
             }
         }
+        #endif // __ENTITIES2_TRANSLATION_OLD_BEHAVIOR__
     }
 }
 

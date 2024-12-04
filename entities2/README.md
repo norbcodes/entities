@@ -110,4 +110,9 @@ Or similar.<br><br>
         <th>OFF</th>
         <th>Embed all of Portuguese translation into the game. Will increase file size!</th>
     </tr>
+    <tr>
+        <th>OLD_BEHAVIOR</th>
+        <th>OFF</th>
+        <th>When a translation key doesn't exist, print it out instead of searching in English translations</th>
+    </tr>
 </table>
