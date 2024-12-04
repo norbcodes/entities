@@ -1085,9 +1085,9 @@ void TranslationEngine::LoadTagalog()
     this->Register["tl-PH"]["general.off"]                  = "OFF";
     this->Register["tl-PH"]["general.by"]                   = "ni";
     this->Register["tl-PH"]["general.enter_to_exit"]        = "Pindutin ang 'enter' para magpatuloy.";
-    //this->Register["tl-PH"]["general.healed"]               = ;
-    //this->Register["tl-PH"]["general.regenerated"]          = ;
-    //this->Register["tl-PH"]["general.enemy"]                = ;
+    this->Register["tl-PH"]["general.healed"]               = "ay naghilom";
+    this->Register["tl-PH"]["general.regenerated"]          = "ay nag-regenerate";
+    this->Register["tl-PH"]["general.enemy"]                = "Kalaban";
 
     // Main menu texts
     this->Register["tl-PH"]["menu.main.subtitle"]           = "Isang larong gawa ni norbcodes.";
@@ -1119,8 +1119,8 @@ void TranslationEngine::LoadTagalog()
     this->Register["tl-PH"]["menu.datapacks.author"]        = "May-akda:";
     this->Register["tl-PH"]["menu.datapacks.id"]            = "Datapack id:";
     this->Register["tl-PH"]["menu.datapacks.desc"]          = "Deskripsyon:";
-    //this->Register["tl-PH"]["menu.datapacks.size"]          = ;
-    //this->Register["tl-PH"]["menu.datapacks.veryhuge"]      = ;
+    this->Register["tl-PH"]["menu.datapacks.size"]          = "Bigat ng Disk";
+    this->Register["tl-PH"]["menu.datapacks.veryhuge"]      = "Mas malaki pa sa Jupiter";
     this->Register["tl-PH"]["menu.datapacks.error1"]        = "Nawawala ang main \"Datapack\" block!";
     this->Register["tl-PH"]["menu.datapacks.error2"]        = "Nawawala ang main \"Meta\" block!";
     this->Register["tl-PH"]["menu.datapacks.error3"]        = "Nawawala ang main \"Data\" block!";
@@ -1231,20 +1231,20 @@ void TranslationEngine::LoadTagalog()
     this->Register["tl-PH"]["game.moves.gameover"]          = "{white}---<<< {white}Namatay si{reset} {blue}{bold}{username}.{reset} {white}Panalo ang{reset} {red}{bold}kalaban!>>>---{reset}";
     this->Register["tl-PH"]["game.moves.victory"]           = "{white}---<<< {white}Namatay ang{reset} {red}{bold}kalaban.{reset} {white}Panalo si{reset} {blue}{bold}{username}!>>>---{reset}";
     this->Register["tl-PH"]["game.moves.rematch"]           = "Ulitin ang laban!";
-    //this->Register["tl-PH"]["game.applied.autoheal"]        = ;
-    //this->Register["tl-PH"]["game.applied.incr_crit"]       = ;
-    //this->Register["tl-PH"]["game.applied.invis"]           = ;
-    //this->Register["tl-PH"]["game.applied.poison"]          = ;
-    //this->Register["tl-PH"]["game.applied.thorns"]          = ;
-    //this->Register["tl-PH"]["game.applied.weakness"]        = ;
+    this->Register["tl-PH"]["game.applied.autoheal"]        = "{white}ay gumamit ng {green}Autoheal{white}.";
+    this->Register["tl-PH"]["game.applied.incr_crit"]       = "{white}ay gumamit ng {red}IncreasedCrit{white}.";
+    this->Register["tl-PH"]["game.applied.invis"]           = "{white}ay gumamit ng {hot_pink}Invis{white}.";
+    this->Register["tl-PH"]["game.applied.poison"]          = "{who} {white}ay nagbigay ng {dark_green}Poison{white} kay {who2}{white}.{reset}";
+    this->Register["tl-PH"]["game.applied.thorns"]          = "{white}ay gumamit ng {teal}Thorns{white}.";
+    this->Register["tl-PH"]["game.applied.weakness"]        = "{who} {white}ay nagbigay ng {brown}Weakness{white} kay {who2}{white}.{reset}";
 
     // Entity attack texts
-    //this->Register["tl-PH"]["entity.attack.ply_missed"]     = ;
-    //this->Register["tl-PH"]["entity.attack.ene_missed"]     = ;
-    //this->Register["tl-PH"]["entity.attack.ply_normal"]     = ;
-    //this->Register["tl-PH"]["entity.attack.ply_crit"]       = ;
-    //this->Register["tl-PH"]["entity.attack.ene_normal"]     = ;
-    //this->Register["tl-PH"]["entity.attack.ene_crit"]       = ;
+    this->Register["tl-PH"]["entity.attack.ply_missed"]     = "{white}Sinubukan ni{reset} {blue}{bold}{username}{reset} {white}na umatake, pero ito'y {italic}sumablay{reset}{white}!{reset}";
+    this->Register["tl-PH"]["entity.attack.ene_missed"]     = "{white}Sinubukan ng{reset} {red}{bold}Kalaban{reset} {white}na umatake, pero ito'y {italic}sumablay{reset}{white}!{reset}";
+    this->Register["tl-PH"]["entity.attack.ply_normal"]     = "{white}Inatake ni{reset} {blue}{bold}{username}{reset} {white}ang {red}{bold}Kalaban{reset}{white}! {red}{bold}Kalaban{reset} {purple}-{dmg}HP{reset}";
+    this->Register["tl-PH"]["entity.attack.ply_crit"]       = "{white}Inatake ni{reset} {blue}{bold}{username}{reset} {white}ang {red}{bold}Kalaban{reset}{white}! {gold}{italic}CRITICAL HIT{reset}{white}! {red}{bold}Kalaban{reset} {purple}-{dmg}HP{reset}";
+    this->Register["tl-PH"]["entity.attack.ene_normal"]     = "{white}Inatake ng{reset} {red}{bold}Kalaban{reset} {white}si {blue}{bold}{username}{reset}{white}! {blue}{bold}{username}{reset} {purple}-{dmg}HP{reset}";
+    this->Register["tl-PH"]["entity.attack.ene_crit"]       = "{white}Inatake ng{reset} {red}{bold}Kalaban{reset} {white}si {blue}{bold}{username}{reset}{white}! {gold}{italic}CRITICAL HIT{reset}{white}! {blue}{bold}{username}{reset} {purple}-{dmg}HP{reset}";
 
     // Exit messages :3
     this->Register["tl-PH"]["exit.message.1"]               = "{white}Uuuyyyyyy! 'Wag mo 'kong iwan :<{reset}";
