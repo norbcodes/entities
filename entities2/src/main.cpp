@@ -19,6 +19,7 @@ The long awaited... entities2!!!!
 #include <string>
 #include <iostream>
 #include <fmt/core.h>
+#include <array>
 
 #ifdef _WIN32
     #include "windows.h"
@@ -145,48 +146,122 @@ int main(int argc, char* argv[])
         ClearScreen();
         Div();
 
-        std::string title_col;
-        switch (rng(0,6))
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #ifndef __ENTITIES2_4_BIT_COLORS__
+
+        if (rng(0, 5) != 0)
         {
-            case 0:
-                title_col = WHITE;
-                break;
-            case 1:
-                title_col = RED;
-                break;
-            case 2:
-                title_col = BLUE;
-                break;
-            case 3:
-                title_col = ORANGE;
-                break;
-            case 4:
-                title_col = WHITE;
-                break;
-            case 5:
-                title_col = HOT_PINK;
-                break;
-            case 6:
-                title_col = GRAY;
-                break;
-            case 7:
-                title_col = PINK;
-                break;
-            case 8:
-                title_col = GOLD;
-                break;
-            case 9:
-                title_col = GREEN;
-                break;
+            uint8_t r = 50;
+            uint8_t g = 50;
+            uint8_t b = 50;
+            const uint32_t loops = rng(0, 50);
+            for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+                // basically it will just overflow so no need to check if over 256
+            }
+            std::string title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            // I love when ascii art looks like this :)
+            fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
+        }
+        else
+        {
+            // Oh boy, now we do each line different color
+            // Weeee
+            uint8_t r = 50;
+            uint8_t g = 50;
+            uint8_t b = 50;
+            const uint32_t loops = rng(0, 50);
+            std::string title_col;
+            // First row
+            for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+            }
+            title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
+            // Second line
+                        for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+            }
+            title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
+            // Third row
+            for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+            }
+            title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
+            // Fourth line
+                        for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+            }
+            title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
+            // Fifth line
+            for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+            }
+            title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
         }
 
-        // I love when ascii art looks like this :)
-        fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
-        fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
-        fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
-        fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
-        fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
-        fmt::print("{2}{3: <8}              {1}{4}{0}", RESET, DARK_GRAY, GREEN, ENTITIES2_VER, GameTranslation->GetTranslated("menu.main.subtitle"));
+        //! QUITE LITERALLY SEGFAULTS, FIX TOMORROW
+        #else // __ENTITIES2_4_BIT_COLORS__
+        
+        std::array<const char*, 7> color_array = {RED, BLUE, ORANGE, WHITE, HOT_PINK, DARK_GRAY, GOLD};
+        if (rng(0, 5) != 0)
+        {
+            std::string title_col = color_array[rng(0, 7)];
+            fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
+        }
+        else
+        {
+            std::string title_col = color_array[rng(0, 7)];
+            fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
+            title_col = color_array[rng(0, 7)];
+            fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
+            title_col = color_array[rng(0, 7)];
+            fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
+            title_col = color_array[rng(0, 7)];
+            fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
+            title_col = color_array[rng(0, 7)];
+            fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
+        }
+
+        #endif
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        fmt::print("{2}{5}{3: <8}              {1}{4}{0}", RESET, DARK_GRAY, GREEN, ENTITIES2_VER, GameTranslation->GetTranslated("menu.main.subtitle"), UNDERLINE);
         fmt::print("\n\n");
         ////////////////////////////////////////
         // Greet

@@ -515,7 +515,7 @@ void TranslationEngine::LoadEnglish()
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * \brief Load all of Slovak translation.
+ * \brief Load all of Slovak translation. (Credits to Norb- NO SELF CREDITING)
  * \note Needs to be enabled when cmake is invoked...
  */
 void TranslationEngine::LoadSlovak()
@@ -802,7 +802,7 @@ void TranslationEngine::LoadSlovak()
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * \brief Load all of Russian translation.
+ * \brief Load all of Russian translation. (Credits to Artezon for the translation)
  * \note Needs to be enabled when cmake is invoked...
  */
 void TranslationEngine::LoadRussian()
@@ -1089,7 +1089,7 @@ void TranslationEngine::LoadRussian()
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * \brief Load all of Tagalog translation.
+ * \brief Load all of Tagalog translation. (Credits to SpaceHunyango for the translation)
  * \note Needs to be enabled when cmake is invoked...
  */
 void TranslationEngine::LoadTagalog()
@@ -1376,7 +1376,7 @@ void TranslationEngine::LoadTagalog()
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * \brief Load all of Portuguese translation.
+ * \brief Load all of Portuguese translation. (Credits to MF366-Coding for the translation)
  * \note Needs to be enabled when cmake is invoked...
  */
 void TranslationEngine::LoadPortuguese()
@@ -1384,162 +1384,162 @@ void TranslationEngine::LoadPortuguese()
     #ifdef __ENTITIES2_BAKED_IN_PORTUGUESE__
 
     // Language specific strings
-    //this->Register["pt-PT"]["lang.name"]                    = ;
+    this->Register["pt-PT"]["lang.name"]                    = "Português (Portugal)";
     this->Register["pt-PT"]["lang.id"]                      = "pt-PT";
 
     // General texts
-    //this->Register["pt-PT"]["general.quit"]                 = ;
-    //this->Register["pt-PT"]["general.exit"]                 = ;
-    //this->Register["pt-PT"]["general.on"]                   = ;
-    //this->Register["pt-PT"]["general.off"]                  = ;
-    //this->Register["pt-PT"]["general.by"]                   = ;
-    //this->Register["pt-PT"]["general.enter_to_exit"]        = ;
-    //this->Register["pt-PT"]["general.healed"]               = ;
-    //this->Register["pt-PT"]["general.regenerated"]          = ;
-    //this->Register["pt-PT"]["general.enemy"]                = ;
+    this->Register["pt-PT"]["general.quit"]                 = "Desistir";
+    this->Register["pt-PT"]["general.exit"]                 = "Sair";
+    this->Register["pt-PT"]["general.on"]                   = "LIGADO";
+    this->Register["pt-PT"]["general.off"]                  = "DESLIGADO";
+    this->Register["pt-PT"]["general.by"]                   = "por";
+    this->Register["pt-PT"]["general.enter_to_exit"]        = "Clica ENTER para continuar.";
+    this->Register["pt-PT"]["general.healed"]               = "curado";
+    this->Register["pt-PT"]["general.regenerated"]          = "recuperado";
+    this->Register["pt-PT"]["general.enemy"]                = "Inimigo";
 
     // Main menu texts
-    //this->Register["pt-PT"]["menu.main.subtitle"]           = ;
-    //this->Register["pt-PT"]["menu.main.optionpick"]         = ;
-    //this->Register["pt-PT"]["menu.main.play"]               = ;
-    //this->Register["pt-PT"]["menu.main.ginfo"]              = ;
-    //this->Register["pt-PT"]["menu.main.datapacks"]          = ;
-    //this->Register["pt-PT"]["menu.main.settings"]           = ;
-    //this->Register["pt-PT"]["menu.exit.confirm"]            = ;
-    //this->Register["pt-PT"]["menu.unstable"]                = ;
+    this->Register["pt-PT"]["menu.main.subtitle"]           = "Um jogo criado por norbcodes.";
+    this->Register["pt-PT"]["menu.main.optionpick"]         = "Escolhe uma opção:";
+    this->Register["pt-PT"]["menu.main.play"]               = "Jogar";
+    this->Register["pt-PT"]["menu.main.ginfo"]              = "Informações sobre a Batalha";
+    this->Register["pt-PT"]["menu.main.datapacks"]          = "Pacotes de Dados";
+    this->Register["pt-PT"]["menu.main.settings"]           = "Opções";
+    this->Register["pt-PT"]["menu.exit.confirm"]            = "Confirmar saída?";
+    this->Register["pt-PT"]["menu.unstable"]                = "{red}Estás a usar uma build do jogo que ainda está {bold}em desenvolvimento!{reset}{nl}{white}Usa com cuidado. {red}Ainda queres jogar? [y,n]{reset}";
 
     // Difficulty picker texts
-    //this->Register["pt-PT"]["menu.diffpicker.title"]        = ;
-    //this->Register["pt-PT"]["menu.diffpicker.easy"]         = ;
-    //this->Register["pt-PT"]["menu.diffpicker.medium"]       = ;
-    //this->Register["pt-PT"]["menu.diffpicker.hard"]         = ;
-    //this->Register["pt-PT"]["menu.diffpicker.random"]       = ;
-    //this->Register["pt-PT"]["menu.diffpicker.record"]       = ;
+    this->Register["pt-PT"]["menu.diffpicker.title"]        = "Escolher Nível de Dificuldade";
+    this->Register["pt-PT"]["menu.diffpicker.easy"]         = "Eu rebento com as entidades";
+    this->Register["pt-PT"]["menu.diffpicker.medium"]       = "Já vi pior";
+    this->Register["pt-PT"]["menu.diffpicker.hard"]         = "Abaixo as entidades";
+    this->Register["pt-PT"]["menu.diffpicker.random"]       = "Aleatório!";
+    this->Register["pt-PT"]["menu.diffpicker.record"]       = "Gravar demo";
 
     // Datapack viewer stuff
-    //this->Register["pt-PT"]["menu.datapacks.title"]         = ;
-    //this->Register["pt-PT"]["menu.datapacks.loaded"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.help1"]         = ;
-    //this->Register["pt-PT"]["menu.datapacks.empty"]         = ;
-    //this->Register["pt-PT"]["menu.datapacks.info"]          = ;
-    //this->Register["pt-PT"]["menu.datapacks.title2"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.subtitle"]      = ;
-    //this->Register["pt-PT"]["menu.datapacks.name"]          = ;
-    //this->Register["pt-PT"]["menu.datapacks.author"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.id"]            = ;
-    //this->Register["pt-PT"]["menu.datapacks.desc"]          = ;
-    //this->Register["pt-PT"]["menu.datapacks.size"]          = ;
-    //this->Register["pt-PT"]["menu.datapacks.veryhuge"]      = ;
-    //this->Register["pt-PT"]["menu.datapacks.error1"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.error2"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.error3"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.error4"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.error5"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.error6"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.error7"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.error8"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.error9"]        = ;
-    //this->Register["pt-PT"]["menu.datapacks.error10"]       = ;
+    this->Register["pt-PT"]["menu.datapacks.title"]         = "Pacotes de Dados";
+    this->Register["pt-PT"]["menu.datapacks.loaded"]        = "{white}Carregados {purple}{datapack_count}{reset}{white} pacotes de dados.{reset}";
+    this->Register["pt-PT"]["menu.datapacks.help1"]         = "Usa as setas para cima e para baixo a fim de fazer scroll.";
+    this->Register["pt-PT"]["menu.datapacks.empty"]         = "Sem pacotes de dados!";
+    this->Register["pt-PT"]["menu.datapacks.info"]          = "Usa a seta para a esquerda para voltar para trás. Usa a da direita para saber mais sobre o pacote de dados.";
+    this->Register["pt-PT"]["menu.datapacks.title2"]        = "Informação sobre o Pacote de Dados";
+    this->Register["pt-PT"]["menu.datapacks.subtitle"]      = "Dados:";
+    this->Register["pt-PT"]["menu.datapacks.name"]          = "Nome:";
+    this->Register["pt-PT"]["menu.datapacks.author"]        = "Autor:";
+    this->Register["pt-PT"]["menu.datapacks.id"]            = "ID do Pacote de Dados: ";
+    this->Register["pt-PT"]["menu.datapacks.desc"]          = "Descrição:";
+    this->Register["pt-PT"]["menu.datapacks.size"]          = "Espaço no disco:";
+    this->Register["pt-PT"]["menu.datapacks.veryhuge"]      = "Maior do que Júpiter";
+    this->Register["pt-PT"]["menu.datapacks.error1"]        = "Bloco principal \"Datapack\" não existe!";
+    this->Register["pt-PT"]["menu.datapacks.error2"]        = "Bloco principal \"Meta\" não existe!";
+    this->Register["pt-PT"]["menu.datapacks.error3"]        = "Bloco principal \"Data\" não existe!";
+    this->Register["pt-PT"]["menu.datapacks.error4"]        = "Nome do pacote de dados não está declarado!";
+    this->Register["pt-PT"]["menu.datapacks.error5"]        = "Autor do pacote de dados não está declarado!";
+    this->Register["pt-PT"]["menu.datapacks.error6"]        = "Sem identificador de pacote de dados!";
+    this->Register["pt-PT"]["menu.datapacks.error7"]        = "Tradução com erros!";
+    this->Register["pt-PT"]["menu.datapacks.error8"]        = "Mensagem de boas-vindas não tem um tempo especificado!";
+    this->Register["pt-PT"]["menu.datapacks.error9"]        = "Mensagem de boas-vindas vazia!";
+    this->Register["pt-PT"]["menu.datapacks.error10"]       = "Mensagem de saída vazia!";
 
     // Gameplay info
-    //this->Register["pt-PT"]["menu.ginfo.title"]             = ;
-    //this->Register["pt-PT"]["menu.ginfo.tips"]              = ;
-    //this->Register["pt-PT"]["menu.ginfo.status"]            = ;
-    //this->Register["pt-PT"]["menu.ginfo.tiptitle"]          = ;
-    //this->Register["pt-PT"]["menu.ginfo.tip1"]              = ;
-    //this->Register["pt-PT"]["menu.ginfo.tip2"]              = ;
-    //this->Register["pt-PT"]["menu.ginfo.tip3"]              = ;
-    //this->Register["pt-PT"]["menu.ginfo.statustitle1"]      = ;
-    //this->Register["pt-PT"]["menu.ginfo.statustitle2"]      = ;
-    //this->Register["pt-PT"]["menu.ginfo.autoheal"]          = ;
-    //this->Register["pt-PT"]["menu.ginfo.autoheal.info"]     = ;
-    //this->Register["pt-PT"]["menu.ginfo.icrit"]             = ;
-    //this->Register["pt-PT"]["menu.ginfo.icrit.info"]        = ;
-    //this->Register["pt-PT"]["menu.ginfo.invis"]             = ;
-    //this->Register["pt-PT"]["menu.ginfo.invis.info"]        = ;
-    //this->Register["pt-PT"]["menu.ginfo.poison"]            = ;
-    //this->Register["pt-PT"]["menu.ginfo.poison.info"]       = ;
-    //this->Register["pt-PT"]["menu.ginfo.thorns"]            = ;
-    //this->Register["pt-PT"]["menu.ginfo.thorns.info"]       = ;
-    //this->Register["pt-PT"]["menu.ginfo.weak"]              = ;
-    //this->Register["pt-PT"]["menu.ginfo.weak.info"]         = ;
+    this->Register["pt-PT"]["menu.ginfo.title"]             = "Informações sobre a Batalha";
+    this->Register["pt-PT"]["menu.ginfo.tips"]              = "Dicas";
+    this->Register["pt-PT"]["menu.ginfo.status"]            = "Estados e o que modificam";
+    this->Register["pt-PT"]["menu.ginfo.tiptitle"]          = "DICAS";
+    this->Register["pt-PT"]["menu.ginfo.tip1"]              = "Podes saltar a tua vez se escolheres nenhuma das opções 0, 1, 2, 3 or 4.";
+    this->Register["pt-PT"]["menu.ginfo.tip2"]              = "Podes saltar uma vez para recuperar energia.";
+    this->Register["pt-PT"]["menu.ginfo.tip3"]              = "A IA irá tentar atacar-te se tiver mais do que 60 HP.";
+    this->Register["pt-PT"]["menu.ginfo.statustitle1"]      = "ESTADOS";
+    this->Register["pt-PT"]["menu.ginfo.statustitle2"]      = "e o que modificam...";
+    this->Register["pt-PT"]["menu.ginfo.autoheal"]          = "Recuperação Automática";
+    this->Register["pt-PT"]["menu.ginfo.autoheal.info"]     = "{white}No início de {underline}uma ronda{reset}{white}, a entidade{reset}{nl}   {white}que tem a vez {underline}irá receber {purple}{bold}+{autoheal_amount}HP de vida.{reset}";
+    this->Register["pt-PT"]["menu.ginfo.icrit"]             = "Chance de Ataque Crítico ";
+    this->Register["pt-PT"]["menu.ginfo.icrit.info"]        = "{white}Quando uma entidade tem este estado, há {underline}uma chance de, aproximadamente, {purple}~30%{reset}{nl}   {white}de causar um {underline}ataque crítico{reset}{white}, que dá {white} muito {underline}mais dano.{reset}";
+    this->Register["pt-PT"]["menu.ginfo.invis"]             = "Invisibilidade";
+    this->Register["pt-PT"]["menu.ginfo.invis.info"]        = "{white}Quando uma entidade tem este estado, há{reset}{nl}   {white}uma chance de, aproximadamente, {underline}{purple}~20%{reset} {white}de o atacante {underline}falhar{reset}{nl}   {white}{underline}o seu ataque.{reset}";
+    this->Register["pt-PT"]["menu.ginfo.poison"]            = "Veneno";
+    this->Register["pt-PT"]["menu.ginfo.poison.info"]       = "{white}No início de uma {underline}nova ronda{reset}, a entidade que tem este estado{reset}{nl}   {white}irá {underline}levar {purple}{bold}-{poison_amount}HP of de dano.{reset}";
+    this->Register["pt-PT"]["menu.ginfo.thorns"]            = "Thorns";
+    this->Register["pt-PT"]["menu.ginfo.thorns.info"]       = "{white}Quando uma entidade que tem este estado{reset}{nl}   {white}é atacada, {underline}50% do dano causado{reset}{white} vai de volta para o {underline}atacante.{reset}";
+    this->Register["pt-PT"]["menu.ginfo.weak"]              = "Fraqueza";
+    this->Register["pt-PT"]["menu.ginfo.weak.info"]         = "{white}Uma entidade enfraquecida tem o seu HP e a sua AR {underline}{purple}limitados até 60.{reset}{nl}   {white}A energia dessa entidade baixa por {underline}{purple}75% menos por ronda{reset}{white}.{reset}{nl}   {white}Além disso, a entidade irá {underline}{purple}atacar menos{reset}{white}. Este estado dura apenas {weakness_time} rondas.{reset}";
 
     // Settings texts
-    //this->Register["pt-PT"]["menu.options.title"]           = ;
-    //this->Register["pt-PT"]["menu.options.cat1"]            = ;
-    //this->Register["pt-PT"]["menu.options.cat2"]            = ;
-    //this->Register["pt-PT"]["menu.options.cat3"]            = ;
-    //this->Register["pt-PT"]["menu.options.c1o1"]            = ;
-    //this->Register["pt-PT"]["menu.options.login"]           = ;
-    //this->Register["pt-PT"]["menu.options.currlang"]        = ;
-    //this->Register["pt-PT"]["menu.options.changelang"]      = ;
-    //this->Register["pt-PT"]["menu.options.langutils"]       = ;
-    //this->Register["pt-PT"]["menu.options.export1"]         = ;
-    //this->Register["pt-PT"]["menu.options.export2"]         = ;
-    //this->Register["pt-PT"]["menu.options.export3"]         = ;
-    //this->Register["pt-PT"]["menu.options.newuser"]         = ;
-    //this->Register["pt-PT"]["menu.options.changename"]      = ;
-    //this->Register["pt-PT"]["menu.options.help1"]           = ;
-    //this->Register["pt-PT"]["menu.options.help2"]           = ;
-    //this->Register["pt-PT"]["menu.options.help3"]           = ;
-    //this->Register["pt-PT"]["menu.options.help4"]           = ;
-    //this->Register["pt-PT"]["menu.options.enteruser"]       = ;
-    //this->Register["pt-PT"]["menu.options.usererror"]       = ;
-    //this->Register["pt-PT"]["menu.options.lang.select"]     = ;
-    //this->Register["pt-PT"]["menu.options.lang.loading"]    = ;
-    //this->Register["pt-PT"]["menu.options.lang.line1"]      = ;
-    //this->Register["pt-PT"]["menu.options.lang.line2"]      = ;
-    //this->Register["pt-PT"]["menu.options.lang.line3"]      = ;
+    this->Register["pt-PT"]["menu.options.title"]           = "Opções";
+    this->Register["pt-PT"]["menu.options.cat1"]            = " 1 DEFINIÇÕES DO DISCORD ";
+    this->Register["pt-PT"]["menu.options.cat2"]            = " 2 DEFINIÇÕES DE IDIOMA ";
+    this->Register["pt-PT"]["menu.options.cat3"]            = " 3 DEFINIÇÕES DO UTILIZADOR ";
+    this->Register["pt-PT"]["menu.options.c1o1"]            = "Rich Presence do Discord:";
+    this->Register["pt-PT"]["menu.options.login"]           = "A jogar como";
+    this->Register["pt-PT"]["menu.options.currlang"]        = "Idioma atual:";
+    this->Register["pt-PT"]["menu.options.changelang"]      = "Mudar de idioma...";
+    this->Register["pt-PT"]["menu.options.langutils"]       = "Ferramentas de Idioma...";
+    this->Register["pt-PT"]["menu.options.export1"]         = "Exportar idioma para pacote de dados (xml)...";
+    this->Register["pt-PT"]["menu.options.export2"]         = "Exportar idioma como Texto (txt)...";
+    this->Register["pt-PT"]["menu.options.export3"]         = "Converter TXT em Pacote de Dados (xml)...";
+    this->Register["pt-PT"]["menu.options.newuser"]         = "A criar novo utilizador...";
+    this->Register["pt-PT"]["menu.options.changename"]      = "Mudar de nome de utilizador...";
+    this->Register["pt-PT"]["menu.options.help1"]           = "{white}Clica {green}1{white} para entrar em modo de {green}Edição{white}. Clica {red}9{white} para {red}voltar ao menu inicial{white}.{reset}";
+    this->Register["pt-PT"]["menu.options.help2"]           = "{white}Clica na {red}seta para a esquerda{white} para sair do modo de {red}Edição{white}.{reset}";
+    this->Register["pt-PT"]["menu.options.help3"]           = "{white}Usa as setas {purple}para cima e para baixo{white} para {purple}escolher uma opção{white}.{reset}";
+    this->Register["pt-PT"]["menu.options.help4"]           = "{white}Clica na {yellow}seta para a direita{white} para {yellow}alterar uma configuração{white}.{reset}";
+    this->Register["pt-PT"]["menu.options.enteruser"]       = "Escreve o teu nome de utilizador:";
+    this->Register["pt-PT"]["menu.options.usererror"]       = "Nome de utilizador não pode conter espaços!";
+    this->Register["pt-PT"]["menu.options.lang.select"]     = "Escolher Idioma";
+    this->Register["pt-PT"]["menu.options.lang.loading"]    = "A carregar...";
+    this->Register["pt-PT"]["menu.options.lang.line1"]      = "Idioma atual: {lang}";
+    this->Register["pt-PT"]["menu.options.lang.line2"]      = "{lang_count} idiomas carregados.";
+    this->Register["pt-PT"]["menu.options.lang.line3"]      = "Setas para cima e para baixo para escolher uma configuração, seta para a direita para a mudar e esquerda para sair.";
 
     // Language utilities texts
-    //this->Register["pt-PT"]["menu.langutils.success"]       = ;
-    //this->Register["pt-PT"]["menu.langutils.fail"]          = ;
-    //this->Register["pt-PT"]["menu.langutils.getpath"]       = ;
-    //this->Register["pt-PT"]["menu.langutils.pathfail"]      = ;
-    //this->Register["pt-PT"]["menu.langutils.notfile"]       = ;
+    this->Register["pt-PT"]["menu.langutils.success"]       = "Idioma {lang_id} exportado com sucesso!";
+    this->Register["pt-PT"]["menu.langutils.fail"]          = "Oops... Parece que houve um erro durante a exportação...";
+    this->Register["pt-PT"]["menu.langutils.getpath"]       = "Caminho do ficheiro TXT:";
+    this->Register["pt-PT"]["menu.langutils.pathfail"]      = "O caminho não existe!";
+    this->Register["pt-PT"]["menu.langutils.notfile"]       = "O caminho não é um ficheiro.";
 
     // Greet texts
-    //this->Register["pt-PT"]["greet.morning.1"]              = ;
-    //this->Register["pt-PT"]["greet.morning.2"]              = ;
-    //this->Register["pt-PT"]["greet.morning.3"]              = ;
-    //this->Register["pt-PT"]["greet.afternoon.1"]            = ;
-    //this->Register["pt-PT"]["greet.afternoon.2"]            = ;
-    //this->Register["pt-PT"]["greet.afternoon.3"]            = ;
-    //this->Register["pt-PT"]["greet.evening.1"]              = ;
-    //this->Register["pt-PT"]["greet.evening.2"]              = ;
-    //this->Register["pt-PT"]["greet.evening.3"]              = ;
-    //this->Register["pt-PT"]["greet.earlynight.1"]           = ;
-    //this->Register["pt-PT"]["greet.earlynight.2"]           = ;
-    //this->Register["pt-PT"]["greet.threeam.1"]              = ;
-    //this->Register["pt-PT"]["greet.threeam.2"]              = ;
-    //this->Register["pt-PT"]["greet.threeam.3"]              = ;
+    this->Register["pt-PT"]["greet.morning.1"]              = "{white}Bom dia, {username}. Preparado para matar?{reset}";
+    this->Register["pt-PT"]["greet.morning.2"]              = "{white}Bom dia, {username}. Agarra num copo de café, e prepara-te para esmagar umas entidades.{reset}";
+    this->Register["pt-PT"]["greet.morning.3"]              = "{white}Bom dia, {username}. Levanta-te e brilha!{reset}";
+    this->Register["pt-PT"]["greet.afternoon.1"]            = "{white}Boa tarde, {username}. De volta por mais sangue?{reset}";
+    this->Register["pt-PT"]["greet.afternoon.2"]            = "{white}Boa tarde, {username}. O almoço de hoje: Entidades{reset}";
+    this->Register["pt-PT"]["greet.afternoon.3"]            = "{white}Boa tarde, {username}. Eu dormiria uma sesta agora mesmo...{reset}";
+    this->Register["pt-PT"]["greet.evening.1"]              = "{white}Boa noite, {username}. 5 minutos e depois vai para a cama.{reset}";
+    this->Register["pt-PT"]["greet.evening.2"]              = "{white}Boa noite, {username}. As entidades estão a dormir, ataque surpresa!{reset}";
+    this->Register["pt-PT"]["greet.evening.3"]              = "{white}Boa noite, {username}. *{italic}Bocejo{reset}{white}*{reset}";
+    this->Register["pt-PT"]["greet.earlynight.1"]           = "{white}Boa noite, {username}. Ainda não consegues dormir?{reset}";
+    this->Register["pt-PT"]["greet.earlynight.2"]           = "{white}Boa noite, {username}. O teu jantar estava delicioso?{reset}";
+    this->Register["pt-PT"]["greet.threeam.1"]              = "{white}Boa noite, {username}. Hora dos sustos!{reset}";
+    this->Register["pt-PT"]["greet.threeam.2"]              = "{white}Boa noite, {username}. A barreira entre o lado dos mortais e o outro lado está desfocada...{reset}";
+    this->Register["pt-PT"]["greet.threeam.3"]              = "{white}Boa noite, {username}. Algo está errado..{reset}";
 
     // Gameplay strings
-    //this->Register["pt-PT"]["game.battle.announce"]         = ;
-    //this->Register["pt-PT"]["game.battle.what_happened"]    = ;
-    //this->Register["pt-PT"]["game.battle.ply_header"]       = ;
-    //this->Register["pt-PT"]["game.battle.ene_header"]       = ;
-    //this->Register["pt-PT"]["game.battle.enemy"]            = ;
-    //this->Register["pt-PT"]["game.battle.regen_moves"]      = ;
-    //this->Register["pt-PT"]["game.battle.move_choose"]      = ;
-    //this->Register["pt-PT"]["game.battle.exit"]             = ;
-    //this->Register["pt-PT"]["game.battle.skip"]             = ;
-    //this->Register["pt-PT"]["game.battle.enemy_skip"]       = ;
-    //this->Register["pt-PT"]["game.battle.no_energy"]        = ;
-    //this->Register["pt-PT"]["game.battle.rerolled"]         = ;
-    //this->Register["pt-PT"]["game.battle.ai_think"]         = ;
-    //this->Register["pt-PT"]["game.moves.attack"]            = ;
-    //this->Register["pt-PT"]["game.moves.heal"]              = ;
-    //this->Register["pt-PT"]["game.moves.regen"]             = ;
-    //this->Register["pt-PT"]["game.moves.autoheal"]          = ;
-    //this->Register["pt-PT"]["game.moves.icrit"]             = ;
-    //this->Register["pt-PT"]["game.moves.invis"]             = ;
-    //this->Register["pt-PT"]["game.moves.poison"]            = ;
-    //this->Register["pt-PT"]["game.moves.thorns"]            = ;
-    //this->Register["pt-PT"]["game.moves.weakness"]          = ;
-    //this->Register["pt-PT"]["game.moves.gameover"]          = ;
-    //this->Register["pt-PT"]["game.moves.victory"]           = ;
-    //this->Register["pt-PT"]["game.moves.rematch"]           = ;
+    this->Register["pt-PT"]["game.battle.announce"]         = "{red}{italic}A luta começa. Boa sorte, {username}!{reset}";
+    this->Register["pt-PT"]["game.battle.what_happened"]    = "{white}Resumo da última ronda:{reset}{nl}{what_happened}{reset}";
+    this->Register["pt-PT"]["game.battle.ply_header"]       = "{dark_gray}---<<< Vez de {blue}{bold}{username}{reset} {dark_gray}>>>---{reset}";
+    this->Register["pt-PT"]["game.battle.ene_header"]       = "{dark_gray}---<<< Vez do{reset} {red}{bold}Inimigo!{reset} {dark_gray}>>>---{reset}";
+    this->Register["pt-PT"]["game.battle.enemy"]            = "INIMIGO";
+    this->Register["pt-PT"]["game.battle.regen_moves"]      = "Gerar novas opções...";
+    this->Register["pt-PT"]["game.battle.move_choose"]      = "{white}Efetua uma escolha. {dark_gray}{bold}[1,2,3,4,5] (0 para sair){reset}";
+    this->Register["pt-PT"]["game.battle.exit"]             = "Tens a certeza que queres sair da batalha?";
+    this->Register["pt-PT"]["game.battle.skip"]             = "saltou a sua vez.";
+    this->Register["pt-PT"]["game.battle.enemy_skip"]       = "{red}{bold}O inimigo{reset} {white}saltou a sua vez.{reset}";
+    this->Register["pt-PT"]["game.battle.no_energy"]        = "Não tens energia suficiente!";
+    this->Register["pt-PT"]["game.battle.rerolled"]         = "{blue}{bold}{username}{reset}{white} decidiu gerar novas opções...{reset}";
+    this->Register["pt-PT"]["game.battle.ai_think"]         = "A IA está a pensar...";
+    this->Register["pt-PT"]["game.moves.attack"]            = "{red}Atacar! {white}Dá {purple}{value}{white} de dano ao adversário.{reset}";
+    this->Register["pt-PT"]["game.moves.heal"]              = "{green}Recupera! {white}Dá-te {purple}+{value}{white} de vida{reset}";
+    this->Register["pt-PT"]["game.moves.regen"]             = "{blue}Recuperar armadura{white}! Dá-te {purple}+{value}{white} AR{reset}";
+    this->Register["pt-PT"]["game.moves.autoheal"]          = "{white}Aplicar {green}o Estado de Recuperação Automática{white}! Dá-te {purple}{value} {white}de vida na tua vez{reset}";
+    this->Register["pt-PT"]["game.moves.icrit"]             = "{white}Aplicar {red}o Estado de Chance Maior de Ataque Crítico!{white} Dá-te uma chance maior de causar um {red}ataque crítico{reset}";
+    this->Register["pt-PT"]["game.moves.invis"]             = "{white}Aplicar {hot_pink}Invisibilidade{white}! O adversário tem uma chance de {hot_pink}falhar{reset} o seu ataque.{reset}";
+    this->Register["pt-PT"]["game.moves.poison"]            = "{white}Dá {dark_green}veneno{white} ao teu adversário! O inimigo irá {purple}{value}{white} levar dano de veneno{reset}";
+    this->Register["pt-PT"]["game.moves.thorns"]            = "{white}Aplica o efeito {teal}Thorns{white}! O adversário levará {bold}dano ao atacar{reset}";
+    this->Register["pt-PT"]["game.moves.weakness"]          = "{white}Dá {brown}o Efeito de Fraqueza {white}ao teu adversário! O adversário será enfraquecido...{reset}";
+    this->Register["pt-PT"]["game.moves.gameover"]          = "{white}---<<< {blue}{bold}{username}{reset} {white}morreu. {red}{bold}O inimigo{reset}{white} venceu!!! >>>---{reset}";
+    this->Register["pt-PT"]["game.moves.victory"]           = "{white}---<<< {red}{bold}O inimigo{reset} {white}foi derrotado. {blue}{bold}{username}{reset}{white} ganhou!!! >>>---{reset}";
+    this->Register["pt-PT"]["game.moves.rematch"]           = "Desforra!";
     //this->Register["pt-PT"]["game.applied.autoheal"]        = ;
     //this->Register["pt-PT"]["game.applied.incr_crit"]       = ;
     //this->Register["pt-PT"]["game.applied.invis"]           = ;
@@ -1556,92 +1556,92 @@ void TranslationEngine::LoadPortuguese()
     //this->Register["pt-PT"]["entity.attack.ene_crit"]       = ;
 
     // Exit messages :3
-    //this->Register["pt-PT"]["exit.message.1"]               = ;
-    //this->Register["pt-PT"]["exit.message.win2"]            = ;
-    //this->Register["pt-PT"]["exit.message.win3"]            = ;
-    //this->Register["pt-PT"]["exit.message.win4"]            = ;
-    //this->Register["pt-PT"]["exit.message.win5"]            = ;
-    //this->Register["pt-PT"]["exit.message.mac2"]            = ;
-    //this->Register["pt-PT"]["exit.message.mac3"]            = ;
-    //this->Register["pt-PT"]["exit.message.mac4"]            = ;
-    //this->Register["pt-PT"]["exit.message.mac5"]            = ;
-    //this->Register["pt-PT"]["exit.message.lix2"]            = ;
-    //this->Register["pt-PT"]["exit.message.lix3"]            = ;
-    //this->Register["pt-PT"]["exit.message.lix4"]            = ;
-    //this->Register["pt-PT"]["exit.message.lix5"]            = ;
-    //this->Register["pt-PT"]["exit.message.6"]               = ;
-    //this->Register["pt-PT"]["exit.message.8"]               = ;
-    //this->Register["pt-PT"]["exit.message.9"]               = ;
-    //this->Register["pt-PT"]["exit.message.10"]              = ;
-    //this->Register["pt-PT"]["exit.message.11"]              = ;
-    //this->Register["pt-PT"]["exit.message.12"]              = ;
-    //this->Register["pt-PT"]["exit.message.13"]              = ;
-    //this->Register["pt-PT"]["exit.message.14"]              = ;
-    //this->Register["pt-PT"]["exit.message.15"]              = ;
-    //this->Register["pt-PT"]["exit.message.16"]              = ;
-    //this->Register["pt-PT"]["exit.message.19"]              = ;
-    //this->Register["pt-PT"]["exit.message.21"]              = ;
-    //this->Register["pt-PT"]["exit.message.22"]              = ;
-    //this->Register["pt-PT"]["exit.message.23"]              = ;
-    //this->Register["pt-PT"]["exit.message.24"]              = ;
-    //this->Register["pt-PT"]["exit.message.25"]              = ;
-    //this->Register["pt-PT"]["exit.message.26"]              = ;
-    //this->Register["pt-PT"]["exit.message.27"]              = ;
-    //this->Register["pt-PT"]["exit.message.28"]              = ;
-    //this->Register["pt-PT"]["exit.message.29"]              = ;
-    //this->Register["pt-PT"]["exit.message.30"]              = ;
-    //this->Register["pt-PT"]["exit.message.31"]              = ;
-    //this->Register["pt-PT"]["exit.message.32"]              = ;
-    //this->Register["pt-PT"]["exit.message.33"]              = ;
-    //this->Register["pt-PT"]["exit.message.34"]              = ;
-    //this->Register["pt-PT"]["exit.message.35"]              = ;
-    //this->Register["pt-PT"]["exit.message.36"]              = ;
-    //this->Register["pt-PT"]["exit.message.37"]              = ;
-    //this->Register["pt-PT"]["exit.message.39"]              = ;
-    //this->Register["pt-PT"]["exit.message.40"]              = ;
-    //this->Register["pt-PT"]["exit.message.41"]              = ;
-    //this->Register["pt-PT"]["exit.message.42"]              = ;
-    //this->Register["pt-PT"]["exit.message.45"]              = ;
-    //this->Register["pt-PT"]["exit.message.47"]              = ;
-    //this->Register["pt-PT"]["exit.message.48"]              = ;
-    //this->Register["pt-PT"]["exit.message.49"]              = ;
-    //this->Register["pt-PT"]["exit.message.50"]              = ;
-    //this->Register["pt-PT"]["exit.message.51"]              = ;
-    //this->Register["pt-PT"]["exit.message.52"]              = ;
-    //this->Register["pt-PT"]["exit.message.53"]              = ;
-    //this->Register["pt-PT"]["exit.message.54"]              = ;
-    //this->Register["pt-PT"]["exit.message.56"]              = ;
-    //this->Register["pt-PT"]["exit.message.57"]              = ;
-    //this->Register["pt-PT"]["exit.message.58"]              = ;
-    //this->Register["pt-PT"]["exit.message.59"]              = ;
-    //this->Register["pt-PT"]["exit.message.61"]              = ;
-    //this->Register["pt-PT"]["exit.message.62"]              = ;
-    //this->Register["pt-PT"]["exit.message.64"]              = ;
-    //this->Register["pt-PT"]["exit.message.65"]              = ;
-    //this->Register["pt-PT"]["exit.message.67"]              = ;
-    //this->Register["pt-PT"]["exit.message.70"]              = ;
-    //this->Register["pt-PT"]["exit.message.special"]         = ;
+    this->Register["pt-PT"]["exit.message.1"]               = "{white}Nãoooooo, não saias ainda :<{reset}";
+    this->Register["pt-PT"]["exit.message.win2"]            = "{white}Tens a certeza? {italic}O Windows é bem pior...{reset}";
+    this->Register["pt-PT"]["exit.message.win3"]            = "{white}Claro, como se o  Windows fosse mais divertido!{reset}";
+    this->Register["pt-PT"]["exit.message.win4"]            = "{white}Sabes que o Bill Gates aprovou este jogo, certo?{reset}";
+    this->Register["pt-PT"]["exit.message.win5"]            = "{white}Certo, não te esqueças de fechar todas as janelas quando saíres.{reset}";
+    this->Register["pt-PT"]["exit.message.mac2"]            = "{white}Tens a certeza? {italic}O Mac é bem pior...{reset}";
+    this->Register["pt-PT"]["exit.message.mac3"]            = "{white}Claro, como se o Mac fosse mais divertido!{reset}";
+    this->Register["pt-PT"]["exit.message.mac4"]            = "{white}Sabes que o Steve Jobs aprovou este jogo, certo?{reset}";
+    this->Register["pt-PT"]["exit.message.mac5"]            = "{white}Uma Maçã (Apple) por dia, afasta a tua carteira.{reset}";
+    this->Register["pt-PT"]["exit.message.lix2"]            = "{white}Tens a certeza? {italic}O Linux é bem pior...{reset}";
+    this->Register["pt-PT"]["exit.message.lix3"]            = "{white}Claro, como se o Linux fosse mais divertido!{reset}";
+    this->Register["pt-PT"]["exit.message.lix4"]            = "{white}Sabes que Linus Torvalds aprovou este jogo, certo?{reset}";
+    this->Register["pt-PT"]["exit.message.lix5"]            = "{white}Linuwux{reset}";
+    this->Register["pt-PT"]["exit.message.6"]               = "{white}O inimigo ainda tem 6% de vida!!{reset}";
+    this->Register["pt-PT"]["exit.message.8"]               = "{white}Mas...? Porquê?{reset}";
+    this->Register["pt-PT"]["exit.message.9"]               = "{white}Sais agora, desonras e perdes a tua contagem de vitórias!{reset}";
+    this->Register["pt-PT"]["exit.message.10"]              = "{white}Pelo menos tentaste, é um facto.{reset}";
+    this->Register["pt-PT"]["exit.message.11"]              = "{white}Não vás embora ainda!{reset}";
+    this->Register["pt-PT"]["exit.message.12"]              = "{white}Pssst, dou-te 3 power-ups se ficares... ;){reset}";
+    this->Register["pt-PT"]["exit.message.13"]              = "{white}Tens a certeza? O mundo exterior é perigoso...{reset}";
+    this->Register["pt-PT"]["exit.message.14"]              = "{white}Pff, sai. Indigno.{reset}";
+    this->Register["pt-PT"]["exit.message.15"]              = "{white}Ok{reset}";
+    this->Register["pt-PT"]["exit.message.16"]              = "{white}Querido(a), estás a trair-me com jogos criados em Java?{reset}";
+    this->Register["pt-PT"]["exit.message.19"]              = "{white}A profecia ditou que continuarás a jogar. Ousas quebrar a profecia?{reset}";
+    this->Register["pt-PT"]["exit.message.21"]              = "{white}Obrigado por descarregar o nosso malware :3{reset}";
+    this->Register["pt-PT"]["exit.message.22"]              = "{white}Pressiona 'y', e no teu caixão estarás!{reset}";
+    this->Register["pt-PT"]["exit.message.23"]              = "{white}Não sejas ridículo(a)! Fica aqui durante mais algum tempo!{reset}";
+    this->Register["pt-PT"]["exit.message.24"]              = "{white}As entidades vivem nas tuas paredes{reset}";
+    this->Register["pt-PT"]["exit.message.25"]              = "{white}Eu, norbcodes, vivo (sem pagar renda) no teu teto{reset}";
+    this->Register["pt-PT"]["exit.message.26"]              = "{white}A sério?{reset}";
+    this->Register["pt-PT"]["exit.message.27"]              = "{white}Estás mesmo a falar a sério?{reset}";
+    this->Register["pt-PT"]["exit.message.28"]              = "{white}Babeeee! Nãooo!{reset}";
+    this->Register["pt-PT"]["exit.message.29"]              = "{white}O teu frigorífico está a funcionar...?{reset}";
+    this->Register["pt-PT"]["exit.message.30"]              = "{white}O teu fogão está desligado...?{reset}";
+    this->Register["pt-PT"]["exit.message.31"]              = "{white}O que é? Será que alguns heap memory allocs te afugentaram?{reset}";
+    this->Register["pt-PT"]["exit.message.32"]              = "{white}Uma partícula de neutrino poderá estar a passar pelo teu crânio agora mesmo.{reset}";
+    this->Register["pt-PT"]["exit.message.33"]              = "{white}Vamos parar para pensar um pouco.{reset}";
+    this->Register["pt-PT"]["exit.message.34"]              = "{white}Oh não! O teu botão 'y' acabou de partir!{reset}";
+    this->Register["pt-PT"]["exit.message.35"]              = "{white}LMFAOOOOO{reset}";
+    this->Register["pt-PT"]["exit.message.36"]              = "{white}O mundo exterior não é real. Acorda! Acorda!{reset}";
+    this->Register["pt-PT"]["exit.message.37"]              = "{white}O primeiro entities é mais divertido?{reset}";
+    this->Register["pt-PT"]["exit.message.39"]              = "{white}Eu, norbcodes, não aprovo!!! >:({reset}";
+    this->Register["pt-PT"]["exit.message.40"]              = "{white}Talvez eu parta o teu teclado, assim sendo{reset}";
+    this->Register["pt-PT"]["exit.message.41"]              = "{white}Volte em breve. Estamos a planear uma festa de pizza :){reset}";
+    this->Register["pt-PT"]["exit.message.42"]              = "{white}Adeus :3{reset}";
+    this->Register["pt-PT"]["exit.message.45"]              = "{white}*{italic}inserir mensagem de saída aqui{reset}{white}*{reset}";
+    this->Register["pt-PT"]["exit.message.47"]              = "{white}Amigo, escolhe uma dificuldade mais baixa. Não são necessárias medidas dramáticas...{reset}";
+    this->Register["pt-PT"]["exit.message.48"]              = "{white}*{italic}inserir mensagem de saída ameaçadora aqui{reset}{white}*{reset}";
+    this->Register["pt-PT"]["exit.message.49"]              = "{white}Está bem, desaparece da minha frente.{reset}";
+    this->Register["pt-PT"]["exit.message.50"]              = "{white}Nãooo po-favo ficaaa :({reset}";
+    this->Register["pt-PT"]["exit.message.51"]              = "{white}><>     <---- peixe{reset}";
+    this->Register["pt-PT"]["exit.message.52"]              = "{red}exit{reset}{white}(){reset}";
+    this->Register["pt-PT"]["exit.message.53"]              = "{white}Perdeste o direito a syntax highlighting!!!{reset}";
+    this->Register["pt-PT"]["exit.message.54"]              = "{{red}}{{bold}}Raios, a minha formatação deixou de funcionar{{reset}}";
+    this->Register["pt-PT"]["exit.message.56"]              = "{white}Não{nl}   said{nl}       por,{nl}           FAVOR{reset}";
+    this->Register["pt-PT"]["exit.message.57"]              = "{white}Odeio-te >:({reset}";
+    this->Register["pt-PT"]["exit.message.58"]              = "{white}Sabes que este é o melhor jogo do mundo, certo?{reset}";
+    this->Register["pt-PT"]["exit.message.59"]              = "{white}Clássico, desistir após uma derrota.{reset}";
+    this->Register["pt-PT"]["exit.message.61"]              = "{white}Denunciarei a tua conta Github se saíres >:({reset}";
+    this->Register["pt-PT"]["exit.message.62"]              = "{white}Miau meerpppp :3{reset}";
+    this->Register["pt-PT"]["exit.message.64"]              = "{white}E o prémio de \"Melhor Jogador\" vai para...{reset}";
+    this->Register["pt-PT"]["exit.message.65"]              = "{white}sem bolas :>{reset}";
+    this->Register["pt-PT"]["exit.message.67"]              = "{white}Vai jogar o teu Valorant ou o que quer que os miúdos joguem hoje em dia{reset}";
+    this->Register["pt-PT"]["exit.message.70"]              = "{white}Quando é o teu aniversário?{reset}";
+    this->Register["pt-PT"]["exit.message.special"]         = "{white}Sabias que? Cada uma destas mensagens de saída tem uma chance de aparecer de {purple}{perc:.2f}%{white}.{reset}";
 
     // Credits :3
-    //this->Register["pt-PT"]["credits.title1"]               = ;
-    //this->Register["pt-PT"]["credits.gameby"]               = ;
-    //this->Register["pt-PT"]["credits.writtenin"]            = ;
-    //this->Register["pt-PT"]["credits.moreinfo1"]            = ;
-    //this->Register["pt-PT"]["credits.moreinfo2"]            = ;
-    //this->Register["pt-PT"]["credits.moreinfo3"]            = ;
-    //this->Register["pt-PT"]["credits.moreinfo4"]            = ;
-    //this->Register["pt-PT"]["credits.title2"]               = ;
-    //this->Register["pt-PT"]["credits.discordlib"]           = ;
-    //this->Register["pt-PT"]["credits.fmtlib"]               = ;
-    //this->Register["pt-PT"]["credits.pugilib"]              = ;
-    //this->Register["pt-PT"]["credits.arglib"]               = ;
-    //this->Register["pt-PT"]["credits.jsonlib"]              = ;
-    //this->Register["pt-PT"]["credits.compiled"]             = ;
-    //this->Register["pt-PT"]["credits.title3"]               = ;
-    //this->Register["pt-PT"]["credits.slovak"]               = ;
-    //this->Register["pt-PT"]["credits.russian"]              = ;
-    //this->Register["pt-PT"]["credits.portuguese"]           = ;
-    //this->Register["pt-PT"]["credits.tagalog"]              = ;
+    this->Register["pt-PT"]["credits.title1"]               = "OS CRÉDITOS!!!!";
+    this->Register["pt-PT"]["credits.gameby"]               = "{gold}{bold}Jogo criado{reset} {white}por{reset} {blue}{bold}Norb{reset}";
+    this->Register["pt-PT"]["credits.writtenin"]            = "{hot_pink}{bold}Escrito{reset} {white}em{reset} {green}{bold}C++{reset}";
+    this->Register["pt-PT"]["credits.moreinfo1"]            = "Versão 1.0 desenvolvida em, aproximadamente, 2 dias.";
+    this->Register["pt-PT"]["credits.moreinfo2"]            = "(Pela a altura em que os créditos foram escritos, o Discord diz que estive 6 hours a usar o VScode)";
+    this->Register["pt-PT"]["credits.moreinfo3"]            = "As cores bonitas que o caro utilizador pode ver:";
+    this->Register["pt-PT"]["credits.moreinfo4"]            = "Experimente entities1 e explore a página do entities2 em ";
+    this->Register["pt-PT"]["credits.title2"]               = "MÓDULOS EXTERNOS USADOS:";
+    this->Register["pt-PT"]["credits.discordlib"]           = "{blue}{bold}discord-rpc{reset} {dark_gray}:: {lavender}{italic}Créditos a {name} :){reset}";
+    this->Register["pt-PT"]["credits.fmtlib"]               = "{bold}{red}{{{orange}f{yellow}m{green}t{blue}}}{reset} {dark_gray}::{reset} {hot_pink}{italic}Créditos à equipa inteira por detrás do módulo {name} :P{reset}";
+    this->Register["pt-PT"]["credits.pugilib"]              = "{white}{bold}pugi{reset}{brown}{bold}xml{reset} {dark_gray}::{reset} {pink}{italic}Créditos a {name} (de nome {name2} no GitHub)!! :3{reset}";
+    this->Register["pt-PT"]["credits.arglib"]               = "{orange}{bold}arg{gold}parse{reset} {dark_gray}::{reset} {green}{italic}Créditos a {name} {dark_green}por ter criado este módulo tão bom :>{reset}";
+    this->Register["pt-PT"]["credits.jsonlib"]              = "{blue}{bold}{italic}json{reset} {dark_gray}::{reset} {teal}{italic}Créditos a {name} por ter criado este módulo épico!!{reset}";
+    this->Register["pt-PT"]["credits.compiled"]             = "{dark_gray}Versão {entities2_ver} de entities2.cpp compilada a {compile_date} {compile_time} ;){reset}";
+    this->Register["pt-PT"]["credits.title3"]               = "AGRADECIMENTO ESPECIAL AOS TRADUTORES:";
+    this->Register["pt-PT"]["credits.slovak"]               = "{blue}{bold}{name}{reset} {dark_gray}::{reset} {white}{bold}Inglês{reset}{white} (idioma de base) e {bold}Eslovaco{reset}";
+    this->Register["pt-PT"]["credits.russian"]              = "{purple}{bold}{name}{reset} {dark_gray}::{reset} {white}Traduzido para {bold}Russo{reset}";
+    this->Register["pt-PT"]["credits.portuguese"]           = "{yellow}{bold}{name}{reset} {dark_gray}::{reset} {white}Traduzido para {bold}Português :){reset}";
+    this->Register["pt-PT"]["credits.tagalog"]              = "{light_blue}{bold}{name}{reset} {dark_gray}::{reset} {white}Traduzido para {bold}Tagalo{reset}";
 
     #endif // __ENTITIES2_BAKED_IN_PORTUGUESE__
 }

@@ -28,7 +28,7 @@ static void DatapackView(const Datapack& datapack, const TranslationEngine& Game
     ClearScreen();
     Div();
 
-    fmt::print("{1}< {2}{3}{0}\n\n", RESET, WHITE, PINK, GameTranslation.GetTranslated("menu.datapacks.title2"));
+    fmt::print("{1}< {2}{4}{3}{0}\n\n", RESET, WHITE, PINK, GameTranslation.GetTranslated("menu.datapacks.title2"), UNDERLINE);
     fmt::print("{1}{2}{0}\n", RESET, ORANGE, GameTranslation.GetTranslated("menu.datapacks.subtitle"));
     fmt::print("{1}   {3: <16} {2}{0}\n", RESET, WHITE, datapack.GetName(), GameTranslation.GetTranslated("menu.datapacks.name"));
     fmt::print("{1}   {3: <16} {2}{0}\n", RESET, WHITE, datapack.GetAuthor(), GameTranslation.GetTranslated("menu.datapacks.author"));
@@ -60,7 +60,7 @@ void DatapackViewer(const DatapackEngine& datapacks, const TranslationEngine& Ga
         ResetCursor();
         Div();
         // Print stuff
-        fmt::print("{1}<{0} {2}{3}{4}{0}\n\n", RESET, WHITE, PINK, BOLD, GameTranslation.GetTranslated("menu.datapacks.title"));
+        fmt::print("{1}<{0} {2}{3}{4}{0}\n\n", RESET, WHITE, PINK, UNDERLINE, GameTranslation.GetTranslated("menu.datapacks.title"));
         fmt::print("{0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.datapacks.loaded"), fmt::arg("datapack_count", datapacks.DatapackCount())));
         fmt::print("{1}{2}{0}\n\n", RESET, WHITE, GameTranslation.GetTranslated("menu.datapacks.help1"));
 

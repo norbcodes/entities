@@ -260,7 +260,7 @@ void LanguageUtilitiesMenu(const TranslationEngine& GameTranslation, const GameA
     {
         ClearScreen();
         Div();
-        fmt::print("{1}{2}{0}\n\n", RESET, PINK, GameTranslation.GetTranslated("menu.options.langutils"));
+        fmt::print("{1}{3}{2}{0}\n\n", RESET, PINK, GameTranslation.GetTranslated("menu.options.langutils"), UNDERLINE);
         fmt::print("{1}[{2}{3}1{0}{1}]{0} {4}{5}{0}\n", RESET, DARK_GRAY, GOLD, BOLD, BLUE, GameTranslation.GetTranslated("menu.options.export1"));
         fmt::print("{1}[{2}{3}2{0}{1}]{0} {4}{5}{0}\n", RESET, DARK_GRAY, GOLD, BOLD, GREEN, GameTranslation.GetTranslated("menu.options.export2"));
         fmt::print("{1}[{2}{3}3{0}{1}]{0} {4}{5}{0}\n\n", RESET, DARK_GRAY, GOLD, BOLD, BROWN, GameTranslation.GetTranslated("menu.options.export3"));

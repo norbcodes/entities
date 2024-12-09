@@ -23,7 +23,7 @@ static void TipsNTricks(const TranslationEngine& GameTranslation)
 {
     ClearScreen();
     Div();
-    fmt::print("{3}<{0} {1}{2}{4}{0}\n\n", RESET, GOLD, BOLD, WHITE, GameTranslation.GetTranslated("menu.ginfo.tiptitle"));
+    fmt::print("{3}<{0} {1}{2}{4}{0}\n\n", RESET, GOLD, UNDERLINE, WHITE, GameTranslation.GetTranslated("menu.ginfo.tiptitle"));
     fmt::print("{1}- {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.ginfo.tip1"));
     fmt::print("{1}- {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.ginfo.tip2"));
     fmt::print("{1}- {2}{0}\n\n", RESET, WHITE, GameTranslation.GetTranslated("menu.ginfo.tip3"));
@@ -36,7 +36,7 @@ static void Statuses(const TranslationEngine& GameTranslation)
 {
     ClearScreen();
     Div();
-    fmt::print("{5}<{0} {1}{2}{6}{0} {4}{3}{7}{0}\n\n", RESET, GOLD, BOLD, ITALIC, BLUE, WHITE, GameTranslation.GetTranslated("menu.ginfo.statustitle1"), GameTranslation.GetTranslated("menu.ginfo.statustitle2"));
+    fmt::print("{5}<{0} {1}{2}{6}{0} {2}{4}{3}{7}{0}\n\n", RESET, GOLD, UNDERLINE, ITALIC, BLUE, WHITE, GameTranslation.GetTranslated("menu.ginfo.statustitle1"), GameTranslation.GetTranslated("menu.ginfo.statustitle2"));
     fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, GREEN, BOLD, GameTranslation.GetTranslated("menu.ginfo.autoheal"), CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.autoheal.info"), fmt::arg("autoheal_amount", AUTO_HEAL_AMOUNT)));
     fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, RED, BOLD, GameTranslation.GetTranslated("menu.ginfo.icrit"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.icrit.info")));
     fmt::print("{1}{2}{3}{0}\n   {4}\n", RESET, HOT_PINK, BOLD, GameTranslation.GetTranslated("menu.ginfo.invis"), MsgFormatterNoUser(GameTranslation.GetTranslated("menu.ginfo.invis.info")));
@@ -61,7 +61,7 @@ void GameplayInfoSec(const TranslationEngine& GameTranslation)
     {
         ClearScreen();
         Div();
-        fmt::print("{2}<{0} {1}{3}{0}\n\n", RESET, GOLD, WHITE, GameTranslation.GetTranslated("menu.ginfo.title"));
+        fmt::print("{2}<{0} {1}{4}{3}{0}\n\n", RESET, GOLD, WHITE, GameTranslation.GetTranslated("menu.ginfo.title"), UNDERLINE);
         // Print options
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, PINK, GameTranslation.GetTranslated("menu.ginfo.tips"));
         fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}{5}{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER, GameTranslation.GetTranslated("menu.ginfo.status"));

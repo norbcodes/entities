@@ -66,21 +66,21 @@ void EndDivNoNewl()
 void Credits(const TranslationEngine& GameTranslation)
 {
     Div();
-    fmt::print("{1}{2}{3}{0}\n\n", RESET, GOLD, ITALIC, GameTranslation.GetTranslated("credits.title1"));
+    fmt::print("{1}{4}{2}{3}{0}\n\n", RESET, GOLD, ITALIC, GameTranslation.GetTranslated("credits.title1"), UNDERLINE);
     fmt::print("{0}\n", MsgFormatterNoUser(GameTranslation.GetTranslated("credits.gameby")));
     fmt::print("{0}\n", MsgFormatterNoUser(GameTranslation.GetTranslated("credits.writtenin")));
     fmt::print("{1}{3}{0}\n{2}{4}{0}\n", RESET, WHITE, DARK_GRAY, GameTranslation.GetTranslated("credits.moreinfo1"), GameTranslation.GetTranslated("credits.moreinfo2"));
     fmt::print("{1}{3} {2}rgbcolorcode.com{0}{1}! B){0}\n", RESET, BLUE, BOLD, GameTranslation.GetTranslated("credits.moreinfo3"));
     fmt::print("{1}{3} {2}github.com/norbcodes/entities{0}{1} :){0}\n\n", RESET, PURPLE, BOLD, GameTranslation.GetTranslated("credits.moreinfo4"));
 
-    fmt::print("{1}{2}{0}\n", RESET, GOLD, GameTranslation.GetTranslated("credits.title2"));
+    fmt::print("{1}{3}{2}{0}\n", RESET, GOLD, GameTranslation.GetTranslated("credits.title2"), UNDERLINE);
     fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.discordlib"), fmt::arg("name", "Discord")));
     fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.fmtlib"), fmt::arg("name", "FMT")));
     fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.pugilib"), fmt::arg("name", "Arseny Kapoulkine"), fmt::arg("name2", "Zeux")));
     fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.arglib"), fmt::arg("name", "p-ranav")));
     fmt::print("  {0}\n\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.jsonlib"), fmt::arg("name", "Nlohmann")));
 
-    fmt::print("{1}{2}{0}\n", RESET, ORANGE, GameTranslation.GetTranslated("credits.title3"));
+    fmt::print("{1}{3}{2}{0}\n", RESET, ORANGE, GameTranslation.GetTranslated("credits.title3"), UNDERLINE);
     fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.slovak"), fmt::arg("name", "Norb")));
     fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.russian"), fmt::arg("name", "Artezon")));
     fmt::print("  {0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("credits.portuguese"), fmt::arg("name", "MF366")));

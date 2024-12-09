@@ -56,7 +56,7 @@ const std::string PickLanguage(const TranslationEngine& GameTranslation)
     {
         ClearScreen();
         Div();
-        fmt::print("{1}> {3}{2}{0}\n\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.lang.select"), TEAL);
+        fmt::print("{1}> {3}{4}{2}{0}\n\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.lang.select"), TEAL, UNDERLINE);
         fmt::print("{1}{2}{0}\n", RESET, WHITE, CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.options.lang.line1"), fmt::arg("lang", GameTranslation.GetTranslated("lang.name"))));
         fmt::print("{1}{2}{0}\n", RESET, WHITE, CustomMsgFormatterNoUser(GameTranslation.GetTranslated("menu.options.lang.line2"), fmt::arg("lang_count", lang_count)));
         fmt::print("{1}{2}{0}\n\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.lang.line3"));
@@ -68,11 +68,11 @@ const std::string PickLanguage(const TranslationEngine& GameTranslation)
         {
             if (selection == i)
             {
-                fmt::print("{1}{2}{3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("lang.name", LangList[i]));
+                fmt::print("{1}{2}{3} ({4}){0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("lang.name", LangList[i]), GameTranslation.GetTranslated("lang.id", LangList[i]));
             }
             else
             {
-                fmt::print("{1}{2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("lang.name", LangList[i]));
+                fmt::print("{1}{2} {3}({4}{5}{6}{0}{3}){0}\n", RESET, WHITE, GameTranslation.GetTranslated("lang.name", LangList[i]), DARK_GRAY, GOLD, BOLD, GameTranslation.GetTranslated("lang.id", LangList[i]));
             }
         }
         fmt::print("{1}:: :: :: :: :: :: :: :: :: :: :: :: :: ::{0}\n", RESET, DARK_GRAY);

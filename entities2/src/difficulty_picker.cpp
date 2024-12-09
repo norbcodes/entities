@@ -34,7 +34,7 @@ void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsCl
     {
         ClearScreen();
         Div();
-        fmt::print("{2}<{0} {1}{3}{0}\n\n", RESET, RED, WHITE, GameTranslation.GetTranslated("menu.diffpicker.title"));
+        fmt::print("{2}<{0} {1}{4}{3}{0}\n\n", RESET, RED, WHITE, GameTranslation.GetTranslated("menu.diffpicker.title"), UNDERLINE);
         fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN, GameTranslation.GetTranslated("menu.diffpicker.easy"));
         fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, ORANGE, GameTranslation.GetTranslated("menu.diffpicker.medium"));
         fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED, GameTranslation.GetTranslated("menu.diffpicker.hard"));

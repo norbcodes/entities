@@ -128,7 +128,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
         if (edit_mode)
         {
             Div();
-            fmt::print("{1}> {2}{3}{0}\n\n", RESET, WHITE, BLUE, GameTranslation.GetTranslated("menu.options.title"));
+            fmt::print("{1}> {4}{2}{3}{0}\n\n", RESET, WHITE, BLUE, GameTranslation.GetTranslated("menu.options.title"), UNDERLINE);
             // Nice
             fmt::print("{1}{2:.^40}{0}\n", RESET, DARK_GRAY, GameTranslation.GetTranslated("menu.options.cat1"));
 
@@ -256,7 +256,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
         else
         {
             Div();
-            fmt::print("{1}> {2}{3}{0}\n\n", RESET, WHITE, BLUE, GameTranslation.GetTranslated("menu.options.title"));
+            fmt::print("{1}> {4}{2}{3}{0}\n\n", RESET, WHITE, BLUE, GameTranslation.GetTranslated("menu.options.title"), UNDERLINE);
             // Nice
             fmt::print("{1}{2:.^40}{0}\n", RESET, DARK_GRAY, GameTranslation.GetTranslated("menu.options.cat1"));
             if (global_settings.GetDiscordEnabled())
