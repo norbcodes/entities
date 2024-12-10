@@ -228,13 +228,12 @@ int main(int argc, char* argv[])
             fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
         }
 
-        //! QUITE LITERALLY SEGFAULTS, FIX TOMORROW
         #else // __ENTITIES2_4_BIT_COLORS__
         
         std::array<const char*, 7> color_array = {RED, BLUE, ORANGE, WHITE, HOT_PINK, DARK_GRAY, GOLD};
         if (rng(0, 5) != 0)
         {
-            std::string title_col = color_array[rng(0, 7)];
+            std::string title_col = color_array[rng(0, 6)];
             fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
             fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
             fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
@@ -243,15 +242,15 @@ int main(int argc, char* argv[])
         }
         else
         {
-            std::string title_col = color_array[rng(0, 7)];
+            std::string title_col = color_array[rng(0, 6)];
             fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
-            title_col = color_array[rng(0, 7)];
+            title_col = color_array[rng(0, 6)];
             fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
-            title_col = color_array[rng(0, 7)];
+            title_col = color_array[rng(0, 6)];
             fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
-            title_col = color_array[rng(0, 7)];
+            title_col = color_array[rng(0, 6)];
             fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
-            title_col = color_array[rng(0, 7)];
+            title_col = color_array[rng(0, 6)];
             fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
         }
 

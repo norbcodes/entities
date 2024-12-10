@@ -1533,27 +1533,27 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["game.moves.regen"]             = "{blue}Recuperar armadura{white}! Dá-te {purple}+{value}{white} AR{reset}";
     this->Register["pt-PT"]["game.moves.autoheal"]          = "{white}Aplicar {green}o Estado de Recuperação Automática{white}! Dá-te {purple}{value} {white}de vida na tua vez{reset}";
     this->Register["pt-PT"]["game.moves.icrit"]             = "{white}Aplicar {red}o Estado de Chance Maior de Ataque Crítico!{white} Dá-te uma chance maior de causar um {red}ataque crítico{reset}";
-    this->Register["pt-PT"]["game.moves.invis"]             = "{white}Aplicar {hot_pink}Invisibilidade{white}! O adversário tem uma chance de {hot_pink}falhar{reset} o seu ataque.{reset}";
+    this->Register["pt-PT"]["game.moves.invis"]             = "{white}Aplicar {hot_pink}Invisibilidade{white}! O adversário tem uma chance de {hot_pink}falhar{reset}{white} o seu ataque.{reset}";
     this->Register["pt-PT"]["game.moves.poison"]            = "{white}Dá {dark_green}veneno{white} ao teu adversário! O inimigo irá {purple}{value}{white} levar dano de veneno{reset}";
     this->Register["pt-PT"]["game.moves.thorns"]            = "{white}Aplica o efeito {teal}Thorns{white}! O adversário levará {bold}dano ao atacar{reset}";
     this->Register["pt-PT"]["game.moves.weakness"]          = "{white}Dá {brown}o Efeito de Fraqueza {white}ao teu adversário! O adversário será enfraquecido...{reset}";
     this->Register["pt-PT"]["game.moves.gameover"]          = "{white}---<<< {blue}{bold}{username}{reset} {white}morreu. {red}{bold}O inimigo{reset}{white} venceu!!! >>>---{reset}";
     this->Register["pt-PT"]["game.moves.victory"]           = "{white}---<<< {red}{bold}O inimigo{reset} {white}foi derrotado. {blue}{bold}{username}{reset}{white} ganhou!!! >>>---{reset}";
     this->Register["pt-PT"]["game.moves.rematch"]           = "Desforra!";
-    //this->Register["pt-PT"]["game.applied.autoheal"]        = ;
-    //this->Register["pt-PT"]["game.applied.incr_crit"]       = ;
-    //this->Register["pt-PT"]["game.applied.invis"]           = ;
-    //this->Register["pt-PT"]["game.applied.poison"]          = ;
-    //this->Register["pt-PT"]["game.applied.thorns"]          = ;
-    //this->Register["pt-PT"]["game.applied.weakness"]        = ;
+    this->Register["pt-PT"]["game.applied.autoheal"]        = "{white}aplicou  {green}Recuperação Automática{white}.";
+    this->Register["pt-PT"]["game.applied.incr_crit"]       = "{white}aplicou {red}Chance de Crítico{white}.";
+    this->Register["pt-PT"]["game.applied.invis"]           = "{white}aplicou {hot_pink}Invisibilidade{white}.";
+    this->Register["pt-PT"]["game.applied.poison"]          = "{who} {white}deu {dark_green}Veneno{white} a {who2}{white}.{reset}";
+    this->Register["pt-PT"]["game.applied.thorns"]          = "{white}aplicou {teal}Thorns{white}.";
+    this->Register["pt-PT"]["game.applied.weakness"]        = "{who} {white}deu {brown}Fraqueza{white} a {who2}{white}.{reset}";
 
     // Entity attack texts
-    //this->Register["pt-PT"]["entity.attack.ply_missed"]     = ;
-    //this->Register["pt-PT"]["entity.attack.ene_missed"]     = ;
-    //this->Register["pt-PT"]["entity.attack.ply_normal"]     = ;
-    //this->Register["pt-PT"]["entity.attack.ply_crit"]       = ;
-    //this->Register["pt-PT"]["entity.attack.ene_normal"]     = ;
-    //this->Register["pt-PT"]["entity.attack.ene_crit"]       = ;
+    this->Register["pt-PT"]["entity.attack.ply_missed"]     = "{blue}{bold}{username}{reset} {white}tentou atacar, mas {italic}falhou{reset}{white}!{reset}";
+    this->Register["pt-PT"]["entity.attack.ene_missed"]     = "{red}{bold}Adversário{reset} {white}tentou atacar, mas {italic}falhou{reset}{white}!{reset}";
+    this->Register["pt-PT"]["entity.attack.ply_normal"]     = "{blue}{bold}{username}{reset} {white}atacou {red}{bold}Inimigo{reset}{white}! {red}{bold}Inimigo{reset} {purple}-{dmg}HP{reset}";
+    this->Register["pt-PT"]["entity.attack.ply_crit"]       = "{blue}{bold}{username}{reset} {white}atacou {red}{bold}Inimigo{reset}{white}! {gold}{italic}ATAQUE CRÍTICO{reset}{white}! {red}{bold}Inimigo{reset} {purple}-{dmg}HP{reset}";
+    this->Register["pt-PT"]["entity.attack.ene_normal"]     = "{red}{bold}Inimigo{reset} {white}atacou {blue}{bold}{username}{reset}{white}! {blue}{bold}{username}{reset} {purple}-{dmg}HP{reset}";
+    this->Register["pt-PT"]["entity.attack.ene_crit"]       = "{red}{bold}Inimigo{reset} {white}atacou {blue}{bold}{username}{reset}{white}! {gold}{italic} ATAQUE CRÍTICO{reset}{white}! {blue}{bold}{username}{reset} {purple}-{dmg}HP{reset}";
 
     // Exit messages :3
     this->Register["pt-PT"]["exit.message.1"]               = "{white}Nãoooooo, não saias ainda :<{reset}";
