@@ -37,9 +37,11 @@ namespace E2_Discord
     // I'm too lazy to do it any other way
     // So enjoy these static variables
     // I DARE you to fight me right now
+    #ifdef __ENTITIES2_DISCORD_RPC__
     static bool RegenMenuRPC = true;
     static bool RegenGameplayTime = true;
     static time_t GameplayTime;
+    #endif
 }
 
 /**

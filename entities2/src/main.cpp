@@ -19,6 +19,7 @@ The long awaited... entities2!!!!
 #include <string>
 #include <iostream>
 #include <fmt/core.h>
+#include <array>
 
 #ifdef _WIN32
     #include "windows.h"
@@ -26,6 +27,7 @@ The long awaited... entities2!!!!
 
 #include "colors.hpp"
 #include "difficulty_picker.hpp"
+#include "gameplay_loop.hpp"
 #include "discord_rpc.hpp"
 #include "utils.hpp"
 #include "keyboard.hpp"
@@ -34,11 +36,23 @@ The long awaited... entities2!!!!
 #include "sleep.hpp"
 #include "datapacks.hpp"
 #include "datapack_viewer.hpp"
+#include "cmd_args.hpp"
+#include "global_settings.hpp"
+#include "user_settings.hpp"
+#include "settings_viewer.hpp"
+#include "rng.hpp"
+#include "greetings.hpp"
+#include "version.hpp"
+#include "translation_engine.hpp"
+#include "game_string_formatter.hpp"
 
 /**
  * \brief The very entry point of the game, and the program as a whole.
+ * \param[in] argc CMD argument count.
+ * \param[in] argv Arguments.
+ * \return Exit code.
  */
-int main()
+int main(int argc, char* argv[])
 {
     #ifdef _WIN32
         // Create windows virtual cmd
@@ -48,19 +62,71 @@ int main()
         SetConsoleMode(hOut, dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING);
     #endif
 
-    // B)
-    DatapackEngine Datapacks;
-    Datapacks.LoadAll();
-    // Add this as well.
-    AddExitMsg(fmt::format("{1}Did you know? Each of these message has a {3}{2:.2f}%{1} chance to appear.{0}", RESET, WHITE, (1.0 / (double)GetExitMsgCount()) * 100, PURPLE));
+    // LOAD ESSENTIAL SYSTEMS.
+    // Arg parsing
+    GameArgs* GameArguments = new GameArgs(argc, argv);
+    // Translations
+    TranslationEngine* GameTranslation = new TranslationEngine;
+    GameTranslation->LoadEnglish();
 
-    InitializeRPC();
+    #ifdef __ENTITIES2_BAKED_IN_SLOVAK__
+    GameTranslation->LoadSlovak();
+    #endif
+
+    #ifdef __ENTITIES2_BAKED_IN_RUSSIAN__
+    GameTranslation->LoadRussian();
+    #endif
+
+    #ifdef __ENTITIES2_BAKED_IN_TAGALOG__
+    GameTranslation->LoadTagalog();
+    #endif
+
+    #ifdef __ENTITIES2_BAKED_IN_PORTUGUESE__
+    GameTranslation->LoadPortuguese();
+    #endif
+
+    // Global settings
+    GlobalSettingsClass* GlobalSettings = new GlobalSettingsClass(*GameArguments);
+    // Now set language, hehe
+    if (GameArguments->LanguageOverride() != std::string(""))
+    {
+        if (GameTranslation->LangIdExists(GameArguments->LanguageOverride()))
+        {
+            GameTranslation->SetLang(GameArguments->LanguageOverride(), *GlobalSettings);
+        }
+        else
+        {
+            GameTranslation->SetLang("EN-US", *GlobalSettings);
+        }
+    }
+    else
+    {
+        GameTranslation->SetLang(GlobalSettings->GetLanguageId(), *GlobalSettings);
+    }
+    // User settings
+    UserSettingsClass* UserSettings = new UserSettingsClass(*GameArguments);
+    // If playing back demo, don't do ANYTHING, just play
+    if (GameArguments->DemoToPlay() != "")
+    {
+        DemoPlaybackGame(GameArguments->DemoToPlay(), *GameTranslation);
+        return 0;
+    }
+    // B)
+    DatapackEngine* Datapacks = new DatapackEngine(*GameArguments);
+    if (!GameArguments->NoDatapacks())
+    {
+        Datapacks->LoadAll(*GameArguments, *UserSettings, *GameTranslation);
+    }
+
+    if (GlobalSettings->GetDiscordEnabled())
+    {
+        InitializeRPC();
+    }
 
     #ifndef __ENTITIES2_DISABLE_UNSTABLE_WARNING__
         #if (ENTITIES2_VER_IS_DEV == 1)
             Div();
-            fmt::print("{1}You are using a game build that is {2}still under Development!{0}\n", RESET, RED, BOLD);
-            fmt::print("{1}Proceed with caution. {2}Do you still wanna play? [y,n]{0}\n", RESET, WHITE, RED);
+            fmt::print("{0}\n", MsgFormatter(GameTranslation->GetTranslated("menu.unstable"), *UserSettings));
             EndDiv();
 
             if (!BinaryChoice())
@@ -73,37 +139,170 @@ int main()
 
     while (true)
     {
-        MainMenuRPC();
+        if (GlobalSettings->GetDiscordEnabled())
+        {
+            MainMenuRPC();
+        }
         ClearScreen();
         Div();
-        fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, LAVENDER, BOLD);
-        fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, LAVENDER, BOLD);
-        fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, LAVENDER, BOLD);
-        fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, LAVENDER, BOLD);
-        fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, LAVENDER, BOLD);
-        fmt::print("{1}                  A game by norbcodes.{0}\n\n", RESET, DARK_GRAY);
-        fmt::print("{1}Pick an option:{0}\n\n", RESET, WHITE);
-        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}Play{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN);
-        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}Gameplay Info{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER);
-        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}Datapacks{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, PINK);
-        fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}Quit{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED);
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #ifndef __ENTITIES2_4_BIT_COLORS__
+
+        if (rng(0, 5) != 0)
+        {
+            uint8_t r = 50;
+            uint8_t g = 50;
+            uint8_t b = 50;
+            const uint32_t loops = rng(0, 50);
+            for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+                // basically it will just overflow so no need to check if over 256
+            }
+            std::string title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            // I love when ascii art looks like this :)
+            fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
+        }
+        else
+        {
+            // Oh boy, now we do each line different color
+            // Weeee
+            uint8_t r = 50;
+            uint8_t g = 50;
+            uint8_t b = 50;
+            const uint32_t loops = rng(0, 50);
+            std::string title_col;
+            // First row
+            for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+            }
+            title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
+            // Second line
+                        for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+            }
+            title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
+            // Third row
+            for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+            }
+            title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
+            // Fourth line
+                        for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+            }
+            title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
+            // Fifth line
+            for (uint32_t i = 0; i != loops; i++)
+            {
+                r += rng(1, 58);
+                g += rng(1, 58);
+                b += rng(1, 58);
+            }
+            title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
+            fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
+        }
+
+        #else // __ENTITIES2_4_BIT_COLORS__
+        
+        std::array<const char*, 7> color_array = {RED, BLUE, ORANGE, WHITE, HOT_PINK, DARK_GRAY, GOLD};
+        if (rng(0, 5) != 0)
+        {
+            std::string title_col = color_array[rng(0, 6)];
+            fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
+            fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
+        }
+        else
+        {
+            std::string title_col = color_array[rng(0, 6)];
+            fmt::print("{1}{2}              __  _ __  _          ___ {0}\n", RESET, title_col, BOLD);
+            title_col = color_array[rng(0, 6)];
+            fmt::print("{1}{2}  ___  ____  / /_(_) /_(_)__  ____|__ \\{0}\n", RESET, title_col, BOLD);
+            title_col = color_array[rng(0, 6)];
+            fmt::print("{1}{2} / _ \\/ __ \\/ __/ / __/ / _ \\/ ___/_/ /{0}\n", RESET, title_col, BOLD);
+            title_col = color_array[rng(0, 6)];
+            fmt::print("{1}{2}/  __/ / / / /_/ / /_/ /  __(__  ) __/ {0}\n", RESET, title_col, BOLD);
+            title_col = color_array[rng(0, 6)];
+            fmt::print("{1}{2}\\___/_/ /_/\\__/_/\\__/_/\\___/____/____/ {0}\n", RESET, title_col, BOLD);
+        }
+
+        #endif
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        fmt::print("{2}{5}{3: <8}{0}              {5}{1}{4}{0}", RESET, DARK_GRAY, GREEN, ENTITIES2_VER, GameTranslation->GetTranslated("menu.main.subtitle"), UNDERLINE);
+        fmt::print("\n\n");
+        ////////////////////////////////////////
+        // Greet
+        bool Was_Translated_Greet;
+        std::string greet = GetGreeting(*GameTranslation, Was_Translated_Greet);
+        if (Was_Translated_Greet)
+        {
+            greet = MsgFormatter(greet, *UserSettings);
+        }
+        fmt::print("{0}", greet);
+        ////////////////////////////////////////
+        fmt::print("\n\n");
+        fmt::print("{1}{2}{0}", RESET, WHITE, MsgFormatter(GameTranslation->GetTranslated("menu.main.optionpick"), *UserSettings));
+        fmt::print("\n\n");
+        fmt::print("{3}[{0}{2}{1}1{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, GREEN, GameTranslation->GetTranslated("menu.main.play"));
+        fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER, GameTranslation->GetTranslated("menu.main.ginfo"));
+        fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, PINK, GameTranslation->GetTranslated("menu.main.datapacks"));
+        fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}{5}{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, BROWN, GameTranslation->GetTranslated("menu.main.settings"));
+        fmt::print("{3}[{0}{2}{1}5{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED, GameTranslation->GetTranslated("general.quit"));
         EndDiv();
 
         uint32_t option = WaitForNumkey();
 
-        if (option == 4)
+        if (option == 5)
         {
             ClearScreen();
             Div();
-            fmt::print("{1}Confirm exit? [y,n]{0}\n\n", RESET, RED);
-            std::cout << GetExitMsg() << std::endl;
+            fmt::print("{1}{2} [y,n]{0}\n\n", RESET, RED, GameTranslation->GetTranslated("menu.exit.confirm"));
+            bool Was_Translated_Exit;
+            std::string exit_msg = GetExitMsg(*GameTranslation, Was_Translated_Exit);
+            if (Was_Translated_Exit)
+            {
+                exit_msg = CustomMsgFormatter(exit_msg, *UserSettings, fmt::arg("perc", (1.0 / (double)GetExitMsgCount()) * 100));
+            }
+            fmt::print("{0}\n", exit_msg);
             EndDiv();
 
             if (BinaryChoice())
             {
                 ClearScreen();
-                Credits();
-                SleepSeconds(2);
+                Credits(*GameTranslation);
+                SleepSeconds(1);
                 break;
             }
             else
@@ -115,17 +314,21 @@ int main()
         else if (option == 1)
         {
             // do
-            DifficultyPicker();
+            DifficultyPicker(*GlobalSettings, *UserSettings, *GameArguments, *GameTranslation);
         }
         // INFO SECTION
         else if (option == 2)
         {
-            GameplayInfoSec();
+            GameplayInfoSec(*GameTranslation);
         }
         // DATAPACK VIEW
         else if (option == 3)
         {
-            DatapackViewer(Datapacks);
+            DatapackViewer(*Datapacks, *GameTranslation);
+        }
+        else if (option == 4)
+        {
+            SettingsView(*GameArguments, *GlobalSettings, *UserSettings, *GameTranslation);
         }
         else
         {
@@ -133,7 +336,17 @@ int main()
         }
     }
 
-    DestroyRPC();
+    if (GlobalSettings->GetDiscordEnabled())
+    {
+        DestroyRPC();
+    }
+    GlobalSettings->Save(*GameArguments);
+    UserSettings->Save(*GameArguments);
+
+    delete GameArguments;
+    delete GlobalSettings;
+    delete UserSettings;
+    delete Datapacks;
 
     return 0;
 }

@@ -14,6 +14,10 @@
 #include <vector>
 #include <pugixml.hpp>
 
+#include "cmd_args.hpp"
+#include "user_settings.hpp"
+#include "translation_engine.hpp"
+
 /**
  * \class Datapack
  * \brief Datapack class.
@@ -28,11 +32,19 @@ class Datapack
         // Getters
         const std::string& GetName() const;
         const std::string& GetAuthor() const;
+        const std::string& GetDatapackId() const;
         const std::string& GetDesc() const;
         const pugi::xml_document& GetXml() const;
+        const std::string& GetPath() const;
+        bool LoadSuccessful() const;
+        const std::string& GetFailReason() const;
+        uint32_t GetFilesizeInBytes() const;
+        const std::string GetFilesizeFormatted(const TranslationEngine& GameTranslation) const;
         // :3
-        void Load();
+        void Load(const UserSettingsClass& user_settings, TranslationEngine& GameTranslation);
     private:
+        void _constructor(const char* path);  // the actual
+
         /**
          * \var std::string Name
          * \brief Name of the datapack.
@@ -46,6 +58,12 @@ class Datapack
         std::string Author;
 
         /**
+         * \var std::string DatapackId
+         * \brief Datapack Identifier.
+         */
+        std::string DatapackId;
+
+        /**
          * \var std::string Description
          * \brief Description of the datapack.
          */
@@ -56,6 +74,30 @@ class Datapack
          * \brief The XML object of the datapack.
          */
         pugi::xml_document Xml;
+
+        /**
+         * \var std::string Path
+         * \brief Path to the XML file.
+         */
+        std::string Path;
+
+        /**
+         * \var bool Failbit
+         * \brief 'true' if failed to load said datapack.
+         */
+        bool Failbit;
+
+        /**
+         * \var std::string FailReason
+         * \brief If Failbit is true, this holds the reason why the Datapack errored.
+         */
+        std::string FailReason;
+
+        /**
+         * \var uint32_t Bytes_Filesize
+         * \brief The file size of the Datapack.
+         */
+        uint32_t Bytes_Filesize;  // meaning it's in bytes
 };
 
 /**
@@ -67,9 +109,9 @@ class DatapackEngine
 {
     public:
         // Constructor
-        DatapackEngine();
+        DatapackEngine(const GameArgs& game_args);
         // Load ALL datapacks
-        void LoadAll();
+        void LoadAll(const GameArgs& game_args, const UserSettingsClass& user_settings, TranslationEngine& GameTranslation);
         // Getters
         uint32_t DatapackCount() const;
         const Datapack& GetConstDatapackRef(uint32_t i) const;

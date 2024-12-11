@@ -19,6 +19,8 @@ Generate the 4 moves to choose from.
 #include "colors.hpp"
 #include "rng.hpp"
 #include "energy.hpp"
+#include "translation_engine.hpp"
+#include "game_string_formatter.hpp"
 
 /**
  * \brief Checks if a move exists in the moves lists.
@@ -99,7 +101,7 @@ static void GenMove(uint32_t& type, uint32_t& move, double& energy)
     }
 }
 
-static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
+static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies, const TranslationEngine& GameTranslation)
 {
     for (int i = 0; i != 4; i++)
     {
@@ -112,40 +114,39 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
         switch (move_types[i])
         {
             case ATTACK:
-                fmt::print("{3}Attack! {2}Deal {4}{1} {2}damage to opponent.{0}\n", RESET, moves[i], WHITE, RED, PURPLE);
+                fmt::print("{0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.attack"), fmt::arg("value", moves[i])));
                 break;
             case HEAL:
-                fmt::print("{2}Heal! {3}Gives you {4}+{1} {3}HP{0}\n", RESET, moves[i], GREEN, WHITE, PURPLE);
+                fmt::print("{0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.heal"), fmt::arg("value", moves[i])));
                 break;
             case ARMOR:
-                fmt::print("{2}Regen armor{3}! Gives you {4}+{1} {3}AR{0}\n", RESET, moves[i], BLUE, WHITE, PURPLE);
+                fmt::print("{0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.regen"), fmt::arg("value", moves[i])));
                 break;
             case STATUS:
                 switch (moves[i])
                 {
                     case AUTO_HEAL:
-                        fmt::print("{2}Apply {3}AutoHeal {2}status! Gives you {4}{1} {2}HP when it's your turn{0}\n", RESET, AUTO_HEAL_AMOUNT, WHITE, GREEN, PURPLE);
+                        fmt::print("{0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.autoheal"), fmt::arg("value", AUTO_HEAL_AMOUNT)));
                         break;
                     case INCR_CRIT:
-                        fmt::print("{1}Apply {2}IncreasedCrit {1}status! Increased {2}critical attack chance{0}\n", RESET, WHITE, RED);
+                        fmt::print("{0}\n", MsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.icrit")));
                         break;
                     case INVIS:
-                        fmt::print("{1}Apply {2}Invis {1}status! Opponent has a chance to {2}miss{0}\n", RESET, WHITE, HOT_PINK);
+                        fmt::print("{0}\n", MsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.invis")));
                         break;
                     case POISON:
-                        fmt::print("{2}Give opponent {3}Poison {2}status! Deals {4}{1} {2}poison damage{0}\n", RESET, POISON_AMOUNT, WHITE, DARK_GREEN, PURPLE);
+                        fmt::print("{0}\n", CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.poison"), fmt::arg("value", POISON_AMOUNT)));
                         break;
                     case THORNS:
-                        fmt::print("{2}Apply {1}Thorns {2}status! Opponent will {3}take damage too on attack{0}\n", RESET, TEAL, WHITE, BOLD);
+                        fmt::print("{0}\n", MsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.thorns")));
                         break;
                     case WEAKNESS:
-                        fmt::print("{2}Give opponent {1}Weakness {2}status! Opponent will weakened...{0}\n", RESET, BROWN, WHITE, BOLD);
+                        fmt::print("{0}\n", MsgFormatterNoUser(GameTranslation.GetTranslated("game.moves.weakness")));
                         break;
                 }
                 break;
         }
     }
-    fmt::print("\n");
 }
 
 /**
@@ -153,8 +154,9 @@ static void PrintMoves(uint32_t* moves, uint32_t* move_types, double* energies)
  * \param[out] moves Array of moves.
  * \param[out] move_types Array of types of each move.
  * \param[out] energies Array of energy costs of each move.
+ * \param[in] GameTranslation Game Translation System used when printing moves.
  */
-void GenerateMoves(uint32_t* moves, uint32_t* move_types, double* energies)
+void GenerateMoves(uint32_t* moves, uint32_t* move_types, double* energies, const TranslationEngine& GameTranslation)
 {
     // Yay!
     for (int i = 0; i != 4; i++)
@@ -179,7 +181,7 @@ void GenerateMoves(uint32_t* moves, uint32_t* move_types, double* energies)
             }
         }
     }
-    PrintMoves(moves, move_types, energies);
+    PrintMoves(moves, move_types, energies, GameTranslation);
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

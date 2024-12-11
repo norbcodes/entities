@@ -22,13 +22,13 @@ project(entities2
         DESCRIPTION "entities2 is a small silly turn based combat CLI game."
 )
 
-set(PROJECT_VERSION "v1.8.0")
+set(PROJECT_VERSION "v1.9.0-dev")
 set(PROJECT_VERSION_MAJOR "1")
-set(PROJECT_VERSION_MINOR "8")
+set(PROJECT_VERSION_MINOR "9")
 set(PROJECT_VERSION_PATCH "0")
-set(PROJECT_VERSION_IS_DEV 0)
+set(PROJECT_VERSION_IS_DEV 1)
 
-include("CheckIncludeFileCXX")
+include(CheckCXXCompilerFlag)
 
 # Options for compilation.
 option(STATIC_LIBS              "Statically link against C and C++ standard lib." OFF)
@@ -42,14 +42,21 @@ option(4BIT_AIXTERM             "Enable bright colors basically (ONLY WORKS WHEN
 option(DISABLE_TERMINAL_BELL    "Disable terminal bell." OFF)
 option(BUILD_DOCS               "Build doxygen documentation." OFF)
 option(DISABLE_UNSTABLE_WARN    "Disable warning when starting up a development build of the game." OFF)
+option(BUILT_IN_RUSSIAN         "Embed all of Russian translation into the game. Will increase file size!" OFF)
+option(BUILT_IN_SLOVAK          "Embed all of Slovak translation into the game. Will increase file size!" OFF)
+option(BUILT_IN_TAGALOG         "Embed all of Tagalog translation into the game. Will increase file size!" OFF)
+option(BUILT_IN_PORTUGUESE      "Embed all of Portuguese translation into the game. Will increase file size!" OFF)
+option(OLD_BEHAVIOR             "When a translation key doesn't exist, print it out instead of searching in English translations." OFF)
 
 # Set search paths
 set(
     SEARCH_IN 
     ${CMAKE_SOURCE_DIR}/src/headers
     ${CMAKE_SOURCE_DIR}/src/fmt/include
+    ${CMAKE_SOURCE_DIR}/src/argparse/include
     ${CMAKE_BINARY_DIR}/headers
-    ${CMAKE_BINARY_DIR}/src/pugixml/src
+    ${CMAKE_SOURCE_DIR}/src/pugixml/src  # wtf how did this work before with CMAKE_BINARY_DIR?
+    ${CMAKE_SOURCE_DIR}/src/nlohmann-json/include 
 )
 
 # Create macro list for Doxygen:
@@ -62,20 +69,30 @@ set(
 set(
     ENTITIES2_SOURCE
     ${CMAKE_SOURCE_DIR}/src/ai.cpp
+    ${CMAKE_SOURCE_DIR}/src/cmd_args.cpp
     ${CMAKE_SOURCE_DIR}/src/datapack_viewer.cpp
     ${CMAKE_SOURCE_DIR}/src/datapacks.cpp
+    ${CMAKE_SOURCE_DIR}/src/demo_system.cpp
     ${CMAKE_SOURCE_DIR}/src/difficulty_picker.cpp
     ${CMAKE_SOURCE_DIR}/src/discord_rpc.cpp
     ${CMAKE_SOURCE_DIR}/src/energy.cpp
     ${CMAKE_SOURCE_DIR}/src/entity.cpp
     ${CMAKE_SOURCE_DIR}/src/exit_msg.cpp
+    ${CMAKE_SOURCE_DIR}/src/game_string_formatter.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay_info.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay_loop.cpp
     ${CMAKE_SOURCE_DIR}/src/gen_moves.cpp
+    ${CMAKE_SOURCE_DIR}/src/global_settings.cpp
+    ${CMAKE_SOURCE_DIR}/src/greetings.cpp
+    ${CMAKE_SOURCE_DIR}/src/language_picker.cpp
+    ${CMAKE_SOURCE_DIR}/src/language_utils.cpp
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/pick_move.cpp
     ${CMAKE_SOURCE_DIR}/src/rng.cpp
+    ${CMAKE_SOURCE_DIR}/src/settings_viewer.cpp
     ${CMAKE_SOURCE_DIR}/src/status.cpp
+    ${CMAKE_SOURCE_DIR}/src/translation_engine.cpp
+    ${CMAKE_SOURCE_DIR}/src/user_settings.cpp
     ${CMAKE_SOURCE_DIR}/src/utils.cpp
 )
 set(
@@ -96,8 +113,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux OR CMAKE_SYSTEM_NAME MATCHES Android)
 
     message(STATUS "Linux detected. Adding Linux specific stuff.")
 
-elseif(CMAKE_SYSTEM_NAME MATCHES Windows OR CMAKE_SYSTEM_NAME MATCHES CYGWIN)
-    add_compile_definitions(_WIN32 __WIN32__)
+elseif(CMAKE_SYSTEM_NAME MATCHES Windows OR CMAKE_SYSTEM_NAME MATCHES CYGWIN OR CMAKE_SYSTEM MATCHES MSYS)
     add_compile_definitions(_WIN32 __WIN32__)
     add_compile_options(-mwindows)
     list(APPEND PREDEFINED_MACROS_DOXY "_WIN32" "__WIN32__")
@@ -150,6 +166,17 @@ configure_file(${CMAKE_SOURCE_DIR}/src/headers/version.txt ${CMAKE_BINARY_DIR}/h
 # Create the main executable
 add_executable(${PROJECT_NAME} ${ENTITIES2_SOURCE})
 target_compile_options(${PROJECT_NAME} PUBLIC -Wall)
+# Yeeee
+check_cxx_compiler_flag("-Wextra" SUPPORTS_WEXTRA)
+if (SUPPORTS_WEXTRA)
+    target_compile_options(${PROJECT_NAME} PUBLIC -Wextra)
+else()
+    check_cxx_compiler_flag("-W" SUPPORTS_WONLY)
+    if (SUPPORTS_WONLY)
+        target_compile_options(${PROJECT_NAME} PUBLIC -W)
+    endif()
+endif()
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${SEARCH_IN})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
@@ -188,7 +215,7 @@ if (STATIC_LIBS)
 endif()
 
 # Check if OPTIMIZATION
-if (OPTIMIZE)
+if (OPTIMIZE OR CMAKE_BUILD_TYPE MATCHES Release)
     target_compile_options(${PROJECT_NAME} PUBLIC -O2 -g0 -ggdb0 -s)
     message(STATUS "Enabled optimization.")
 endif()
@@ -248,4 +275,32 @@ endif()
 # Disable build warn?
 if (DISABLE_UNSTABLE_WARN)
     target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_DISABLE_UNSTABLE_WARNING__)
+endif()
+
+# Translations
+if (BUILT_IN_RUSSIAN)
+    message(STATUS "Russian translation will be baked in! Expect an increase in file size.")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_BAKED_IN_RUSSIAN__)
+endif()
+
+# Translations
+if (BUILT_IN_SLOVAK)
+    message(STATUS "Slovak translation will be baked in! Expect an increase in file size.")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_BAKED_IN_SLOVAK__)
+endif()
+
+# MOAR TRANSLATIONS
+if (BUILT_IN_TAGALOG)
+    message(STATUS "Tagalog translation will be baked in! Expect an increase in file size.")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_BAKED_IN_TAGALOG__)
+endif()
+
+# MOAAAAAAR TRANSLATIONS
+if (BUILT_IN_PORTUGUESE)
+    message(STATUS "Portuguese translation will be baked in! Expect an increase in file size.")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_BAKED_IN_PORTUGUESE__)
+endif()
+
+if (OLD_BEHAVIOR)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_TRANSLATION_OLD_BEHAVIOR__)
 endif()

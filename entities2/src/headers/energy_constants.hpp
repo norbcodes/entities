@@ -32,18 +32,24 @@
  * \def ATTACK_ENERGY_F
  * \brief Used to calculate energy cost for attack moves. See energy.cpp
  */
-#define ATTACK_ENERGY_F     3.8
+#define ATTACK_ENERGY_F     1.4
 
 /**
  * \def HEAL_ENERGY_F
  * \brief Used to calculate energy cost for heal moves. See energy.cpp
  */
-#define HEAL_ENERGY_F       4.4
+#define HEAL_ENERGY_F       2.8
 
 /**
  * \def ARMOR_ENERGY_F
  * \brief Used to calculate energy cost for armor moves. See energy.cpp
  */
-#define ARMOR_ENERGY_F      4.8
+#define ARMOR_ENERGY_F      3.2
+
+/**
+ * \def REROLL_MOVE_COST
+ * \brief How much energy to regenerate moves.
+ */
+#define REROLL_MOVE_COST    10.0
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

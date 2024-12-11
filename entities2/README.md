@@ -2,15 +2,15 @@
 <p>
 <b>REMEMBER, DO NOT DOWNLOAD FROM "RELEASES" SECTION. GIT CLONE THIS REPO.</b><br>
 To compile:
-<pre><code>git clone https://github.com/norbcodes/entities.git --recursive
+<pre><code>git clone https://github.com/norbcodes/entities.git
 mkdir entities/enities2/build
 cd entities/enities2/build
 cmake ..
 make
 </code></pre>
-<b>Remember to use --recursive to also clone the submodules!</b><br>
+<b>If you wish to test a dev build, you need to explicitly use <code>--branch</code> parameter when cloning!</b><br>
 You may also specify a custom generator. So if you're a MinGW user:
-<pre><code>git clone https://github.com/norbcodes/entities.git --recursive
+<pre><code>git clone https://github.com/norbcodes/entities.git
 mkdir entities/enities2/build
 cd entities/enities2/build
 cmake .. -G "MinGW Makefiles"
@@ -89,5 +89,30 @@ Or similar.<br><br>
         <th>DISABLE_UNSTABLE_WARN</th>
         <th>OFF</th>
         <th>Use this if you don't want a warning when you build a dev version of this game.</th>
+    </tr>
+    <tr>
+        <th>BUILT_IN_RUSSIAN</th>
+        <th>OFF</th>
+        <th>Embed all of Russian translation into the game. Will increase file size!</th>
+    </tr>
+    <tr>
+        <th>BUILT_IN_SLOVAK</th>
+        <th>OFF</th>
+        <th>Embed all of Slovak translation into the game. Will increase file size!</th>
+    </tr>
+    <tr>
+        <th>BUILT_IN_TAGALOG</th>
+        <th>OFF</th>
+        <th>Embed all of Tagalog translation into the game. Will increase file size!</th>
+    </tr>
+    <tr>
+        <th>BUILT_IN_PORTUGUESE</th>
+        <th>OFF</th>
+        <th>Embed all of Portuguese translation into the game. Will increase file size!</th>
+    </tr>
+    <tr>
+        <th>OLD_BEHAVIOR</th>
+        <th>OFF</th>
+        <th>When a translation key doesn't exist, print it out instead of searching in English translations</th>
     </tr>
 </table>

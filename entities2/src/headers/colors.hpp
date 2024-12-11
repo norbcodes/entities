@@ -20,12 +20,15 @@
 // COLOR/STYLE MACROS
 #ifdef __ENTITIES2_COLORS__
     #ifndef __ENTITIES2_4_BIT_COLORS__
+        // RESET
         #define RESET               "\x1b[0m"
+        // STYLES
         #define BOLD                "\x1b[1m"
         #define FAINT               "\x1b[2m"
         #define ITALIC              "\x1b[3m"
         #define UNDERLINE           "\x1b[4m"
         #define BLINKING            "\x1b[5m"
+        // TEXT COLORS
         #define RED                 "\x1b[38;2;255;25;25m"
         #define BLUE                "\x1b[38;2;36;80;255m"
         #define ORANGE              "\x1b[38;2;230;153;0m"
@@ -42,6 +45,10 @@
         #define YELLOW              "\x1b[38;2;255;255;38m"
         #define TEAL                "\x1b[38;2;0;130;181m"
         #define BROWN               "\x1b[38;2;153;77;0m"
+        #define BLACK               "\x1b[38;2;0;0;0m"
+        #define LIGHT_BLUE          "\x1b[38;2;102;230;255m"
+        // BACKGROUND COLORS
+        #define WHITE_BACKGROUND    "\x1b[48;2;230;230;230m"
     #else // __ENTITIES2_4_BIT_COLORS__
         #define RESET               "\x1b[0m"
 
@@ -76,6 +83,9 @@
             #define YELLOW              "\x1b[33m"
             #define TEAL                "\x1b[96m"
             #define BROWN               "\x1b[33m"
+            #define BLACK               "\x1b[30m"
+            #define LIGHT_BLUE          "\x1b[94m"
+            #define WHITE_BACKGROUND    "\x1b[47m"
         #else // __ENTITIES2_4_BIT_AIXTERM__
             #define RED                 "\x1b[31m"
             #define BLUE                "\x1b[34m"
@@ -93,6 +103,9 @@
             #define YELLOW              "\x1b[33m"
             #define TEAL                "\x1b[36m"
             #define BROWN               "\x1b[33m"
+            #define BLACK               "\x1b[30m"
+            #define LIGHT_BLUE          "\x1b[36m"
+            #define WHITE_BACKGROUND    "\x1b[47m"
         #endif // __ENTITIES2_4_BIT_AIXTERM__
 
     #endif // __ENTITIES2_4_BIT_COLORS__
@@ -119,6 +132,9 @@
     #define YELLOW              ""
     #define TEAL                ""
     #define BROWN               ""
+    #define BLACK               ""
+    #define LIGHT_BLUE          ""
+    #define WHITE_BACKGROUND    ""
 #endif // __ENTITIES2_COLORS__
 
 /** 
@@ -252,6 +268,24 @@
 /**
  * \def BROWN
  * \brief RGB value = 153,77,0 <span style="background-color: rgb(0, 0, 0);color: rgb(153, 77, 0)">\#\#\#TEST\#\#\#</span>
+ * \hideinitializer
+ */
+
+/**
+ * \def BLACK
+ * \brief RGB value = 0,0,0 <span style="background-color: rgb(255, 255, 255);color: rgb(0, 0, 0)">\#\#\#TEST\#\#\#</span>
+ * \hideinitializer
+ */
+
+/**
+ * \def LIGHT_BLUE
+ * \brief RGB value = 102,230,255 <span style="background-color: rgb(0, 0, 0);color: rgb(102, 230, 255)">\#\#\#TEST\#\#\#</span>
+ * \hideinitializer
+ */
+
+/**
+ * \def WHITE_BACKGROUND
+ * \brief <span style="background-color: rgb(255, 255, 255);color: rgb(0, 0, 0)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */
 

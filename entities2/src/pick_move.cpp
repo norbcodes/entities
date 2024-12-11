@@ -15,6 +15,9 @@
 #include "move_constants.hpp"
 #include "entity.hpp"
 #include "colors.hpp"
+#include "user_settings.hpp"
+#include "translation_engine.hpp"
+#include "game_string_formatter.hpp"
 
 /**
  * \brief When you pick a move, this function carries out the move.
@@ -27,27 +30,29 @@
  * \param[in] enemy_turn True = Enemy's turn, False = Player's turn
  * \param[out] what_happened The "What happened:" text, which is why it's string&,<br>
  *                           because we write into it.
+ * \param[in] user_settings User game settings.
+ * \param[in] GameTranslation For localized strings.
  */
-void PickMove(Entity* ent1, Entity* ent2, uint32_t picked_move, uint32_t* moves, uint32_t* move_types, double* energy_costs, bool enemy_turn, std::string& what_happened)
+void PickMove(Entity* ent1, Entity* ent2, uint32_t picked_move, uint32_t* moves, uint32_t* move_types, double* energy_costs, bool enemy_turn, std::string& what_happened, UserSettingsClass& user_settings, const TranslationEngine& GameTranslation)
 {
-    std::string who = (!enemy_turn) ? fmt::format("{1}{2}Player{0}", RESET, BLUE, BOLD) : fmt::format("{1}{2}Enemy{0}", RESET, RED, BOLD);
-    std::string who_other = (enemy_turn) ? fmt::format("{1}{2}Player{0}", RESET, BLUE, BOLD) : fmt::format("{1}{2}Enemy{0}", RESET, RED, BOLD);
+    std::string who = (!enemy_turn) ? fmt::format("{1}{2}{3}{0}", RESET, BLUE, BOLD, user_settings.GetUsername()) : fmt::format("{1}{2}{3}{0}", RESET, RED, BOLD, GameTranslation.GetTranslated("general.enemy"));
+    std::string who_other = (enemy_turn) ? fmt::format("{1}{2}{3}{0}", RESET, BLUE, BOLD, user_settings.GetUsername()) : fmt::format("{1}{2}{3}{0}", RESET, RED, BOLD, GameTranslation.GetTranslated("general.enemy"));
 
     if (move_types[picked_move] == ATTACK)
     {
-        EntityAttack(*ent1, *ent2, moves[picked_move], what_happened, enemy_turn);
+        EntityAttack(*ent1, *ent2, moves[picked_move], what_happened, enemy_turn, user_settings, GameTranslation);
         ent1->TakeEnergy(energy_costs[picked_move]);
     }
     else if (move_types[picked_move] == HEAL)
     {
         ent1->Heal(moves[picked_move]);
-        what_happened += fmt::format("{2} {3}healed {4}+{1}HP{0}", RESET, moves[picked_move], who, WHITE, PURPLE);
+        what_happened += fmt::format("{2} {3}{5} {4}+{1}HP{0}", RESET, moves[picked_move], who, WHITE, PURPLE, GameTranslation.GetTranslated("general.healed"));
         ent1->TakeEnergy(energy_costs[picked_move]);
     }
     else if (move_types[picked_move] == ARMOR)
     {
         ent1->RegenArmor(moves[picked_move]);
-        what_happened += fmt::format("{2} {3}regen'd {4}+{1}AR{0}", RESET, moves[picked_move], who, WHITE, PURPLE);
+        what_happened += fmt::format("{2} {3}{5} {4}+{1}AR{0}", RESET, moves[picked_move], who, WHITE, PURPLE, GameTranslation.GetTranslated("general.regenerated"));
         ent1->TakeEnergy(energy_costs[picked_move]);
     }
     else if (move_types[picked_move] == STATUS)
@@ -56,32 +61,32 @@ void PickMove(Entity* ent1, Entity* ent2, uint32_t picked_move, uint32_t* moves,
         {
             case AUTO_HEAL:
                 ent1->GiveStatus(moves[picked_move]);
-                what_happened += fmt::format("{2} {1}has applied {3}Autoheal{1}.{0}", RESET, WHITE, who, GREEN);
+                what_happened += fmt::format("{2} {1}{0}", RESET, MsgFormatterNoUser(GameTranslation.GetTranslated("game.applied.autoheal")), who);
                 ent1->TakeEnergy(energy_costs[picked_move]);
                 break;
             case INCR_CRIT:
                 ent1->GiveStatus(moves[picked_move]);
-                what_happened += fmt::format("{2} {1}has applied {3}IncreasedCrit{1}.{0}", RESET, WHITE, who, RED);
+                what_happened += fmt::format("{2} {1}{0}", RESET, MsgFormatterNoUser(GameTranslation.GetTranslated("game.applied.incr_crit")), who);
                 ent1->TakeEnergy(energy_costs[picked_move]);
                 break;
             case INVIS:
                 ent1->GiveStatus(moves[picked_move]);
-                what_happened += fmt::format("{2} {1}has applied {3}Invis{1}.{0}", RESET, WHITE, who, HOT_PINK);
+                what_happened += fmt::format("{2} {1}{0}", RESET, MsgFormatterNoUser(GameTranslation.GetTranslated("game.applied.invis")), who);
                 ent1->TakeEnergy(energy_costs[picked_move]);
                 break;
             case POISON:
                 ent2->GiveStatus(moves[picked_move]);
-                what_happened += fmt::format("{2} {1}has given {4}Poison{1} to {3}{1}.{0}", RESET, WHITE, who, who_other, DARK_GREEN);
+                what_happened += CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.applied.poison"), fmt::arg("who", who), fmt::arg("who2", who_other));
                 ent1->TakeEnergy(energy_costs[picked_move]);
                 break;
             case THORNS:
                 ent1->GiveStatus(moves[picked_move]);
-                what_happened += fmt::format("{2} {1}has applied {3}Thorns{1}.{0}", RESET, WHITE, who, TEAL);
+                what_happened += fmt::format("{2} {1}{0}", RESET, MsgFormatterNoUser(GameTranslation.GetTranslated("game.applied.thorns")), who);
                 ent1->TakeEnergy(energy_costs[picked_move]);
                 break;
             case WEAKNESS:
                 ent2->GiveStatus(moves[picked_move]);
-                what_happened += fmt::format("{2} {1}has given {4}Weakness{1} to {3}{1}.{0}", RESET, WHITE, who, who_other, BROWN);
+                what_happened += CustomMsgFormatterNoUser(GameTranslation.GetTranslated("game.applied.weakness"), fmt::arg("who", who), fmt::arg("who2", who_other));
                 ent1->TakeEnergy(energy_costs[picked_move]);
                 break;
         }

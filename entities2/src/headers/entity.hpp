@@ -14,6 +14,8 @@
 #include <vector>
 
 #include "status.hpp"
+#include "user_settings.hpp"
+#include "translation_engine.hpp"
 
 /**
  * \class Entity
@@ -65,6 +67,6 @@ class Entity
 };
 
 void PrintEntityStats(const Entity& ent);
-void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn);
+void EntityAttack(Entity& attacker, Entity& victim, uint32_t dmg, std::string& msg, bool enemy_turn, UserSettingsClass& user_settings, const TranslationEngine& GameTranslation);
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

@@ -899,7 +899,7 @@ WARN_IF_INCOMPLETE_DOC = YES
 # WARN_IF_INCOMPLETE_DOC
 # The default value is: NO.
 
-WARN_NO_PARAMDOC       = NO
+WARN_NO_PARAMDOC       = YES
 
 # If WARN_IF_UNDOC_ENUM_VAL option is set to YES, Doxygen will warn about
 # undocumented enumeration values. If set to NO, Doxygen will accept
@@ -907,7 +907,7 @@ WARN_NO_PARAMDOC       = NO
 # will automatically be disabled.
 # The default value is: NO.
 
-WARN_IF_UNDOC_ENUM_VAL = NO
+WARN_IF_UNDOC_ENUM_VAL = YES
 
 # If the WARN_AS_ERROR tag is set to YES then Doxygen will immediately stop when
 # a warning is encountered. If the WARN_AS_ERROR tag is set to FAIL_ON_WARNINGS
@@ -965,7 +965,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = "${CMAKE_SOURCE_DIR}/src/" "${CMAKE_SOURCE_DIR}/src/headers/entity.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/move_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/entity_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/energy_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/colors.hpp" "${CMAKE_SOURCE_DIR}/src/Windows" "${CMAKE_SOURCE_DIR}/src/Linux" "${CMAKE_SOURCE_DIR}/src/headers/datapacks.hpp"
+INPUT                  = "${CMAKE_SOURCE_DIR}/src/" "${CMAKE_SOURCE_DIR}/src/headers/entity.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status.hpp" "${CMAKE_SOURCE_DIR}/src/headers/status_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/move_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/entity_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/energy_constants.hpp" "${CMAKE_SOURCE_DIR}/src/headers/colors.hpp" "${CMAKE_SOURCE_DIR}/src/Windows" "${CMAKE_SOURCE_DIR}/src/Linux" "${CMAKE_SOURCE_DIR}/src/headers/datapacks.hpp" "${CMAKE_SOURCE_DIR}/src/headers/cmd_args.hpp" "${CMAKE_SOURCE_DIR}/src/headers/global_settings.hpp" "${CMAKE_SOURCE_DIR}/src/headers/user_settings.hpp" "${CMAKE_SOURCE_DIR}/src/docs" "${CMAKE_SOURCE_DIR}/src/headers/demo_system.hpp" "${CMAKE_SOURCE_DIR}/src/headers/game_string_formatter.hpp" "${CMAKE_SOURCE_DIR}/src/headers/translation_engine.hpp"
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1120,7 +1120,7 @@ EXAMPLE_RECURSIVE      = NO
 # that contain images that are to be included in the documentation (see the
 # \image command).
 
-IMAGE_PATH             =
+IMAGE_PATH             = "${CMAKE_SOURCE_DIR}/assets" "${CMAKE_SOURCE_DIR}/../assets" "${CMAKE_SOURCE_DIR}/fun_stuff" "${CMAKE_SOURCE_DIR}/src/docs"
 
 # The INPUT_FILTER tag can be used to specify a program that Doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program
@@ -1181,7 +1181,7 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the Doxygen output.
 
-USE_MDFILE_AS_MAINPAGE =
+USE_MDFILE_AS_MAINPAGE = "${CMAKE_SOURCE_DIR}/src/docs/MAINPAGE.md"
 
 # The Fortran standard specifies that for fixed formatted Fortran code all
 # characters from position 72 are to be considered as comment. A common
@@ -1203,7 +1203,7 @@ FORTRAN_COMMENT_AFTER  = 72
 # also VERBATIM_HEADERS is set to NO.
 # The default value is: NO.
 
-SOURCE_BROWSER         = NO
+SOURCE_BROWSER         = YES
 
 # Setting the INLINE_SOURCES tag to YES will include the body of functions,
 # multi-line macros, enums or list initialized variables directly into the

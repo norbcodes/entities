@@ -1,10 +1,9 @@
 <h1>ENTITIES!</h1>
-<aside>
-<img src="./entities2/assets/entities2_big_image_transparent.png" alt="Entities2" style="width:200px;height:-1px" align="right">
-</aside>
+<img src="entities2/assets/entities2_big_image_transparent.png" alt="Entities2" style="width:200px;height:-1px" align="right">
 <p>Now, you may be thinking...<br>
 <b>Norb, wtf is this?</b><br>
-entities2.cpp is a little silly CLI game with turn based combat I made in 2 days!
+entities2.cpp is a little silly CLI game with turn based combat I made in 2 days!<br>
+<b>Update 1.9.0 is officially the last update for the game. No more stuff except for bug patches.</b>
 </p>
 
 <img alt="Release" src="https://img.shields.io/github/v/release/norbcodes/entities?display_name=tag&label=Latest"></img>

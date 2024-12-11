@@ -11,15 +11,17 @@
 // Yep
 
 #include <vector>
+#include <string>
 #include <fmt/core.h>
 
 #include "colors.hpp"
 #include "rng.hpp"
+#include "translation_engine.hpp"
 
 /**
  * \namespace E2_ExitMsg
  * \brief E2_ExitMsg game namespace.
- * \details Internal game namespace, stores a fixed length array of std::string's:<br>
+ * \details Internal game namespace, stores a dynamic length array of std::string's:<br>
  *          The actual exit messages. These also change depending on the platform<br>
  *          they were compiled on.<br><br>
  *          Variables inside of this namespace should not be used outside of this file (exit_msg.cpp)<br>
@@ -31,100 +33,123 @@ namespace E2_ExitMsg
      * \brief A dynamic array of exit messages. You can add more via Datapacks.
      */
     std::vector<std::string> exit_msg = {
-        fmt::format("{1}Noooooo don't leave yet :<{0}", RESET, WHITE),
+        "exit.message.1",
 
         #ifdef _WIN32
-        fmt::format("{1}Are you sure? {2}Windows is much worse...{0}", RESET, WHITE, ITALIC),
-        fmt::format("{1}Of course, as if Windows is more fun!{0}", RESET, WHITE),
-        fmt::format("{1}You know that Bill Gates approves of this game, right?{0}", RESET, WHITE),
-        fmt::format("{1}Right right, don't forget to close the windows on the way out.{0}", RESET, WHITE),
+        "exit.message.win2",
+        "exit.message.win3",
+        "exit.message.win4",
+        "exit.message.win5",
         #endif // _WIN32
 
         #ifdef __APPLE__
-        fmt::format("{1}Are you sure? {2}Mac is much worse...{0}", RESET, WHITE, ITALIC),
-        fmt::format("{1}Of course, as if Mac is more fun!{0}", RESET, WHITE),
-        fmt::format("{1}You know that Steve Jobs approved of this game, right?{0}", RESET, WHITE),
-        fmt::format("{1}An Apple a day keeps the wallet away.{0}", RESET, WHITE),
+        "exit.message.mac2",
+        "exit.message.mac3",
+        "exit.message.mac4",
+        "exit.message.mac5",
         #endif // __APPLE__
 
         #ifdef __linux__
-        fmt::format("{1}Are you sure? {2}Linux is much worse...{0}", RESET, WHITE, ITALIC),
-        fmt::format("{1}Of course, as if Linux is more fun!{0}", RESET, WHITE),
-        fmt::format("{1}You know that Linus Torvalds approves of this game, right?{0}", RESET, WHITE),
-        fmt::format("{1}Linuwux{0}", RESET, WHITE),
+        "exit.message.lix2",
+        "exit.message.lix3",
+        "exit.message.lix4",
+        "exit.message.lix5",
         #endif // __linux__
 
-        fmt::format("{1}The enemy still has 6 hp left!{0}", RESET, WHITE),
+        "exit.message.6",
         fmt::format("{1}._.{0}", RESET, WHITE),
-        fmt::format("{1}Huh? Why?{0}", RESET, WHITE),
-        fmt::format("{1}You leave now, you forfeit your kill count!{0}", RESET, WHITE),
-        fmt::format("{1}Atleast you tried, can't argue with that.{0}", RESET, WHITE),
-        fmt::format("{1}Don't go yet!{0}", RESET, WHITE),
-        fmt::format("{1}Pssst, i'll give you 3 free powerups if you stay... ;){0}", RESET, WHITE),
-        fmt::format("{1}Are you sure? It's dangerous outside...{0}", RESET, WHITE),
-        fmt::format("{1}Tch, just go. Unworthy.{0}", RESET, WHITE),
-        fmt::format("{1}Ok{0}", RESET, WHITE),
-        fmt::format("{1}Honey are you cheating on me with Java games?{0}", RESET, WHITE),
+        "exit.message.8",
+        "exit.message.9",
+        "exit.message.10",
+        "exit.message.11",
+        "exit.message.12",
+        "exit.message.13",
+        "exit.message.14",
+        "exit.message.15",
+        "exit.message.16",
         // BFMV reference ;)
-        fmt::format("{3}\"{1}{2}This is how it's been, how it always be...{0}{3}\"{0}", RESET, GOLD, BOLD, DARK_GRAY),
+        fmt::format("{1}\"{2}{3}This is how it's been, how it always be...{0}{1}\"{0}", RESET, DARK_GRAY, ORANGE, BOLD),
         // Prodigy reference ;)
         fmt::format("{1}\"{2}{3}We live, forevah! The time! Has come! We live, forevah!{0}{1}\"{0}", RESET, DARK_GRAY, LAVENDER, BOLD),
-        fmt::format("{1}The prophecy says you'll continue playing. You dare break the prophecy?{0}", RESET, WHITE),
+        "exit.message.19",
         // Tally Hall reference :)
-        fmt::format("{3}\"{0}{1}{2}Do you like how I walk, do you like how I talk?\nDo you like how my face disintigrates into chalk?{0}{3}\"{0}", RESET, TEAL, BOLD, DARK_GRAY),
-        fmt::format("{1}Thank you for downloading our malware :3{0}", RESET, WHITE),
-        fmt::format("{1}Press 'y', and in your coffin you will lay!{0}", RESET, WHITE),
-        fmt::format("{1}Don't be silly! Stay a while longer!{0}", RESET, WHITE),
-        fmt::format("{1}The entities live in your walls{0}", RESET, WHITE),
-        fmt::format("{1}I, norbcodes, live rent free in your ceiling{0}", RESET, WHITE),
-        fmt::format("{1}Really?{0}", RESET, WHITE),
-        fmt::format("{1}For reals?{0}", RESET, WHITE),
-        fmt::format("{1}Babeeee! No!{0}", RESET, WHITE),
-        fmt::format("{1}Is your fridge running...?{0}", RESET, WHITE),
-        fmt::format("{1}Is your stove turned off...?{0}", RESET, WHITE),
-        fmt::format("{1}What? Heap memory allocs scared you away?{0}", RESET, WHITE),
-        fmt::format("{1}There's a chance a neutrino particle is\npassing through your skull right now.{0}", RESET, WHITE),
-        fmt::format("{1}Let that sink in.{0}", RESET, WHITE),
-        fmt::format("{1}Oh no! Your 'y' button just broke!{0}", RESET, WHITE),
-        fmt::format("{1}LMFAOOOOO{0}", RESET, WHITE),
-        fmt::format("{1}The outside is not real. Wake up. Wake up.{0}", RESET, WHITE),
-        fmt::format("{1}Original entities more fun?{0}", RESET, WHITE),
+        fmt::format("{1}\"{2}{3}Do you like how I walk, do you like how I talk?{4}Do you like how my face disintigrates into chalk?{0}{1}\"{0}", RESET, DARK_GRAY, TEAL, BOLD, '\n'),
+        "exit.message.21",
+        "exit.message.22",
+        "exit.message.23",
+        "exit.message.24",
+        "exit.message.25",
+        "exit.message.26",
+        "exit.message.27",
+        "exit.message.28",
+        "exit.message.29",
+        "exit.message.30",
+        "exit.message.31",
+        "exit.message.32",
+        "exit.message.33",
+        "exit.message.34",
+        "exit.message.35",
+        "exit.message.36",
+        "exit.message.37",
         fmt::format("{1}:C{0}", RESET, WHITE),
-        fmt::format("{1}I, norbcodes, do not approve!!! >:({0}", RESET, WHITE),
-        fmt::format("{1}Maybe i'll break your keyboard then{0}", RESET, WHITE),
-        fmt::format("{1}Come back soon. We're gonna be having a pizza party.{0}", RESET, WHITE),
-        fmt::format("{1}Goodbye :3{0}", RESET, WHITE),
+        "exit.message.39",
+        "exit.message.40",
+        "exit.message.41",
+        "exit.message.42",
         fmt::format("{1}QwQ{0}", RESET, WHITE),
         // Dethklok reference :3
-        fmt::format("{3}\"{0}{1}{2}Awaken, Awaken, Mustakrakish, rise!{0}{3}\"{0}", RESET, RED, BOLD, DARK_GRAY),
-        fmt::format("{1}*{2}insert exit message here{0}{1}*{0}", RESET, WHITE, ITALIC),
+        fmt::format("{1}\"{2}{3}Awaken, Awaken, Mustakrakish, rise!{0}{1}\"{0}", RESET, DARK_GRAY, RED, BOLD),
+        "exit.message.45",
         fmt::format("{1}>:p{0}", RESET, WHITE),
-        fmt::format("{1}Dude, just choose a lower difficulty. No need for drastic measures.{0}", RESET, WHITE),
-        fmt::format("{1}*{2}insert threatening exit message here{0}{1}*{0}", RESET, WHITE, ITALIC),
-        fmt::format("{1}Fine, get out of my face.{0}", RESET, WHITE),
-        fmt::format("{1}Nuuuuu pwease staay :({0}", RESET, WHITE),
-        fmt::format("{1}><>     <---- fish{0}", RESET, WHITE),
-        fmt::format("{1}exit{0}{2}(){0}", RESET, RED, WHITE),
-        fmt::format("{1}No syntax highlighting for you!!!{0}", RESET, WHITE),
-        std::string("{red}{bold}Damn, my formatting broke{reset}"),
+        "exit.message.47",
+        "exit.message.48",
+        "exit.message.49",
+        "exit.message.50",
+        "exit.message.51",
+        "exit.message.52",
+        "exit.message.53",
+        "exit.message.54",
         // Metallica reference :O
-        fmt::format("{3}\"{0}{1}{2}I'm the pain when you can't feel! Sad but true!{0}{3}\"{0}", RESET, PURPLE, BOLD, DARK_GRAY),
-        fmt::format("{1}Do\n  not\n     exit,\n          PLEASE{0}", RESET, WHITE),
-        fmt::format("{1}I hate you >:({0}", RESET, WHITE),
-        fmt::format("{1}You KNOW that this is the best game ever made, right?{0}", RESET, WHITE),
-        fmt::format("{1}Classic, just give up when you fail once.{0}", RESET, WHITE),
+        fmt::format("{1}\"{2}{3}I'm the pain when you can't feel! Sad but true!{0}{1}\"{0}", RESET, DARK_GRAY, PURPLE, BOLD),
+        "exit.message.56",
+        "exit.message.57",
+        "exit.message.58",
+        "exit.message.59",
         fmt::format("{1};-;{0}", RESET, WHITE),
-        fmt::format("{1}Go f##k yourself :) jkjk{0}", RESET, WHITE)
+        "exit.message.61",
+        "exit.message.62",
+        fmt::format("{1}Blerp{0}", RESET, WHITE),
+        "exit.message.64",
+        "exit.message.65",
+        fmt::format("{1}@_@{0}", RESET, WHITE),
+        "exit.message.67",
+        fmt::format("{1}AAAAAAAAAAAAAAAA{0}", RESET, WHITE),
+        "", // 69th message. Nice.
+        "exit.message.70",
+        "exit.message.special"
     };
 }
 
 /**
  * \brief Function that retrieves an exit message.
+ * \param[in] GameTranslation Game translation system, for localized strings.
+ * \param[out] Was_Translated Assigned to 'true' if the returned string was translated.
  * \return A constant reference to std::string, the actual exit message.
  */
-const std::string& GetExitMsg()
+const std::string GetExitMsg(const TranslationEngine& GameTranslation, bool& Was_Translated)
 {
-    return E2_ExitMsg::exit_msg[ rng(0, E2_ExitMsg::exit_msg.size() - 1) ];
+    std::string random_pick = E2_ExitMsg::exit_msg[ rng(0, E2_ExitMsg::exit_msg.size() - 1) ];
+    // Check if the exit message can be found in language registry
+    if (GameTranslation.TranslationStringExists(random_pick))
+    {
+        Was_Translated = true;
+        return GameTranslation.GetTranslated(random_pick);
+    }
+    else
+    {
+        Was_Translated = false;
+        return random_pick;
+    }
 }
 
 /**
@@ -138,45 +163,11 @@ void AddExitMsg(const std::string& str)
 
 /**
  * \brief Get the total amount of exit messages.
- * \return The totala amount of exit messages.
+ * \return The total amount of exit messages.
  */
 uint32_t GetExitMsgCount()
 {
     return E2_ExitMsg::exit_msg.size();
-}
-
-/**
- * \brief Format custom exit messages defined in Datapacks.
- * \param[in] str The string to format.
- * \return Formatted string.
- */
-std::string ExitMsgFormatter(const std::string& str)
-{
-    return fmt::format(
-        str,
-        fmt::arg("reset", RESET),
-        fmt::arg("bold", BOLD),
-        fmt::arg("faint", FAINT),
-        fmt::arg("italic", ITALIC),
-        fmt::arg("underline", UNDERLINE),
-        fmt::arg("blinking", BLINKING),
-        fmt::arg("red", RED),
-        fmt::arg("blue", BLUE),
-        fmt::arg("orange", ORANGE),
-        fmt::arg("white", WHITE),
-        fmt::arg("hot_pink", HOT_PINK),
-        fmt::arg("gray", GRAY),
-        fmt::arg("dark_gray", DARK_GRAY),
-        fmt::arg("pink", PINK),
-        fmt::arg("gold", GOLD),
-        fmt::arg("green", GREEN),
-        fmt::arg("purple", PURPLE),
-        fmt::arg("dark_green", DARK_GREEN),
-        fmt::arg("lavender", LAVENDER),
-        fmt::arg("yellow", YELLOW),
-        fmt::arg("teal", TEAL),
-        fmt::arg("brown", BROWN)
-    );
 }
 
 // entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0

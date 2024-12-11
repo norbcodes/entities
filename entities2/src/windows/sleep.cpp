@@ -19,3 +19,12 @@ void SleepSeconds(uint32_t seconds)
 {
     Sleep(1000 * seconds);
 }
+
+/**
+ * \brief Does exactly what the title says :)
+ * \param[in] miliseconds The amount of miliseconds to sleep for.
+ */
+void SleepMiliseconds(uint32_t miliseconds)
+{
+    Sleep(miliseconds);
+}
