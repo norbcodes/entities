@@ -3,16 +3,18 @@
 <b>REMEMBER, DO NOT DOWNLOAD FROM "RELEASES" SECTION. GIT CLONE THIS REPO.</b><br>
 To compile:
 <pre><code>git clone https://github.com/norbcodes/entities.git
-mkdir entities/enities2/build
-cd entities/enities2/build
+cd entities/entities2
+mkdir build
+cd build
 cmake ..
 make
 </code></pre>
 <b>If you wish to test a dev build, you need to explicitly use <code>--branch</code> parameter when cloning!</b><br>
 You may also specify a custom generator. So if you're a MinGW user:
 <pre><code>git clone https://github.com/norbcodes/entities.git
-mkdir entities/enities2/build
-cd entities/enities2/build
+cd entities/entities2
+mkdir build
+cd build
 cmake .. -G "MinGW Makefiles"
 mingw32-make
 </code></pre>
