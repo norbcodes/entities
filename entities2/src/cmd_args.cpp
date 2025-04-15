@@ -55,15 +55,6 @@ GameArgs::GameArgs(int argc, char* argv[]) : v_NoDatapacks(false)
         .default_value("./users/")
         #endif
         .store_into(this->v_UserFolder);
-    
-    entities2.add_argument("-df", "--DemoFolder")
-        .help("Path to the folder where demos are saved.")
-        #ifdef _WIN32
-        .default_value(".\\demos\\")
-        #else
-        .default_value("./demos/")
-        #endif
-        .store_into(this->v_DemoFolder);
 
     entities2.add_argument("-pd", "--PlayDemo")
         .help("Play demo!")
@@ -119,15 +110,6 @@ const std::string& GameArgs::GlobalSettings() const
 const std::string& GameArgs::UserFolder() const
 {
     return (this->v_UserFolder);
-}
-
-/**
- * \brief Getter for v_DemoFolder variable.
- * \return String, path to the folder where demos are saved.
- */
-const std::string& GameArgs::DemoFolder() const
-{
-    return (this->v_DemoFolder);
 }
 
 /**

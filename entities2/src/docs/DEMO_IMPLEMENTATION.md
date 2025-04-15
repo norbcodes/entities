@@ -1,5 +1,7 @@
 @page DEMO_IMPLEMENTATION Demo Documentation
-<p>This page explains how demos work, how the .edemo format works, and other stuff.<br>Table of contents:<br></p>
+<h1>From update 1.9.1, Demo System is no more.</h1>
+<p>Due to my poor coding of the game, such as using the same RNG for UI and gameplay aspects, it's impossible for me to fix the desync problem <a href="https://github.com/norbcodes/entities/issues/53">(#53)</a>. I deeply apologize.</p>
+<p>This page explains how demos worked, how the .edemo format worked, and other stuff.<br>Table of contents:<br></p>
 <ul>
     <li>
     <a href="#1">Demo System</a>
@@ -43,7 +45,7 @@ In this document, you'll learn how it works in depth.
 <p>
 The main question here is:<br>
 <b><i>Is there a possibility for desync?</i></b><br>
-While it is possible, the .edemo format contains extra metadata for accurate playback.<br><br>
+While it is possible, the .edemo format contains extra metadata for accurate playback. (How ironic.)<br><br>
 <b><i>Will old demos work in newer versions and vice versa?</i></b><br>
 Yes! But only if the .edemo formats match. While the game itself cannot convert .edemo formats,<br>
 there will be a standalone program that will be able to convert between ALL .edemo formats (assuming<br>there even will be that many of them).

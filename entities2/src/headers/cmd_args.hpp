@@ -26,7 +26,6 @@ class GameArgs
         const std::string& DatapackFolder() const;
         const std::string& GlobalSettings() const;
         const std::string& UserFolder() const;
-        const std::string& DemoFolder() const;
         const std::string& DemoToPlay() const;
         const std::string& LanguageOverride() const;
     private:
@@ -53,12 +52,6 @@ class GameArgs
          * \brief Path to the folder where User saves are saved.
          */
         std::string v_UserFolder;
-
-        /**
-         * \var std::string v_DemoFolder
-         * \brief Path to the folder where demos are saved.
-         */
-        std::string v_DemoFolder;
 
         /**
          * \var std::string v_DemoToPlay

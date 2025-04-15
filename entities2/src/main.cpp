@@ -105,14 +105,9 @@ int main(int argc, char* argv[])
     }
     // User settings
     UserSettingsClass* UserSettings = new UserSettingsClass(*GameArguments);
-    // If playing back demo, don't do ANYTHING, just play
-    if (GameArguments->DemoToPlay() != "")
-    {
-        DemoPlaybackGame(GameArguments->DemoToPlay(), *GameTranslation);
-        return 0;
-    }
     // B)
     DatapackEngine* Datapacks = new DatapackEngine(*GameArguments);
+
     if (!GameArguments->NoDatapacks())
     {
         Datapacks->LoadAll(*GameArguments, *UserSettings, *GameTranslation);

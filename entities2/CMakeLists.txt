@@ -22,10 +22,10 @@ project(entities2
         DESCRIPTION "entities2 is a small silly turn based combat CLI game."
 )
 
-set(PROJECT_VERSION "v1.9.0-dev")
+set(PROJECT_VERSION "v1.9.1-dev")
 set(PROJECT_VERSION_MAJOR "1")
 set(PROJECT_VERSION_MINOR "9")
-set(PROJECT_VERSION_PATCH "0")
+set(PROJECT_VERSION_PATCH "1")
 set(PROJECT_VERSION_IS_DEV 1)
 
 include(CheckCXXCompilerFlag)
@@ -72,7 +72,6 @@ set(
     ${CMAKE_SOURCE_DIR}/src/cmd_args.cpp
     ${CMAKE_SOURCE_DIR}/src/datapack_viewer.cpp
     ${CMAKE_SOURCE_DIR}/src/datapacks.cpp
-    ${CMAKE_SOURCE_DIR}/src/demo_system.cpp
     ${CMAKE_SOURCE_DIR}/src/difficulty_picker.cpp
     ${CMAKE_SOURCE_DIR}/src/discord_rpc.cpp
     ${CMAKE_SOURCE_DIR}/src/energy.cpp
