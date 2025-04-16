@@ -18,6 +18,7 @@
 #include <nlohmann/json.hpp>
 
 #include "colors.hpp"
+#include "game_string_formatter.hpp"
 #include "cmd_args.hpp"
 #include "user_settings.hpp"
 #include "global_settings.hpp"
@@ -293,9 +294,9 @@ uint32_t UserSettingsClass::GetTotalGames() const
  * \brief Getter for v_Username
  * \return Username of our player.
  */
-const std::string& UserSettingsClass::GetUsername() const
+const std::string UserSettingsClass::GetUsername() const
 {
-    return (this->v_Username);
+    return MsgFormatterColorsOnly(this->v_Username) + RESET;
 }
 
 /**

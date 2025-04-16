@@ -57,7 +57,7 @@ class UserSettingsClass
         uint32_t GetGamesWon() const;
         uint32_t GetGamesLost() const;
         uint32_t GetTotalGames() const;
-        const std::string& GetUsername() const;
+        const std::string GetUsername() const;
         std::string GetJsonPath() const;
         uint32_t GetSaveVer() const;
         // Setters

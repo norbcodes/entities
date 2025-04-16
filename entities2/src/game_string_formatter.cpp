@@ -26,7 +26,8 @@ std::string MsgFormatter(const std::string& str, const UserSettingsClass& user_s
     return fmt::format(
         str,
         fmt::arg("username", user_settings.GetUsername()),
-        _body
+        _body,
+        _extra
     );
 }
 
@@ -36,6 +37,15 @@ std::string MsgFormatter(const std::string& str, const UserSettingsClass& user_s
  * \return Formatted string.
  */
 std::string MsgFormatterNoUser(const std::string& str)
+{
+    return fmt::format(
+        str,
+        _body,
+        _extra
+    );
+}
+
+std::string MsgFormatterColorsOnly(const std::string& str)
 {
     return fmt::format(
         str,

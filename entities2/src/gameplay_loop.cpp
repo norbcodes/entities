@@ -145,7 +145,7 @@ static void PlayerRound (
     Player->UpdateStatuses(what_happened, false);
 
     // Print stats
-    fmt::print("{1}{2}[{3}]{0}\n ", RESET, BLUE, BOLD, user_settings.GetUsername());
+    fmt::print("{1}{2}[{3}{1}{2}]{0}\n ", RESET, BLUE, BOLD, user_settings.GetUsername());
     PrintEntityStats(*Player);
     fmt::print("{1}{2}[{3}]{0}\n ", RESET, RED, BOLD, GameTranslation.GetTranslated("game.battle.enemy"));
     PrintEntityStats(*Enemy);
@@ -274,7 +274,7 @@ static void EnemyRound (
     Enemy->UpdateStatuses(what_happened, true);
 
     // Print stats
-    fmt::print("{1}{2}[{3}]{0}\n ", RESET, BLUE, BOLD, user_settings.GetUsername());
+    fmt::print("{1}{2}[{3}{1}{2}]{0}\n ", RESET, BLUE, BOLD, user_settings.GetUsername());
     PrintEntityStats(*Player);
     fmt::print("{1}{2}[{3}]{0}\n ", RESET, RED, BOLD, GameTranslation.GetTranslated("game.battle.enemy"));
     PrintEntityStats(*Enemy);
@@ -294,7 +294,7 @@ static void EnemyRound (
     // Print random num
     // this bugs out completely on Linux
     #ifndef __linux__
-    for (uint32_t i = 0; i != 20000; i++)
+    for (uint32_t i = 0; i != 10000; i++)
     {
         fmt::print("{1}{2}{4} {3}{0}\n", RESET, GOLD, ITALIC, rng(1, 4), GameTranslation.GetTranslated("game.battle.ai_think"));
         EndDivNoNewl();
@@ -330,10 +330,9 @@ static void EnemyRound (
  * \param[in] user_settings User settings.
  * \param[in] GameTranslation Game translation system, for localized strings.
  */
-void Game(uint32_t mode, 
-          bool& picker_flag, 
-          const GameArgs& game_args, 
-          const GlobalSettingsClass& global_settings, 
+void Game(uint32_t mode,
+          bool& picker_flag,
+          const GlobalSettingsClass& global_settings,
           UserSettingsClass& user_settings,
           const TranslationEngine& GameTranslation)
 {
