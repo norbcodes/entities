@@ -45,7 +45,35 @@
                 fmt::arg("brown", BROWN), \
                 fmt::arg("black", BLACK), \
                 fmt::arg("light_blue", LIGHT_BLUE), \
-                fmt::arg("white_bg", WHITE_BACKGROUND)
+                fmt::arg("almond", ALMOND), \
+                fmt::arg("crimson", CRIMSON), \
+                fmt::arg("aqua", AQUA), \
+                fmt::arg("dark_purple", DARK_PURPLE), \
+                fmt::arg("onyx", ONYX), \
+                fmt::arg("bg_red", BG_RED), \
+                fmt::arg("bg_blue", BG_BLUE), \
+                fmt::arg("bg_orange", BG_ORANGE), \
+                fmt::arg("white_bg", BG_WHITE), \
+                fmt::arg("bg_white", BG_WHITE), \
+                fmt::arg("bg_hot_pink", BG_HOT_PINK), \
+                fmt::arg("bg_gray", BG_GRAY), \
+                fmt::arg("bg_dark_gray", BG_DARK_GRAY), \
+                fmt::arg("bg_pink", BG_PINK), \
+                fmt::arg("bg_gold", BG_GOLD), \
+                fmt::arg("bg_green", BG_GREEN), \
+                fmt::arg("bg_purple", BG_PURPLE), \
+                fmt::arg("bg_dark_green", BG_DARK_GREEN), \
+                fmt::arg("bg_lavender", BG_LAVENDER), \
+                fmt::arg("bg_yellow", BG_YELLOW), \
+                fmt::arg("bg_teal", BG_TEAL), \
+                fmt::arg("bg_brown", BG_BROWN), \
+                fmt::arg("bg_black", BG_BLACK), \
+                fmt::arg("bg_light_blue", BG_LIGHT_BLUE), \
+                fmt::arg("bg_almond", BG_ALMOND), \
+                fmt::arg("bg_crimson", BG_CRIMSON), \
+                fmt::arg("bg_aqua", BG_AQUA), \
+                fmt::arg("bg_dark_purple", BG_DARK_PURPLE), \
+                fmt::arg("bg_onyx", BG_ONYX)
 
 #define _extra  fmt::arg("entities2_ver", ENTITIES2_VER), \
                 fmt::arg("nl", '\n'), \

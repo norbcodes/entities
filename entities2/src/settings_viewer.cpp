@@ -136,7 +136,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
             {
                 if (selection == 0)
                 {
-                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.on"));
+                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.on"));
                 }
                 else
                 {
@@ -148,9 +148,9 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
                 if (selection == 0)
                 {
                     #ifdef __ENTITIES2_DISCORD_RPC__
-                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.off"));
+                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.off"));
                     #else
-                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.disabled"));
+                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.disabled"));
                     #endif
                 }
                 else
@@ -170,7 +170,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
             
             if (selection == 1)
             {
-                fmt::print("{1}{2}2   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.changelang"));
+                fmt::print("{1}{2}2   {3}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.changelang"));
             }
             else
             {
@@ -179,7 +179,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
 
             if (selection == 2)
             {
-                fmt::print("{1}{2}3   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.langutils"));
+                fmt::print("{1}{2}3   {3}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.langutils"));
             }
             else
             {
@@ -195,7 +195,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
 
             if (selection == 3)
             {
-                fmt::print("{1}{2}4   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.newuser"));
+                fmt::print("{1}{2}4   {3}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.newuser"));
             }
             else
             {
@@ -204,7 +204,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
 
             if (selection == 4)
             {
-                fmt::print("{1}{2}5   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.changename"));
+                fmt::print("{1}{2}5   {3}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.changename"));
             }
             else
             {
@@ -218,7 +218,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
             {
                 if (selection == 5)
                 {
-                    fmt::print("{1}{2}6   {3: <26} {4}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.c4o1"), GameTranslation.GetTranslated("general.on"));
+                    fmt::print("{1}{2}6   {3: <26} {4}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.c4o1"), GameTranslation.GetTranslated("general.on"));
                 }
                 else
                 {
@@ -229,7 +229,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
             {
                 if (selection == 5)
                 {
-                    fmt::print("{1}{2}6   {3: <26} {4}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.c4o1"), GameTranslation.GetTranslated("general.off"));
+                    fmt::print("{1}{2}6   {3: <26} {4}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.c4o1"), GameTranslation.GetTranslated("general.off"));
                 }
                 else
                 {

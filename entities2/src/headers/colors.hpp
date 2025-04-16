@@ -47,8 +47,35 @@
         #define BROWN               "\x1b[38;2;153;77;0m"
         #define BLACK               "\x1b[38;2;0;0;0m"
         #define LIGHT_BLUE          "\x1b[38;2;102;230;255m"
+        #define ALMOND              "\x1b[38;2;255;238;204m"
+        #define CRIMSON             "\x1b[38;2;179;0;30m"
+        #define AQUA                "\x1b[38;2;25;255;255m"
+        #define DARK_PURPLE         "\x1b[38;2;38;0;77m"
+        #define ONYX                "\x1b[38;2;23;22;22m"
         // BACKGROUND COLORS
-        #define WHITE_BACKGROUND    "\x1b[48;2;230;230;230m"
+        #define BG_RED              "\x1b[48;2;255;25;25m"
+        #define BG_BLUE             "\x1b[48;2;36;80;255m"
+        #define BG_ORANGE           "\x1b[48;2;230;153;0m"
+        #define BG_WHITE            "\x1b[48;2;230;230;230m"
+        #define BG_HOT_PINK         "\x1b[48;2;153;0;77m"
+        #define BG_GRAY             "\x1b[48;2;99;99;99m"
+        #define BG_DARK_GRAY        "\x1b[48;2;68;68;68m"
+        #define BG_PINK             "\x1b[48;2;234;128;255m"
+        #define BG_GOLD             "\x1b[48;2;255;195;77m"
+        #define BG_GREEN            "\x1b[48;2;0;255;42m"
+        #define BG_PURPLE           "\x1b[48;2;76;0;230m"
+        #define BG_DARK_GREEN       "\x1b[48;2;181;196;27m"
+        #define BG_LAVENDER         "\x1b[48;2;187;153;255m"
+        #define BG_YELLOW           "\x1b[48;2;255;255;38m"
+        #define BG_TEAL             "\x1b[48;2;0;130;181m"
+        #define BG_BROWN            "\x1b[48;2;153;77;0m"
+        #define BG_BLACK            "\x1b[48;2;0;0;0m"
+        #define BG_LIGHT_BLUE       "\x1b[48;2;102;230;255m"
+        #define BG_ALMOND           "\x1b[48;2;255;238;204m"
+        #define BG_CRIMSON          "\x1b[48;2;179;0;30m"
+        #define BG_AQUA             "\x1b[48;2;25;255;255m"
+        #define BG_DARK_PURPLE      "\x1b[48;2;38;0;77m"
+        #define BG_ONYX             "\x1b[48;2;23;22;22m"
     #else // __ENTITIES2_4_BIT_COLORS__
         #define RESET               "\x1b[0m"
 
@@ -85,7 +112,35 @@
             #define BROWN               "\x1b[33m"
             #define BLACK               "\x1b[30m"
             #define LIGHT_BLUE          "\x1b[94m"
-            #define WHITE_BACKGROUND    "\x1b[47m"
+            #define ALMOND              "\x1b[37m"
+            #define CRIMSON             "\x1b[31m"
+            #define AQUA                "\x1b[96m"
+            #define DARK_PURPLE         "\x1b[35m"
+            #define ONYX                "\x1b[90m"
+
+            #define BG_RED              "\x1b[41m"
+            #define BG_BLUE             "\x1b[44m"
+            #define BG_ORANGE           "\x1b[43m"
+            #define BG_WHITE            "\x1b[47m"
+            #define BG_HOT_PINK         "\x1b[105m"
+            #define BG_GRAY             "\x1b[47m"
+            #define BG_DARK_GRAY        "\x1b[100m"
+            #define BG_PINK             "\x1b[45m"
+            #define BG_GOLD             "\x1b[103m"
+            #define BG_GREEN            "\x1b[42m"
+            #define BG_PURPLE           "\x1b[45m"
+            #define BG_DARK_GREEN       "\x1b[42m"
+            #define BG_LAVENDER         "\x1b[46m"
+            #define BG_YELLOW           "\x1b[43m"
+            #define BG_TEAL             "\x1b[106m"
+            #define BG_BROWN            "\x1b[43m"
+            #define BG_BLACK            "\x1b[40m"
+            #define BG_LIGHT_BLUE       "\x1b[104m"
+            #define BG_ALMOND           "\x1b[47m"
+            #define BG_CRIMSON          "\x1b[41m"
+            #define BG_AQUA             "\x1b[106m"
+            #define BG_DARK_PURPLE      "\x1b[45m"
+            #define BG_ONYX             "\x1b[100m"
         #else // __ENTITIES2_4_BIT_AIXTERM__
             #define RED                 "\x1b[31m"
             #define BLUE                "\x1b[34m"
@@ -105,7 +160,35 @@
             #define BROWN               "\x1b[33m"
             #define BLACK               "\x1b[30m"
             #define LIGHT_BLUE          "\x1b[36m"
-            #define WHITE_BACKGROUND    "\x1b[47m"
+            #define ALMOND              "\x1b[37m"
+            #define CRIMSON             "\x1b[31m"
+            #define AQUA                "\x1b[36m"
+            #define DARK_PURPLE         "\x1b[35m"
+            #define ONYX                "\x1b[30m"
+
+            #define BG_RED              "\x1b[41m"
+            #define BG_BLUE             "\x1b[44m"
+            #define BG_ORANGE           "\x1b[43m"
+            #define BG_WHITE            "\x1b[47m"
+            #define BG_HOT_PINK         "\x1b[45m"
+            #define BG_GRAY             "\x1b[47m"
+            #define BG_DARK_GRAY        "\x1b[47m"
+            #define BG_PINK             "\x1b[45m"
+            #define BG_GOLD             "\x1b[43m"
+            #define BG_GREEN            "\x1b[42m"
+            #define BG_PURPLE           "\x1b[45m"
+            #define BG_DARK_GREEN       "\x1b[42m"
+            #define BG_LAVENDER         "\x1b[46m"
+            #define BG_YELLOW           "\x1b[43m"
+            #define BG_TEAL             "\x1b[46m"
+            #define BG_BROWN            "\x1b[43m"
+            #define BG_BLACK            "\x1b[40m"
+            #define BG_LIGHT_BLUE       "\x1b[46m"
+            #define BG_ALMOND           "\x1b[47m"
+            #define BG_CRIMSON          "\x1b[41m"
+            #define BG_AQUA             "\x1b[46m"
+            #define BG_DARK_PURPLE      "\x1b[45m"
+            #define BG_ONYX             "\x1b[40m"
         #endif // __ENTITIES2_4_BIT_AIXTERM__
 
     #endif // __ENTITIES2_4_BIT_COLORS__
@@ -134,12 +217,40 @@
     #define BROWN               ""
     #define BLACK               ""
     #define LIGHT_BLUE          ""
-    #define WHITE_BACKGROUND    ""
+    #define ALMOND              ""
+    #define CRIMSON             ""
+    #define AQUA                ""
+    #define DARK_PURPLE         ""
+    #define ONYX                ""
+
+    #define BG_RED              ""
+    #define BG_BLUE             ""
+    #define BG_ORANGE           ""
+    #define BG_WHITE            ""
+    #define BG_HOT_PINK         ""
+    #define BG_GRAY             ""
+    #define BG_DARK_GRAY        ""
+    #define BG_PINK             ""
+    #define BG_GOLD             ""
+    #define BG_GREEN            ""
+    #define BG_PURPLE           ""
+    #define BG_DARK_GREEN       ""
+    #define BG_LAVENDER         ""
+    #define BG_YELLOW           ""
+    #define BG_TEAL             ""
+    #define BG_BROWN            ""
+    #define BG_BLACK            ""
+    #define BG_LIGHT_BLUE       ""
+    #define BG_ALMOND           ""
+    #define BG_CRIMSON          ""
+    #define BG_AQUA             ""
+    #define BG_DARK_PURPLE      ""
+    #define BG_ONYX             ""
 #endif // __ENTITIES2_COLORS__
 
 /** 
  * \def RESET
- * \brief If used, resets all colors and styling. 
+ * \brief If used, resets all colors and styling.
  * \hideinitializer
  */
 
@@ -284,7 +395,7 @@
  */
 
 /**
- * \def WHITE_BACKGROUND
+ * \def BG_WHITE
  * \brief <span style="background-color: rgb(255, 255, 255);color: rgb(0, 0, 0)">\#\#\#TEST\#\#\#</span>
  * \hideinitializer
  */

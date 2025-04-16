@@ -151,12 +151,12 @@ int main(int argc, char* argv[])
             uint8_t r = 50;
             uint8_t g = 50;
             uint8_t b = 50;
-            const uint32_t loops = rng(0, 50);
+            const uint32_t loops = rng(0, 120);
             for (uint32_t i = 0; i != loops; i++)
             {
-                r += rng(1, 58);
-                g += rng(1, 58);
-                b += rng(1, 58);
+                r += rng(1, 24);
+                g += rng(1, 24);
+                b += rng(1, 24);
                 // basically it will just overflow so no need to check if over 256
             }
             std::string title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);

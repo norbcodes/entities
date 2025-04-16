@@ -68,7 +68,7 @@ const std::string PickLanguage(const TranslationEngine& GameTranslation)
         {
             if (selection == i)
             {
-                fmt::print("{1}{2}{3} ({4}){0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("lang.name", LangList[i]), GameTranslation.GetTranslated("lang.id", LangList[i]));
+                fmt::print("{1}{2}{3} ({4}){0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("lang.name", LangList[i]), GameTranslation.GetTranslated("lang.id", LangList[i]));
             }
             else
             {
