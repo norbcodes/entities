@@ -296,8 +296,11 @@ int main(int argc, char* argv[])
             if (BinaryChoice())
             {
                 ClearScreen();
-                Credits(*GameTranslation);
-                SleepSeconds(1);
+                if (GlobalSettings->GetShowEndScreenValue())
+                {
+                    Credits(*GameTranslation);
+                    SleepSeconds(1);
+                }
                 break;
             }
             else

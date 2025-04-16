@@ -25,7 +25,7 @@
  * \def ENTITIES2_GLOBAL_SAVE_VER_MINOR
  * \brief Save format minor version. (The 'y' in 'x.y.z')
  */
-#define ENTITIES2_GLOBAL_SAVE_VER_MINOR 0
+#define ENTITIES2_GLOBAL_SAVE_VER_MINOR 1
 
 /**
  * \def ENTITIES2_GLOBAL_SAVE_VER_PATCH
@@ -54,11 +54,15 @@ class GlobalSettingsClass
         bool GetDiscordEnabled() const;
         uint32_t GetSaveVer() const;
         const std::string& GetLanguageId() const;
+        bool GetShowEndScreenValue() const;
         // Setters
         void SetDiscordEnabled(bool o);
         void SetSaveVer(uint32_t o);
         void SetLanguageId(const std::string& lang);
+        void SetShowEndScreenValue(bool v);
+
     private:
+        void _SetDefault();
         // SETTINGS
 
         /**
@@ -72,6 +76,8 @@ class GlobalSettingsClass
          * \brief Saved language setting.
          */
         std::string v_Language;
+
+        bool v_ShowEndScreen;
 
         /**
          * \var uint32_t _Ver

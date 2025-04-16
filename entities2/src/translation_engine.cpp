@@ -251,6 +251,7 @@ void TranslationEngine::LoadEnglish()
     this->Register["en-US"]["general.healed"]               = "healed";
     this->Register["en-US"]["general.regenerated"]          = "regenerated";
     this->Register["en-US"]["general.enemy"]                = "Enemy";
+    this->Register["en-US"]["general.disabled"]             = "DISABLED";
 
     // Main menu texts
     this->Register["en-US"]["menu.main.subtitle"]           = "A game by norbcodes.";
@@ -323,7 +324,9 @@ void TranslationEngine::LoadEnglish()
     this->Register["en-US"]["menu.options.cat1"]            = " 1 DISCORD SETTINGS ";
     this->Register["en-US"]["menu.options.cat2"]            = " 2 LANGUAGE SETTINGS ";
     this->Register["en-US"]["menu.options.cat3"]            = " 3 USER SETTINGS ";
+    this->Register["en-US"]["menu.options.cat4"]            = " 4 MISC SETTINGS ";
     this->Register["en-US"]["menu.options.c1o1"]            = "Discord RPC:";
+    this->Register["en-US"]["menu.options.c4o1"]            = "Show credits on exit:";
     this->Register["en-US"]["menu.options.login"]           = "Logged in as";
     this->Register["en-US"]["menu.options.currlang"]        = "Current language:";
     this->Register["en-US"]["menu.options.changelang"]      = "Change language...";
