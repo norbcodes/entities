@@ -539,6 +539,7 @@ void TranslationEngine::LoadSlovak()
     this->Register["sk-SK"]["general.healed"]               = "si uzdravil";
     this->Register["sk-SK"]["general.regenerated"]          = "si regeneroval";
     this->Register["sk-SK"]["general.enemy"]                = "Nepriateľ";
+    this->Register["sk-SK"]["general.disabled"]             = "Vypnuté";
 
     // Main menu texts
     this->Register["sk-SK"]["menu.main.subtitle"]           = "Hra vytvorená vývorajom norbcodes.";
@@ -611,7 +612,9 @@ void TranslationEngine::LoadSlovak()
     this->Register["sk-SK"]["menu.options.cat1"]            = " 1 NASTAVENIA DISCORDU ";
     this->Register["sk-SK"]["menu.options.cat2"]            = " 2 NASTAVENIA JAZYKOV ";
     this->Register["sk-SK"]["menu.options.cat3"]            = " 3 POUŽÍVATEĽSKÉ NASTAVENIA ";
+    this->Register["sk-SK"]["menu.options.cat4"]            = " 4 INÉ NASTAVENIA ";
     this->Register["sk-SK"]["menu.options.c1o1"]            = "Discord RPC:";
+    this->Register["sk-SK"]["menu.options.c4o1"]            = "Ukáž kredity po ukončení:";
     this->Register["sk-SK"]["menu.options.login"]           = "Prihlásení ako";
     this->Register["sk-SK"]["menu.options.currlang"]        = "Nastavený jazyk:";
     this->Register["sk-SK"]["menu.options.changelang"]      = "Zmeniť jazyk...";
@@ -1397,9 +1400,10 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["general.off"]                  = "DESLIGADO";
     this->Register["pt-PT"]["general.by"]                   = "por";
     this->Register["pt-PT"]["general.enter_to_exit"]        = "Clica ENTER para continuar.";
-    this->Register["pt-PT"]["general.healed"]               = "curado";
+    this->Register["pt-PT"]["general.healed"]               = "recuperado";
     this->Register["pt-PT"]["general.regenerated"]          = "recuperado";
     this->Register["pt-PT"]["general.enemy"]                = "Inimigo";
+    this->Register["pt-PT"]["general.disabled"]             = "DESATIVADO";
 
     // Main menu texts
     this->Register["pt-PT"]["menu.main.subtitle"]           = "Um jogo criado por norbcodes.";
@@ -1408,14 +1412,14 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["menu.main.ginfo"]              = "Informações sobre a Batalha";
     this->Register["pt-PT"]["menu.main.datapacks"]          = "Pacotes de Dados";
     this->Register["pt-PT"]["menu.main.settings"]           = "Opções";
-    this->Register["pt-PT"]["menu.exit.confirm"]            = "Confirmar saída?";
+    this->Register["pt-PT"]["menu.exit.confirm"]            = "De certeza que queres sair?";
     this->Register["pt-PT"]["menu.unstable"]                = "{red}Estás a usar uma build do jogo que ainda está {bold}em desenvolvimento!{reset}{nl}{white}Usa com cuidado. {red}Ainda queres jogar? [y,n]{reset}";
 
     // Difficulty picker texts
     this->Register["pt-PT"]["menu.diffpicker.title"]        = "Escolher Nível de Dificuldade";
-    this->Register["pt-PT"]["menu.diffpicker.easy"]         = "Eu rebento com as entidades";
-    this->Register["pt-PT"]["menu.diffpicker.medium"]       = "Já vi pior";
-    this->Register["pt-PT"]["menu.diffpicker.hard"]         = "Abaixo as entidades";
+    this->Register["pt-PT"]["menu.diffpicker.easy"]         = "Eu elimino as entidades!";
+    this->Register["pt-PT"]["menu.diffpicker.medium"]       = "Já vi pior...";
+    this->Register["pt-PT"]["menu.diffpicker.hard"]         = "Abaixo as entidades!!";
     this->Register["pt-PT"]["menu.diffpicker.random"]       = "Aleatório!";
     this->Register["pt-PT"]["menu.diffpicker.record"]       = "Gravar demo";
 
@@ -1449,7 +1453,7 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["menu.ginfo.tips"]              = "Dicas";
     this->Register["pt-PT"]["menu.ginfo.status"]            = "Estados e o que modificam";
     this->Register["pt-PT"]["menu.ginfo.tiptitle"]          = "DICAS";
-    this->Register["pt-PT"]["menu.ginfo.tip1"]              = "Podes saltar a tua vez se escolheres nenhuma das opções 0, 1, 2, 3 or 4.";
+    this->Register["pt-PT"]["menu.ginfo.tip1"]              = "Podes saltar a tua vez se escolheres nenhuma das opções 0, 1, 2, 3 ou 4.";
     this->Register["pt-PT"]["menu.ginfo.tip2"]              = "Podes saltar uma vez para recuperar energia.";
     this->Register["pt-PT"]["menu.ginfo.tip3"]              = "A IA irá tentar atacar-te se tiver mais do que 60 HP.";
     this->Register["pt-PT"]["menu.ginfo.statustitle1"]      = "ESTADOS";
@@ -1472,7 +1476,9 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["menu.options.cat1"]            = " 1 DEFINIÇÕES DO DISCORD ";
     this->Register["pt-PT"]["menu.options.cat2"]            = " 2 DEFINIÇÕES DE IDIOMA ";
     this->Register["pt-PT"]["menu.options.cat3"]            = " 3 DEFINIÇÕES DO UTILIZADOR ";
+    this->Register["pt-PT"]["menu.options.cat4"]            = " 4 DEFINIÇÕES GERAIS ";
     this->Register["pt-PT"]["menu.options.c1o1"]            = "Rich Presence do Discord:";
+    this->Register["pt-PT"]["menu.options.c4o1"]            = "Mostrar créditos ao sair";
     this->Register["pt-PT"]["menu.options.login"]           = "A jogar como";
     this->Register["pt-PT"]["menu.options.currlang"]        = "Idioma atual:";
     this->Register["pt-PT"]["menu.options.changelang"]      = "Mudar de idioma...";
@@ -1480,7 +1486,7 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["menu.options.export1"]         = "Exportar idioma para pacote de dados (xml)...";
     this->Register["pt-PT"]["menu.options.export2"]         = "Exportar idioma como Texto (txt)...";
     this->Register["pt-PT"]["menu.options.export3"]         = "Converter TXT em Pacote de Dados (xml)...";
-    this->Register["pt-PT"]["menu.options.newuser"]         = "A criar novo utilizador...";
+    this->Register["pt-PT"]["menu.options.newuser"]         = "Criar novo utilizador...";
     this->Register["pt-PT"]["menu.options.changename"]      = "Mudar de nome de utilizador...";
     this->Register["pt-PT"]["menu.options.help1"]           = "{white}Clica {green}1{white} para entrar em modo de {green}Edição{white}. Clica {red}9{white} para {red}voltar ao menu inicial{white}.{reset}";
     this->Register["pt-PT"]["menu.options.help2"]           = "{white}Clica na {red}seta para a esquerda{white} para sair do modo de {red}Edição{white}.{reset}";
@@ -1613,7 +1619,7 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["exit.message.52"]              = "{red}exit{reset}{white}(){reset}";
     this->Register["pt-PT"]["exit.message.53"]              = "{white}Perdeste o direito a syntax highlighting!!!{reset}";
     this->Register["pt-PT"]["exit.message.54"]              = "{{red}}{{bold}}Raios, a minha formatação deixou de funcionar{{reset}}";
-    this->Register["pt-PT"]["exit.message.56"]              = "{white}Não{nl}   said{nl}       por,{nl}           FAVOR{reset}";
+    this->Register["pt-PT"]["exit.message.56"]              = "{white}Não{nl}   saias{nl}       por,{nl}           FAVOR!{reset}";
     this->Register["pt-PT"]["exit.message.57"]              = "{white}Odeio-te >:({reset}";
     this->Register["pt-PT"]["exit.message.58"]              = "{white}Sabes que este é o melhor jogo do mundo, certo?{reset}";
     this->Register["pt-PT"]["exit.message.59"]              = "{white}Clássico, desistir após uma derrota.{reset}";
@@ -1632,13 +1638,13 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["credits.moreinfo1"]            = "Versão 1.0 desenvolvida em, aproximadamente, 2 dias.";
     this->Register["pt-PT"]["credits.moreinfo2"]            = "(Pela a altura em que os créditos foram escritos, o Discord diz que estive 6 hours a usar o VScode)";
     this->Register["pt-PT"]["credits.moreinfo3"]            = "As cores bonitas que o caro utilizador pode ver:";
-    this->Register["pt-PT"]["credits.moreinfo4"]            = "Experimente entities1 e explore a página do entities2 em ";
-    this->Register["pt-PT"]["credits.title2"]               = "MÓDULOS EXTERNOS USADOS:";
+    this->Register["pt-PT"]["credits.moreinfo4"]            = "Experimente entities1 e explore a página do entities2 em";
+    this->Register["pt-PT"]["credits.title2"]               = "BIBLIOTECAS EXTERNAS USADAS:";
     this->Register["pt-PT"]["credits.discordlib"]           = "{blue}{bold}discord-rpc{reset} {dark_gray}:: {lavender}{italic}Créditos a {name} :){reset}";
-    this->Register["pt-PT"]["credits.fmtlib"]               = "{bold}{red}{{{orange}f{yellow}m{green}t{blue}}}{reset} {dark_gray}::{reset} {hot_pink}{italic}Créditos à equipa inteira por detrás do módulo {name} :P{reset}";
+    this->Register["pt-PT"]["credits.fmtlib"]               = "{bold}{red}{{{orange}f{yellow}m{green}t{blue}}}{reset} {dark_gray}::{reset} {hot_pink}{italic}Créditos à equipa inteira por detrás da biblioteca {name} :P{reset}";
     this->Register["pt-PT"]["credits.pugilib"]              = "{white}{bold}pugi{reset}{brown}{bold}xml{reset} {dark_gray}::{reset} {pink}{italic}Créditos a {name} (de nome {name2} no GitHub)!! :3{reset}";
-    this->Register["pt-PT"]["credits.arglib"]               = "{orange}{bold}arg{gold}parse{reset} {dark_gray}::{reset} {green}{italic}Créditos a {name} {dark_green}por ter criado este módulo tão bom :>{reset}";
-    this->Register["pt-PT"]["credits.jsonlib"]              = "{blue}{bold}{italic}json{reset} {dark_gray}::{reset} {teal}{italic}Créditos a {name} por ter criado este módulo épico!!{reset}";
+    this->Register["pt-PT"]["credits.arglib"]               = "{orange}{bold}arg{gold}parse{reset} {dark_gray}::{reset} {green}{italic}Créditos a {name} {dark_green}por ter criado esta biblioteca tão boa :>{reset}";
+    this->Register["pt-PT"]["credits.jsonlib"]              = "{blue}{bold}{italic}json{reset} {dark_gray}::{reset} {teal}{italic}Créditos a {name} por ter criado esta biblioteca épica!!{reset}";
     this->Register["pt-PT"]["credits.compiled"]             = "{dark_gray}Versão {entities2_ver} de entities2.cpp compilada a {compile_date} {compile_time} ;){reset}";
     this->Register["pt-PT"]["credits.title3"]               = "AGRADECIMENTO ESPECIAL AOS TRADUTORES:";
     this->Register["pt-PT"]["credits.slovak"]               = "{blue}{bold}{name}{reset} {dark_gray}::{reset} {white}{bold}Inglês{reset}{white} (idioma de base) e {bold}Eslovaco{reset}";
