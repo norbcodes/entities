@@ -325,7 +325,6 @@ static void EnemyRound (
  * \brief The game loop.
  * \param[in] mode Difficulty.
  * \param[out] picker_flag External flag to break a loop inside DifficultyPicker()
- * \param[in] game_args Game CMD arguments.
  * \param[in] global_settings Global game settings.
  * \param[in] user_settings User settings.
  * \param[in] GameTranslation Game translation system, for localized strings.

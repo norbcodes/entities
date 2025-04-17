@@ -45,6 +45,11 @@ std::string MsgFormatterNoUser(const std::string& str)
     );
 }
 
+/**
+ * \brief Format custom messages defined in Datapacks, with only colors.
+ * \param[in] str The string to format.
+ * \return Formatted string.
+ */
 std::string MsgFormatterColorsOnly(const std::string& str)
 {
     return fmt::format(

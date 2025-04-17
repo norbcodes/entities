@@ -77,6 +77,10 @@ class GlobalSettingsClass
          */
         std::string v_Language;
 
+        /**
+         * \var bool v_ShowEndScreen
+         * \brief Boolean value, wheter the credit end screen should be shown.
+         */
         bool v_ShowEndScreen;
 
         /**

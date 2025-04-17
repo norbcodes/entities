@@ -91,6 +91,9 @@ void GlobalSettingsClass::Save(const GameArgs& game_args) const
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * \brief Initializes all settings to their default values.
+ */
 void GlobalSettingsClass::_SetDefault()
 {
     // Discord stuff
@@ -142,6 +145,10 @@ const std::string& GlobalSettingsClass::GetLanguageId() const
     return (this->v_Language);
 }
 
+/**
+ * \brief Getter for v_ShowEndScreen.
+ * \return The boolean.
+ */
 bool GlobalSettingsClass::GetShowEndScreenValue() const
 {
     return (this->v_ShowEndScreen);
@@ -182,6 +189,10 @@ void GlobalSettingsClass::SetLanguageId(const std::string& lang)
     this->v_Language = lang;
 }
 
+/**
+ * \brief Setter for v_ShowEndScreen.
+ * \param[in] v Boolean.
+ */
 void GlobalSettingsClass::SetShowEndScreenValue(bool v)
 {
     this->v_ShowEndScreen = v;

@@ -22,11 +22,18 @@
  * \brief A quick macro often repeated in the 3 formatter functions and 2 templated formatter functions.
  */
 #define _body   fmt::arg("reset", RESET), \
+                fmt::arg("end", RESET), \
+                fmt::arg("blank", RESET), \
                 fmt::arg("bold", BOLD), \
+                fmt::arg("b", BOLD), \
                 fmt::arg("faint", FAINT), \
+                fmt::arg("f", ITALIC), \
                 fmt::arg("italic", ITALIC), \
+                fmt::arg("i", ITALIC), \
                 fmt::arg("underline", UNDERLINE), \
+                fmt::arg("u", UNDERLINE), \
                 fmt::arg("blinking", BLINKING), \
+                fmt::arg("bli", UNDERLINE), \
                 fmt::arg("red", RED), \
                 fmt::arg("blue", BLUE), \
                 fmt::arg("orange", ORANGE), \
@@ -75,6 +82,11 @@
                 fmt::arg("bg_dark_purple", BG_DARK_PURPLE), \
                 fmt::arg("bg_onyx", BG_ONYX)
 
+/**
+ * \def _extra
+ * \hideinitializer
+ * \brief A quick macro for non-color format arguments.
+ */
 #define _extra  fmt::arg("entities2_ver", ENTITIES2_VER), \
                 fmt::arg("nl", '\n'), \
                 fmt::arg("compile_time", __TIME__), \

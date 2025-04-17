@@ -1,7 +1,7 @@
 # entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
 
 # The CMakeLists to build entities2.cpp
-cmake_minimum_required(VERSION 3.29 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 
 cmake_policy(SET CMP0077 NEW)
 
