@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file gameplay_loop.cpp
  * \author norbcodes
  * \brief The gameplay itself.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  * \hideincludegraph
  */
 
@@ -409,4 +409,4 @@ void Game(uint32_t mode,
     delete Enemy;
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

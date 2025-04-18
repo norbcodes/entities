@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file user_settings.hpp
  * \author norbcodes
  * \brief UserSettingsClass class.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #pragma once
@@ -111,4 +111,4 @@ class UserSettingsClass
         std::string v_Username;
 };
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

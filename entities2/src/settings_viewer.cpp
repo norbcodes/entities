@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file settings_viewer.cpp
  * \author norbcodes
  * \brief Settings menu!
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #include <iostream>
@@ -354,4 +354,4 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
     }
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

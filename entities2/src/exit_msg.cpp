@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file exit_msg.cpp
  * \author norbcodes
  * \brief Exit messages! :D
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  * \details Code for those little whiny messages you see when you try to exit.
  */
 
@@ -170,4 +170,4 @@ uint32_t GetExitMsgCount()
     return E2_ExitMsg::exit_msg.size();
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

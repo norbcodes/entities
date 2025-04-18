@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file language_picker.cpp
  * \author norbcodes
  * \brief Smol function for changing language in the settings.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #include <string>
@@ -128,4 +128,4 @@ const std::string PickLanguage(const TranslationEngine& GameTranslation)
     return GameTranslation.GetCurrentLangId();
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file colors.hpp
  * \author norbcodes
  * \brief Colors! And styles!（人´∀`*）
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  * \details These are graphical ANSI escape codes, which can be used in fmt::print<br>
  *          or fmt::format to colorize or stylize text.
  * \note These won't work if code is compiled without <b>\_\_ENTITIES2_COLORS\_\_</b><br>
@@ -611,4 +611,4 @@
  * \hideinitializer
  */
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

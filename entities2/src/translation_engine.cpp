@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file translation_engine.cpp
  * \author norbcodes
  * \brief Entities2 localization system! Also includes base languages.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #include <string>
@@ -1655,4 +1655,4 @@ void TranslationEngine::LoadPortuguese()
     #endif // __ENTITIES2_BAKED_IN_PORTUGUESE__
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.

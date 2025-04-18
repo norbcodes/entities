@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file energy.cpp
  * \author norbcodes
  * \brief The game's energy system!
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  * \details Each move has an energetical cost. This introduces another layer of<br>
  *          complexity and strategy to the game.
  */
@@ -143,4 +143,4 @@ void Entity::TakeEnergy(double val)
     this->energy -= val;
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

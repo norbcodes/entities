@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file discord_rpc.cpp
  * \author norbcodes
  * \brief Discord RPC Code.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  * \details Contains code for working with the Discord RPC library.<br>
  *          This is where the game keeps functions for updating the RPC.
  */
@@ -141,4 +141,4 @@ void DestroyRPC()
     #endif // __ENTITIES2_DISCORD_RPC__
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

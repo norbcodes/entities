@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file ai.cpp
  * \author norbcodes
  * \brief The AI, the antagonist of entities2!
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  * \details This file contains one huge function, which uses black magic (not really)<br>
  *          that returns a number - the chosen move.
  */
@@ -231,4 +231,4 @@ uint32_t AiChoose(uint32_t* picks_list, uint32_t* types_list, double* energies, 
     return SKIP;
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

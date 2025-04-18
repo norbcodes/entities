@@ -1,4 +1,4 @@
-# entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+# entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 # The CMakeLists to build entities2.cpp
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
@@ -303,3 +303,5 @@ endif()
 if (OLD_BEHAVIOR)
     target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_TRANSLATION_OLD_BEHAVIOR__)
 endif()
+
+# entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

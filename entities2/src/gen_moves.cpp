@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file gen_moves.cpp
  * \author norbcodes
  * \brief Generates moves... using RNG!
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 /*
@@ -184,4 +184,4 @@ void GenerateMoves(uint32_t* moves, uint32_t* move_types, double* energies, cons
     PrintMoves(moves, move_types, energies, GameTranslation);
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

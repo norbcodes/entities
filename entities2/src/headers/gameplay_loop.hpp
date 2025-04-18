@@ -1,4 +1,4 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 #pragma once
 
@@ -11,4 +11,4 @@
 
 void Game(uint32_t mode, bool& picker_flag, const GlobalSettingsClass& global_settings, UserSettingsClass& user_settings, const TranslationEngine& GameTranslation);
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

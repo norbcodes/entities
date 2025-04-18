@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file gameplay_info.cpp
  * \author norbcodes
  * \brief Info... About the game.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  * \details Provides a neat function that can interactively<br>
  *          display information, guides, tips and tricks, and so on.
  */
@@ -89,4 +89,4 @@ void GameplayInfoSec(const TranslationEngine& GameTranslation)
     }
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

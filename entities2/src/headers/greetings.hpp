@@ -1,4 +1,4 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 #pragma once
 
@@ -16,4 +16,4 @@
 const std::string GetGreeting(const TranslationEngine& GameTranslation, bool& Was_Translated);
 void AddGreetMsg(const std::string& str, uint32_t where);
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
