@@ -829,6 +829,7 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["general.healed"]               = "восстановил";
     this->Register["ru-RU"]["general.regenerated"]          = "восстановил";
     this->Register["ru-RU"]["general.enemy"]                = "Противник";
+    this->Register["ru-RU"]["general.disabled"]             = "ОТКЛЮЧЕНО";
 
     // Main menu texts
     this->Register["ru-RU"]["menu.main.subtitle"]           = "Игра от norbcodes.";
@@ -901,7 +902,9 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["menu.options.cat1"]            = " 1 НАСТРОЙКИ DISCORD ";
     this->Register["ru-RU"]["menu.options.cat2"]            = " 2 НАСТРОЙКИ ЯЗЫКА ";
     this->Register["ru-RU"]["menu.options.cat3"]            = " 3 НАСТРОЙКИ ПОЛЬЗОВАТЕЛЯ ";
+    this->Register["ru-RU"]["menu.options.cat4"]            = " 4 ДРУГИЕ НАСТРОЙКИ ";
     this->Register["ru-RU"]["menu.options.c1o1"]            = "Discord RPC:";
+    this->Register["ru-RU"]["menu.options.c4o1"]            = "Показывать титры при выходе:";
     this->Register["ru-RU"]["menu.options.login"]           = "Вы вошли под именем";
     this->Register["ru-RU"]["menu.options.currlang"]        = "Текущий язык:";
     this->Register["ru-RU"]["menu.options.changelang"]      = "Изменить язык...";
