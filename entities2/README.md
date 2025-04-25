@@ -30,7 +30,9 @@ Or similar.<br><br>
 
 <a id="options"></a>
 <h2>CMake Options</h2>
-<p>To use these, do so as: -D<code>{option}</code>=ON</p>
+<p>To use these, do so as: -D<code>{option}</code>=ON<br>
+<b>Remember, these are COMPILE options. If you want to enable one of these, you must recompile the whole game.</b>
+</p>
 <table>
     <tr>
         <th>Option</th>

@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file settings_viewer.cpp
  * \author norbcodes
  * \brief Settings menu!
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #include <iostream>
@@ -119,7 +119,7 @@ static void NewUsername(UserSettingsClass& user_settings, const TranslationEngin
 void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_settings, UserSettingsClass& user_settings, TranslationEngine& GameTranslation)
 {
     int32_t selection = 0;
-    const int32_t selection_count = 5;
+    const int32_t selection_count = 6;
     bool edit_mode = false;
     bool in_settings = true;
     while (in_settings)
@@ -136,22 +136,30 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
             {
                 if (selection == 0)
                 {
-                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.on"));
+                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.on"));
                 }
                 else
                 {
-                    fmt::print("{1}1   {3: <20}  {0}{2}{4}{0}\n", RESET, WHITE, GREEN, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.on"));
+                    fmt::print("{1}1   {3: <20} {0}{2}{4}{0}\n", RESET, WHITE, GREEN, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.on"));
                 }
             }
             else
             {
                 if (selection == 0)
                 {
-                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.off"));
+                    #ifdef __ENTITIES2_DISCORD_RPC__
+                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.off"));
+                    #else
+                    fmt::print("{1}{2}1   {3: <20} {4}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.disabled"));
+                    #endif
                 }
                 else
                 {
+                    #ifdef __ENTITIES2_DISCORD_RPC__
                     fmt::print("{1}1   {3: <20} {0}{2}{4}{0}\n", RESET, WHITE, RED, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.off"));
+                    #else
+                    fmt::print("{1}1   {3: <20} {0}{2}{4}{0}\n", RESET, WHITE, RED, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.disabled"));
+                    #endif
                 }
             }
             ////////////////////////////////////
@@ -162,7 +170,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
             
             if (selection == 1)
             {
-                fmt::print("{1}{2}2   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.changelang"));
+                fmt::print("{1}{2}2   {3}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.changelang"));
             }
             else
             {
@@ -171,7 +179,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
 
             if (selection == 2)
             {
-                fmt::print("{1}{2}3   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.langutils"));
+                fmt::print("{1}{2}3   {3}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.langutils"));
             }
             else
             {
@@ -187,7 +195,7 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
 
             if (selection == 3)
             {
-                fmt::print("{1}{2}4   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.newuser"));
+                fmt::print("{1}{2}4   {3}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.newuser"));
             }
             else
             {
@@ -196,11 +204,37 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
 
             if (selection == 4)
             {
-                fmt::print("{1}{2}5   {3}{0}\n", RESET, WHITE_BACKGROUND, BLACK, GameTranslation.GetTranslated("menu.options.changename"));
+                fmt::print("{1}{2}5   {3}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.changename"));
             }
             else
             {
                 fmt::print("{1}5   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.changename"));
+            }
+            fmt::print("{1}........................................{0}\n\n", RESET, DARK_GRAY);
+            ////////////////////////////////////
+            // MISC
+            fmt::print("{1}{2:.^40}{0}\n", RESET, DARK_GRAY, GameTranslation.GetTranslated("menu.options.cat4"));
+            if (global_settings.GetShowEndScreenValue())
+            {
+                if (selection == 5)
+                {
+                    fmt::print("{1}{2}6   {3: <26} {4}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.c4o1"), GameTranslation.GetTranslated("general.on"));
+                }
+                else
+                {
+                    fmt::print("{1}6   {3: <26} {0}{2}{4}{0}\n", RESET, WHITE, GREEN, GameTranslation.GetTranslated("menu.options.c4o1"), GameTranslation.GetTranslated("general.on"));
+                }
+            }
+            else
+            {
+                if (selection == 5)
+                {
+                    fmt::print("{1}{2}6   {3: <26} {4}{0}\n", RESET, BG_WHITE, BLACK, GameTranslation.GetTranslated("menu.options.c4o1"), GameTranslation.GetTranslated("general.off"));
+                }
+                else
+                {
+                    fmt::print("{1}6   {3: <26} {0}{2}{4}{0}\n", RESET, WHITE, RED, GameTranslation.GetTranslated("menu.options.c4o1"), GameTranslation.GetTranslated("general.off"));
+                }
             }
 
             fmt::print("{1}........................................{0}\n\n", RESET, DARK_GRAY);
@@ -248,6 +282,9 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
                         case 4:
                             NewUsername(user_settings, GameTranslation);
                             break;
+                        case 5:
+                            global_settings.SetShowEndScreenValue(!global_settings.GetShowEndScreenValue());
+                            break;
                     }
                     user_settings.Save(game_args);
                     global_settings.Save(game_args);
@@ -265,7 +302,11 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
             }
             else
             {
+                #ifdef __ENTITIES2_DISCORD_RPC__
                 fmt::print("{1}>   {3: <20} {0}{2}{4}{0}\n", RESET, WHITE, RED, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.off"));
+                #else
+                fmt::print("{1}>   {3: <20} {0}{2}{4}{0}\n", RESET, WHITE, RED, GameTranslation.GetTranslated("menu.options.c1o1"), GameTranslation.GetTranslated("general.disabled"));
+                #endif
             }
             fmt::print("{1}........................................{0}\n\n", RESET, DARK_GRAY);
             ////////////////////////////////////
@@ -275,13 +316,27 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
             fmt::print("{1}>   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.changelang"));
             fmt::print("{1}>   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.langutils"));
             ////////////////////////////////////
+            // USER
             fmt::print("{1}........................................{0}\n\n", RESET, DARK_GRAY);
             fmt::print("{1}{2:.^40}{0}\n", RESET, DARK_GRAY, GameTranslation.GetTranslated("menu.options.cat3"));
             fmt::print("{1}:: {4} {2}{3}{0}\n", RESET, WHITE, BOLD, user_settings.GetUsername(), GameTranslation.GetTranslated("menu.options.login"));
             fmt::print("{1}>   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.newuser"));
             fmt::print("{1}>   {2}{0}\n", RESET, WHITE, GameTranslation.GetTranslated("menu.options.changename"));
             fmt::print("{1}........................................{0}\n\n", RESET, DARK_GRAY);
+            ////////////////////////////////////
+            // MISC
+            fmt::print("{1}{2:.^40}{0}\n", RESET, DARK_GRAY, GameTranslation.GetTranslated("menu.options.cat4"));
+            if (global_settings.GetShowEndScreenValue())
+            {
+                fmt::print("{1}>   {3: <26}{0} {2}{4}{0}\n", RESET, WHITE, GREEN, GameTranslation.GetTranslated("menu.options.c4o1"), GameTranslation.GetTranslated("general.on"));
+            }
+            else
+            {
+                fmt::print("{1}>   {3: <26}{0} {2}{4}{0}\n", RESET, WHITE, RED, GameTranslation.GetTranslated("menu.options.c4o1"), GameTranslation.GetTranslated("general.off"));
+            }
+            fmt::print("{1}........................................{0}\n\n", RESET, DARK_GRAY);
             fmt::print("{0}\n", MsgFormatterNoUser(GameTranslation.GetTranslated("menu.options.help1")));
+            ////////////////////////////////////
             EndDiv();
 
             // Yay :3
@@ -299,4 +354,4 @@ void SettingsView(const GameArgs& game_args, GlobalSettingsClass& global_setting
     }
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

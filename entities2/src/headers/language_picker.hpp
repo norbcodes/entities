@@ -1,4 +1,4 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 #pragma once
 
@@ -8,4 +8,4 @@
 
 const std::string PickLanguage(const TranslationEngine& GameTranslation);
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

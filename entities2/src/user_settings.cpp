@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file user_settings.cpp
  * \author norbcodes
  * \brief Reading/Writing user settings :}
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #include <sys/stat.h>
@@ -18,6 +18,7 @@
 #include <nlohmann/json.hpp>
 
 #include "colors.hpp"
+#include "game_string_formatter.hpp"
 #include "cmd_args.hpp"
 #include "user_settings.hpp"
 #include "global_settings.hpp"
@@ -293,9 +294,9 @@ uint32_t UserSettingsClass::GetTotalGames() const
  * \brief Getter for v_Username
  * \return Username of our player.
  */
-const std::string& UserSettingsClass::GetUsername() const
+const std::string UserSettingsClass::GetUsername() const
 {
-    return (this->v_Username);
+    return MsgFormatterColorsOnly(this->v_Username) + RESET;
 }
 
 /**
@@ -385,4 +386,4 @@ void UserSettingsClass::SetUsername(const std::string& new_user)
     this->v_Username = new_user;
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

@@ -1,7 +1,7 @@
-# entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+# entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 # The CMakeLists to build entities2.cpp
-cmake_minimum_required(VERSION 3.29 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 
 cmake_policy(SET CMP0077 NEW)
 
@@ -17,16 +17,16 @@ set(PUGIXML_INSTALL OFF CACHE BOOL "Enable installation rules")
 add_subdirectory("${CMAKE_SOURCE_DIR}/src/pugixml")
 
 # Set the project
-project(entities2 
+project(entities2
         LANGUAGES CXX C
         DESCRIPTION "entities2 is a small silly turn based combat CLI game."
 )
 
-set(PROJECT_VERSION "v1.9.0-dev")
+set(PROJECT_VERSION "v1.9.1")
 set(PROJECT_VERSION_MAJOR "1")
 set(PROJECT_VERSION_MINOR "9")
-set(PROJECT_VERSION_PATCH "0")
-set(PROJECT_VERSION_IS_DEV 1)
+set(PROJECT_VERSION_PATCH "1")
+set(PROJECT_VERSION_IS_DEV 0)
 
 include(CheckCXXCompilerFlag)
 
@@ -72,7 +72,6 @@ set(
     ${CMAKE_SOURCE_DIR}/src/cmd_args.cpp
     ${CMAKE_SOURCE_DIR}/src/datapack_viewer.cpp
     ${CMAKE_SOURCE_DIR}/src/datapacks.cpp
-    ${CMAKE_SOURCE_DIR}/src/demo_system.cpp
     ${CMAKE_SOURCE_DIR}/src/difficulty_picker.cpp
     ${CMAKE_SOURCE_DIR}/src/discord_rpc.cpp
     ${CMAKE_SOURCE_DIR}/src/energy.cpp
@@ -304,3 +303,5 @@ endif()
 if (OLD_BEHAVIOR)
     target_compile_definitions(${PROJECT_NAME} PUBLIC __ENTITIES2_TRANSLATION_OLD_BEHAVIOR__)
 endif()
+
+# entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

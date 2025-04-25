@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file global_settings.hpp
  * \author norbcodes
  * \brief GlobalSettingsClass class.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #pragma once
@@ -25,7 +25,7 @@
  * \def ENTITIES2_GLOBAL_SAVE_VER_MINOR
  * \brief Save format minor version. (The 'y' in 'x.y.z')
  */
-#define ENTITIES2_GLOBAL_SAVE_VER_MINOR 0
+#define ENTITIES2_GLOBAL_SAVE_VER_MINOR 1
 
 /**
  * \def ENTITIES2_GLOBAL_SAVE_VER_PATCH
@@ -54,11 +54,15 @@ class GlobalSettingsClass
         bool GetDiscordEnabled() const;
         uint32_t GetSaveVer() const;
         const std::string& GetLanguageId() const;
+        bool GetShowEndScreenValue() const;
         // Setters
         void SetDiscordEnabled(bool o);
         void SetSaveVer(uint32_t o);
         void SetLanguageId(const std::string& lang);
+        void SetShowEndScreenValue(bool v);
+
     private:
+        void _SetDefault();
         // SETTINGS
 
         /**
@@ -74,10 +78,16 @@ class GlobalSettingsClass
         std::string v_Language;
 
         /**
+         * \var bool v_ShowEndScreen
+         * \brief Boolean value, wheter the credit end screen should be shown.
+         */
+        bool v_ShowEndScreen;
+
+        /**
          * \var uint32_t _Ver
          * \brief Save version.
          */
         uint32_t _Ver;
 };
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

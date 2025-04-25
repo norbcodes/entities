@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file difficulty_picker.cpp
  * \author norbcodes
  * \brief Function for picking a difficulty.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #include <cstdint>
@@ -29,7 +29,6 @@
 void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsClass& user_settings, const GameArgs& game_args, const TranslationEngine& GameTranslation)
 {
     bool picker_flag = true;
-    bool record_demo = false;
     while (picker_flag)
     {
         ClearScreen();
@@ -39,14 +38,6 @@ void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsCl
         fmt::print("{3}[{0}{2}{1}2{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, ORANGE, GameTranslation.GetTranslated("menu.diffpicker.medium"));
         fmt::print("{3}[{0}{2}{1}3{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED, GameTranslation.GetTranslated("menu.diffpicker.hard"));
         fmt::print("{3}[{0}{2}{1}4{0}{3}]{0} {4}{5}{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, LAVENDER, GameTranslation.GetTranslated("menu.diffpicker.random"));
-        if (record_demo)
-        {
-            fmt::print("{3}[{0}{2}{1}9{0}{3}]{0} {4}{6}: {5}{7}{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, WHITE, GREEN, GameTranslation.GetTranslated("menu.diffpicker.record"), GameTranslation.GetTranslated("general.on"));
-        }
-        else
-        {
-            fmt::print("{3}[{0}{2}{1}9{0}{3}]{0} {4}{6}: {5}{7}{0}\n\n", RESET, BOLD, GOLD, DARK_GRAY, WHITE, RED, GameTranslation.GetTranslated("menu.diffpicker.record"), GameTranslation.GetTranslated("general.off"));
-        }
         fmt::print("{3}[{0}{2}{1}5{0}{3}]{0} {4}{5}{0}\n", RESET, BOLD, GOLD, DARK_GRAY, RED, GameTranslation.GetTranslated("general.exit"));
         EndDiv();
 
@@ -59,13 +50,9 @@ void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsCl
         }
         else if (choice == 1 || choice == 2 || choice == 3 || choice == 4)
         {
-            Game(choice, picker_flag, game_args, global_settings, user_settings, record_demo ? 1 : 0, GameTranslation);
+            Game(choice, picker_flag, global_settings, user_settings, GameTranslation);
             user_settings.Save(game_args);
             global_settings.Save(game_args);
-        }
-        else if (choice == 9)
-        {
-            record_demo = !record_demo;
         }
         else
         {
@@ -74,4 +61,4 @@ void DifficultyPicker(const GlobalSettingsClass& global_settings, UserSettingsCl
     }
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

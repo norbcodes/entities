@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file cmd_args.cpp
  * \author norbcodes
  * \brief Parsing command line arguments >:)
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #include <string>
@@ -55,15 +55,6 @@ GameArgs::GameArgs(int argc, char* argv[]) : v_NoDatapacks(false)
         .default_value("./users/")
         #endif
         .store_into(this->v_UserFolder);
-    
-    entities2.add_argument("-df", "--DemoFolder")
-        .help("Path to the folder where demos are saved.")
-        #ifdef _WIN32
-        .default_value(".\\demos\\")
-        #else
-        .default_value("./demos/")
-        #endif
-        .store_into(this->v_DemoFolder);
 
     entities2.add_argument("-pd", "--PlayDemo")
         .help("Play demo!")
@@ -122,15 +113,6 @@ const std::string& GameArgs::UserFolder() const
 }
 
 /**
- * \brief Getter for v_DemoFolder variable.
- * \return String, path to the folder where demos are saved.
- */
-const std::string& GameArgs::DemoFolder() const
-{
-    return (this->v_DemoFolder);
-}
-
-/**
  * \brief Getter for v_DemoToPlay variable.
  * \return String, path to a demo to play!
  */
@@ -148,4 +130,4 @@ const std::string& GameArgs::LanguageOverride() const
     return (this->v_LanguageOverride);
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

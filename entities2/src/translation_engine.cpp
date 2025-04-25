@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file translation_engine.cpp
  * \author norbcodes
  * \brief Entities2 localization system! Also includes base languages.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #include <string>
@@ -251,6 +251,7 @@ void TranslationEngine::LoadEnglish()
     this->Register["en-US"]["general.healed"]               = "healed";
     this->Register["en-US"]["general.regenerated"]          = "regenerated";
     this->Register["en-US"]["general.enemy"]                = "Enemy";
+    this->Register["en-US"]["general.disabled"]             = "DISABLED";
 
     // Main menu texts
     this->Register["en-US"]["menu.main.subtitle"]           = "A game by norbcodes.";
@@ -323,7 +324,9 @@ void TranslationEngine::LoadEnglish()
     this->Register["en-US"]["menu.options.cat1"]            = " 1 DISCORD SETTINGS ";
     this->Register["en-US"]["menu.options.cat2"]            = " 2 LANGUAGE SETTINGS ";
     this->Register["en-US"]["menu.options.cat3"]            = " 3 USER SETTINGS ";
+    this->Register["en-US"]["menu.options.cat4"]            = " 4 MISC SETTINGS ";
     this->Register["en-US"]["menu.options.c1o1"]            = "Discord RPC:";
+    this->Register["en-US"]["menu.options.c4o1"]            = "Show credits on exit:";
     this->Register["en-US"]["menu.options.login"]           = "Logged in as";
     this->Register["en-US"]["menu.options.currlang"]        = "Current language:";
     this->Register["en-US"]["menu.options.changelang"]      = "Change language...";
@@ -353,25 +356,25 @@ void TranslationEngine::LoadEnglish()
     this->Register["en-US"]["menu.langutils.notfile"]       = "Path does not lead to a file!";
 
     // Greet texts
-    this->Register["en-US"]["greet.morning.1"]              = "{white}Good morning, {username}. Ready to kill?{reset}";
-    this->Register["en-US"]["greet.morning.2"]              = "{white}Good morning, {username}. Grab a coffee and crush some entities.{reset}";
-    this->Register["en-US"]["greet.morning.3"]              = "{white}Good morning, {username}. Rise and shine!{reset}";
-    this->Register["en-US"]["greet.afternoon.1"]            = "{white}Good afternoon, {username}. Back for more blood?{reset}";
-    this->Register["en-US"]["greet.afternoon.2"]            = "{white}Good afternoon, {username}. Today's lunch: Entities{reset}";
-    this->Register["en-US"]["greet.afternoon.3"]            = "{white}Good afternoon, {username}. I would really go for a nap now...{reset}";
-    this->Register["en-US"]["greet.evening.1"]              = "{white}Good evening, {username}. 5 minutes until bedtime.{reset}";
-    this->Register["en-US"]["greet.evening.2"]              = "{white}Good evening, {username}. Entities are sleepy now, surprise attack!{reset}";
-    this->Register["en-US"]["greet.evening.3"]              = "{white}Good evening, {username}. *{italic}Yawn{reset}{white}*{reset}";
-    this->Register["en-US"]["greet.earlynight.1"]           = "{white}Good night, {username}. Can't sleep yet?{reset}";
-    this->Register["en-US"]["greet.earlynight.2"]           = "{white}Good night, {username}. Was dinner yummy?{reset}";
-    this->Register["en-US"]["greet.threeam.1"]              = "{white}Good night, {username}. Spooky time!{reset}";
-    this->Register["en-US"]["greet.threeam.2"]              = "{white}Good night, {username}. The line between mortal and the other side blurs...{reset}";
-    this->Register["en-US"]["greet.threeam.3"]              = "{white}Good night, {username}. Something feels off..{reset}";
+    this->Register["en-US"]["greet.morning.1"]              = "{white}Good morning, {username}{white}. Ready to kill?{reset}";
+    this->Register["en-US"]["greet.morning.2"]              = "{white}Good morning, {username}{white}. Grab a coffee and crush some entities.{reset}";
+    this->Register["en-US"]["greet.morning.3"]              = "{white}Good morning, {username}{white}. Rise and shine!{reset}";
+    this->Register["en-US"]["greet.afternoon.1"]            = "{white}Good afternoon, {username}{white}. Back for more blood?{reset}";
+    this->Register["en-US"]["greet.afternoon.2"]            = "{white}Good afternoon, {username}{white}. Today's lunch: Entities{reset}";
+    this->Register["en-US"]["greet.afternoon.3"]            = "{white}Good afternoon, {username}{white}. I would really go for a nap now...{reset}";
+    this->Register["en-US"]["greet.evening.1"]              = "{white}Good evening, {username}{white}. 5 minutes until bedtime.{reset}";
+    this->Register["en-US"]["greet.evening.2"]              = "{white}Good evening, {username}{white}. Entities are sleepy now, surprise attack!{reset}";
+    this->Register["en-US"]["greet.evening.3"]              = "{white}Good evening, {username}{white}. *{italic}Yawn{reset}{white}*{reset}";
+    this->Register["en-US"]["greet.earlynight.1"]           = "{white}Good night, {username}{white}. Can't sleep yet?{reset}";
+    this->Register["en-US"]["greet.earlynight.2"]           = "{white}Good night, {username}{white}. Was dinner yummy?{reset}";
+    this->Register["en-US"]["greet.threeam.1"]              = "{white}Good night, {username}{white}. Spooky time!{reset}";
+    this->Register["en-US"]["greet.threeam.2"]              = "{white}Good night, {username}{white}. The line between mortal and the other side blurs...{reset}";
+    this->Register["en-US"]["greet.threeam.3"]              = "{white}Good night, {username}{white}. Something feels off..{reset}";
 
     // Gameplay strings
-    this->Register["en-US"]["game.battle.announce"]         = "{red}{italic}The fights begins. Good luck {username}!{reset}";
+    this->Register["en-US"]["game.battle.announce"]         = "{red}{italic}The fights begins. Good luck {username}{red}{italic}!{reset}";
     this->Register["en-US"]["game.battle.what_happened"]    = "{white}What happened last round:{reset}{nl}{what_happened}{reset}";
-    this->Register["en-US"]["game.battle.ply_header"]       = "{dark_gray}---<<< {blue}{bold}{username}'s{reset} {dark_gray}turn! >>>---{reset}";
+    this->Register["en-US"]["game.battle.ply_header"]       = "{dark_gray}---<<< {blue}{bold}{username}{blue}{bold}'s{reset} {dark_gray}turn! >>>---{reset}";
     this->Register["en-US"]["game.battle.ene_header"]       = "{dark_gray}---<<< {red}{bold}Enemy's{reset} {dark_gray}turn! >>>---{reset}";
     this->Register["en-US"]["game.battle.enemy"]            = "ENEMY";
     this->Register["en-US"]["game.battle.regen_moves"]      = "Regenerate moves...";
@@ -536,6 +539,7 @@ void TranslationEngine::LoadSlovak()
     this->Register["sk-SK"]["general.healed"]               = "si uzdravil";
     this->Register["sk-SK"]["general.regenerated"]          = "si regeneroval";
     this->Register["sk-SK"]["general.enemy"]                = "Nepriateľ";
+    this->Register["sk-SK"]["general.disabled"]             = "Vypnuté";
 
     // Main menu texts
     this->Register["sk-SK"]["menu.main.subtitle"]           = "Hra vytvorená vývorajom norbcodes.";
@@ -608,7 +612,9 @@ void TranslationEngine::LoadSlovak()
     this->Register["sk-SK"]["menu.options.cat1"]            = " 1 NASTAVENIA DISCORDU ";
     this->Register["sk-SK"]["menu.options.cat2"]            = " 2 NASTAVENIA JAZYKOV ";
     this->Register["sk-SK"]["menu.options.cat3"]            = " 3 POUŽÍVATEĽSKÉ NASTAVENIA ";
+    this->Register["sk-SK"]["menu.options.cat4"]            = " 4 INÉ NASTAVENIA ";
     this->Register["sk-SK"]["menu.options.c1o1"]            = "Discord RPC:";
+    this->Register["sk-SK"]["menu.options.c4o1"]            = "Ukáž kredity po ukončení:";
     this->Register["sk-SK"]["menu.options.login"]           = "Prihlásení ako";
     this->Register["sk-SK"]["menu.options.currlang"]        = "Nastavený jazyk:";
     this->Register["sk-SK"]["menu.options.changelang"]      = "Zmeniť jazyk...";
@@ -638,23 +644,23 @@ void TranslationEngine::LoadSlovak()
     this->Register["sk-SK"]["menu.langutils.notfile"]       = "Adresa nevedie k súboru!";
 
     // Greet texts
-    this->Register["sk-SK"]["greet.morning.1"]              = "{white}Dobré ráno, {username}. Pripravený na lov?{reset}";
-    this->Register["sk-SK"]["greet.morning.2"]              = "{white}Dobré ráno, {username}. Sprav si kávu a zadup niake entity do zeme.{reset}";
-    this->Register["sk-SK"]["greet.morning.3"]              = "{white}Dobré ránko, {username}. Stávaj!{reset}";
-    this->Register["sk-SK"]["greet.afternoon.1"]            = "{white}Dobrý deň, {username}. Späť k lovu?{reset}";
-    this->Register["sk-SK"]["greet.afternoon.2"]            = "{white}Dobrý deň, {username}. Dnešné menu: entity{reset}";
-    this->Register["sk-SK"]["greet.afternoon.3"]            = "{white}Dobrý deň, {username}. Chce sa mi spať...{reset}";
-    this->Register["sk-SK"]["greet.evening.1"]              = "{white}Dobrý večer, {username}. Ešte 5 minút a šup do postele.{reset}";
-    this->Register["sk-SK"]["greet.evening.2"]              = "{white}Dobrý večer, {username}. Entitám sa che teraz spať, prekvap ich!{reset}";
-    this->Register["sk-SK"]["greet.evening.3"]              = "{white}Dobrý večer, {username}. Pardón, zíva sa mi...{reset}";
-    this->Register["sk-SK"]["greet.earlynight.1"]           = "{white}Dobrý večer, {username}. Nechce sa ti spať?{reset}";
-    this->Register["sk-SK"]["greet.earlynight.2"]           = "{white}Dobrý večer, {username}. Chutila ti večera?{reset}";
-    this->Register["sk-SK"]["greet.threeam.1"]              = "{white}{username}, nie je niak neskoro? Čas na horor!{reset}";
-    this->Register["sk-SK"]["greet.threeam.2"]              = "{white}{username}, nie je niak neskoro? Hranica s podsvetím sa rozmazáva...{reset}";
-    this->Register["sk-SK"]["greet.threeam.3"]              = "{white}{username}, nie je niak neskoro? Niečo mi tu nehraje..{reset}";
+    this->Register["sk-SK"]["greet.morning.1"]              = "{white}Dobré ráno, {username}{white}. Pripravený na lov?{reset}";
+    this->Register["sk-SK"]["greet.morning.2"]              = "{white}Dobré ráno, {username}{white}. Sprav si kávu a zadup niake entity do zeme.{reset}";
+    this->Register["sk-SK"]["greet.morning.3"]              = "{white}Dobré ránko, {username}{white}. Stávaj!{reset}";
+    this->Register["sk-SK"]["greet.afternoon.1"]            = "{white}Dobrý deň, {username}{white}. Späť k lovu?{reset}";
+    this->Register["sk-SK"]["greet.afternoon.2"]            = "{white}Dobrý deň, {username}{white}. Dnešné menu: entity{reset}";
+    this->Register["sk-SK"]["greet.afternoon.3"]            = "{white}Dobrý deň, {username}{white}. Chce sa mi spať...{reset}";
+    this->Register["sk-SK"]["greet.evening.1"]              = "{white}Dobrý večer, {username}{white}. Ešte 5 minút a šup do postele.{reset}";
+    this->Register["sk-SK"]["greet.evening.2"]              = "{white}Dobrý večer, {username}{white}. Entitám sa che teraz spať, prekvap ich!{reset}";
+    this->Register["sk-SK"]["greet.evening.3"]              = "{white}Dobrý večer, {username}{white}. Pardón, zíva sa mi...{reset}";
+    this->Register["sk-SK"]["greet.earlynight.1"]           = "{white}Dobrý večer, {username}{white}. Nechce sa ti spať?{reset}";
+    this->Register["sk-SK"]["greet.earlynight.2"]           = "{white}Dobrý večer, {username}{white}. Chutila ti večera?{reset}";
+    this->Register["sk-SK"]["greet.threeam.1"]              = "{white}{username}{white}, nie je niak neskoro? Čas na horor!{reset}";
+    this->Register["sk-SK"]["greet.threeam.2"]              = "{white}{username}{white}, nie je niak neskoro? Hranica s podsvetím sa rozmazáva...{reset}";
+    this->Register["sk-SK"]["greet.threeam.3"]              = "{white}{username}{white}, nie je niak neskoro? Niečo mi tu nehraje..{reset}";
 
     // Gameplay strings
-    this->Register["sk-SK"]["game.battle.announce"]         = "{red}{italic}Boj sa začal. Veľa šťastia {username}!{reset}";
+    this->Register["sk-SK"]["game.battle.announce"]         = "{red}{italic}Boj sa začal. Veľa šťastia {username}{red}{italic}!{reset}";
     this->Register["sk-SK"]["game.battle.what_happened"]    = "{white}Čo sa stalo minulý ťah:{reset}{nl}{what_happened}{reset}";
     this->Register["sk-SK"]["game.battle.ply_header"]       = "{dark_gray}---<<< {blue}{bold}{username}{reset} {dark_gray}na ťahu! >>>---{reset}";
     this->Register["sk-SK"]["game.battle.ene_header"]       = "{dark_gray}---<<< {red}{bold}Nepriateľ{reset} {dark_gray}na ťahu! >>>---{reset}";
@@ -823,6 +829,7 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["general.healed"]               = "восстановил";
     this->Register["ru-RU"]["general.regenerated"]          = "восстановил";
     this->Register["ru-RU"]["general.enemy"]                = "Противник";
+    this->Register["ru-RU"]["general.disabled"]             = "ОТКЛЮЧЕНО";
 
     // Main menu texts
     this->Register["ru-RU"]["menu.main.subtitle"]           = "Игра от norbcodes.";
@@ -895,7 +902,9 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["menu.options.cat1"]            = " 1 НАСТРОЙКИ DISCORD ";
     this->Register["ru-RU"]["menu.options.cat2"]            = " 2 НАСТРОЙКИ ЯЗЫКА ";
     this->Register["ru-RU"]["menu.options.cat3"]            = " 3 НАСТРОЙКИ ПОЛЬЗОВАТЕЛЯ ";
+    this->Register["ru-RU"]["menu.options.cat4"]            = " 4 ДРУГИЕ НАСТРОЙКИ ";
     this->Register["ru-RU"]["menu.options.c1o1"]            = "Discord RPC:";
+    this->Register["ru-RU"]["menu.options.c4o1"]            = "Показывать титры при выходе:";
     this->Register["ru-RU"]["menu.options.login"]           = "Вы вошли под именем";
     this->Register["ru-RU"]["menu.options.currlang"]        = "Текущий язык:";
     this->Register["ru-RU"]["menu.options.changelang"]      = "Изменить язык...";
@@ -925,23 +934,23 @@ void TranslationEngine::LoadRussian()
     this->Register["ru-RU"]["menu.langutils.notfile"]       = "Путь не указывает на файл!";
 
     // Greet texts
-    this->Register["ru-RU"]["greet.morning.1"]              = "{white}Доброе утро, {username}. Готовы убивать?{reset}";
-    this->Register["ru-RU"]["greet.morning.2"]              = "{white}Доброе утро, {username}. Возьмите чашечку кофе и разгромите парочку сущностей.{reset}";
-    this->Register["ru-RU"]["greet.morning.3"]              = "{white}Доброе утро, {username}. Проснись и пой!{reset}";
-    this->Register["ru-RU"]["greet.afternoon.1"]            = "{white}Добрый день, {username}. Хотите ещё больше крови?{reset}";
-    this->Register["ru-RU"]["greet.afternoon.2"]            = "{white}Добрый день, {username}. А сегодня у нас на обед: Entities{reset}";
-    this->Register["ru-RU"]["greet.afternoon.3"]            = "{white}Добрый день, {username}. Я бы сейчас не отказался вздремнуть...{reset}";
-    this->Register["ru-RU"]["greet.evening.1"]              = "{white}Добрый вечер, {username}. Осталось 5 минут до отхода ко сну.{reset}";
-    this->Register["ru-RU"]["greet.evening.2"]              = "{white}Добрый вечер, {username}. Сущности уже хотят спать, внезапное нападение!{reset}";
-    this->Register["ru-RU"]["greet.evening.3"]              = "{white}Добрый вечер, {username}. *{italic}зевает{reset}{white}*{reset}";
-    this->Register["ru-RU"]["greet.earlynight.1"]           = "{white}Доброй ночи, {username}. Не можешь уснуть?{reset}";
-    this->Register["ru-RU"]["greet.earlynight.2"]           = "{white}Доброй ночи, {username}. Ужин сегодня был вкусным?{reset}";
-    this->Register["ru-RU"]["greet.threeam.1"]              = "{white}Доброй ночи, {username}. Настало время для ужасов!{reset}";
-    this->Register["ru-RU"]["greet.threeam.2"]              = "{white}Сладких снов, {username}. Грань между смертным и потусторонним стирается...{reset}";
-    this->Register["ru-RU"]["greet.threeam.3"]              = "{white}Доброй ночи, {username}. Что-то не так..{reset}";
+    this->Register["ru-RU"]["greet.morning.1"]              = "{white}Доброе утро, {username}{white}. Готовы убивать?{reset}";
+    this->Register["ru-RU"]["greet.morning.2"]              = "{white}Доброе утро, {username}{white}. Возьмите чашечку кофе и разгромите парочку сущностей.{reset}";
+    this->Register["ru-RU"]["greet.morning.3"]              = "{white}Доброе утро, {username}{white}. Проснись и пой!{reset}";
+    this->Register["ru-RU"]["greet.afternoon.1"]            = "{white}Добрый день, {username}{white}. Хотите ещё больше крови?{reset}";
+    this->Register["ru-RU"]["greet.afternoon.2"]            = "{white}Добрый день, {username}{white}. А сегодня у нас на обед: Entities{reset}";
+    this->Register["ru-RU"]["greet.afternoon.3"]            = "{white}Добрый день, {username}{white}. Я бы сейчас не отказался вздремнуть...{reset}";
+    this->Register["ru-RU"]["greet.evening.1"]              = "{white}Добрый вечер, {username}{white}. Осталось 5 минут до отхода ко сну.{reset}";
+    this->Register["ru-RU"]["greet.evening.2"]              = "{white}Добрый вечер, {username}{white}. Сущности уже хотят спать, внезапное нападение!{reset}";
+    this->Register["ru-RU"]["greet.evening.3"]              = "{white}Добрый вечер, {username}{white}. *{italic}зевает{reset}{white}*{reset}";
+    this->Register["ru-RU"]["greet.earlynight.1"]           = "{white}Доброй ночи, {username}{white}. Не можешь уснуть?{reset}";
+    this->Register["ru-RU"]["greet.earlynight.2"]           = "{white}Доброй ночи, {username}{white}. Ужин сегодня был вкусным?{reset}";
+    this->Register["ru-RU"]["greet.threeam.1"]              = "{white}Доброй ночи, {username}{white}. Настало время для ужасов!{reset}";
+    this->Register["ru-RU"]["greet.threeam.2"]              = "{white}Сладких снов, {username}{white}. Грань между смертным и потусторонним стирается...{reset}";
+    this->Register["ru-RU"]["greet.threeam.3"]              = "{white}Доброй ночи, {username}{white}. Что-то не так..{reset}";
 
     // Gameplay strings
-    this->Register["ru-RU"]["game.battle.announce"]         = "{red}{italic}Битва начинается. Удачи, {username}!{reset}";
+    this->Register["ru-RU"]["game.battle.announce"]         = "{red}{italic}Битва начинается. Удачи, {username}{red}{italic}!{reset}";
     this->Register["ru-RU"]["game.battle.what_happened"]    = "{white}В предыдущем раунде:{reset}{nl}{what_happened}{reset}";
     this->Register["ru-RU"]["game.battle.ply_header"]       = "{dark_gray}---<<< Ход {blue}{bold}игрока {username}{reset}{dark_gray}! >>>---{reset}";
     this->Register["ru-RU"]["game.battle.ene_header"]       = "{dark_gray}---<<< Ход {red}{bold}противника{reset}{dark_gray}! >>>---{reset}";
@@ -1110,6 +1119,7 @@ void TranslationEngine::LoadTagalog()
     this->Register["tl-PH"]["general.healed"]               = "ay naghilom";
     this->Register["tl-PH"]["general.regenerated"]          = "ay nag-regenerate";
     this->Register["tl-PH"]["general.enemy"]                = "Kalaban";
+    this->Register["tl-PH"]["general.disabled"]             = "NAKAPATAY";
 
     // Main menu texts
     this->Register["tl-PH"]["menu.main.subtitle"]           = "Isang larong gawa ni norbcodes.";
@@ -1182,7 +1192,9 @@ void TranslationEngine::LoadTagalog()
     this->Register["tl-PH"]["menu.options.cat1"]            = " 1 SETTING NG DISCORD ";
     this->Register["tl-PH"]["menu.options.cat2"]            = " 2 SETTING NG WIKA ";
     this->Register["tl-PH"]["menu.options.cat3"]            = " 3 SETTING NG GUMAGAMIT ";
+    this->Register["tl-PH"]["menu.options.cat4"]            = " 4 na MISC SETTING ";
     this->Register["tl-PH"]["menu.options.c1o1"]            = "Discord RPC:";
+    this->Register["tl-PH"]["menu.options.c4o1"]            = "Ipakita ang credits sa exit:";
     this->Register["tl-PH"]["menu.options.login"]           = "Naka-login bilang";
     this->Register["tl-PH"]["menu.options.currlang"]        = "Kasalukyang wika:";
     this->Register["tl-PH"]["menu.options.changelang"]      = "Palitan ang wika...";
@@ -1212,25 +1224,25 @@ void TranslationEngine::LoadTagalog()
     this->Register["tl-PH"]["menu.langutils.notfile"]       = "Ang path ay hindi tugma sa file!";
 
     // Greet texts
-    this->Register["tl-PH"]["greet.morning.1"]              = "{white}Magandang umaga, {username}. Handa ka na bang pumatay?{reset}";
-    this->Register["tl-PH"]["greet.morning.2"]              = "{white}Magandang umaga, {username}. Kumuha na ng kape at durugin ang mga kalaban.{reset}";
-    this->Register["tl-PH"]["greet.morning.3"]              = "{white}Magandang umaga, {username}. Bangon na!{reset}";
-    this->Register["tl-PH"]["greet.afternoon.1"]            = "{white}Magandang hapon, {username}. Naparito ka ba para sa mambasag ng bungo?{reset}";
-    this->Register["tl-PH"]["greet.afternoon.2"]            = "{white}Magandang hapon, {username}. Ang Tanghalian: Mga Nilalang {reset}";
-    this->Register["tl-PH"]["greet.afternoon.3"]            = "{white}Magandang hapon, {username}. Gusto kong umidlip ngayon din...{reset}";
-    this->Register["tl-PH"]["greet.evening.1"]              = "{white}Magandang gabi, {username}. 5 minuto pa bago matulog.{reset}";
-    this->Register["tl-PH"]["greet.evening.2"]              = "{white}Magandang gabi, {username}. Tulog na ang mga halimaw, supresahin natin sila! {reset}";
-    this->Register["tl-PH"]["greet.evening.3"]              = "{white}Magandang gabi, {username}. *{italic}Hikab{reset}{white}*{reset}";
-    this->Register["tl-PH"]["greet.earlynight.1"]           = "{white}Magandang gabi, {username}. Hindi ka pa tulog?{reset}";
-    this->Register["tl-PH"]["greet.earlynight.2"]           = "{white}Magandang gabi, {username}. Masarap ba ang hapunan mo?{reset}";
-    this->Register["tl-PH"]["greet.threeam.1"]              = "{white}Magandang gabi, {username}. Oras na ng kababalaghan!{reset}";
-    this->Register["tl-PH"]["greet.threeam.2"]              = "{white}Magandang gabi, {username}. Halos 'di na matukoy ang guhit sa pagitan ng mortal at ang kabilang dako...{reset}";
-    this->Register["tl-PH"]["greet.threeam.3"]              = "{white}Magandang gabi, {username}. May kakaibang nangyayari...{reset}";
+    this->Register["tl-PH"]["greet.morning.1"]              = "{white}Magandang umaga, {username}{white}. Handa ka na bang pumatay?{reset}";
+    this->Register["tl-PH"]["greet.morning.2"]              = "{white}Magandang umaga, {username}{white}. Kumuha na ng kape at durugin ang mga kalaban.{reset}";
+    this->Register["tl-PH"]["greet.morning.3"]              = "{white}Magandang umaga, {username}{white}. Bangon na!{reset}";
+    this->Register["tl-PH"]["greet.afternoon.1"]            = "{white}Magandang hapon, {username}{white}. Naparito ka ba para sa mambasag ng bungo?{reset}";
+    this->Register["tl-PH"]["greet.afternoon.2"]            = "{white}Magandang hapon, {username}{white}. Ang Tanghalian: Mga Nilalang {reset}";
+    this->Register["tl-PH"]["greet.afternoon.3"]            = "{white}Magandang hapon, {username}{white}. Gusto kong umidlip ngayon din...{reset}";
+    this->Register["tl-PH"]["greet.evening.1"]              = "{white}Magandang gabi, {username}{white}. 5 minuto pa bago matulog.{reset}";
+    this->Register["tl-PH"]["greet.evening.2"]              = "{white}Magandang gabi, {username}{white}. Tulog na ang mga halimaw, supresahin natin sila! {reset}";
+    this->Register["tl-PH"]["greet.evening.3"]              = "{white}Magandang gabi, {username}{white}. *{italic}Hikab{reset}{white}*{reset}";
+    this->Register["tl-PH"]["greet.earlynight.1"]           = "{white}Magandang gabi, {username}{white}. Hindi ka pa tulog?{reset}";
+    this->Register["tl-PH"]["greet.earlynight.2"]           = "{white}Magandang gabi, {username}{white}. Masarap ba ang hapunan mo?{reset}";
+    this->Register["tl-PH"]["greet.threeam.1"]              = "{white}Magandang gabi, {username}{white}. Oras na ng kababalaghan!{reset}";
+    this->Register["tl-PH"]["greet.threeam.2"]              = "{white}Magandang gabi, {username}{white}. Halos 'di na matukoy ang guhit sa pagitan ng mortal at ang kabilang dako...{reset}";
+    this->Register["tl-PH"]["greet.threeam.3"]              = "{white}Magandang gabi, {username}{white}. May kakaibang nangyayari...{reset}";
 
     // Gameplay strings
-    this->Register["tl-PH"]["game.battle.announce"]         = "{red}{italic}Nagsimula na ang laban. Galingan mo, {username}!{reset}";
+    this->Register["tl-PH"]["game.battle.announce"]         = "{red}{italic}Nagsimula na ang laban. Galingan mo, {username}{red}{italic}!{reset}";
     this->Register["tl-PH"]["game.battle.what_happened"]    = "{white}Ang nakaraang round:{reset}{nl}{what_happened}{reset}";
-    this->Register["tl-PH"]["game.battle.ply_header"]       = "{dark_gray}---<<< {dark_gray}Tira ni{reset} {blue}{bold}{username}! >>>---{reset}";
+    this->Register["tl-PH"]["game.battle.ply_header"]       = "{dark_gray}---<<< {dark_gray}Tira ni{reset} {blue}{bold}{username}{blue}{bold}! >>>---{reset}";
     this->Register["tl-PH"]["game.battle.ene_header"]       = "{dark_gray}---<<< {dark_gray}Tira ng{reset} {red}{bold}kalaban! >>>---{reset}";
     this->Register["tl-PH"]["game.battle.enemy"]            = "KALABAN";
     this->Register["tl-PH"]["game.battle.regen_moves"]      = "Binabago ang mga aksyon...";
@@ -1394,9 +1406,10 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["general.off"]                  = "DESLIGADO";
     this->Register["pt-PT"]["general.by"]                   = "por";
     this->Register["pt-PT"]["general.enter_to_exit"]        = "Clica ENTER para continuar.";
-    this->Register["pt-PT"]["general.healed"]               = "curado";
+    this->Register["pt-PT"]["general.healed"]               = "recuperado";
     this->Register["pt-PT"]["general.regenerated"]          = "recuperado";
     this->Register["pt-PT"]["general.enemy"]                = "Inimigo";
+    this->Register["pt-PT"]["general.disabled"]             = "DESATIVADO";
 
     // Main menu texts
     this->Register["pt-PT"]["menu.main.subtitle"]           = "Um jogo criado por norbcodes.";
@@ -1405,14 +1418,14 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["menu.main.ginfo"]              = "Informações sobre a Batalha";
     this->Register["pt-PT"]["menu.main.datapacks"]          = "Pacotes de Dados";
     this->Register["pt-PT"]["menu.main.settings"]           = "Opções";
-    this->Register["pt-PT"]["menu.exit.confirm"]            = "Confirmar saída?";
+    this->Register["pt-PT"]["menu.exit.confirm"]            = "De certeza que queres sair?";
     this->Register["pt-PT"]["menu.unstable"]                = "{red}Estás a usar uma build do jogo que ainda está {bold}em desenvolvimento!{reset}{nl}{white}Usa com cuidado. {red}Ainda queres jogar? [y,n]{reset}";
 
     // Difficulty picker texts
     this->Register["pt-PT"]["menu.diffpicker.title"]        = "Escolher Nível de Dificuldade";
-    this->Register["pt-PT"]["menu.diffpicker.easy"]         = "Eu rebento com as entidades";
-    this->Register["pt-PT"]["menu.diffpicker.medium"]       = "Já vi pior";
-    this->Register["pt-PT"]["menu.diffpicker.hard"]         = "Abaixo as entidades";
+    this->Register["pt-PT"]["menu.diffpicker.easy"]         = "Eu elimino as entidades!";
+    this->Register["pt-PT"]["menu.diffpicker.medium"]       = "Já vi pior...";
+    this->Register["pt-PT"]["menu.diffpicker.hard"]         = "Abaixo as entidades!!";
     this->Register["pt-PT"]["menu.diffpicker.random"]       = "Aleatório!";
     this->Register["pt-PT"]["menu.diffpicker.record"]       = "Gravar demo";
 
@@ -1446,7 +1459,7 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["menu.ginfo.tips"]              = "Dicas";
     this->Register["pt-PT"]["menu.ginfo.status"]            = "Estados e o que modificam";
     this->Register["pt-PT"]["menu.ginfo.tiptitle"]          = "DICAS";
-    this->Register["pt-PT"]["menu.ginfo.tip1"]              = "Podes saltar a tua vez se escolheres nenhuma das opções 0, 1, 2, 3 or 4.";
+    this->Register["pt-PT"]["menu.ginfo.tip1"]              = "Podes saltar a tua vez se escolheres nenhuma das opções 0, 1, 2, 3 ou 4.";
     this->Register["pt-PT"]["menu.ginfo.tip2"]              = "Podes saltar uma vez para recuperar energia.";
     this->Register["pt-PT"]["menu.ginfo.tip3"]              = "A IA irá tentar atacar-te se tiver mais do que 60 HP.";
     this->Register["pt-PT"]["menu.ginfo.statustitle1"]      = "ESTADOS";
@@ -1469,7 +1482,9 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["menu.options.cat1"]            = " 1 DEFINIÇÕES DO DISCORD ";
     this->Register["pt-PT"]["menu.options.cat2"]            = " 2 DEFINIÇÕES DE IDIOMA ";
     this->Register["pt-PT"]["menu.options.cat3"]            = " 3 DEFINIÇÕES DO UTILIZADOR ";
+    this->Register["pt-PT"]["menu.options.cat4"]            = " 4 DEFINIÇÕES GERAIS ";
     this->Register["pt-PT"]["menu.options.c1o1"]            = "Rich Presence do Discord:";
+    this->Register["pt-PT"]["menu.options.c4o1"]            = "Mostrar créditos ao sair";
     this->Register["pt-PT"]["menu.options.login"]           = "A jogar como";
     this->Register["pt-PT"]["menu.options.currlang"]        = "Idioma atual:";
     this->Register["pt-PT"]["menu.options.changelang"]      = "Mudar de idioma...";
@@ -1477,7 +1492,7 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["menu.options.export1"]         = "Exportar idioma para pacote de dados (xml)...";
     this->Register["pt-PT"]["menu.options.export2"]         = "Exportar idioma como Texto (txt)...";
     this->Register["pt-PT"]["menu.options.export3"]         = "Converter TXT em Pacote de Dados (xml)...";
-    this->Register["pt-PT"]["menu.options.newuser"]         = "A criar novo utilizador...";
+    this->Register["pt-PT"]["menu.options.newuser"]         = "Criar novo utilizador...";
     this->Register["pt-PT"]["menu.options.changename"]      = "Mudar de nome de utilizador...";
     this->Register["pt-PT"]["menu.options.help1"]           = "{white}Clica {green}1{white} para entrar em modo de {green}Edição{white}. Clica {red}9{white} para {red}voltar ao menu inicial{white}.{reset}";
     this->Register["pt-PT"]["menu.options.help2"]           = "{white}Clica na {red}seta para a esquerda{white} para sair do modo de {red}Edição{white}.{reset}";
@@ -1499,23 +1514,23 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["menu.langutils.notfile"]       = "O caminho não é um ficheiro.";
 
     // Greet texts
-    this->Register["pt-PT"]["greet.morning.1"]              = "{white}Bom dia, {username}. Preparado para matar?{reset}";
-    this->Register["pt-PT"]["greet.morning.2"]              = "{white}Bom dia, {username}. Agarra num copo de café, e prepara-te para esmagar umas entidades.{reset}";
-    this->Register["pt-PT"]["greet.morning.3"]              = "{white}Bom dia, {username}. Levanta-te e brilha!{reset}";
-    this->Register["pt-PT"]["greet.afternoon.1"]            = "{white}Boa tarde, {username}. De volta por mais sangue?{reset}";
-    this->Register["pt-PT"]["greet.afternoon.2"]            = "{white}Boa tarde, {username}. O almoço de hoje: Entidades{reset}";
-    this->Register["pt-PT"]["greet.afternoon.3"]            = "{white}Boa tarde, {username}. Eu dormiria uma sesta agora mesmo...{reset}";
-    this->Register["pt-PT"]["greet.evening.1"]              = "{white}Boa noite, {username}. 5 minutos e depois vai para a cama.{reset}";
-    this->Register["pt-PT"]["greet.evening.2"]              = "{white}Boa noite, {username}. As entidades estão a dormir, ataque surpresa!{reset}";
-    this->Register["pt-PT"]["greet.evening.3"]              = "{white}Boa noite, {username}. *{italic}Bocejo{reset}{white}*{reset}";
-    this->Register["pt-PT"]["greet.earlynight.1"]           = "{white}Boa noite, {username}. Ainda não consegues dormir?{reset}";
-    this->Register["pt-PT"]["greet.earlynight.2"]           = "{white}Boa noite, {username}. O teu jantar estava delicioso?{reset}";
-    this->Register["pt-PT"]["greet.threeam.1"]              = "{white}Boa noite, {username}. Hora dos sustos!{reset}";
-    this->Register["pt-PT"]["greet.threeam.2"]              = "{white}Boa noite, {username}. A barreira entre o lado dos mortais e o outro lado está desfocada...{reset}";
-    this->Register["pt-PT"]["greet.threeam.3"]              = "{white}Boa noite, {username}. Algo está errado..{reset}";
+    this->Register["pt-PT"]["greet.morning.1"]              = "{white}Bom dia, {username}{white}. Preparado para matar?{reset}";
+    this->Register["pt-PT"]["greet.morning.2"]              = "{white}Bom dia, {username}{white}. Agarra num copo de café, e prepara-te para esmagar umas entidades.{reset}";
+    this->Register["pt-PT"]["greet.morning.3"]              = "{white}Bom dia, {username}{white}. Levanta-te e brilha!{reset}";
+    this->Register["pt-PT"]["greet.afternoon.1"]            = "{white}Boa tarde, {username}{white}. De volta por mais sangue?{reset}";
+    this->Register["pt-PT"]["greet.afternoon.2"]            = "{white}Boa tarde, {username}{white}. O almoço de hoje: Entidades{reset}";
+    this->Register["pt-PT"]["greet.afternoon.3"]            = "{white}Boa tarde, {username}{white}. Eu dormiria uma sesta agora mesmo...{reset}";
+    this->Register["pt-PT"]["greet.evening.1"]              = "{white}Boa noite, {username}{white}. 5 minutos e depois vai para a cama.{reset}";
+    this->Register["pt-PT"]["greet.evening.2"]              = "{white}Boa noite, {username}{white}. As entidades estão a dormir, ataque surpresa!{reset}";
+    this->Register["pt-PT"]["greet.evening.3"]              = "{white}Boa noite, {username}{white}. *{italic}Bocejo{reset}{white}*{reset}";
+    this->Register["pt-PT"]["greet.earlynight.1"]           = "{white}Boa noite, {username}{white}. Ainda não consegues dormir?{reset}";
+    this->Register["pt-PT"]["greet.earlynight.2"]           = "{white}Boa noite, {username}{white}. O teu jantar estava delicioso?{reset}";
+    this->Register["pt-PT"]["greet.threeam.1"]              = "{white}Boa noite, {username}{white}. Hora dos sustos!{reset}";
+    this->Register["pt-PT"]["greet.threeam.2"]              = "{white}Boa noite, {username}{white}. A barreira entre o lado dos mortais e o outro lado está desfocada...{reset}";
+    this->Register["pt-PT"]["greet.threeam.3"]              = "{white}Boa noite, {username}{white}. Algo está errado..{reset}";
 
     // Gameplay strings
-    this->Register["pt-PT"]["game.battle.announce"]         = "{red}{italic}A luta começa. Boa sorte, {username}!{reset}";
+    this->Register["pt-PT"]["game.battle.announce"]         = "{red}{italic}A luta começa. Boa sorte, {username}{red}{italic}!{reset}";
     this->Register["pt-PT"]["game.battle.what_happened"]    = "{white}Resumo da última ronda:{reset}{nl}{what_happened}{reset}";
     this->Register["pt-PT"]["game.battle.ply_header"]       = "{dark_gray}---<<< Vez de {blue}{bold}{username}{reset} {dark_gray}>>>---{reset}";
     this->Register["pt-PT"]["game.battle.ene_header"]       = "{dark_gray}---<<< Vez do{reset} {red}{bold}Inimigo!{reset} {dark_gray}>>>---{reset}";
@@ -1610,7 +1625,7 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["exit.message.52"]              = "{red}exit{reset}{white}(){reset}";
     this->Register["pt-PT"]["exit.message.53"]              = "{white}Perdeste o direito a syntax highlighting!!!{reset}";
     this->Register["pt-PT"]["exit.message.54"]              = "{{red}}{{bold}}Raios, a minha formatação deixou de funcionar{{reset}}";
-    this->Register["pt-PT"]["exit.message.56"]              = "{white}Não{nl}   said{nl}       por,{nl}           FAVOR{reset}";
+    this->Register["pt-PT"]["exit.message.56"]              = "{white}Não{nl}   saias{nl}       por,{nl}           FAVOR!{reset}";
     this->Register["pt-PT"]["exit.message.57"]              = "{white}Odeio-te >:({reset}";
     this->Register["pt-PT"]["exit.message.58"]              = "{white}Sabes que este é o melhor jogo do mundo, certo?{reset}";
     this->Register["pt-PT"]["exit.message.59"]              = "{white}Clássico, desistir após uma derrota.{reset}";
@@ -1629,13 +1644,13 @@ void TranslationEngine::LoadPortuguese()
     this->Register["pt-PT"]["credits.moreinfo1"]            = "Versão 1.0 desenvolvida em, aproximadamente, 2 dias.";
     this->Register["pt-PT"]["credits.moreinfo2"]            = "(Pela a altura em que os créditos foram escritos, o Discord diz que estive 6 hours a usar o VScode)";
     this->Register["pt-PT"]["credits.moreinfo3"]            = "As cores bonitas que o caro utilizador pode ver:";
-    this->Register["pt-PT"]["credits.moreinfo4"]            = "Experimente entities1 e explore a página do entities2 em ";
-    this->Register["pt-PT"]["credits.title2"]               = "MÓDULOS EXTERNOS USADOS:";
+    this->Register["pt-PT"]["credits.moreinfo4"]            = "Experimente entities1 e explore a página do entities2 em";
+    this->Register["pt-PT"]["credits.title2"]               = "BIBLIOTECAS EXTERNAS USADAS:";
     this->Register["pt-PT"]["credits.discordlib"]           = "{blue}{bold}discord-rpc{reset} {dark_gray}:: {lavender}{italic}Créditos a {name} :){reset}";
-    this->Register["pt-PT"]["credits.fmtlib"]               = "{bold}{red}{{{orange}f{yellow}m{green}t{blue}}}{reset} {dark_gray}::{reset} {hot_pink}{italic}Créditos à equipa inteira por detrás do módulo {name} :P{reset}";
+    this->Register["pt-PT"]["credits.fmtlib"]               = "{bold}{red}{{{orange}f{yellow}m{green}t{blue}}}{reset} {dark_gray}::{reset} {hot_pink}{italic}Créditos à equipa inteira por detrás da biblioteca {name} :P{reset}";
     this->Register["pt-PT"]["credits.pugilib"]              = "{white}{bold}pugi{reset}{brown}{bold}xml{reset} {dark_gray}::{reset} {pink}{italic}Créditos a {name} (de nome {name2} no GitHub)!! :3{reset}";
-    this->Register["pt-PT"]["credits.arglib"]               = "{orange}{bold}arg{gold}parse{reset} {dark_gray}::{reset} {green}{italic}Créditos a {name} {dark_green}por ter criado este módulo tão bom :>{reset}";
-    this->Register["pt-PT"]["credits.jsonlib"]              = "{blue}{bold}{italic}json{reset} {dark_gray}::{reset} {teal}{italic}Créditos a {name} por ter criado este módulo épico!!{reset}";
+    this->Register["pt-PT"]["credits.arglib"]               = "{orange}{bold}arg{gold}parse{reset} {dark_gray}::{reset} {green}{italic}Créditos a {name} {dark_green}por ter criado esta biblioteca tão boa :>{reset}";
+    this->Register["pt-PT"]["credits.jsonlib"]              = "{blue}{bold}{italic}json{reset} {dark_gray}::{reset} {teal}{italic}Créditos a {name} por ter criado esta biblioteca épica!!{reset}";
     this->Register["pt-PT"]["credits.compiled"]             = "{dark_gray}Versão {entities2_ver} de entities2.cpp compilada a {compile_date} {compile_time} ;){reset}";
     this->Register["pt-PT"]["credits.title3"]               = "AGRADECIMENTO ESPECIAL AOS TRADUTORES:";
     this->Register["pt-PT"]["credits.slovak"]               = "{blue}{bold}{name}{reset} {dark_gray}::{reset} {white}{bold}Inglês{reset}{white} (idioma de base) e {bold}Eslovaco{reset}";
@@ -1646,4 +1661,4 @@ void TranslationEngine::LoadPortuguese()
     #endif // __ENTITIES2_BAKED_IN_PORTUGUESE__
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.

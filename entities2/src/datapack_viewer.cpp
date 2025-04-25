@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file datapack_viewer.cpp
  * \author norbcodes
  * \brief Functions for viewing installed datapacks :3
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #include <cstdint>
@@ -77,7 +77,7 @@ void DatapackViewer(const DatapackEngine& datapacks, const TranslationEngine& Ga
             }
             if (i == static_cast<uint32_t>(selection))
             {
-                fmt::print("{1}{4}   {2: <10} {5} {3: <8}{0}\n", RESET, WHITE_BACKGROUND, obj.GetName(), obj.GetAuthor(), BLACK, GameTranslation.GetTranslated("general.by"));
+                fmt::print("{1}{4}   {2: <10} {5} {3: <8}{0}\n", RESET, BG_WHITE, obj.GetName(), obj.GetAuthor(), BLACK, GameTranslation.GetTranslated("general.by"));
             }
             else
             {
@@ -144,4 +144,4 @@ void DatapackViewer(const DatapackEngine& datapacks, const TranslationEngine& Ga
     }
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

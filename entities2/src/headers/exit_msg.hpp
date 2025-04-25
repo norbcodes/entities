@@ -1,4 +1,4 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /*
 Exit messages lmfao
@@ -15,4 +15,4 @@ const std::string GetExitMsg(const TranslationEngine& GameTranslation, bool& Was
 void AddExitMsg(const std::string& str);
 uint32_t GetExitMsgCount();
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

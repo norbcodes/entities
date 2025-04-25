@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file main.cpp
  * \author norbcodes
  * \brief Entry point to the program.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 /*
@@ -105,14 +105,9 @@ int main(int argc, char* argv[])
     }
     // User settings
     UserSettingsClass* UserSettings = new UserSettingsClass(*GameArguments);
-    // If playing back demo, don't do ANYTHING, just play
-    if (GameArguments->DemoToPlay() != "")
-    {
-        DemoPlaybackGame(GameArguments->DemoToPlay(), *GameTranslation);
-        return 0;
-    }
     // B)
     DatapackEngine* Datapacks = new DatapackEngine(*GameArguments);
+
     if (!GameArguments->NoDatapacks())
     {
         Datapacks->LoadAll(*GameArguments, *UserSettings, *GameTranslation);
@@ -156,12 +151,12 @@ int main(int argc, char* argv[])
             uint8_t r = 50;
             uint8_t g = 50;
             uint8_t b = 50;
-            const uint32_t loops = rng(0, 50);
+            const uint32_t loops = rng(0, 120);
             for (uint32_t i = 0; i != loops; i++)
             {
-                r += rng(1, 58);
-                g += rng(1, 58);
-                b += rng(1, 58);
+                r += rng(1, 24);
+                g += rng(1, 24);
+                b += rng(1, 24);
                 // basically it will just overflow so no need to check if over 256
             }
             std::string title_col = fmt::format("\x1b[38;2;{0};{1};{2}m", r, g, b);
@@ -260,7 +255,7 @@ int main(int argc, char* argv[])
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        fmt::print("{2}{5}{3: <8}{0}              {5}{1}{4}{0}", RESET, DARK_GRAY, GREEN, ENTITIES2_VER, GameTranslation->GetTranslated("menu.main.subtitle"), UNDERLINE);
+        fmt::print("{2}{5}{3}{0}              {5}{1}{4}{0}", RESET, DARK_GRAY, GREEN, ENTITIES2_VER, GameTranslation->GetTranslated("menu.main.subtitle"), UNDERLINE);
         fmt::print("\n\n");
         ////////////////////////////////////////
         // Greet
@@ -301,8 +296,11 @@ int main(int argc, char* argv[])
             if (BinaryChoice())
             {
                 ClearScreen();
-                Credits(*GameTranslation);
-                SleepSeconds(1);
+                if (GlobalSettings->GetShowEndScreenValue())
+                {
+                    Credits(*GameTranslation);
+                    SleepSeconds(1);
+                }
                 break;
             }
             else
@@ -351,4 +349,4 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0

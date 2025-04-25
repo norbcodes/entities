@@ -1,10 +1,10 @@
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
 
 /**
  * \file game_string_formatter.cpp
  * \author norbcodes
  * \brief Function for formatting strings inside Datapacks.
- * \copyright entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+ * \copyright entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
  */
 
 #include <string>
@@ -26,7 +26,8 @@ std::string MsgFormatter(const std::string& str, const UserSettingsClass& user_s
     return fmt::format(
         str,
         fmt::arg("username", user_settings.GetUsername()),
-        _body
+        _body,
+        _extra
     );
 }
 
@@ -39,8 +40,22 @@ std::string MsgFormatterNoUser(const std::string& str)
 {
     return fmt::format(
         str,
+        _body,
+        _extra
+    );
+}
+
+/**
+ * \brief Format custom messages defined in Datapacks, with only colors.
+ * \param[in] str The string to format.
+ * \return Formatted string.
+ */
+std::string MsgFormatterColorsOnly(const std::string& str)
+{
+    return fmt::format(
+        str,
         _body
     );
 }
 
-// entities2 © 2024 by norbcodes is licensed under CC BY-NC 4.0
+// entities2 © 2025 by norbcodes is licensed under CC BY-NC 4.0
