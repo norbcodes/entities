@@ -17,16 +17,16 @@ set(PUGIXML_INSTALL OFF CACHE BOOL "Enable installation rules")
 add_subdirectory("${CMAKE_SOURCE_DIR}/src/pugixml")
 
 # Set the project
-project(entities2 
+project(entities2
         LANGUAGES CXX C
         DESCRIPTION "entities2 is a small silly turn based combat CLI game."
 )
 
-set(PROJECT_VERSION "v1.9.1-dev")
+set(PROJECT_VERSION "v1.9.1")
 set(PROJECT_VERSION_MAJOR "1")
 set(PROJECT_VERSION_MINOR "9")
 set(PROJECT_VERSION_PATCH "1")
-set(PROJECT_VERSION_IS_DEV 1)
+set(PROJECT_VERSION_IS_DEV 0)
 
 include(CheckCXXCompilerFlag)
 

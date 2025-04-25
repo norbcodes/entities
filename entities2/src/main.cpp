@@ -255,7 +255,7 @@ int main(int argc, char* argv[])
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        fmt::print("{2}{5}{3: <8}{0}              {5}{1}{4}{0}", RESET, DARK_GRAY, GREEN, ENTITIES2_VER, GameTranslation->GetTranslated("menu.main.subtitle"), UNDERLINE);
+        fmt::print("{2}{5}{3}{0}              {5}{1}{4}{0}", RESET, DARK_GRAY, GREEN, ENTITIES2_VER, GameTranslation->GetTranslated("menu.main.subtitle"), UNDERLINE);
         fmt::print("\n\n");
         ////////////////////////////////////////
         // Greet
