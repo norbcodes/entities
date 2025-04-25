@@ -1119,6 +1119,7 @@ void TranslationEngine::LoadTagalog()
     this->Register["tl-PH"]["general.healed"]               = "ay naghilom";
     this->Register["tl-PH"]["general.regenerated"]          = "ay nag-regenerate";
     this->Register["tl-PH"]["general.enemy"]                = "Kalaban";
+    this->Register["tl-PH"]["general.disabled"]             = "NAKAPATAY";
 
     // Main menu texts
     this->Register["tl-PH"]["menu.main.subtitle"]           = "Isang larong gawa ni norbcodes.";
@@ -1191,7 +1192,9 @@ void TranslationEngine::LoadTagalog()
     this->Register["tl-PH"]["menu.options.cat1"]            = " 1 SETTING NG DISCORD ";
     this->Register["tl-PH"]["menu.options.cat2"]            = " 2 SETTING NG WIKA ";
     this->Register["tl-PH"]["menu.options.cat3"]            = " 3 SETTING NG GUMAGAMIT ";
+    this->Register["tl-PH"]["menu.options.cat4"]            = " 4 na MISC SETTING ";
     this->Register["tl-PH"]["menu.options.c1o1"]            = "Discord RPC:";
+    this->Register["tl-PH"]["menu.options.c4o1"]            = "Ipakita ang credits sa exit:";
     this->Register["tl-PH"]["menu.options.login"]           = "Naka-login bilang";
     this->Register["tl-PH"]["menu.options.currlang"]        = "Kasalukyang wika:";
     this->Register["tl-PH"]["menu.options.changelang"]      = "Palitan ang wika...";
