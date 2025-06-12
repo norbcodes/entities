@@ -47,6 +47,10 @@ option(BUILT_IN_SLOVAK          "Embed all of Slovak translation into the game. 
 option(BUILT_IN_TAGALOG         "Embed all of Tagalog translation into the game. Will increase file size!" OFF)
 option(BUILT_IN_PORTUGUESE      "Embed all of Portuguese translation into the game. Will increase file size!" OFF)
 option(OLD_BEHAVIOR             "When a translation key doesn't exist, print it out instead of searching in English translations." OFF)
+set(CPU_ARCH "native" CACHE STRING "Target CPU architecture.")
+set(CPU_TUNE "native" CACHE STRING "Target CPU tuning.")
+
+message(STATUS "Executable will be built for ${CPU_ARCH} architecture with ${CPU_TUNE} tuning.")
 
 # Set search paths
 set(
@@ -178,6 +182,12 @@ endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${SEARCH_IN})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+target_compile_options(${PROJECT_NAME} PUBLIC -march=${CPU_ARCH} -mtune=${CPU_TUNE})
+
+if(${CPU_TUNE} MATCHES generic AND ${CPU_ARCH} MATCHES x86-64)
+    target_compile_options(${PROJECT_NAME} PUBLIC -mfpmath=387)
+    message(STATUS "CPU arch and tuning were specified to target generic x86-64 CPUs. Adding one more flag for better compatibility.")
+endif()
 
 # Add fmt as dependency
 add_dependencies(${PROJECT_NAME} fmt)

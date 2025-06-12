@@ -16,3 +16,7 @@ build/*.so
 CMakeToolchain.txt
 Changelog.txt
 entities2/assets/note.txt
+bg.png
+cover.png
+cover.pdn
+s*.png
