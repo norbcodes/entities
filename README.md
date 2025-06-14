@@ -13,9 +13,13 @@ entities2.cpp is a little silly CLI game with turn based combat I made in 2 days
 
 <h1>How to compile?</h1>
 <p>
-To compile enities.cpp, see it's compile instructions <a href="entities1\README.md">here</a>.<br>
-To compile enities2.cpp, see it's compile instructions <a href="entities2\README.md">here</a>.
+To compile entities.cpp, see its compile instructions <a href="entities1\README.md">here</a>.<br>
+To compile entities.cpp, see its compile instructions <a href="entities2\README.md">here</a>.
 </p>
+
+<h1>What if I don't know how to compile?</h1>
+<p>Well, entities2 is on <a href=https://norbcodes.itch.io/entities2>itchy</a> :3</p>
+<img alt="entities on itch.io" src="assets/entities-on-itchy.png" width=-1 height=250></img>
 
 <h1>The backstory</h1>
 <p>
