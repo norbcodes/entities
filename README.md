@@ -19,7 +19,7 @@ To compile entities.cpp, see its compile instructions <a href="entities2\README.
 
 <h1>What if I don't know how to compile?</h1>
 <p>Well, entities2 is on <a href=https://norbcodes.itch.io/entities2>itchy</a> :3</p>
-<img alt="entities on itch.io" src="assets/entities-on-itchy.png" width=-1 height=150></img>
+<img alt="entities on itch.io" src="assets/entities-on-itchy.png" width=-1 height=250></img>
 
 <h1>The backstory</h1>
 <p>
