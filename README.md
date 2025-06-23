@@ -14,7 +14,7 @@ entities2.cpp is a little silly CLI game with turn based combat I made in 2 days
 <h1>How to compile?</h1>
 <p>
 To compile entities.cpp, see its compile instructions <a href="entities1\README.md">here</a>.<br>
-To compile entities.cpp, see its compile instructions <a href="entities2\README.md">here</a>.
+To compile entities2.cpp, see its compile instructions <a href="entities2\README.md">here</a>.
 </p>
 
 <h1>What if I don't know how to compile?</h1>
