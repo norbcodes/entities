@@ -9,7 +9,7 @@ entities2.cpp is a little silly CLI game with turn based combat I made in 2 days
 <img alt="Release" src="https://img.shields.io/github/v/release/norbcodes/entities?display_name=tag&label=Latest"></img>
 <img alt="License" src="https://img.shields.io/badge/License-CC%20BY--NC%204.0%20%C2%A9%202024-red?label=License"></img>
 
-<img alt="Translated to PT by MF366 :)" src="https://raw.githubusercontent.com/MF366-Coding/MF366-Coding/refs/heads/main/Badge_Black.png" width=-1 height=70></img>
+<img alt="Translated to PT by MF366 :)" src="https://raw.githubusercontent.com/MF366-Coding/MF366-Coding/refs/heads/main/Badge_Black.png" width=-1 height=70px></img>
 
 <h1>How to compile?</h1>
 <p>
