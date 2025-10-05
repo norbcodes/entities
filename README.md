@@ -21,6 +21,9 @@ To compile entities2.cpp, see its compile instructions <a href="entities2\README
 <p>Well, entities2 is on <a href=https://norbcodes.itch.io/entities2>itchy</a> :3</p>
 <img alt="entities on itch.io" src="assets/entities-on-itchy.png" width=-1 height=250></img>
 
+<p>And <a href=https://gamejolt.com/games/entities2/1022610>GameJolt</a> as wel...</p>
+<img alt="entities on itch.io" src="assets/entities-on-gamejolt.png" width=-1 height=250></img>
+
 <h1>The backstory</h1>
 <p>
 It was the year 2022, and I have made a simple shrimple test file<br>
